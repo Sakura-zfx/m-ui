@@ -13,6 +13,14 @@
       :no-title="true"
       @toggle="showPopup = !showPopup"
     />
+
+    <tab
+      color="blue"
+      :active-tab="active"
+      :tabs="['我发起的', '我收到的', '指挥我的']"
+      :tab-line-width="30"
+      @callback="tabCallback"
+    />
   </div>
 </template>
 
@@ -21,6 +29,7 @@ import { navs } from '../router'
 import logoImg from '../assets/images/logo.png'
 // import Popup from '../../lib/popup'
 import Popup from '../../src/components/popup'
+import Tab from '../../src/components/tab'
 // import '../../lib/popup/style.css'
 
 export default {
@@ -30,7 +39,8 @@ export default {
       navs,
       keyword: '',
       componentList: [],
-      showPopup: false
+      showPopup: false,
+      active: 1
     }
   },
 
@@ -46,8 +56,15 @@ export default {
     }
   },
 
+  methods: {
+    tabCallback(index) {
+      this.active = index
+      console.log(index)
+    }
+  },
+
   components: {
-    Popup
+    Popup, Tab
   }
 }
 </script>

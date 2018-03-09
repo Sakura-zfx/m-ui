@@ -2,11 +2,13 @@
 import 'weui/dist/style/weui.min.css'
 import Mask from './components/mask'
 import Popup from './components/popup'
+import Tab from './components/tab'
 
-const version = '0.0.2'
+const version = '0.0.3'
 const components = [
   Mask,
-  Popup
+  Popup,
+  Tab
 ]
 
 const install = (Vue, config = {}) => {
@@ -35,7 +37,8 @@ export {
   install,
   version,
   Mask,
-  Popup
+  Popup,
+  Tab
 }
 
 export default {
