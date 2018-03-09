@@ -7,11 +7,11 @@ const tips = '// This file is auto gererated by build/bin/build-entry.js'
 
 function buildWevueEntry () {
   const uninstallComponents = [
-    'Lazyload',
-    'InfiniteScroll',
-    'Dialog',
-    'Toast',
-    'TopTips'
+    // 'Lazyload',
+    // 'InfiniteScroll',
+    // 'Dialog',
+    // 'Toast',
+    // 'TopTips'
   ]
 
   const importList = Components.map(name => `import ${uppercamelcase(name)} from './components/${name}'`)
@@ -19,7 +19,7 @@ function buildWevueEntry () {
   const intallList = exportList.filter(name => !~uninstallComponents.indexOf(uppercamelcase(name)))
 
   const content = `${tips}
-import 'weui/dist/style/weui.min.css'
+// import 'weui/dist/style/weui.min.css'
 ${importList.join('\n')}
 
 const version = '${version}'
@@ -32,16 +32,16 @@ const install = (Vue, config = {}) => {
     Vue.use(Component)
   })
 
-  Vue.use(InfiniteScroll)
-  Vue.use(Lazyload, {
-    loading: require('./assets/loading-spin.svg'),
-    attempt: 3,
-    ...config.lazyload
-  })
+  // Vue.use(InfiniteScroll)
+  // Vue.use(Lazyload, {
+  //  loading: require('./assets/loading-spin.svg'),
+  //  attempt: 3,
+  //  ...config.lazyload
+  // })
 
-  Vue.$dialog = Vue.prototype.$dialog = Dialog
-  Vue.$toast = Vue.prototype.$toast = Toast
-  Vue.$toptips = Vue.prototype.$toptips = TopTips
+  // Vue.$dialog = Vue.prototype.$dialog = Dialog
+  // Vue.$toast = Vue.prototype.$toast = Toast
+  // Vue.$toptips = Vue.prototype.$toptips = TopTips
 }
 
 /* istanbul ignore if */
@@ -51,8 +51,7 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 export {
   install,
-  version,
-  ${exportList.join(',\n  ')}
+  version
 }
 
 export default {
@@ -61,6 +60,7 @@ export default {
 }
 `
   const OUTPUT_PATH = path.join(__dirname, '../../src/index.js')
+  // ${exportList.join(',\n  ')}
 
   fs.writeFileSync(OUTPUT_PATH, content)
   console.log('[build entry] DONE:', OUTPUT_PATH)
