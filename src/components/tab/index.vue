@@ -8,7 +8,10 @@
       @click="clickTab(item, i)">
       {{ item }}
     </div>
-    <div class="position-a bottom-0 tab__line text-center" :style="tabLineStyle">
+    <div
+      v-if="!noTabLine"
+      class="position-a bottom-0 tab__line text-center"
+      :style="tabLineStyle">
       <div class="tab__line-color display-ib" :style="[bgColor, tabColorWidth]" />
     </div>
   </div>
@@ -69,6 +72,10 @@ export default {
     tabLineWidth: {
       type: Number,
       default: 60
+    },
+    noTabLine: {
+      type: Boolean,
+      default: false
     }
   }
 }
