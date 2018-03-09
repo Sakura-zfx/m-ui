@@ -2,7 +2,7 @@
   <div class="tab font-0 position-r bg-fff">
     <div
       v-for="(item, i) in tabs"
-      :class="`tab__item px-font-14 ib-middle px-line-40 text-center ${itemCls}`"
+      :class="`tab__item px-font-14 ib-middle px-line-40 text-center ${itemCls} ${currTab === i ? 'active' : ''}`"
       :style="[tabItemWidth, currTab === i ? fontColor : '']"
       :key="i"
       @click="clickTab(item, i)">

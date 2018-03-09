@@ -4,7 +4,7 @@ import Mask from './components/mask'
 import Popup from './components/popup'
 import Tab from './components/tab'
 
-const version = '0.0.5'
+const version = '0.0.6'
 const components = [
   Mask,
   Popup,
