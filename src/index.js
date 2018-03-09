@@ -3,7 +3,7 @@ import 'weui/dist/style/weui.min.css'
 import Mask from './components/mask'
 import Popup from './components/popup'
 
-const version = '2.0.0'
+const version = '0.0.2'
 const components = [
   Mask,
   Popup

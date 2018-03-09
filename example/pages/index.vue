@@ -10,6 +10,7 @@
     <popup
       title="古天乐"
       :visible="showPopup"
+      :no-title="true"
       @toggle="showPopup = !showPopup"
     />
   </div>
@@ -18,8 +19,9 @@
 <script>
 import { navs } from '../router'
 import logoImg from '../assets/images/logo.png'
-import Popup from '../../lib/popup'
-import '../../lib/popup/style.css'
+// import Popup from '../../lib/popup'
+import Popup from '../../src/components/popup'
+// import '../../lib/popup/style.css'
 
 export default {
   data () {

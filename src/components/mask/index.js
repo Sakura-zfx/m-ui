@@ -8,17 +8,30 @@ const init = () => {
   instance = new ToastConstructor({
     el: document.createElement('div')
   })
+  instance.$on('tap', () => {
+    if (instance.tapCb && instance.tapCb) {
+      instance.tapCb()
+    }
+  })
   document.body.appendChild(instance.$el)
 }
 
-export default {
-  show() {
-    if (!instance) {
-      init()
-    }
-    instance.visible = true
-  },
-  hide() {
-    instance.visible = false
+const MaskConstructor = () => {
+  if (!instance) {
+    init()
   }
+  instance.visible = true
 }
+
+MaskConstructor.setCb = (cb) => {
+  if (!instance) {
+    init()
+  }
+  instance.tapCb = cb
+}
+
+MaskConstructor.hide = () => {
+  instance.visible = false
+}
+
+export default MaskConstructor

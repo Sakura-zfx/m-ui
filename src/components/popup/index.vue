@@ -3,16 +3,19 @@
     <div
       v-if="visible"
       :class="`m-popup__wrap ${showBtn ? '' : 'no-confirm'}
-      position-a bottom-0 bg-fff left-0 width-100`">
-      <div :class="`title-wrap ${titleAlign}`">
-        <div class="right-close fr px-line-45 text-center color-c999" @click.stop="close">
+      position-a bottom-0 bg-fff left-0 width-100`"
+      @click.stop="">
+      <div v-if="!noTitle" :class="`title-wrap ${titleAlign}`">
+        <div class="right-close fr px-line-45 text-center" @click.stop="close">
           <slot name="icon">关闭</slot>
         </div>
         <div class="title color-c666 px-margin-l50 px-font-16">{{ title }}</div>
       </div>
-      <div :class="`content-wrap touch-scroll overflow-a`" @touchmove.stop="">
+      <div :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`" @touchmove.stop="">
         <div class="content-item-wrap break-all height-100">
-          <slot name="content">这是内容</slot>
+          <slot name="content">
+            <p class="text-center">这是内容</p>
+          </slot>
         </div>
       </div>
       <div
@@ -31,17 +34,21 @@ import mask from '../mask/index.js'
 
 export default {
   created() {
+    mask.setCb(() => {
+      this.$emit('toggle')
+    })
+
     if (this.visible) {
-      mask.show()
+      mask()
     }
   },
   name: 'm-popup',
   watch: {
     visible(val) {
       if (val) {
-        mask.show()
+        mask()
       } else {
-        setTimeout(mask.hide, 200)
+        this.hideMask()
       }
       return val
     }
@@ -65,6 +72,12 @@ export default {
         return '确定'
       }
     },
+    noTitle: {
+      type: Boolean,
+      default: function () {
+        return false
+      }
+    },
     visible: {
       type: Boolean,
       default: function () {
@@ -86,6 +99,9 @@ export default {
   },
 
   methods: {
+    hideMask() {
+      setTimeout(mask.hide, 180)
+    },
     confirm() {
       this.$emit('confirm')
       this.$emit('toggle')
@@ -112,18 +128,22 @@ export default {
     .title-wrap {
       height: 45px;
       line-height: 45px;
-      border-bottom: 1px #cecece solid;
+      border-bottom: 1px #f2f2f2 solid;
       .title {
         margin-right: -50px;
       }
       .right-close {
         height: 100%;
         width: 50px;
+        color: #9c9c9c;
       }
     }
 
     .content-wrap {
       height: 315px;
+      &.no-title {
+        height: 360px;
+      }
     }
 
     .btn-wrap {
