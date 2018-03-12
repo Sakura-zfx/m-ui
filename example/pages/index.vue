@@ -21,13 +21,20 @@
       :tab-line-width="30"
       @callback="tabCallback"
     />
+
+    <alter-num
+      :val="11"
+      :min="1"
+      :max="20"
+      @num-change-callback="numChangeCallback"
+    />
   </div>
 </template>
 
 <script>
 import { navs } from '../router'
 import logoImg from '../assets/images/logo.png'
-// import Popup from '../../lib/popup'
+import AlterNum from '../../src/components/alterNum'
 import Popup from '../../src/components/popup'
 import Tab from '../../src/components/tab'
 // import '../../lib/popup/style.css'
@@ -60,11 +67,15 @@ export default {
     tabCallback(index) {
       this.active = index
       console.log(index)
+    },
+
+    numChangeCallback(num) {
+      console.log(num)
     }
   },
 
   components: {
-    Popup, Tab
+    Popup, Tab, AlterNum
   }
 }
 </script>

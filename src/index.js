@@ -1,11 +1,13 @@
 // This file is auto gererated by build/bin/build-entry.js
 // import 'weui/dist/style/weui.min.css'
+import AlterNum from './components/alterNum'
 import Mask from './components/mask'
 import Popup from './components/popup'
 import Tab from './components/tab'
 
-const version = '0.0.6'
+const version = '0.0.8'
 const components = [
+  AlterNum,
   Mask,
   Popup,
   Tab
