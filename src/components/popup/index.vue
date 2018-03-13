@@ -5,13 +5,16 @@
       :class="`m-popup__wrap ${showBtn ? '' : 'no-confirm'}
       position-a bottom-0 bg-fff left-0 width-100`"
       @click.stop="">
-      <div v-if="!noTitle" :class="`title-wrap ${titleAlign}`">
-        <div class="right-close fr px-line-45 text-center" @click.stop="close">
+      <div v-if="!noTitle" :class="`title-wrap ${titleAlign}`" class="position-r">
+        <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
           <slot name="icon">关闭</slot>
         </div>
-        <div class="title color-c666 px-margin-l50 px-font-16">{{ title }}</div>
+        <div class="title color-c666 px-font-16">{{ title }}</div>
       </div>
-      <div :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`" @touchmove.stop="">
+      <div
+        :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
+        :style="{height: `${contentHeight}px`}"
+        @touchmove.stop="">
         <div class="content-item-wrap break-all height-100">
           <slot name="content">
             <p class="text-center">这是内容</p>
@@ -66,6 +69,9 @@ export default {
         return 'text-center'
       }
     },
+    contentHeight: {
+      type: Number
+    },
     confirmText: {
       type: String,
       default: function () {
@@ -117,7 +123,6 @@ export default {
 <style lang="scss">
   .m-popup__wrap {
     transform: translateY(0);
-    height: 415px;
     box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.50);
     z-index: 1002;
 
@@ -129,9 +134,7 @@ export default {
       height: 45px;
       line-height: 45px;
       border-bottom: 1px #f2f2f2 solid;
-      .title {
-        margin-right: -50px;
-      }
+
       .right-close {
         height: 100%;
         width: 50px;
