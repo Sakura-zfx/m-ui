@@ -3,7 +3,8 @@
     <div
       v-if="visible"
       :class="`m-popup__wrap ${showBtn ? '' : 'no-confirm'}
-      position-a bottom-0 bg-fff left-0 width-100`">
+      position-a bottom-0 bg-fff left-0 width-100`"
+      @click.stop="">
       <div v-if="!noTitle" :class="`title-wrap ${titleAlign}`" class="position-r">
         <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
           <slot name="icon">关闭</slot>
@@ -69,7 +70,7 @@ export default {
       }
     },
     contentHeight: {
-      type: String
+      type: Number
     },
     confirmText: {
       type: String,
