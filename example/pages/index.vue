@@ -13,7 +13,7 @@
       :visible="showPopup"
       title-align="left"
       :no-title="false"
-      :content-height="300"
+      :show-btn="false"
       @toggle="showPopup = !showPopup"
     />
 

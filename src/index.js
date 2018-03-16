@@ -5,7 +5,7 @@ import Numcomputer from './components/numcomputer'
 import Popup from './components/popup'
 import Tab from './components/tab'
 
-const version = '0.0.9'
+const version = '0.0.10'
 const components = [
   Mask,
   Numcomputer,
