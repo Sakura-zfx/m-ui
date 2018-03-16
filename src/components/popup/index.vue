@@ -56,6 +56,19 @@ export default {
       return val
     }
   },
+  computed: {
+    getWrapperClass() {
+      if (this.contentHeight) {
+        return ''
+      }
+
+      if (!this.showBtn) {
+        return 'no-confirm'
+      }
+
+      return ''
+    }
+  },
   props: {
     title: {
       type: String,
@@ -118,7 +131,7 @@ export default {
     }
   },
   destroyed () {
-    this.visible = false
+    this.$emit('close')
   }
 }
 </script>
