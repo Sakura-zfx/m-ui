@@ -9,9 +9,9 @@
 
     <popup
       title="古天乐"
-      content-height="520"
+      :content-height="520"
       :visible="showPopup"
-      :no-title="true"
+      :no-title="false"
       @toggle="showPopup = !showPopup"
     />
 

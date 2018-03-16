@@ -131,7 +131,7 @@ export default {
     }
   },
   destroyed () {
-    this.$emit('close')
+    this.$emit('toggle')
   }
 }
 </script>
