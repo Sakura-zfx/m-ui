@@ -2,7 +2,7 @@
   <transition name="zoom-up">
     <div
       v-if="visible"
-      :class="`m-popup__wrap ${showBtn ? '' : 'no-confirm'}
+      :class="`m-popup__wrap ${getWrapperClass}
       position-f bottom-0 bg-fff left-0 width-100`"
       @click.stop="">
       <div v-if="!noTitle" :class="`title-wrap ${titleAlign}`" class="position-r">
@@ -60,13 +60,9 @@ export default {
     getWrapperClass() {
       if (this.contentHeight) {
         return ''
-      }
-
-      if (!this.showBtn) {
+      } else {
         return 'no-confirm'
       }
-
-      return ''
     }
   },
   props: {
