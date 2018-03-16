@@ -116,6 +116,9 @@ export default {
       this.$emit('close')
       this.$emit('toggle')
     }
+  },
+  destroyed () {
+    this.visible = false
   }
 }
 </script>

@@ -17,9 +17,6 @@ export default {
     return {
       visible: false
     }
-  },
-  destroyed () {
-    this.visible = false
   }
 }
 </script>
