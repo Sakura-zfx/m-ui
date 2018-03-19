@@ -13,8 +13,7 @@
       :visible="showPopup"
       title-align="left"
       :no-title="false"
-      :content-height="300"
-      @toggle="showPopup = !showPopup"
+      @toggle="showPopup = false"
     />
 
     <tab

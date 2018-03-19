@@ -1,58 +1,54 @@
 <template>
-  <transition name="zoom-up">
-    <div
-      v-if="visible"
-      :class="`m-popup__wrap ${showBtn ? '' : 'no-confirm'}
-      position-f bottom-0 bg-fff left-0 width-100`"
-      @click.stop="">
-      <div v-if="!noTitle" :class="`title-wrap ${titleAlign} px-padding-lr10`" class="position-r">
-        <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
-          <slot name="icon">关闭</slot>
-        </div>
-        <div class="title color-c666 px-font-16">{{ title }}</div>
-      </div>
+  <div class="m-popup__container-width-mask">
+    <transition name="zoom-up">
       <div
-        :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
-        :style="{height: `${contentHeight}px`}"
-        @touchmove.stop="">
-        <div class="content-item-wrap break-all height-100">
-          <slot name="content">
-            <p class="text-center">这是内容</p>
-          </slot>
+        v-show="visible"
+        :class="`m-popup__wrap ${showBtn ? '' : 'no-confirm'}
+        position-f bottom-0 bg-fff left-0 width-100`"
+        @click.stop="">
+        <div v-if="!noTitle" :class="`title-wrap ${titleAlign} px-padding-lr10`" class="position-r">
+          <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
+            <slot name="icon">关闭</slot>
+          </div>
+          <div class="title color-c666 px-font-16">{{ title }}</div>
+        </div>
+        <div
+          :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
+          :style="{height: `${contentHeight}px`}"
+          @touchmove.stop="">
+          <div class="content-item-wrap break-all height-100">
+            <slot name="content">
+              <p class="text-center">这是内容</p>
+            </slot>
+          </div>
+        </div>
+        <div
+          v-if="showBtn"
+          class="btn-wrap hover-bg-main text-center px-font-18 color-fff"
+          :style="{ backgroundColor: mainColor }"
+          @click="confirm">
+          {{ confirmText }}
         </div>
       </div>
-      <div
-        v-if="showBtn"
-        class="btn-wrap hover-bg-main text-center px-font-18 color-fff"
-        :style="{ backgroundColor: mainColor }"
-        @click="confirm">
-        {{ confirmText }}
-      </div>
-    </div>
-  </transition>
+    </transition>
+    <m-mask
+      :show="showMask"/>
+  </div>
 </template>
 
 <script>
-import mask from '../mask/index.js'
+import MMask from '../mask/mask'
 
 export default {
-  created() {
-    mask.setCb(() => {
-      this.$emit('toggle')
-    })
-
-    if (this.visible) {
-      mask()
+  data() {
+    return {
+      showMask: this.visible
     }
   },
   name: 'm-popup',
   watch: {
     visible(val) {
-      if (val) {
-        mask()
-      } else {
-        this.hideMask()
-      }
+      this.showMask = val
       return val
     }
   },
@@ -118,9 +114,6 @@ export default {
   },
 
   methods: {
-    hideMask() {
-      setTimeout(mask.hide, 180)
-    },
     confirm() {
       this.$emit('confirm')
       this.$emit('toggle')
@@ -132,6 +125,10 @@ export default {
   },
   destroyed () {
     this.$emit('toggle')
+  },
+
+  components: {
+    MMask
   }
 }
 </script>
