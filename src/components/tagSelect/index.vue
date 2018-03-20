@@ -13,7 +13,7 @@
       class="tag-select__list font-0"
     >
       <li
-        class="tag-select__list-item ib-top px-font-14 m-bd text-center over-text px-width-80"
+        class="tag-select__list-item ib-top px-line-30 px-font-14 m-bd text-center over-text px-width-80"
         v-for="(item, index) in list"
         :key="index"
         :class="`${tagCls} ${isActiveItem(item) ? activeCls : ''}`"
@@ -36,6 +36,12 @@ export default {
   data() {
     return {
       selectedList: null
+    }
+  },
+
+  watch: {
+    selected(selected) {
+      this.selectedList = selected
     }
   },
 
