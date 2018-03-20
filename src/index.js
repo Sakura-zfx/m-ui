@@ -4,15 +4,15 @@ import Mask from './components/mask'
 import Numcomputer from './components/numcomputer'
 import Popup from './components/popup'
 import Tab from './components/tab'
-import TagSelect from './components/tagSelect'
+import Tagselect from './components/tagselect'
 
-const version = '0.0.14'
+const version = '0.0.15'
 const components = [
   Mask,
   Numcomputer,
   Popup,
   Tab,
-  TagSelect
+  Tagselect
 ]
 
 const install = (Vue, config = {}) => {
