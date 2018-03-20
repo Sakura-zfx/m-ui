@@ -1,6 +1,6 @@
 <template>
   <div
-    v-show="visible"
+    v-show="visible || show"
     class="m-mask__wrap position-f left-0 top-0 bottom-0 width-100"
     @click="$emit('tap')"
     @touchmove.prevent="">
@@ -16,6 +16,14 @@ export default {
   data() {
     return {
       visible: false
+    }
+  },
+  props: {
+    show: {
+      type: Boolean,
+      default: function () {
+        return false
+      }
     }
   }
 }
