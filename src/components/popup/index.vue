@@ -56,13 +56,9 @@ export default {
     getWrapperClass() {
       if (this.contentHeight) {
         return ''
-      }
-
-      if (!this.showBtn) {
+      } else {
         return 'no-confirm'
       }
-
-      return ''
     }
   },
   props: {
