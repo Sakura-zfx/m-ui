@@ -13,7 +13,7 @@
       class="tag-select__list font-0"
     >
       <li
-        class="tag-select__list-item ib-top px-font-14 m-bd text-center over-text px-width-80"
+        class="tag-select__list-item ib-top px-line-30 px-font-14 m-bd text-center over-text px-width-80"
         v-for="(item, index) in list"
         :key="index"
         :class="`${tagCls} ${isActiveItem(item) ? activeCls : ''}`"
@@ -116,7 +116,7 @@ export default {
     if (this.$props.multiChoose) {
       this.selectedList = this.$props.selected
     } else {
-      this.selectedList = this.$props.selected[0]
+      this.selectedList = this.$props.selected[0] || {}
     }
   }
 }
