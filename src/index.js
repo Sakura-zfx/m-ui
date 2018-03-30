@@ -6,7 +6,7 @@ import Popup from './components/popup'
 import Tab from './components/tab'
 import Tagselect from './components/tagselect'
 
-const version = '0.0.15'
+const version = '0.0.16'
 const components = [
   Mask,
   Numcomputer,
