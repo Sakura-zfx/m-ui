@@ -9,6 +9,7 @@
 
     <popup
       title="古天乐"
+      :content-height="520"
       :visible="showPopup"
       title-align="left"
       :no-title="false"

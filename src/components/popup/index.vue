@@ -53,10 +53,8 @@ export default {
   },
   computed: {
     getWrapperClass() {
-      if (!this.showBtn) {
-        if (!this.contentHeight) {
-          return 'no-confirm'
-        }
+      if (!this.showBtn && !this.contentHeight) {
+        return 'no-confirm'
       }
       return ''
     }
