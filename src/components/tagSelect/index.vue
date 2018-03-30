@@ -39,12 +39,6 @@ export default {
     }
   },
 
-  watch: {
-    selected(selected) {
-      this.selectedList = selected
-    }
-  },
-
   props: {
     list: {
       type: Array,
@@ -122,7 +116,7 @@ export default {
     if (this.$props.multiChoose) {
       this.selectedList = this.$props.selected
     } else {
-      this.selectedList = this.$props.selected[0]
+      this.selectedList = this.$props.selected[0] || {}
     }
   }
 }
