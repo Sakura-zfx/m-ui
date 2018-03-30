@@ -3,8 +3,7 @@
     <transition name="zoom-up">
       <div
         v-show="visible"
-        :class="`m-popup__wrap ${showBtn ? '' : 'no-confirm'}
-        position-f bottom-0 bg-fff left-0 width-100`"
+        :class="`m-popup__wrap ${getWrapperClass} position-f bottom-0 bg-fff left-0 width-100`"
         @click.stop="">
         <div v-if="!noTitle" :class="`title-wrap ${titleAlign} px-padding-lr10`" class="position-r">
           <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
@@ -54,11 +53,10 @@ export default {
   },
   computed: {
     getWrapperClass() {
-      if (this.contentHeight) {
-        return ''
-      } else {
+      if (!this.showBtn && !this.contentHeight) {
         return 'no-confirm'
       }
+      return ''
     }
   },
   props: {
