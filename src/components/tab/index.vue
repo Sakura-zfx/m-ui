@@ -46,6 +46,9 @@ export default {
   },
   methods: {
     clickTab(item, i) {
+      if (this.disableTab.includes(i)) {
+        return
+      }
       this.currTab = i
       this.$emit('callback', i)
     }
@@ -76,6 +79,12 @@ export default {
     noTabLine: {
       type: Boolean,
       default: false
+    },
+    disableTab: {
+      type: Array,
+      default() {
+        return []
+      }
     }
   }
 }

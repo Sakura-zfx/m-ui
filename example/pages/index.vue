@@ -20,6 +20,7 @@
       color="blue"
       :active-tab="active"
       :tabs="['我发起的', '我收到的', '指挥我的']"
+      :disable-tab="[1]"
       :tab-line-width="30"
       @callback="tabCallback"
     />
