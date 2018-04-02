@@ -46,10 +46,9 @@ export default {
   },
   methods: {
     clickTab(item, i) {
-      if (this.disableTab.includes(i)) {
-        return
+      if (!this.disableTab.includes(i)) {
+        this.currTab = i
       }
-      this.currTab = i
       this.$emit('callback', i)
     }
   },
