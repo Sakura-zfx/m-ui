@@ -9,12 +9,22 @@
 
     <popup
       title="古天乐"
-      :content-height="520"
+      :content-height="220"
       :visible="showPopup"
       title-align="left"
       :no-title="false"
       @toggle="showPopup = false"
-    />
+    >
+      <div slot="content">
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+      </div>
+    </popup>
 
     <tab
       color="blue"
@@ -32,16 +42,19 @@
       @num-change-callback="numChangeCallback"
     />
 
-    <tag-select
-      title="标题"
-      title-cls="title-cls"
-      tag-cls="tag-cls"
-      active-cls="m-bd-main-color color-main"
-      :multi-choose="false"
-      :list="list"
-      :selected="activeList"
-      @tag-change="handleTagChange"
-    />
+    <template v-for="i in [1, 1, 1]">
+      <tag-select
+        :key="i"
+        title="标题"
+        title-cls="title-cls"
+        tag-cls="tag-cls"
+        active-cls="m-bd-main-color color-main"
+        :multi-choose="false"
+        :list="list"
+        :selected="activeList"
+        @tag-change="handleTagChange"
+      />
+    </template>
   </div>
 </template>
 
