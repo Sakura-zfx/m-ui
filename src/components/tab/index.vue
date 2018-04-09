@@ -24,6 +24,14 @@ export default {
       currTab: this.activeTab
     }
   },
+
+  watch: {
+    activeTab(val) {
+      this.currTab = val
+      return val
+    }
+  },
+
   computed: {
     tabItemWidth() {
       return { width: `${(100 / this.tabs.length).toFixed(3)}%` }
@@ -44,6 +52,7 @@ export default {
       return { backgroundColor: this.color }
     }
   },
+
   methods: {
     clickTab(item, i) {
       if (!this.disableTab.includes(i)) {
@@ -52,6 +61,7 @@ export default {
       this.$emit('callback', i)
     }
   },
+
   props: {
     tabs: {
       type: Array,
