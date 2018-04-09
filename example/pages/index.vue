@@ -42,19 +42,20 @@
       @num-change-callback="numChangeCallback"
     />
 
-    <template v-for="i in [1, 1, 1]">
-      <tag-select
-        :key="i"
-        title="标题"
-        title-cls="title-cls"
-        tag-cls="tag-cls"
-        active-cls="m-bd-main-color color-main"
-        :multi-choose="false"
-        :list="list"
-        :selected="activeList"
-        @tag-change="handleTagChange"
-      />
-    </template>
+    <!--<template v-for="i in [1, 1, 1]">-->
+    <tag-select
+      title="标题"
+      title-cls="title-cls"
+      tag-cls="tag-cls"
+      active-cls="m-bd-main-color color-main"
+      :multi-choose="false"
+      :list="list"
+      :selected="activeList"
+      @tag-change="handleTagChange"
+    />
+    <!--</template>-->
+
+    <p @click="msgBox">弹窗</p>
   </div>
 </template>
 
@@ -66,6 +67,7 @@ import Popup from '../../src/components/popup'
 import Tab from '../../src/components/tab'
 import TagSelect from '../../src/components/tagSelect'
 // import '../../lib/popup/style.css'
+import MsgBox from '../../src/components/msgbox/index'
 
 export default {
   data () {
@@ -132,6 +134,10 @@ export default {
   },
 
   methods: {
+    msgBox() {
+      MsgBox.alert(1)
+    },
+
     tabCallback(index) {
       this.active = index
       console.log(index)

@@ -137,7 +137,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .m-popup__wrap {
     transform: translateY(0);
     box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.50);

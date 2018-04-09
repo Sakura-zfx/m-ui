@@ -1,0 +1,134 @@
+<template>
+  <div class="m-msgBox__wrap" v-show="visible">
+    <transition name="bounce">
+      <div class="m-msgBox" v-show="visible" @touchmove.stop="">
+        <div class="m-msgBox_title" v-if="title">{{ title }}</div>
+        <div class="m-msgBox_content overflow-a touch-scroll">
+          <slot>
+            <span>{{ msg }}</span>
+          </slot>
+        </div>
+        <div class="m-msgBox_foot">
+          <a
+            href="javascript:"
+            :class="cancelBtnCls"
+            v-if="!noCancel"
+            @click="doAction('cancel')">{{ cancelTxt }}</a>
+          <a
+            href="javascript:"
+            v-if="!noConfirm"
+            :class="confirmBtnCls"
+            @click="doAction('confirm')">{{ okTxt }}</a>
+        </div>
+      </div>
+    </transition>
+  </div>
+</template>
+
+<script>
+export default {
+  name: 'msg-box',
+  data() {
+    return {
+      title: '',
+      msg: '',
+      cancelTxt: '取消',
+      okTxt: '确认',
+      noCancel: false,
+      noConfirm: false,
+      visible: false
+    }
+  },
+  destroyed() {
+    this.visible = false
+  },
+  computed: {
+    confirmBtnCls() {
+      return `m-msgBox_btn ${this.noCancel ? 'w100 color-blue' : ''}`
+    },
+    cancelBtnCls() {
+      return `m-msgBox_btn ${this.noConfirm ? 'color-blue w100' : ''}`
+    }
+  },
+  methods: {
+    doAction(action) {
+      // eslint-disable-next-line
+      this.callback.call(this, action)
+      this.visible = false
+    }
+  }
+}
+</script>
+
+<style lang="scss" scoped>
+  .m-msgBox__wrap {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    left: 0;
+    background-color: rgba(0,0,0,.5);
+    z-index: 1003;
+  }
+  .m-msgBox {
+    position: absolute;
+    width: 300px;
+    background-color: #fff;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    text-align: center;
+    overflow: hidden;
+    font-size: 14px;
+
+    .m-msgBox_title {
+      font-size: 16px;
+      font-weight: bold;
+      padding-top: 10px;
+    }
+    .m-msgBox_content {
+      max-height: 250px;
+      min-height: 70px;
+      padding-top: 20px;
+      overflow: hidden;
+
+      background-image: linear-gradient(0deg, #cecece, transparent);
+      background-size: 100% 1px;
+      background-repeat: no-repeat;
+      background-position: bottom center;
+    }
+    .m-msgBox_foot {
+      font-size: 0;
+
+      .m-msgBox_btn {
+        display: inline-block;
+        vertical-align: middle;
+        width: 50%;
+        font-size: 14px;
+        line-height: 40px;
+        color: #fff;
+        background-color: red;
+        &:first-child {
+          color: #333333 !important;
+          background-color: #fff !important;
+        }
+        &.w100 {
+          width: 100%;
+        }
+        &.color-blue {
+          color: #22a7f0 !important;
+        }
+      }
+    }
+  }
+
+  .bounce-enter,
+  .bounce-enter-active {
+    opacity: 0;
+  }
+  .bounce-enter-to {
+    opacity: 1;
+    transition: opacity .1s;
+  }
+</style>
