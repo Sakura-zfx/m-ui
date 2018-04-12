@@ -9,16 +9,8 @@ import testMeet from './testMeet'
 import { handleMoveStart, handleMove } from './touchmove'
 
 export default {
-  props: {
-    time: {
-      type: Number,
-      default: 500
-    }
-  },
-
   data() {
     return {
-      timer: null,
       imgWrapper: null,
       moveEventSwitch: true
     }

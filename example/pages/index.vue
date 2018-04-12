@@ -55,7 +55,7 @@
 
     <p @click="msgBox">弹窗</p>
 
-    <lazy-img :start-switch="lazyImgStart" ref="lazyImg">
+    <lazy-img ref="lazyImg">
       <div>
         <img
           v-for="(n, i) in lazyImgData"
