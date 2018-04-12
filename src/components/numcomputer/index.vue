@@ -57,7 +57,7 @@ export default {
         this.num = val
         this.timer && clearTimeout(this.timer)
       } else if (
-        /^\d+$/.test(val) &&
+        /^[1-9]\d*$/.test(val) &&
         val >= this.min &&
         val <= this.max
       ) {
