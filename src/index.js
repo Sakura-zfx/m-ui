@@ -1,5 +1,6 @@
 // This file is auto gererated by build/bin/build-entry.js
 // import 'weui/dist/style/weui.min.css'
+import Lazyimg from './components/lazyimg'
 import Mask from './components/mask'
 import Msgbox from './components/msgbox'
 import Numcomputer from './components/numcomputer'
@@ -7,8 +8,9 @@ import Popup from './components/popup'
 import Tab from './components/tab'
 import Tagselect from './components/tagselect'
 
-const version = '0.0.21'
+const version = '0.0.22'
 const components = [
+  Lazyimg,
   Mask,
   Msgbox,
   Numcomputer,

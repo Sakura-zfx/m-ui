@@ -1,8 +1,7 @@
 <template>
   <div class="page">
     <div class="page__hd">
-      <img :src="logoImg" alt="" class="logo">
-      <h1 class="page__title">WE-VUE</h1>
+      <h1 class="page__title">M-UI</h1>
     </div>
 
     <div @click="showPopup = true">popup</div>
@@ -42,8 +41,8 @@
       @num-change-callback="numChangeCallback"
     />
 
-    <!--<template v-for="i in [1, 1, 1]">-->
     <tag-select
+      v-if="false"
       title="标题"
       title-cls="title-cls"
       tag-cls="tag-cls"
@@ -53,9 +52,20 @@
       :selected="activeList"
       @tag-change="handleTagChange"
     />
-    <!--</template>-->
 
     <p @click="msgBox">弹窗</p>
+
+    <lazy-img :start-switch="lazyImgStart" ref="lazyImg">
+      <div>
+        <img
+          v-for="(n, i) in lazyImgData"
+          :key="i"
+          :src="require(`../assets/images/testLazyImg/default.png`)"
+          :data-src="require(`../assets/images/testLazyImg/${i + 1}.jpg`)"
+          width="100%"
+        >
+      </div>
+    </lazy-img>
   </div>
 </template>
 
@@ -68,6 +78,7 @@ import Tab from '../../src/components/tab'
 import TagSelect from '../../src/components/tagSelect'
 // import '../../lib/popup/style.css'
 import MsgBox from '../../src/components/msgbox/index'
+import LazyImg from '../../src/components/lazyimg'
 
 export default {
   data () {
@@ -117,11 +128,18 @@ export default {
           label: '汉庭',
           value: 1
         }
-      ]
+      ],
+
+      lazyImgData: new Array(20),
+      lazyImgStart: false
     }
   },
 
   mounted () {
+    setTimeout(() => {
+      this.$refs.lazyImg.start()
+    }, 1000)
+
     navs.map(navGroup => {
       this.componentList = this.componentList.concat(navGroup.navItems)
     })
@@ -157,7 +175,8 @@ export default {
     Popup,
     Tab,
     AlterNum,
-    TagSelect
+    TagSelect,
+    LazyImg
   }
 }
 </script>
