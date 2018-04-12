@@ -6,7 +6,7 @@
 
 <script>
 import testMeet from './testMeet'
-import { handleMoveStart, handleMove } from './touchmove'
+// import { handleMoveStart, handleMove } from './touchmove'
 import throttle from './throttle'
 
 export default {
@@ -29,11 +29,11 @@ export default {
 
   mounted() {
     const imgWrap = this.$refs.lazyImgWrap
-    imgWrap.addEventListener('touchstart', e => {
-      this.moveEventSwitch && handleMoveStart(e)
-    })
-    imgWrap.addEventListener('touchmove', throttle(e => {
-      this.moveEventSwitch && handleMove(e, this.start)
+    // imgWrap.addEventListener('touchstart', e => {
+    //   this.moveEventSwitch && handleMoveStart(e)
+    // })
+    imgWrap.addEventListener('touchmove', throttle(() => {
+      this.moveEventSwitch && this.start()
     }, this.throttleTime, { leading: true, trailing: true }))
   },
 
