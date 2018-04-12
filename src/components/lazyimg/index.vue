@@ -6,8 +6,10 @@
 
 <script>
 import testMeet from './testMeet'
-// import { handleMoveStart, handleMove } from './touchmove'
 import throttle from './throttle'
+// 参考
+// https://github.com/hilongjw/vue-lazyload/blob/master/src/lazy.js
+// https://github.com/lzxb/lazy-load-img/blob/master/examples/mode-default.html
 
 export default {
   props: {
@@ -29,9 +31,6 @@ export default {
 
   mounted() {
     const imgWrap = this.$refs.lazyImgWrap
-    // imgWrap.addEventListener('touchstart', e => {
-    //   this.moveEventSwitch && handleMoveStart(e)
-    // })
     imgWrap.addEventListener('touchmove', throttle(() => {
       this.moveEventSwitch && this.start()
     }, this.throttleTime, { leading: true, trailing: true }))
@@ -46,7 +45,6 @@ export default {
         !el.dataset.load &&
         this.inViewport(el)
       )
-      // console.log('imgList', imgList.length)
       imgList.forEach(el => this.loadImg(el))
     },
 
