@@ -8,7 +8,7 @@ import Popup from './components/popup'
 import Tab from './components/tab'
 import Tagselect from './components/tagselect'
 
-const version = '0.0.22'
+const version = '0.0.23'
 const components = [
   Lazyimg,
   Mask,
