@@ -1,5 +1,5 @@
 <template>
-  <div class="m-lazyImg__wrap" @touchstart="handleMoveStart" @touchmove="handleMove">
+  <div class="m-lazyImg__wrap" ref="lazyImgWrap">
     <slot />
   </div>
 </template>
@@ -7,45 +7,51 @@
 <script>
 import testMeet from './testMeet'
 import { handleMoveStart, handleMove } from './touchmove'
+import throttle from './throttle'
 
 export default {
+  props: {
+    selector: {
+      type: String,
+      required: true
+    },
+    throttleTime: {
+      type: Number,
+      default: 1000
+    }
+  },
+
   data() {
     return {
-      imgWrapper: null,
       moveEventSwitch: true
     }
   },
 
   mounted() {
-    this.imgWrapper = this.getImgWrapper()
+    const imgWrap = this.$refs.lazyImgWrap
+    imgWrap.addEventListener('touchstart', e => {
+      this.moveEventSwitch && handleMoveStart(e)
+    })
+    imgWrap.addEventListener('touchmove', throttle(e => {
+      this.moveEventSwitch && handleMove(e, this.start)
+    }, this.throttleTime, { leading: true, trailing: true }))
   },
 
   methods: {
     start() {
-      // console.log('start')
       this.moveEventSwitch = true
-      if (!this.imgWrapper) {
-        console.log(`imgWrapper is null`)
-        return
-      }
-
-      const imgList = Array.from(this.imgWrapper.childNodes)
-        .filter(el => el.dataset.src && el.src)
-      const list = imgList.filter(el => !el.dataset.load && this.inViewport(el))
-      // console.log('list', list.length)
-      list.forEach(el => this.loadImg(el))
+      const imgNodes = this.$el.querySelectorAll(this.selector)
+      const imgList = Array.from(imgNodes).filter(el =>
+        el.dataset.src &&
+        !el.dataset.load &&
+        this.inViewport(el)
+      )
+      // console.log('imgList', imgList.length)
+      imgList.forEach(el => this.loadImg(el))
     },
 
     destroy() {
       this.moveEventSwitch = false
-    },
-
-    handleMoveStart(e) {
-      this.moveEventSwitch && handleMoveStart(e)
-    },
-
-    handleMove(e) {
-      this.moveEventSwitch && handleMove(e, this.start)
     },
 
     inViewport(el) {
@@ -67,22 +73,11 @@ export default {
       img.onerror = () => {
         el.setAttribute('data-load', true)
       }
-    },
-
-    getImgWrapper() {
-      let node = this.$el
-      while (
-        node &&
-        node.childNodes &&
-        node.childNodes[0] &&
-        node.childNodes[0].tagName !== 'IMG'
-      ) {
-        node = node.childNodes[0]
-      }
-      return node
     }
   }
 }
 </script>
 
-<style></style>
+<style>
+  .m-lazyImg__wrap {}
+</style>
