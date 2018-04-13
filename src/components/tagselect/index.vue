@@ -74,6 +74,13 @@ export default {
     }
   },
 
+  watch: {
+    selected(val) {
+      this.selectedList = val
+      return val
+    }
+  },
+
   methods: {
     isActiveItem(item) {
       if (!this.selectedList) {
@@ -113,10 +120,10 @@ export default {
   },
 
   mounted() {
-    if (this.$props.multiChoose) {
-      this.selectedList = this.$props.selected
+    if (this.multiChoose) {
+      this.selectedList = this.selected
     } else {
-      this.selectedList = this.$props.selected[0] || {}
+      this.selectedList = this.selected[0] || {}
     }
   }
 }

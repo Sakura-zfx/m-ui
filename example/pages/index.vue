@@ -55,13 +55,22 @@
 
     <p @click="msgBox">弹窗</p>
 
-    <lazy-img ref="lazyImg" selector="img">
-      <div v-for="(n, i) in lazyImgData" :key="i" class="img">
-        <img
-          :src="require(`../assets/images/testLazyImg/default.png`)"
+    <!--<img-->
+    <!--:src="require(`../assets/images/testLazyImg/default.png`)"-->
+    <!--:data-src="require(`../assets/images/testLazyImg/${i + 1}.jpg`)"-->
+    <!--width="100%"-->
+    <!--&gt;-->
+    <lazy-img ref="lazyImg" selector="div.img" load-type="background">
+      <div v-for="(n, i) in lazyImgData" :key="i">
+        <div
+          class="px-height-100 img"
+          :style="{
+            backgroundImage: `url(${require(`../assets/images/testLazyImg/default.png`)})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center'
+          }"
           :data-src="require(`../assets/images/testLazyImg/${i + 1}.jpg`)"
-          width="100%"
-        >
+        />
       </div>
     </lazy-img>
   </div>

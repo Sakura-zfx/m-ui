@@ -20,12 +20,26 @@ export default {
     throttleTime: {
       type: Number,
       default: 1000
+    },
+    loadType: {
+      type: String,
+      default: 'img'
     }
   },
 
   data() {
     return {
       moveEventSwitch: true
+    }
+  },
+
+  computed: {
+    isDefaultLoad() {
+      return this.loadType === 'img'
+    },
+
+    isBackgroundLoad() {
+      return this.loadType === 'background'
     }
   },
 
@@ -65,7 +79,11 @@ export default {
       const img = new Image()
       img.src = el.dataset.src
       img.onload = () => {
-        el.src = el.dataset.src
+        if (this.isDefaultLoad) {
+          el.src = el.dataset.src
+        } else if (this.isBackgroundLoad) {
+          el.style.backgroundImage = `url(${el.dataset.src})`
+        }
         el.setAttribute('data-load', true)
       }
       img.onerror = () => {
