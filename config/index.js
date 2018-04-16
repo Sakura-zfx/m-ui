@@ -45,10 +45,12 @@ module.exports = {
 
   build: {
     // Template for index.html
-    index: path.resolve(__dirname, '../dist/index.html'),
+    // index: path.resolve(__dirname, '../dist/index.html'),
+    index: path.resolve(__dirname, '../../../shinemo-gitlab/enterprise-service-common/xm-mui/index.html'),
 
     // Paths
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    // assetsRoot: path.resolve(__dirname, '../dist'),
+    assetsRoot: path.resolve(__dirname, '../../../shinemo-gitlab/enterprise-service-common/xm-mui/'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
 

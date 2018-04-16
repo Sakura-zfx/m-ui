@@ -14,7 +14,7 @@ const webpackConfig = require('./webpack.demo.conf')
 const spinner = ora('building examples...')
 spinner.start()
 
-rm(path.join(__dirname, '../dist/*'), err => {
+rm(path.join(__dirname, config.build.assetsRoot + '/'), err => {
   if (err) throw err
   webpack(webpackConfig, function (err, stats) {
     spinner.stop()
