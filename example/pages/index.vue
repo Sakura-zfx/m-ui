@@ -1,8 +1,26 @@
 <template>
   <div class="page">
     <div class="page__hd">
-      <h1 class="page__title">M-UI</h1>
+      <h1 class="page__title">XM-MUI</h1>
+      <p style="text-align:center;color:#999;">造适合业务需求的轮子，拿来主义</p>
     </div>
+
+    <template v-for="navGroup in navs">
+      <div :key="navGroup.index">
+        <p class="cell-group-title">{{ navGroup.groupTitle }}</p>
+        <van-cell-group>
+          <van-cell
+            v-for="nav in navGroup.navItems"
+            :key="nav.name"
+            :to="nav.path"
+            :title="nav.name"
+            :label="nav.description"
+            is-link
+          />
+        </van-cell-group>
+      </div>
+
+    </template>
 
     <div @click="showPopup = true">popup</div>
 
@@ -41,18 +59,6 @@
       @num-change-callback="numChangeCallback"
     />
 
-    <tag-select
-      v-if="false"
-      title="标题"
-      title-cls="title-cls"
-      tag-cls="tag-cls"
-      active-cls="m-bd-main-color color-main"
-      :multi-choose="false"
-      :list="list"
-      :selected="activeList"
-      @tag-change="handleTagChange"
-    />
-
     <p @click="msgBox">弹窗</p>
 
     <!--<img-->
@@ -60,93 +66,28 @@
     <!--:data-src="require(`../assets/images/testLazyImg/${i + 1}.jpg`)"-->
     <!--width="100%"-->
     <!--&gt;-->
-    <lazy-img ref="lazyImg" selector="div.img" load-type="background">
-      <div v-for="(n, i) in lazyImgData" :key="i">
-        <div
-          class="px-height-100 img"
-          :style="{
-            backgroundImage: `url(${require(`../assets/images/testLazyImg/default.png`)})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center'
-          }"
-          :data-src="require(`../assets/images/testLazyImg/${i + 1}.jpg`)"
-        />
-      </div>
-    </lazy-img>
   </div>
 </template>
 
 <script>
 import { navs } from '../router'
-import logoImg from '../assets/images/logo.png'
 import AlterNum from '../../src/components/numcomputer'
 import Popup from '../../src/components/popup'
 import Tab from '../../src/components/tab'
-import TagSelect from '../../src/components/tagSelect'
-// import '../../lib/popup/style.css'
 import MsgBox from '../../src/components/msgbox/index'
-import LazyImg from '../../src/components/lazyimg'
 
 export default {
   data () {
     return {
-      logoImg,
       navs,
       keyword: '',
       componentList: [],
       showPopup: false,
-      active: 1,
-      list: [
-        {
-          label: '汉庭',
-          value: 1
-        },
-        {
-          label: '海友',
-          value: 2
-        },
-        {
-          label: '宜必思',
-          value: 3
-        },
-        {
-          label: '橘子水晶',
-          value: 4
-        },
-        {
-          label: '索菲特',
-          value: 5
-        },
-        {
-          label: '宜必思',
-          value: 6
-        },
-        {
-          label: '橘子水晶',
-          value: 7
-        },
-        {
-          label: '索菲特',
-          value: 8
-        }
-      ],
-      activeList: [
-        {
-          label: '汉庭',
-          value: 1
-        }
-      ],
-
-      lazyImgData: new Array(20),
-      lazyImgStart: false
+      active: 1
     }
   },
 
   mounted () {
-    setTimeout(() => {
-      this.$refs.lazyImg.start()
-    }, 1000)
-
     navs.map(navGroup => {
       this.componentList = this.componentList.concat(navGroup.navItems)
     })
@@ -170,25 +111,24 @@ export default {
 
     numChangeCallback(num) {
       console.log(num)
-    },
-
-    handleTagChange(item) {
-      // this.activeList.push(item)
-      console.log(item)
     }
   },
 
   components: {
     Popup,
     Tab,
-    AlterNum,
-    TagSelect,
-    LazyImg
+    AlterNum
   }
 }
 </script>
 
 <style lang="scss">
+  .cell-group-title {
+    font-size: 14px;
+    color: #999;
+    margin: 10px 15px;
+  }
+
   .logo {
     display: block;
     margin: 0 auto;
@@ -207,29 +147,5 @@ export default {
 
   .page {
     margin-bottom: 0;
-  }
-
-  .cell-icon {
-    display: block;
-    margin-right: 5px;
-    color: #2196f3;
-    overflow: hidden;
-    font-size: 20px;
-    width: 25px;
-    text-align: center;
-  }
-
-  .footer-copyright {
-    margin: 40px 0 20px;
-  }
-
-  .m-bd-main-color {
-    &::before {
-      border-color: #753e81 !important;
-    }
-  }
-
-  .color-main {
-    color: #753e81 !important;
   }
 </style>

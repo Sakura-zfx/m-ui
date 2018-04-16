@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import { Cell, CellGroup, NavBar } from 'vant'
 // import WeVue from '../src/index.js'
 import App from './app.vue'
 import './assets/style/demo.scss'
@@ -8,7 +9,8 @@ import router from './router'
 Vue.config.productionTip = false
 Vue.config.devtools = true
 
-// Vue.use(WeVue)
+Vue.use(NavBar)
+Vue.use(Cell).use(CellGroup)
 
 router.afterEach((to) => {
   document.title = to.meta.title

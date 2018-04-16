@@ -8,8 +8,8 @@ Vue.use(VueRouter)
 const registerRoute = (groups) => {
   let routes = []
 
-  groups.map(group => {
-    group.navItems.map(nav => {
+  groups.forEach(group => {
+    group.navItems.forEach(nav => {
       try {
         routes.push({
           path: `${nav.path}`,
@@ -36,8 +36,8 @@ routes.push({
   component: resolve => require(['../pages/index.vue'], resolve),
   name: 'index',
   meta: {
-    title: 'WE-VUE',
-    description: 'weui1.x + vue2.x + webpack2.x = we-vue'
+    title: 'XM-MUI',
+    description: ''
   }
 })
 
