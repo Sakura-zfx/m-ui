@@ -1,35 +1,27 @@
 <template>
-  <div>
-    <van-nav-bar
-      title="tab选择"
-      left-text="返回"
-      left-arrow
-      @click-left="onClickLeft"
+  <common-entry title="tab选择">
+    <m-tag-select
+      title="标题"
+      title-cls="title-cls"
+      tag-cls="tag-cls"
+      active-cls="m-bd-main-color color-main"
+      :multi-choose="false"
+      :list="list"
+      :selected="activeList"
+      @tag-change="handleTagChange"
     />
-
-    <div>
-      <m-tag-select
-        title="标题"
-        title-cls="title-cls"
-        tag-cls="tag-cls"
-        active-cls="m-bd-main-color color-main"
-        :multi-choose="false"
-        :list="list"
-        :selected="activeList"
-        @tag-change="handleTagChange"
-      />
-    </div>
-  </div>
+  </common-entry>
 </template>
 
 <script>
 import MTagSelect from '../../src/components/tagSelect'
+import CommonEntry from './commonEntry'
 
 export default {
   name: 'tag-select',
 
   components: {
-    MTagSelect
+    MTagSelect, CommonEntry
   },
 
   data() {
@@ -78,10 +70,6 @@ export default {
   },
 
   methods: {
-    onClickLeft() {
-      history.back()
-    },
-
     handleTagChange(item) {
       console.log(item)
     }

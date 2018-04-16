@@ -119,10 +119,11 @@ export default {
     },
 
     init(selected) {
+      let final = selected || this.selected
       if (this.multiChoose) {
-        this.selectedList = selected || this.selected
+        this.selectedList = final
       } else {
-        this.selectedList = selected ? selected : (this.selected[0] || {})
+        this.selectedList = final[0] || {}
       }
     }
   },

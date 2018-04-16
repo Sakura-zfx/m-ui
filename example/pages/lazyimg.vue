@@ -1,12 +1,5 @@
 <template>
-  <div>
-    <van-nav-bar
-      title="图片懒加载"
-      left-text="返回"
-      left-arrow
-      @click-left="onClickLeft"
-    />
-
+  <common-entry title="图片懒加载">
     <m-lazy-img ref="lazyImg" selector="div.img" load-type="background">
       <div v-for="(n, i) in lazyImgData" :key="i">
         <div
@@ -20,17 +13,18 @@
         />
       </div>
     </m-lazy-img>
-  </div>
+  </common-entry>
 </template>
 
 <script>
+import CommonEntry from './commonEntry'
 import MLazyImg from '../../src/components/lazyimg'
 
 export default {
   name: 'lazy-img',
 
   components: {
-    MLazyImg
+    MLazyImg, CommonEntry
   },
 
   data() {
@@ -44,12 +38,6 @@ export default {
     setTimeout(() => {
       this.$refs.lazyImg.start()
     }, 1000)
-  },
-
-  methods: {
-    onClickLeft() {
-      history.back()
-    }
   }
 }
 </script>

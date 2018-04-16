@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { Cell, CellGroup, NavBar } from 'vant'
+import { Cell, CellGroup, NavBar, Search } from 'vant'
 // import WeVue from '../src/index.js'
 import App from './app.vue'
 import './assets/style/demo.scss'
@@ -10,6 +10,7 @@ Vue.config.productionTip = false
 Vue.config.devtools = true
 
 Vue.use(NavBar)
+Vue.use(Search)
 Vue.use(Cell).use(CellGroup)
 
 router.afterEach((to) => {
