@@ -76,7 +76,7 @@ export default {
 
   watch: {
     selected(val) {
-      this.selectedList = val
+      this.init(val)
       return val
     }
   },
@@ -116,15 +116,19 @@ export default {
       }
 
       this.$emit('tag-change', this.selectedList)
+    },
+
+    init(selected) {
+      if (this.multiChoose) {
+        this.selectedList = selected || this.selected
+      } else {
+        this.selectedList = selected ? selected : (this.selected[0] || {})
+      }
     }
   },
 
   mounted() {
-    if (this.multiChoose) {
-      this.selectedList = this.selected
-    } else {
-      this.selectedList = this.selected[0] || {}
-    }
+    this.init()
   }
 }
 </script>
