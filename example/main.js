@@ -1,6 +1,5 @@
 import Vue from 'vue'
-import { Cell, CellGroup, NavBar, Search } from 'vant'
-// import WeVue from '../src/index.js'
+import { Cell, CellGroup, NavBar, Search, Icon, Dialog } from 'vant'
 import App from './app.vue'
 import './assets/style/demo.scss'
 import './assets/iconfont/iconfont.css'
@@ -11,7 +10,10 @@ Vue.config.devtools = true
 
 Vue.use(NavBar)
 Vue.use(Search)
+Vue.use(Icon)
+// Vue.use(Dialog)
 Vue.use(Cell).use(CellGroup)
+Vue.prototype.$dialog = Dialog
 
 router.afterEach((to) => {
   document.title = to.meta.title

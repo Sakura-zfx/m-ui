@@ -1,5 +1,11 @@
 // This file is auto gererated by build/bin/build-entry.js
 // import 'weui/dist/style/weui.min.css'
+import Addressselect from './components/addressselect'
+import Approveselect from './components/approveselect'
+import Bottomtab from './components/bottomtab'
+import Bottomtabitem from './components/bottomtabitem'
+import Commonselect from './components/commonselect'
+import Confirmorder from './components/confirmorder'
 import Lazyimg from './components/lazyimg'
 import Mask from './components/mask'
 import Msgbox from './components/msgbox'
@@ -8,8 +14,14 @@ import Popup from './components/popup'
 import Tab from './components/tab'
 import Tagselect from './components/tagselect'
 
-const version = '0.0.29'
+const version = '0.0.30'
 const components = [
+  Addressselect,
+  Approveselect,
+  Bottomtab,
+  Bottomtabitem,
+  Commonselect,
+  Confirmorder,
   Lazyimg,
   Mask,
   Msgbox,

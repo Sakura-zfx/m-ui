@@ -36,6 +36,11 @@
         "path": "/page",
         "name": "Page",
         "description": "[vue-mobile-page] 上拉分页"
+      },
+      {
+        "path": "/commonselect",
+        "name": "CommonSelect",
+        "description": "[xm-mui] 通用选择Popup"
       }
     ]
   },
@@ -80,15 +85,28 @@
     ]
   },
   {
-    "groupTitle": "搜索相关",
+    "groupTitle": "业务组件",
     "navItems": [
-
-    ]
-  },
-  {
-    "groupTitle": "布局",
-    "navItems": [
-
+      {
+        "path": "/bottomtab",
+        "name": "BottomTab",
+        "description": "[xm-mui] 底部菜单"
+      },
+      {
+        "path": "/addressselect",
+        "name": "AddressSelect",
+        "description": "[xm-mui] 地址选择"
+      },
+      {
+        "path": "/approveselect",
+        "name": "ApproveSelect",
+        "description": "[xm-mui] 选择审批单"
+      },
+      {
+        "path": "/confirmorder",
+        "name": "ConfirmOrder",
+        "description": "[xm-mui] 确认订单页公用组件"
+      }
     ]
   }
 ]
