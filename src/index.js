@@ -2,6 +2,7 @@
 // import 'weui/dist/style/weui.min.css'
 import AddressSelect from './components/address-select'
 import ApproveSelect from './components/approve-select'
+import Avatar from './components/avatar'
 import BottomTab from './components/bottom-tab'
 import BottomTabItem from './components/bottom-tab-item'
 import CommonSelect from './components/common-select'
@@ -14,11 +15,13 @@ import NumComputer from './components/num-computer'
 import Popup from './components/popup'
 import Tab from './components/tab'
 import TagSelect from './components/tag-select'
+import UserPanel from './components/user-panel'
 
-const version = '0.0.33'
+const version = '0.0.34'
 const components = [
   AddressSelect,
   ApproveSelect,
+  Avatar,
   BottomTab,
   BottomTabItem,
   CommonSelect,
@@ -30,7 +33,8 @@ const components = [
   NumComputer,
   Popup,
   Tab,
-  TagSelect
+  TagSelect,
+  UserPanel
 ]
 
 const install = (Vue, config = {}) => {

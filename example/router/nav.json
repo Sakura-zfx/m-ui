@@ -88,6 +88,11 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/userpanel",
+        "name": "UserPanel",
+        "description": "[xm-mui] 个人面板"
+      },
+      {
         "path": "/goodscard",
         "name": "GoodsCard",
         "description": "[xm-mui] 商品卡片"

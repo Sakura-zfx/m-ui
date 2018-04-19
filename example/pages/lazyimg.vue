@@ -18,7 +18,7 @@
 
 <script>
 import CommonEntry from './commonEntry'
-import MLazyImg from '../../src/components/lazyimg'
+import MLazyImg from '../../src/components/lazy-img'
 
 export default {
   name: 'lazy-img',

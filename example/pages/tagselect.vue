@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import MTagSelect from '../../src/components/tagSelect'
+import MTagSelect from '../../src/components/tag-select'
 import CommonEntry from './commonEntry'
 
 export default {

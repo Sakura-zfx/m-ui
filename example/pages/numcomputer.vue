@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import MAlterNum from '../../src/components/numcomputer'
+import MAlterNum from '../../src/components/num-computer'
 import CommonEntry from './commonEntry'
 
 export default {

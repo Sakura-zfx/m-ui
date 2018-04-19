@@ -1,5 +1,5 @@
 <template>
-  <div class="page">
+  <div class="page px-font-14">
     <div class="page__hd">
       <h1 class="page__title">XM-MUI</h1>
       <p style="text-align:center;color:#999;">用拿来主义，造适合业务需求的轮子</p>

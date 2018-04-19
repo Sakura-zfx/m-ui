@@ -19,8 +19,8 @@
 
 <script>
 import CommonEntry from './commonEntry'
-import MBottomTab from '../../src/components/bottomtab'
-import MBottomTabItem from '../../src/components/bottomtabitem'
+import MBottomTab from '../../src/components/bottom-tab'
+import MBottomTabItem from '../../src/components/bottom-tab-item'
 const tabs = [
   {
     name: '首页',
