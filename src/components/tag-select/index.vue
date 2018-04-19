@@ -13,7 +13,7 @@
       class="tag-select__list font-0"
     >
       <li
-        class="tag-select__list-item ib-top px-line-30 px-font-14 m-bd text-center over-text px-width-80"
+        class="tag-select__list-item ib-top px-line-30 px-font-14 m-bd text-center px-width-80"
         v-for="(item, index) in list"
         :key="index"
         :class="`${tagCls} ${isActiveItem(item) ? activeCls : ''}`"
@@ -23,7 +23,7 @@
           v-if="item.icon"
           :class="item.icon"
         />
-        <span>{{ item.label }}</span>
+        <p class="over-text">{{ item.label }}</p>
       </li>
     </ul>
   </div>

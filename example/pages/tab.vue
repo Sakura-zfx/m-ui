@@ -1,5 +1,15 @@
 <template>
   <common-entry title="tab">
+    <m-tab
+      color="blue"
+      :active-tab="active"
+      :tabs="['我发起的', '我收到的', '指挥我的']"
+      :disable-tab="[1]"
+      :tab-line-width="30"
+      @callback="tabCallback"
+    />
+
+    <p>用法</p>
     <pre>
       &lt;tab
         color="blue"
@@ -11,14 +21,48 @@
       /&gt;
     </pre>
 
-    <m-tab
-      color="blue"
-      :active-tab="active"
-      :tabs="['我发起的', '我收到的', '指挥我的']"
-      :disable-tab="[1]"
-      :tab-line-width="30"
+    <p>events</p>
+    <pre>
       @callback="tabCallback"
-    />
+    </pre>
+
+    <p>props</p>
+    <pre>
+      props: {
+        tabs: {
+          type: Array,
+          default: function () {
+            return []
+          }
+        },
+        itemCls: {
+          type: String,
+          default: ''
+        },
+        activeTab: {
+          type: Number,
+          default: 0
+        },
+        color: {
+          type: String,
+          default: '#fa565a'
+        },
+        tabLineWidth: {
+          type: Number,
+          default: 60
+        },
+        noTabLine: {
+          type: Boolean,
+          default: false
+        },
+        disableTab: {
+          type: Array,
+          default() {
+            return []
+          }
+        }
+      }
+    </pre>
   </common-entry>
 </template>
 

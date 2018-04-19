@@ -26,6 +26,11 @@
         "path": "/switchcell",
         "name": "SwitchCell",
         "description": "[vant] 开关单元格"
+      },
+      {
+        "path": "/avatar",
+        "name": "Avatar",
+        "description": "[xm-mui] 头像"
       }
     ]
   },
@@ -45,7 +50,7 @@
       {
         "path": "/commonselect",
         "name": "CommonSelect",
-        "description": "[xm-mui] 通用选择Popup"
+        "description": "[xm-mui] 通用Popup上拉选择"
       }
     ]
   },

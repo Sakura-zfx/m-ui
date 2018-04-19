@@ -14,6 +14,27 @@
         {{ item.name }}
       </m-bottom-tab-item>
     </m-bottom-tab>
+
+    <pre>
+  import { BottomTab, BottomTabItem } from 'xm-mui'
+    </pre>
+    <p>usage</p>
+    <pre>
+      &lt;m-bottom-tab
+        v-model="active"
+        :tab-len="tabs.length"
+      &gt;
+        &lt;m-bottom-tab-item
+          v-for="(item, i) in tabs"
+          :curr-icon="item.currIcon"
+          :icon="item.icon"
+          :key="i"
+          :num="item.num"
+        &gt;
+          {\{ item.name }}
+        &lt;/m-bottom-tab-item&gt;
+      &lt;/m-bottom-tab&gt;
+    </pre>
   </common-entry>
 </template>
 

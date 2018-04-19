@@ -1,5 +1,6 @@
 // This file is auto gererated by build/bin/build-entry.js
 // import 'weui/dist/style/weui.min.css'
+// import '../src/style/component.css'
 import AddressSelect from './components/address-select'
 import ApproveSelect from './components/approve-select'
 import Avatar from './components/avatar'
@@ -18,7 +19,7 @@ import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import UserPanel from './components/user-panel'
 
-const version = '0.0.39'
+const version = '0.0.40'
 const components = [
   AddressSelect,
   ApproveSelect,

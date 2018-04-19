@@ -4,6 +4,11 @@
       <h1 class="page__title">XM-MUI</h1>
       <p style="text-align:center;color:#999;">用拿来主义，造适合业务需求的轮子</p>
     </div>
+    <p class="px-padding-b20 text-center">
+      <a href="https://github.com/Jmingzi/blog/issues/28" target="_blank">#28</a>
+      <a href="https://cn.vuejs.org/v2/style-guide/" target="_blank">风格指南</a>
+      <a href="https://github.com/Jmingzi/mui" target="_blank">MUI</a>
+    </p>
 
     <van-search
       background="transparent"
@@ -78,7 +83,7 @@ export default {
   }
 
   .page__hd {
-    padding: 40px;
+    padding: 40px 0 20px 0;
 
     .page__title {
       text-align: center;

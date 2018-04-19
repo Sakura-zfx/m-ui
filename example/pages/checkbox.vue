@@ -8,6 +8,29 @@
       checked-icon="icon-search"
     />
 
+    <p>props</p>
+    <pre>
+      props: {
+        value: Boolean,
+        label: String,
+        mainColor: {
+          type: String,
+          default: 'red'
+        },
+        size: {
+          type: Number,
+          default: 16
+        },
+        checkIcon: String,
+        checkedIcon: String,
+        disabled: Boolean
+      }
+    </pre>
+    <p>events</p>
+    <pre>
+      @change="boxChange"
+    </pre>
+    <p>用法</p>
     <pre>
       &lt;m-checkbox
         v-model="check"

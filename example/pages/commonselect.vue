@@ -25,7 +25,7 @@
       </template>
     </m-common-select>
 
-    <p class="px-margin-t20">Props 与 Methods</p>
+    <p class="px-margin-t20">Props 与 Events</p>
     <pre>
       title="自定义title"
       confirm-text="自定义按钮"
@@ -52,6 +52,9 @@
         @address-select="handleAddressSelect"
       &gt;
         &lt;span&gt;icon&lt;/span&gt;
+        &lt;template slot-scope="scope"&gt;
+          &lt;span>{\{ scope.row.formatName }}&lt;/span&gt;
+        &lt;/template&gt;
       &lt;/address-select&gt;
     </pre>
   </common-entry>

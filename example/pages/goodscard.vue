@@ -14,7 +14,7 @@
       </m-goods-card>
     </div>
 
-    <p>methods</p>
+    <p>events</p>
     <pre>
       @on-check
       @on-click

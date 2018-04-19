@@ -7,6 +7,16 @@
       org-name="哈哈哈哈"
     />
 
+    <p>usage</p>
+    <pre>
+      &lt;m-user-panel
+        avatar-url="http://filesystem.api.jituancaiyun.net/sfs/avatar?uid="
+        uid="269840"
+        name="ym"
+        org-name="哈哈哈哈"
+      /&gt;
+    </pre>
+
     <p>props</p>
     <pre>
     props: {

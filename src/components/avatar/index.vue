@@ -1,5 +1,11 @@
 <template>
-  <div :class="`${sizeCls} avatar overflow-h position-r`">
+  <div
+    class="m-avatar overflow-h position-r"
+    :class="{
+      [sizeCls]: true,
+      'ib-middle': !isBlock
+    }"
+  >
     <div
       class="width-100 height-100 color-fff text-center px-font-16"
       :style="errorBg">
@@ -28,7 +34,8 @@ export default {
     avatarUrl: {
       type: String,
       required: true
-    }
+    },
+    isBlock: Boolean
   },
   computed: {
     errorBg () {
@@ -67,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss">
-  .avatar {
+  .m-avatar {
     border-radius: 60px;
 
     &.s36 {

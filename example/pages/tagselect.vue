@@ -10,6 +10,49 @@
       :selected="activeList"
       @tag-change="handleTagChange"
     />
+
+    <p>events</p>
+    <pre>
+      @tag-change="handleTagChange"
+    </pre>
+
+    <p>props</p>
+    <pre>
+      props: {
+        list: {
+          type: Array,
+          default() {
+            return []
+          }
+        },
+        selected: {
+          type: Array,
+          default() {
+            return []
+          }
+        },
+        title: {
+          type: String,
+          default: ''
+        },
+        titleCls: {
+          type: String,
+          default: ''
+        },
+        tagCls: {
+          type: String,
+          default: ''
+        },
+        activeCls: {
+          type: String,
+          default: ''
+        },
+        multiChoose: {
+          type: Boolean,
+          default: false
+        }
+      }
+    </pre>
   </common-entry>
 </template>
 
