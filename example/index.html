@@ -10,6 +10,11 @@
     <link rel="stylesheet" href="//statics.jituancaiyun.com/css/mui/4.0.1/mui.css">
   </head>
   <body>
+  <script>
+    var docElem = document.documentElement
+    var rect = docElem.getBoundingClientRect()
+    docElem.style.fontSize = (rect.width > 540 ? 540 : rect.width) / 10 + 'px'
+  </script>
     <div id="app"></div>
     <!-- built files will be auto injected -->
   </body>

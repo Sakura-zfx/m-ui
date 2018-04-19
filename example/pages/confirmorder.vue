@@ -15,7 +15,7 @@
 
 <script>
 import CommonEntry from './commonEntry'
-import MConfirmOrder from '../../src/components/confirmorder/index'
+import MConfirmOrder from '../../src/components/confirm-order/index'
 
 const addressList = [
   {

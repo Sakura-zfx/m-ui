@@ -1,34 +1,36 @@
 // This file is auto gererated by build/bin/build-entry.js
 // import 'weui/dist/style/weui.min.css'
-import Addressselect from './components/addressselect'
-import Approveselect from './components/approveselect'
-import Bottomtab from './components/bottomtab'
-import Bottomtabitem from './components/bottomtabitem'
-import Commonselect from './components/commonselect'
-import Confirmorder from './components/confirmorder'
-import Lazyimg from './components/lazyimg'
+import AddressSelect from './components/address-select'
+import ApproveSelect from './components/approve-select'
+import BottomTab from './components/bottom-tab'
+import BottomTabItem from './components/bottom-tab-item'
+import CommonSelect from './components/common-select'
+import ConfirmOrder from './components/confirm-order'
+import GoodsCard from './components/goods-card'
+import LazyImg from './components/lazy-img'
 import Mask from './components/mask'
 import Msgbox from './components/msgbox'
-import Numcomputer from './components/numcomputer'
+import NumComputer from './components/num-computer'
 import Popup from './components/popup'
 import Tab from './components/tab'
-import Tagselect from './components/tagselect'
+import TagSelect from './components/tag-select'
 
-const version = '0.0.30'
+const version = '0.0.31'
 const components = [
-  Addressselect,
-  Approveselect,
-  Bottomtab,
-  Bottomtabitem,
-  Commonselect,
-  Confirmorder,
-  Lazyimg,
+  AddressSelect,
+  ApproveSelect,
+  BottomTab,
+  BottomTabItem,
+  CommonSelect,
+  ConfirmOrder,
+  GoodsCard,
+  LazyImg,
   Mask,
   Msgbox,
-  Numcomputer,
+  NumComputer,
   Popup,
   Tab,
-  Tagselect
+  TagSelect
 ]
 
 const install = (Vue, config = {}) => {

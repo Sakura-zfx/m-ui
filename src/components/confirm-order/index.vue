@@ -117,8 +117,8 @@
 <script>
 import { Cell, CellGroup, Icon } from 'vant'
 import MPopup from '../popup'
-import MAddressSelect from '../addressselect'
-import MApproveSelect from '../approveselect'
+import MAddressSelect from '../address-select'
+import MApproveSelect from '../approve-select'
 
 const approveList = [
   {

@@ -58,7 +58,7 @@
 
 <script>
 import CommonEntry from './commonEntry'
-import MApproveSelect from '../../src/components/approveselect'
+import MApproveSelect from '../../src/components/approve-select'
 const approveList = [
   {
     id: 1,

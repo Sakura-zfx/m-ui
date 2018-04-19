@@ -22,7 +22,7 @@
 
 <script>
 import { Cell, CellGroup, Icon } from 'vant'
-import MCommonSelect from '../commonselect'
+import MCommonSelect from '../common-select'
 
 export default {
   name: 'address-select',

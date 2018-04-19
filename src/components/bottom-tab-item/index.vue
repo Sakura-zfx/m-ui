@@ -21,7 +21,7 @@ export default {
   props: {
     currIcon: String,
     icon: String,
-    num: String | Number,
+    num: [String, Number],
     path: String
   },
 

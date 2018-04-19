@@ -47,4 +47,8 @@ export default {
       color: #666;
     }
   }
+
+  .mg--10 {
+    margin: -10px;
+  }
 </style>

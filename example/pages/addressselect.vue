@@ -62,7 +62,7 @@
 
 <script>
 import CommonEntry from './commonEntry'
-import MAddressSelect from '../../src/components/addressselect'
+import MAddressSelect from '../../src/components/address-select'
 const addressList = [
   {
     id: 1,

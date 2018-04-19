@@ -88,9 +88,14 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/goodscard",
+        "name": "GoodsCard",
+        "description": "[xm-mui] 商品卡片"
+      },
+      {
         "path": "/bottomtab",
         "name": "BottomTab",
-        "description": "[xm-mui] 底部菜单"
+        "description": "[xm-mui] 底部tab导航"
       },
       {
         "path": "/addressselect",
