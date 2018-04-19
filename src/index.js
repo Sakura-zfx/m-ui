@@ -5,6 +5,7 @@ import ApproveSelect from './components/approve-select'
 import Avatar from './components/avatar'
 import BottomTab from './components/bottom-tab'
 import BottomTabItem from './components/bottom-tab-item'
+import Checkbox from './components/checkbox'
 import CommonSelect from './components/common-select'
 import ConfirmOrder from './components/confirm-order'
 import GoodsCard from './components/goods-card'
@@ -17,13 +18,14 @@ import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import UserPanel from './components/user-panel'
 
-const version = '0.0.36'
+const version = '0.0.37'
 const components = [
   AddressSelect,
   ApproveSelect,
   Avatar,
   BottomTab,
   BottomTabItem,
+  Checkbox,
   CommonSelect,
   ConfirmOrder,
   GoodsCard,

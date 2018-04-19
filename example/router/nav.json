@@ -3,6 +3,11 @@
     "groupTitle": "基础组件",
     "navItems": [
       {
+        "path": "/checkbox",
+        "name": "checkbox",
+        "description": "[xm-mui] 复选框"
+      },
+      {
         "path": "/tagselect",
         "name": "TagSelect",
         "description": "[xm-mui] 标签选择"
