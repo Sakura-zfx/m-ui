@@ -13,8 +13,8 @@
 
     <template slot="content">
       <p class="address__empty" v-if="!approveList || approveList.length === 0">审批单为空哦～</p>
-      <van-cell-group v-else>
-        <van-cell
+      <cell-group v-else>
+        <cell
           v-for="item in approveList"
           class="address-list__item"
           @click="addressSelect(item)"
@@ -30,15 +30,15 @@
               {{ item.approveId }}
             </p>
           </template>
-          <van-icon
+          <icon
             v-show="addressIsCurrent(item)"
             slot="right-icon"
             name="success"
             class="van-cell__right-icon"
             :style="getColorMain(addressIsCurrent(item))"
           />
-        </van-cell>
-      </van-cell-group>
+        </cell>
+      </cell-group>
     </template>
   </m-popup>
 </template>

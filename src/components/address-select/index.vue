@@ -21,14 +21,13 @@
 </template>
 
 <script>
-import { Cell, CellGroup, Icon } from 'vant'
 import MCommonSelect from '../common-select'
 
 export default {
   name: 'address-select',
 
   components: {
-    MCommonSelect, Cell, CellGroup, Icon
+    MCommonSelect
   },
 
   props: {
