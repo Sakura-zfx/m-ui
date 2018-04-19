@@ -6,12 +6,12 @@
   >
     <div
       v-if="isShowCheckbox"
-      class="goods-card__checkbox ib-middle px-font-16 rem-width-40 text-center"
+      class="goods-card__checkbox ib-top px-font-16 rem-width-40 text-center px-padding-tb10"
       :style="[imgHeightStyle, imgLineHeight]"
-      @click="checkCard"
+      @click.stop="checkCard"
     >
       <i
-        class="iconfont"
+        class="iconfont color-c999"
         :class="{
           [checkboxIconChecked]: isChecked,
           [checkboxIcon]: !isChecked,
@@ -21,7 +21,7 @@
       />
     </div>
     <div
-      class="goods-card__item ib-middle px-font-14 overflow-h px-padding-tb10"
+      class="goods-card__item ib-top px-font-14 overflow-h px-padding-tb10"
       :style="itemWidthStyle"
     >
       <div
@@ -163,11 +163,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .goods-card__name {
     display: -webkit-box;
     overflow : hidden;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+  }
+  .goods-card__checkbox i {
+    border-radius: 8px;
   }
 </style>
