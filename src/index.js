@@ -15,7 +15,7 @@ import Popup from './components/popup'
 import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 
-const version = '0.0.31'
+const version = '0.0.32'
 const components = [
   AddressSelect,
   ApproveSelect,

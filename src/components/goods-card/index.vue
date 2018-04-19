@@ -68,6 +68,10 @@ export default {
       type: Number,
       default: 80
     },
+    contentHeight: {
+      type: Number,
+      default: 80
+    },
     mainColor: {
       type: String,
       default: 'red'
@@ -150,6 +154,7 @@ export default {
     checkCard() {
       if (!this.isCheckboxDisable) {
         this.isChecked = !this.isChecked
+        this.$emit('on-check')
       }
     }
   }

@@ -6,7 +6,13 @@
   >
     <div class="position-r display-ib text-center px-height-30">
       <i class="iconfont px-font-24" :class="active ? currIcon : icon" />
-      <span class="badge" v-if="num">{{ num }}</span>
+      <span
+        v-if="num"
+        class="badge"
+        :style="{ backgroundColor: $parent.mainColor }"
+      >
+        {{ num }}
+      </span>
     </div>
     <div>
       <slot />
@@ -67,7 +73,7 @@ export default {
     position: absolute;
     border-radius: .6em;
     box-sizing: border-box;
-    background-color: #f44;
+    // background-color: #f44;
     font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
   }
 </style>

@@ -45,6 +45,7 @@ export default {
       background-color: #f7f7f7;
       padding-top: 1em;
       color: #666;
+      font-size: 12px;
     }
   }
 

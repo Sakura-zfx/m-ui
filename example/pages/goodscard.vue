@@ -13,6 +13,12 @@
       </m-goods-card>
     </div>
 
+    <p>methods</p>
+    <pre>
+      @on-check
+      @on-click
+    </pre>
+    <p>props</p>
     <pre class="px-font-12">
     props: {
       name: {
