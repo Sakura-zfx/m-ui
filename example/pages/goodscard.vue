@@ -3,13 +3,14 @@
     <div class="mg--10">
       <m-goods-card
         :is-checkbox-disable="false"
+        content-height="100"
         :price="10"
-        num="2"
+        num="100"
         spec="25盒 * 12"
         name="商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称"
         @on-click="onClick"
       >
-        <p slot="right">x 123</p>
+        <!--<p slot="right">x 123</p>-->
       </m-goods-card>
     </div>
 
@@ -29,7 +30,11 @@
       num: [String, Number],
       imgDefault: String,
       imgHeight: {
-        type: Number,
+        type: [String, Number],
+        default: 80
+      },
+      contentHeight: {
+        type: [String, Number],
         default: 80
       },
       mainColor: {

@@ -33,19 +33,18 @@
       </div>
       <div
         class="overflow-h position-r"
-        :style="imgHeightStyle"
+        :style="itemHeightStyle"
       >
         <p class="goods-card__name">{{ name }}</p>
 
         <div class="goods-card__item-info position-a bottom-0 left-0 width-100">
           <p class="color-c999 px-font-12" v-if="spec">{{ spec }}</p>
-          <div>
-            <div class="fr color-c999">
-              <slot name="right">x{{ num }}</slot>
-            </div>
-            <div v-if="isMainPriceStyle" v-html="genderPrice(price)" />
-            <span v-else>¥ 5.00 元</span>
+          <div class="fr color-c999">
+            <slot v-if="$slots.right" name="right" />
+            <template v-else-if="num !== undefined">x{{ num }}</template>
           </div>
+          <div v-if="isMainPriceStyle" v-html="genderPrice(price)" />
+          <span v-else>¥ 5.00 元</span>
         </div>
       </div>
     </div>
@@ -65,11 +64,11 @@ export default {
     num: [String, Number],
     imgDefault: String,
     imgHeight: {
-      type: Number,
+      type: [String, Number],
       default: 80
     },
     contentHeight: {
-      type: Number,
+      type: [String, Number],
       default: 80
     },
     mainColor: {
@@ -124,6 +123,9 @@ export default {
     },
     itemWidthStyle() {
       return { width: this.isShowCheckbox ? `${325 / 37.5}rem` : '100%' }
+    },
+    itemHeightStyle() {
+      return { height: `${this.contentHeight}px` }
     },
     mainColorStyle() {
       return { color: this.mainColor }
