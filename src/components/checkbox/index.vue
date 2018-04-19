@@ -9,7 +9,7 @@
     >
       <i
         v-if="checkIcon || checkedIcon"
-        class="iconfont"
+        class="iconfont color-c999"
         :class="{
           [checkIcon]: !value,
           [checkedIcon]: value,
@@ -67,5 +67,6 @@ export default {
 <style lang="scss">
   .m-checkbox__check {
     border: 1px solid #dedede;
+    line-height: 1;
   }
 </style>
