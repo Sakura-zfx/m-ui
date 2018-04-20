@@ -8,14 +8,9 @@
         "description": "[xm-mui] 复选框"
       },
       {
-        "path": "/tagselect",
-        "name": "TagSelect",
-        "description": "[xm-mui] 标签选择"
-      },
-      {
-        "path": "/lazyimg",
-        "name": "LazyImg",
-        "description": "[xm-mui] 图片懒加载"
+        "path": "/input",
+        "name": "Input",
+        "description": "[vant] 输入框"
       },
       {
         "path": "/cell",
@@ -38,6 +33,21 @@
     "groupTitle": "高级组件",
     "navItems": [
       {
+        "path": "/numcomputer",
+        "name": "NumComputer",
+        "description": "[xm-mui] 数字加减器"
+      },
+      {
+        "path": "/tagselect",
+        "name": "TagSelect",
+        "description": "[xm-mui] 标签选择"
+      },
+      {
+        "path": "/lazyimg",
+        "name": "LazyImg",
+        "description": "[xm-mui] 图片懒加载"
+      },
+      {
         "path": "/slipdelete",
         "name": "SlipDelete",
         "description": "[vue-slip-delete] 左滑删除"
@@ -51,16 +61,6 @@
         "path": "/commonselect",
         "name": "CommonSelect",
         "description": "[xm-mui] 通用Popup上拉选择"
-      }
-    ]
-  },
-  {
-    "groupTitle": "表单",
-    "navItems": [
-      {
-        "path": "/numcomputer",
-        "name": "NumComputer",
-        "description": "[xm-mui] 数字加减器"
       }
     ]
   },

@@ -38,7 +38,7 @@ export default {
 
     p, div, span {
       font-size: 14px;
-      color: #666;
+      // color: #666;
     }
 
     pre {

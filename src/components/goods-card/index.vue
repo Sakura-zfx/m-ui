@@ -25,7 +25,7 @@
       :style="itemWidthStyle"
     >
       <div
-        class="goods-card__img fl bg-f2"
+        class="goods-card__img fl bg-f2 position-r"
         :class="{
           'px-margin-r10': isShowCheckbox,
           'px-margin-lr10': !isShowCheckbox
@@ -33,13 +33,22 @@
         :style="[imgWidthStyle, imgHeightStyle]"
       >
         <slot v-if="$slots.img" name="img" />
-        <img :src="img ? img : imgDefault" width="100%" height="100%" v-else>
+        <img :src="img || imgDefault" width="100%" height="100%" v-else>
+
+        <div v-if="isAbnormal" class="position-a width-100 height-100 top-0 left-0">
+          <img :src="abnormalImg" width="100%" height="100%">
+        </div>
       </div>
       <div
         class="overflow-h position-r"
         :style="itemHeightStyle"
       >
-        <p class="goods-card__name">{{ name }}</p>
+        <p
+          class="goods-card__name"
+          :class="{ 'color-c999': isAbnormal }"
+        >
+          {{ name }}
+        </p>
 
         <div class="goods-card__item-info position-a bottom-0 left-0 width-100">
           <p class="color-c999 px-font-12" v-if="spec">{{ spec }}</p>
@@ -47,8 +56,16 @@
             <slot v-if="$slots.right" name="right" />
             <template v-else-if="num !== undefined">x{{ num }}</template>
           </div>
-          <div v-if="isMainPriceStyle" v-html="genderPrice(price)" />
-          <span v-else>¥ 5.00 元</span>
+          <div
+            v-if="isMainPriceStyle && !isAbnormal"
+            v-html="genderPrice(price)"
+          />
+          <span
+            :class="{ 'color-c999': isAbnormal }"
+            v-else
+          >
+            ¥ {{ (price / 100).toFixed(2) }} 元
+          </span>
         </div>
       </div>
     </div>
@@ -99,6 +116,11 @@ export default {
       type: Boolean,
       default: false
     },
+    isAbnormal: {
+      type: Boolean,
+      default: false
+    },
+    abnormalImg: String,
     isCheckboxDisable: {
       type: Boolean,
       default: false
@@ -126,7 +148,8 @@ export default {
       return { lineHeight: `${this.imgHeight - 5}px` }
     },
     itemWidthStyle() {
-      return { width: this.isShowCheckbox ? `${325 / 37.5}rem` : '100%' }
+      const width = this.isShowCheckbox ? 325 : 365
+      return { width: `${width / 37.5}rem` }
     },
     itemHeightStyle() {
       return { height: `${this.contentHeight}px` }

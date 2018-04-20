@@ -1,19 +1,23 @@
 <template>
   <common-entry title="popup">
     <m-alter-num
-      :val="11"
+      v-model="value"
       :min="1"
       :max="20"
-      @num-change-callback="numChangeCallback"
+      @on-change="numChangeCallback"
     />
 
     <pre>
-      &lt;alter-num
-        :val="11"
+      &lt;m-alter-num
+        v-model="value"
         :min="1"
         :max="20"
-        @num-change-callback="numChangeCallback"
+        @on-change="numChangeCallback"
       /&gt;
+
+      numChangeCallback(num, oldNum) {
+        console.log(`this.value: ${this.value} new: ${num}, old: ${oldNum}`)
+      }
     </pre>
   </common-entry>
 </template>
@@ -29,9 +33,15 @@ export default {
     MAlterNum, CommonEntry
   },
 
+  data() {
+    return {
+      value: 11
+    }
+  },
+
   methods: {
-    numChangeCallback(num) {
-      console.log(num)
+    numChangeCallback(num, oldNum) {
+      console.log(`this.value: ${this.value} new: ${num}, old: ${oldNum}`)
     }
   }
 }

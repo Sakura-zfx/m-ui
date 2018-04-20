@@ -4,6 +4,7 @@
       <m-goods-card
         :is-checkbox-disable="false"
         :is-show-checkbox="true"
+        :is-abnormal="false"
         content-height="100"
         :price="10"
         num="100"
@@ -14,7 +15,11 @@
         <!--<p slot="right">x 123</p>-->
       </m-goods-card>
     </div>
-
+    <p>slots</p>
+    <pre>
+      $slots.img
+      $slots.right
+    </pre>
     <p>events</p>
     <pre>
       @on-check
@@ -60,8 +65,13 @@
       },
       isShowCheckbox: {
         type: Boolean,
-        default: true
+        default: false
       },
+      isAbnormal: {
+        type: Boolean,
+        default: false
+      },
+      abnormalImg: String,
       isCheckboxDisable: {
         type: Boolean,
         default: false
