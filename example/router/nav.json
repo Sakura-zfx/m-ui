@@ -98,6 +98,11 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/cityselect",
+        "name": "CitySelect",
+        "description": "[xm-mui] 城市选择"
+      },
+      {
         "path": "/empty",
         "name": "Empty",
         "description": "[xm-mui] 空页面"
@@ -120,12 +125,12 @@
       {
         "path": "/addressselect",
         "name": "AddressSelect",
-        "description": "[xm-mui] 地址选择"
+        "description": "[xm-mui] 地址选择面板"
       },
       {
         "path": "/approveselect",
         "name": "ApproveSelect",
-        "description": "[xm-mui] 选择审批单"
+        "description": "[xm-mui] 审批单选择面板"
       },
       {
         "path": "/confirmorder",
