@@ -98,6 +98,11 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/empty",
+        "name": "Empty",
+        "description": "[xm-mui] 空页面"
+      },
+      {
         "path": "/userpanel",
         "name": "UserPanel",
         "description": "[xm-mui] 个人面板"

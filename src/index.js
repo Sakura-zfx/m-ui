@@ -9,6 +9,7 @@ import BottomTabItem from './components/bottom-tab-item'
 import Checkbox from './components/checkbox'
 import CommonSelect from './components/common-select'
 import ConfirmOrder from './components/confirm-order'
+import Empty from './components/empty'
 import GoodsCard from './components/goods-card'
 import LazyImg from './components/lazy-img'
 import Mask from './components/mask'
@@ -19,7 +20,7 @@ import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import UserPanel from './components/user-panel'
 
-const version = '0.0.41'
+const version = '0.0.42'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -29,6 +30,7 @@ const components = [
   Checkbox,
   CommonSelect,
   ConfirmOrder,
+  Empty,
   GoodsCard,
   LazyImg,
   Mask,

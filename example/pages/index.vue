@@ -7,7 +7,7 @@
     <p class="px-padding-b20 text-center">
       <a href="https://github.com/Jmingzi/blog/issues/28" target="_blank">#28</a>
       <a href="https://cn.vuejs.org/v2/style-guide/" target="_blank">风格指南</a>
-      <a href="https://github.com/Jmingzi/mui" target="_blank">MUI</a>
+      <a href="https://github.com/Jmingzi/mui" target="_blank">全局依赖MUI</a>
     </p>
 
     <van-search
