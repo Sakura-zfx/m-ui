@@ -25,7 +25,11 @@
       :style="itemWidthStyle"
     >
       <div
-        class="goods-card__img fl px-margin-r10 bg-f2"
+        class="goods-card__img fl bg-f2"
+        :class="{
+          'px-margin-r10': isShowCheckbox,
+          'px-margin-lr10': !isShowCheckbox
+        }"
         :style="[imgWidthStyle, imgHeightStyle]"
       >
         <slot v-if="$slots.img" name="img" />
@@ -93,7 +97,7 @@ export default {
     },
     isShowCheckbox: {
       type: Boolean,
-      default: true
+      default: false
     },
     isCheckboxDisable: {
       type: Boolean,

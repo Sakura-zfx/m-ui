@@ -3,6 +3,7 @@
     <div class="mg--10">
       <m-goods-card
         :is-checkbox-disable="false"
+        :is-show-checkbox="true"
         content-height="100"
         :price="10"
         num="100"

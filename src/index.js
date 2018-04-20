@@ -19,7 +19,7 @@ import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import UserPanel from './components/user-panel'
 
-const version = '0.0.40'
+const version = '0.0.41'
 const components = [
   AddressSelect,
   ApproveSelect,
