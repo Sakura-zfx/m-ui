@@ -3,7 +3,7 @@
     <pre>
       import { Popup } from 'xm-mui'
     </pre>
-    <a href="javascript:" @click="showPopup = true">打开Popup</a>
+    <a class="px-font-14" href="javascript:" @click="showPopup = true">打开Popup</a>
     <pre>
       &lt;popup
         title="古天乐"
@@ -106,6 +106,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

@@ -46,6 +46,7 @@ export default {
       padding-top: 1em;
       color: #666;
       font-size: 12px;
+      white-space: pre-wrap;
     }
   }
 
