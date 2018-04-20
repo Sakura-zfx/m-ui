@@ -1,15 +1,12 @@
 <template>
   <div class="page px-font-14">
     <div class="page__hd">
-      <h1 class="page__title">XM-MUI</h1>
+      <h1 class="page__title">
+        XM-MUI
+        <a class="px-font-12" href="https://github.com/Jmingzi/m-ui" target="_blank">Github</a>
+      </h1>
       <p style="text-align:center;color:#999;">用拿来主义，造适合业务需求的轮子</p>
     </div>
-    <p class="px-padding-b20 text-center">
-      <a href="https://github.com/Jmingzi/blog/issues/28" target="_blank">#28</a>
-      <a href="https://cn.vuejs.org/v2/style-guide/" target="_blank">风格指南</a>
-      <a href="https://github.com/Jmingzi/mui" target="_blank">全局依赖MUI</a>
-    </p>
-
     <van-search
       background="transparent"
       placeholder="搜索组件"

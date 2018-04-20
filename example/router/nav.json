@@ -1,5 +1,20 @@
 [
   {
+    "groupTitle": "安装",
+    "navItems": [
+      {
+        "path": "/install",
+        "name": "快速上手",
+        "description": ""
+      },
+      {
+        "path": "/info",
+        "name": "风格指南",
+        "description": ""
+      }
+    ]
+  },
+  {
     "groupTitle": "基础组件",
     "navItems": [
       {
