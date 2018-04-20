@@ -5,6 +5,9 @@
       [sizeCls]: true,
       'ib-middle': !isBlock
     }"
+    :style="{
+      borderRadius: `${radius}px`
+    }"
   >
     <div
       class="width-100 height-100 color-fff text-center px-font-16"
@@ -35,7 +38,11 @@ export default {
       type: String,
       required: true
     },
-    isBlock: Boolean
+    isBlock: Boolean,
+    radius: {
+      type: Number,
+      default: 6
+    }
   },
   computed: {
     errorBg () {
@@ -75,13 +82,13 @@ export default {
 
 <style lang="scss">
   .m-avatar {
-    border-radius: 60px;
+    // border-radius: 60px;
 
     &.s36 {
       width: 36px;
       height: 36px;
       line-height: 36px;
-      border-radius: 6px;
+      // border-radius: 6px;
     }
   }
 </style>

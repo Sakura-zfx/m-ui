@@ -8,7 +8,9 @@
       @on-select="finalSelect"
       @hide-panel="showPanel = false"
     />
-
+    <pre>
+      import { CitySelect } from 'xm-mui'
+    </pre>
     <van-cell
       title="已选择"
       :value="selected.map(x => x.name).join('')"
@@ -29,9 +31,9 @@
     </pre>
     <p class="px-margin-t20">events</p>
     <pre>
-      @on-city-change="getCity"
-      @on-select="finalSelect"
-      @hide-panel="showPanel = false"
+  @on-city-change="getCity(item, itemIndex, currLevel)"
+  @on-select="finalSelect(selected, selectedIndex)"
+  @hide-panel="showPanel = false"
     </pre>
     <p class="px-margin-t20">props</p>
     <pre>

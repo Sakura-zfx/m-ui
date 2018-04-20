@@ -1,5 +1,8 @@
 <template>
   <common-entry title="空页面">
+    <pre>
+      import { Empty } from 'xm-mui'
+    </pre>
     <m-empty
       icon="icon-cell"
       btn-text="新建按钮"

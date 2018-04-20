@@ -4,8 +4,11 @@
       :avatar-url="avatarUrl"
       :user="{ name, uid }"
       :is-block="true"
+      :radius="10"
     />
-
+    <pre>
+      import { avatar } from 'xm-mui'
+    </pre>
     <p>props</p>
     <pre>
       props: {
@@ -22,6 +25,11 @@
         avatarUrl: {
           type: String,
           required: true
+        },
+        isBlock: Boolean,
+        radius: {
+          type: Number,
+          default: 6
         }
       }
     </pre>

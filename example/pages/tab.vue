@@ -1,5 +1,8 @@
 <template>
   <common-entry title="tab">
+    <pre>
+      import { Tab } from 'xm-mui'
+    </pre>
     <m-tab
       color="blue"
       :active-tab="active"

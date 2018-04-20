@@ -1,5 +1,8 @@
 <template>
   <common-entry title="popup">
+    <pre>
+      import { Popup } from 'xm-mui'
+    </pre>
     <a href="javascript:" @click="showPopup = true">打开Popup</a>
     <pre>
       &lt;popup

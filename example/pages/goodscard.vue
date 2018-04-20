@@ -1,5 +1,8 @@
 <template>
   <common-entry title="商品卡片">
+    <pre>
+      import { GoodsCard } from 'xm-mui'
+    </pre>
     <div class="mg--10">
       <m-goods-card
         :is-checkbox-disable="false"

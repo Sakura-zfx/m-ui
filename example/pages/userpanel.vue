@@ -1,5 +1,8 @@
 <template>
   <common-entry title="个人面板">
+    <pre>
+      import { UserPanel } from 'xm-mui'
+    </pre>
     <m-user-panel
       avatar-url="http://filesystem.api.jituancaiyun.net/sfs/avatar?uid="
       uid="269840"

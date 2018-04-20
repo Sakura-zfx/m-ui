@@ -6,7 +6,9 @@
       :max="20"
       @on-change="numChangeCallback"
     />
-
+    <pre>
+      import { NumComputer } from 'xm-mui'
+    </pre>
     <pre>
       &lt;m-alter-num
         v-model="value"

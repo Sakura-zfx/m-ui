@@ -1,5 +1,8 @@
 <template>
   <common-entry title="通用选择">
+    <pre>
+      import { CommonSelect } from 'xm-mui'
+    </pre>
     <p>Demo</p>
     <van-cell
       title="当前选择"

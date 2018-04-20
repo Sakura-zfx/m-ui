@@ -10,7 +10,9 @@
       :selected="activeList"
       @tag-change="handleTagChange"
     />
-
+    <pre>
+      import { TagSelect } from 'xm-mui'
+    </pre>
     <p>events</p>
     <pre>
       @tag-change="handleTagChange"

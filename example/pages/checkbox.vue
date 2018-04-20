@@ -7,7 +7,9 @@
       check-icon="icon-cell"
       checked-icon="icon-search"
     />
-
+    <pre>
+      import { checkbox } from 'xm-mui'
+    </pre>
     <p>props</p>
     <pre>
       props: {

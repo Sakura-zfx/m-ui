@@ -1,5 +1,8 @@
 <template>
   <common-entry title="图片懒加载">
+    <pre>
+      import { LazyImg } from 'xm-mui'
+    </pre>
     <p>tips: 只针对移动端touchmove事件做监听！！！</p>
     <pre>
       props: {
