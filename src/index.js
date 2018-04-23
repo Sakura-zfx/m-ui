@@ -12,6 +12,7 @@ import CommonSelect from './components/common-select'
 import ConfirmOrder from './components/confirm-order'
 import Empty from './components/empty'
 import GoodsCard from './components/goods-card'
+import GoodsCardGroup from './components/goods-card-group'
 import LazyImg from './components/lazy-img'
 import Mask from './components/mask'
 import Msgbox from './components/msgbox'
@@ -21,7 +22,7 @@ import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import UserPanel from './components/user-panel'
 
-const version = '0.0.44'
+const version = '0.0.45'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -34,6 +35,7 @@ const components = [
   ConfirmOrder,
   Empty,
   GoodsCard,
+  GoodsCardGroup,
   LazyImg,
   Mask,
   Msgbox,

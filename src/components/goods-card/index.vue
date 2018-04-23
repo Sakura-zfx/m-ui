@@ -116,6 +116,7 @@ export default {
       type: Boolean,
       default: false
     },
+    // 非正常商品
     isAbnormal: {
       type: Boolean,
       default: false
@@ -168,8 +169,15 @@ export default {
   watch: {
     isCheckboxChecked(val) {
       this.isChecked = val
-      return val
+    },
+    isChecked() {
+      const { checkGoodsCardAllChecked } = this.$parent
+      checkGoodsCardAllChecked && checkGoodsCardAllChecked()
     }
+  },
+
+  beforeCreate() {
+    this.$parent.goodsCardItem && this.$parent.goodsCardItem.push(this)
   },
 
   methods: {

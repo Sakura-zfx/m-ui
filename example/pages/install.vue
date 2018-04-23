@@ -2,9 +2,10 @@
   <common-entry title="快速上手">
     <p>tips：只支持局部引用</p>
     <p class="px-margin-t20">即：安装babel-plugin-component，修改.babelrc</p>
+    <p class="px-margin-t20">或：安装babel-plugin-import，修改.babelrc</p>
     <pre>
       plugins: [[
-        "component",
+        "component" 或 "import",
         {
           "libraryName": "xm-mui",
           "style": true

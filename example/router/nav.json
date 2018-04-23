@@ -133,6 +133,11 @@
         "description": "[xm-mui] 商品卡片"
       },
       {
+        "path": "/goodscardgroup",
+        "name": "GoodsCardGroup",
+        "description": "[xm-mui] 商品卡片组合"
+      },
+      {
         "path": "/bottomtab",
         "name": "BottomTab",
         "description": "[xm-mui] 底部tab导航"

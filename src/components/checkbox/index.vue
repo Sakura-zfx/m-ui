@@ -1,5 +1,5 @@
 <template>
-  <div class="m-checkbox" @click="onClick">
+  <div class="m-checkbox" @click.stop="onClick">
     <div
       class="m-checkbox__check ib-middle"
       :class="{
