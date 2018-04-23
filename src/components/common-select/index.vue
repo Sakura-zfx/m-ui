@@ -21,9 +21,9 @@
         <cell
           v-for="item in commonList"
           class="address-list__item"
-          @click="addressSelect(item)"
           :style="getColorMain(addressIsCurrent(item))"
           :key="item.id"
+          @click="addressSelect(item)"
         >
           <slot :row="item" />
           <icon

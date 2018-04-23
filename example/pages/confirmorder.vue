@@ -74,6 +74,7 @@ export default {
     background: #fff url("../assets/images/bg-kuaidi.png") left bottom / 50px repeat-x;
   }
   .example-confirm {
-    margin: -10px;
+    // margin: -10px;
+    font-size: 14px;
   }
 </style>
