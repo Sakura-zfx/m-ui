@@ -1,16 +1,15 @@
 <template>
   <div class="m-goods-card-group">
     <div
-      class="m-goods-card-group__title m-bd-b overflow-h px-padding-lr10"
+      class="m-goods-card-group__title m-bd-b overflow-h px-padding-lr10 bg-fff"
       @click="$emit('on-click')"
     >
       <div v-if="$slots.info" class="fr m-goods-card-group__title-info">
         <slot name="info" />
       </div>
       <div class="m-goods-card-group__label font-0" @click.stop="$emit('on-label-click')">
-        <div class="ib-middle px-width-30">
+        <div v-if="isShowCheckbox" class="ib-middle px-width-30">
           <checkbox
-            v-if="isShowCheckbox"
             v-model="groupChecked"
             :check-icon="checkIcon"
             :checked-icon="checkedIcon"
@@ -28,7 +27,10 @@
       <slot />
     </div>
 
-    <div v-if="$slots.bottom" class="m-goods-card-group__bottom text-right px-padding-lr10 m-bd-t">
+    <div
+      v-if="$slots.bottom"
+      class="m-goods-card-group__bottom text-right m-bd-t bg-fff"
+    >
       <slot name="bottom" />
     </div>
   </div>

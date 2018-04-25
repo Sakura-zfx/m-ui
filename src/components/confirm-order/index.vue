@@ -16,8 +16,13 @@
       </cell>
       <!--收货地址 结束-->
 
-      <cell-group class="px-margin-t10">
+      <div class="confirm-order__business-content px-margin-tb10">
+        <slot/>
+      </div>
+
+      <cell-group>
         <cell
+          v-if="false"
           title="消费方式"
           :value="currentPayType.title"
           @click="toggle('showPayType')"
@@ -25,111 +30,66 @@
         />
         <cell
           title="选择审批单"
-          @click="toggle('showApprovePopup')"
+          @click="onClickApprove"
           is-link
         >
           <p v-if="isDef(approveCurrent)">{{ approveCurrent.approveReason }}</p>
           <p class="color-c999" v-else>请选择</p>
         </cell>
-
-        <cell
-          v-show="false"
-          title="是否超标"
-          value=""
-          is-link
-        />
-        <cell
-          v-show="false"
-          title="超标原因"
-          value=""
-          is-link
-        />
-        <cell
-          v-show="false"
-          title="保险"
-          value=""
-          is-link
-        />
-
         <cell
           title="支付方式"
-          :value="currentPayWay ? currentPayWay.title : ''"
+          :value="selectPayWay ? selectPayWay.title : '请选择'"
           @click="toggle('showPayWay')"
           is-link
         />
-        <cell
-          v-show="false"
-          title="配送时间"
-          value=""
-          is-link
-        />
-      </cell-group>
-
-      <cell-group class="px-margin-t10">
         <cell>
           <template slot="title">
             <span class="van-cell__text">开具发票</span>
           </template>
           <m-switch
             size="22px"
-            v-model="isOpenBill"
+            :value="isOpenBill"
+            @change="val => $emit('on-change-open-bill', val)"
           />
         </cell>
         <template v-if="isOpenBill">
           <cell
             title="发票类型"
-            :value="currentBillType.title"
+            :value="currentSelectBillType ? currentSelectBillType.title : '请选择'"
             @click="toggle('showBillType')"
             is-link
           />
           <cell
             title="发票信息"
-            :value="currentBill.title"
-            @click="toggle('showBillList')"
+            :value="currentSelectBill.title"
+            @click="onClickBillCell"
             is-link
           />
         </template>
-
-        <cell
-          title="积分支付"
-          value=""
-          is-link
-        />
-        <cell
-          v-show="false"
-          title="手续费"
-          value=""
-          is-link
-        />
-        <cell
-          v-show="false"
-          title="服务费"
-          value=""
-          is-link
-        />
       </cell-group>
 
       <div class="px-padding-10 bg-fff px-margin-t10">
         <p>
           <span>商品金额</span>
-          <span class="color-red fr">2</span>
+          <span class="color-red fr">{{ skuMoney | formatPrice }}</span>
         </p>
         <p>
           <span>运费</span>
-          <span class="color-red fr">+ 2</span>
+          <span class="color-red fr">+ {{ freightMoney | formatPrice }}</span>
         </p>
         <p class="text-right">
           <span class="font-bold color-c000">总价：</span>
-          <span class="color-red">0</span>
+          <span class="color-red">{{ totalPrice | formatPrice }}</span>
         </p>
       </div>
     </div>
 
     <div class="m-confirmOrder__bottom position-f bottom-0 px-height-50 px-line-50 width-100 left-0 bg-fff">
       <submit-bar
-        :price="3050"
+        :price="totalPrice"
         label="实付款："
         button-text="提交订单"
+        @submit="$emit('on-submit')"
       />
     </div>
 
@@ -173,8 +133,8 @@
       title="发票类型"
       :visible="showBillType"
       :confirm-show="false"
-      :common-list="billTypeData"
-      :common-current="currentBillType"
+      :common-list="billTypeList"
+      :common-current="currentSelectBillType"
       :main-color="mainColor"
       @toggle-show="val => toggle('showBillType', val)"
       @common-select="handleSelectBillType"
@@ -187,7 +147,7 @@
       :visible="showBillList"
       :confirm-show="false"
       :common-list="billList"
-      :common-current="currentBill"
+      :common-current="currentSelectBill"
       :main-color="mainColor"
       @toggle-show="val => toggle('showBillList', val)"
       @common-select="handleSelectBill"
@@ -200,7 +160,7 @@
       :visible="showPayWay"
       :confirm-show="false"
       :common-list="payWayData"
-      :common-current="currentPayWay"
+      :common-current="selectPayWay || {}"
       :main-color="mainColor"
       @toggle-show="val => toggle('showPayWay', val)"
       @common-select="handleSelectPayWay"
@@ -209,7 +169,7 @@
         <p>{{ scope.row.title }}</p>
         <span
           :class="{
-            'color-c999': !currentPayWay || currentPayWay.id !== scope.row.id
+            'color-c999': !selectPayWay || selectPayWay.id !== scope.row.id
           }"
         >
           {{ scope.row.msg }}
@@ -230,6 +190,7 @@ import approve from './mixins/approve'
 import address from './mixins/address'
 import payWay from './mixins/payWay'
 import bill from './mixins/bill'
+import money from './mixins/money'
 
 export default {
   name: 'confirm-order',
@@ -246,7 +207,7 @@ export default {
     SubmitBar
   },
 
-  mixins: [payType, approve, address, payWay, bill],
+  mixins: [payType, approve, address, payWay, bill, money],
 
   props: {
     mainColor: {

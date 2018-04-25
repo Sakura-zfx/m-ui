@@ -3,6 +3,8 @@
     <m-confirm-order
       address-custom-style="cus-address-style"
       main-color="blue"
+      :freight-money="1000"
+      :sku-money="20001"
       :address-list="addressList"
       :address-current="addressCurrent"
       :approve-current="approveCurrent"

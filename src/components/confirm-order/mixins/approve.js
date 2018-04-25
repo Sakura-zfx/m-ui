@@ -23,6 +23,10 @@ export default {
     handleSelectApprove(item) {
       this.approveCurrent = item
       // this.$emit('approve-select', item)
+    },
+    onClickApprove() {
+      // this.toggle('showApprovePopup')
+      this.$emit('on-click-approve-cell')
     }
   }
 }
