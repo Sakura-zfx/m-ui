@@ -4,15 +4,16 @@
     :style="{ width: `${(100 / $parent.tabLen)}%`, color: active ? $parent.mainColor : '' }"
     @click="onClick"
   >
-    <div class="position-r display-ib text-center px-height-30">
-      <i class="iconfont px-font-24" :class="active ? currIcon : icon" />
-      <span
-        v-if="num"
-        class="badge"
-        :style="{ backgroundColor: $parent.mainColor }"
-      >
-        {{ num }}
-      </span>
+    <div class="display-ib text-center px-height-30">
+      <i class="position-r iconfont px-font-24" :class="active ? currIcon : icon" >
+        <span
+          v-if="num"
+          class="badge"
+          :style="{ backgroundColor: $parent.mainColor }"
+        >
+          {{ num }}
+        </span>
+      </i>
     </div>
     <div>
       <slot />

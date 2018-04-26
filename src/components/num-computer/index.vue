@@ -123,7 +123,11 @@ export default {
       border-top: 1px #f2f2f2 solid;
       border-bottom: 1px #f2f2f2 solid;
     }
-
+    input {
+      border: none;
+      margin: 0;
+      padding: 0;
+    }
     .decrease,
     .plus {
       line-height: 25px;
