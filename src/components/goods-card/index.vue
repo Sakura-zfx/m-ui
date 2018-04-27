@@ -182,7 +182,7 @@ export default {
 
   methods: {
     genderPrice(price, color = this.mainColor) {
-      const num = Number(price).toFixed(this.priceFixed).split('.')
+      const num = Number(price / 100).toFixed(this.priceFixed).split('.')
       return `<span class="rem-font-10" style="color: ${color}">¥ ` +
         `<span class="rem-font-16">${num[0]}</span>.<span>${num[1]}</span>` +
         `</span>`

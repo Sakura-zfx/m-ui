@@ -12,7 +12,7 @@
       </div>
       <div class="overflow-h color-fff">
         <p class="px-font-18">{{ name }}</p>
-        <p class="px-font-16 px-margin-t10">{{ orgName }}</p>
+        <p class="px-font-16 px-margin-t10 over-text px-padding-r10">{{ orgName }}</p>
       </div>
     </div>
   </div>
