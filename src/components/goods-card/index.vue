@@ -21,7 +21,10 @@
       />
     </div>
     <div
-      class="goods-card__item ib-top px-font-14 overflow-h px-padding-tb10"
+      class="goods-card__item ib-top px-font-14 overflow-h"
+      :class="{
+        'm-bd-b': border
+      }"
       :style="itemWidthStyle"
     >
       <div
@@ -126,6 +129,10 @@ export default {
       type: Boolean,
       default: false
     },
+    border: {
+      type: Boolean,
+      default: false
+    },
     spec: String,
     isCheckboxChecked: Boolean,
     checkboxIcon: {
@@ -149,7 +156,7 @@ export default {
       return { lineHeight: `${this.imgHeight - 5}px` }
     },
     itemWidthStyle() {
-      const width = this.isShowCheckbox ? 325 : 365
+      const width = this.isShowCheckbox ? 335 : 375
       return { width: `${width / 37.5}rem` }
     },
     itemHeightStyle() {
@@ -207,5 +214,8 @@ export default {
   }
   .goods-card__checkbox i {
     border-radius: 8px;
+  }
+  .goods-card__item {
+    padding: 10px 10px 10px 0;
   }
 </style>

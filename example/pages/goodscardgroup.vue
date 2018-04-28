@@ -23,6 +23,7 @@
           :num="item.num"
           :spec="item.spec"
           :name="item.name"
+          :border="true"
           @on-click="onClickCard"
         >
           <p slot="right">right info x 123</p>

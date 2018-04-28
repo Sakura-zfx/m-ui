@@ -10,6 +10,7 @@
         :is-abnormal="false"
         content-height="100"
         :price="10"
+        :border="true"
         num="100"
         spec="25盒 * 12"
         name="商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称"
