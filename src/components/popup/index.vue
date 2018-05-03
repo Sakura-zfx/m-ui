@@ -9,7 +9,9 @@
       >
         <div v-if="!noTitle" :class="`title-wrap ${titleAlign} px-padding-lr10`" class="position-r">
           <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
-            <slot name="icon">关闭</slot>
+            <slot name="icon">
+              <i class="iconfont icon-guanbi" />
+            </slot>
           </div>
           <div class="title color-c666 px-font-16">{{ title }}</div>
         </div>
@@ -137,7 +139,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  @import '../../assets/iconfont/iconfont.css';
+
   .m-popup__wrap {
     transform: translateY(0);
     box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.50);

@@ -8,11 +8,10 @@
       :style="boxSizeStyle"
     >
       <i
-        v-if="checkIcon || checkedIcon"
         class="iconfont"
         :class="{
-          [checkIcon]: !value,
-          [checkedIcon]: value,
+          [checkIconLocal]: !value,
+          [checkedIconLocal]: value,
           'color-c999': !value
         }"
         :style="{
@@ -28,6 +27,13 @@
 export default {
   name: 'checkbox',
 
+  data() {
+    return {
+      checkIconLocal: '',
+      checkedIconLocal: ''
+    }
+  },
+
   props: {
     value: Boolean,
     label: String,
@@ -39,8 +45,18 @@ export default {
       type: Number,
       default: 16
     },
-    checkIcon: String,
-    checkedIcon: String,
+    checkIcon: {
+      type: String,
+      default: 'icon-duoxuankexuan'
+    },
+    checkedIcon: {
+      type: String,
+      default: 'icon-duoxuanxuanzhong'
+    },
+    checkType: {
+      type: [Number, String],
+      default: 1 // 复选框 // 2 单选框
+    },
     disabled: Boolean
   },
 
@@ -49,7 +65,7 @@ export default {
       return {
         width: `${this.size}px`,
         height: `${this.size}px`,
-        borderRadius: `${this.size / 2}px`,
+        borderRadius: `${this.checkType === 1 ? 2 : this.size / 2}px`,
         color: this.value ? this.mainColor : '',
         borderColor: this.value ? this.mainColor : '',
         border: this.checkIcon ? 'none' : '1px solid #dedede'
@@ -57,7 +73,27 @@ export default {
     }
   },
 
+  watch: {
+    checkType() {
+      this.setIcon()
+    }
+  },
+
+  created() {
+    this.setIcon()
+  },
+
   methods: {
+    setIcon() {
+      if (this.checkType === 1) {
+        this.checkIconLocal = 'icon-duoxuankexuan'
+        this.checkedIconLocal = 'icon-duoxuanxuanzhong'
+      } else {
+        this.checkIconLocal = 'icon-quanxuan'
+        this.checkedIconLocal = 'icon-quanxuanxuanzhong'
+      }
+    },
+
     onClick() {
       this.$emit('input', !this.value)
       this.$emit('change', !this.value)
@@ -67,6 +103,8 @@ export default {
 </script>
 
 <style lang="scss">
+  @import '../../assets/iconfont/iconfont.css';
+
   .m-checkbox__check {
     line-height: 1;
   }

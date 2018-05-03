@@ -11,9 +11,6 @@
     @common-btn="$emit('address-add')"
     @common-select="addressSelect"
   >
-    <span slot="icon">
-      <slot name="icon" />
-    </span>
     <template slot-scope="scope">
       <slot :row="scope.row" />
     </template>

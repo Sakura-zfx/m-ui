@@ -1,14 +1,13 @@
 <template>
   <common-entry title="商品卡片">
-    <pre>
-      import { GoodsCard } from 'xm-mui'
-    </pre>
     <div class="mg--10">
       <m-goods-card
+        v-model="isCheck"
         :is-checkbox-disable="false"
         :is-show-checkbox="true"
         :is-abnormal="false"
         content-height="100"
+        card-bg="#f7f8f9"
         :price="10"
         :border="true"
         num="100"
@@ -16,8 +15,13 @@
         name="商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称"
         @on-click="onClick"
       >
-        <!--<p slot="right">x 123</p>-->
+        <p slot="right">右下角slots</p>
       </m-goods-card>
+    </div>
+    <div class="px-margin-t30">
+      <pre>
+        import { GoodsCard } from 'xm-mui'
+      </pre>
     </div>
     <p>slots</p>
     <pre>
@@ -31,66 +35,66 @@
     </pre>
     <p>props</p>
     <pre class="px-font-12">
-    props: {
-      name: {
-        type: String,
-        required: true
-      },
-      img: String,
-      num: [String, Number],
-      imgDefault: String,
-      imgHeight: {
-        type: [String, Number],
-        default: 80
-      },
-      contentHeight: {
-        type: [String, Number],
-        default: 80
-      },
-      mainColor: {
-        type: String,
-        default: 'red'
-      },
-      isMainPriceStyle: {
-        type: Boolean,
-        default: true
-      },
-      cardBg: {
-        type: String,
-        default: '#ffffff'
-      },
-      priceFixed: {
-        type: Number,
-        default: 2
-      },
-      price: {
-        type: Number,
-        default: 0
-      },
-      isShowCheckbox: {
-        type: Boolean,
-        default: false
-      },
-      isAbnormal: {
-        type: Boolean,
-        default: false
-      },
-      abnormalImg: String,
-      isCheckboxDisable: {
-        type: Boolean,
-        default: false
-      },
-      spec: String,
-      isCheckboxChecked: Boolean,
-      checkboxIcon: {
-        type: String,
-        default: 'icon-cell'
-      },
-      checkboxIconChecked: {
-        type: String,
-        default: 'icon-search'
-      }
+  props: {
+    name: {
+      type: String,
+      required: true
+    },
+    img: String,
+    num: [String, Number],
+    imgDefault: String,
+    border: {
+      type: Boolean,
+      default: false
+    },
+    spec: String,
+    imgHeight: {
+      type: [String, Number],
+      default: 80
+    },
+    contentHeight: {
+      type: [String, Number],
+      default: 80
+    },
+    mainColor: {
+      type: String,
+      default: 'red'
+    },
+    isMainPriceStyle: {
+      type: Boolean,
+      default: true
+    },
+    cardBg: {
+      type: String,
+      default: '#ffffff'
+    },
+    priceFixed: {
+      type: Number,
+      default: 2
+    },
+    price: {
+      type: Number,
+      default: 0
+    },
+    isShowCheckbox: {
+      type: Boolean,
+      default: false
+    },
+    // 非正常商品
+    isAbnormal: {
+      type: Boolean,
+      default: false
+    },
+    abnormalImg: String,
+    isCheckboxDisable: {
+      type: Boolean,
+      default: false
+    },
+    checkboxIconType: {
+      type: [String, Number],
+      default: 1
     }
+  }
     </pre>
   </common-entry>
 </template>
@@ -104,6 +108,12 @@ export default {
 
   components: {
     CommonEntry, MGoodsCard
+  },
+
+  data() {
+    return {
+      isCheck: false
+    }
   },
 
   methods: {

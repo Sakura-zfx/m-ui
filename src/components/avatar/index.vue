@@ -11,10 +11,11 @@
   >
     <div
       class="width-100 height-100 color-fff text-center px-font-16"
-      :style="errorBg">
+      :style="errorBg"
+    >
       {{ substrName(user.name, 2) }}
     </div>
-    <div class="width-100 height-100 top-0 position-a" :style="imgBgUrl" />
+    <div class="width-100 height-100 top-0 position-a overflow-h" :style="imgBgUrl" />
   </div>
 </template>
 
@@ -49,7 +50,10 @@ export default {
       return { backgroundColor: this.errorColor }
     },
     imgBgUrl () {
-      return { background: `url(${this.imgUrl(this.user.uid)}) center/cover` }
+      return {
+        background: `url(${this.imgUrl(this.user.uid)}) center/cover no-repeat`,
+        borderRadius: `${this.radius}px`
+      }
     },
     sizeCls() {
       if (this.size === 's60') {
@@ -82,13 +86,10 @@ export default {
 
 <style lang="scss">
   .m-avatar {
-    // border-radius: 60px;
-
     &.s36 {
       width: 36px;
       height: 36px;
       line-height: 36px;
-      // border-radius: 6px;
     }
   }
 </style>

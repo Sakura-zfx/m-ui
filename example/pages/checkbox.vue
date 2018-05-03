@@ -3,12 +3,15 @@
     <m-checkbox
       v-model="check"
       label="复选框"
+      check-type="2"
       @change="boxChange"
-      check-icon="icon-cell"
-      checked-icon="icon-search"
     />
     <pre>
       import { checkbox } from 'xm-mui'
+    </pre>
+    <p>支持传选择框类型，即</p>
+    <pre>
+      checkType 1 // 复选框 // 2 单选框
     </pre>
     <p>props</p>
     <pre>
@@ -23,10 +26,20 @@
           type: Number,
           default: 16
         },
-        checkIcon: String,
-        checkedIcon: String,
+        checkIcon: {
+          type: String,
+          default: 'icon-duoxuankexuan'
+        },
+        checkedIcon: {
+          type: String,
+          default: 'icon-duoxuanxuanzhong'
+        },
+        checkType: {
+          type: [Number, String],
+          default: 1 // 复选框 // 2 单选框
+        },
         disabled: Boolean
-      }
+      },
     </pre>
     <p>events</p>
     <pre>
@@ -62,6 +75,11 @@ export default {
     }
   },
 
+  created() {
+    // this.$loading.open()
+    // setTimeout(this.$loading.close, 2000)
+  },
+
   methods: {
     boxChange(status) {
       console.log(status)
@@ -71,5 +89,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>

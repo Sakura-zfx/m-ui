@@ -7,10 +7,6 @@
     @confirm="$emit('approve-btn')"
     @toggle="$emit('toggle-show', false)"
   >
-    <span v-if="$slots.default" slot="icon">
-      <slot />
-    </span>
-
     <template slot="content">
       <p class="address__empty" v-if="!approveList || approveList.length === 0">审批单为空哦～</p>
       <cell-group v-else>

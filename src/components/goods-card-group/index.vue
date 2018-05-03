@@ -10,10 +10,8 @@
       <div class="m-goods-card-group__label font-0" @click.stop="$emit('on-label-click')">
         <div v-if="isShowCheckbox" class="ib-middle px-width-30">
           <checkbox
-            v-model="groupChecked"
-            :check-icon="checkIcon"
-            :checked-icon="checkedIcon"
-            @change="val => $emit('on-check-change', val)"
+            :value="isChecked"
+            @change="onCheckLabel"
           />
         </div>
         <div class="px-font-14 ib-middle" v-if="$slots.label">
@@ -45,40 +43,39 @@ export default {
     Checkbox, Icon
   },
 
+  model: {
+    prop: 'isChecked'
+  },
+
   props: {
     isShowCheckbox: {
       type: Boolean,
       default: false
     },
-    checkIcon: String,
-    checkedIcon: String,
     isChecked: Boolean
   },
 
   data() {
     return {
-      groupCheckValue: false,
-      groupChecked: this.isChecked,
       goodsCardItem: []
-    }
-  },
-
-  watch: {
-    groupChecked(val) {
-      this.goodsCardItem.forEach(goods => {
-        if (!goods.isCheckboxDisable) {
-          goods.isChecked = val
-        }
-      })
-    },
-    isChecked(val) {
-      this.groupChecked = val
     }
   },
 
   methods: {
     checkGoodsCardAllChecked() {
-      this.groupChecked = this.goodsCardItem.every(item => item.isChecked)
+      const check = this.goodsCardItem.every(item => item.isCheckboxChecked)
+      this.$emit('input', check)
+      this.$emit('change', check)
+    },
+
+    onCheckLabel(val) {
+      this.$emit('input', val)
+      // 勾选子节点
+      this.goodsCardItem.forEach(goods => {
+        if (!goods.isCheckboxDisable) {
+          goods.$emit('input', val)
+        }
+      })
     }
   }
 }

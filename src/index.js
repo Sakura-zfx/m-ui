@@ -1,6 +1,6 @@
 // This file is auto gererated by build/bin/build-entry.js
 // import 'weui/dist/style/weui.min.css'
-// import '../src/style/component.css'
+// import '../src/style/component.scss'
 import AddressSelect from './components/address-select'
 import ApproveSelect from './components/approve-select'
 import Avatar from './components/avatar'
@@ -14,6 +14,7 @@ import Empty from './components/empty'
 import GoodsCard from './components/goods-card'
 import GoodsCardGroup from './components/goods-card-group'
 import LazyImg from './components/lazy-img'
+import Loading from './components/loading'
 import Mask from './components/mask'
 import Msgbox from './components/msgbox'
 import NumComputer from './components/num-computer'
@@ -22,7 +23,7 @@ import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import UserPanel from './components/user-panel'
 
-const version = '0.0.49'
+const version = '0.0.50'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -37,6 +38,7 @@ const components = [
   GoodsCard,
   GoodsCardGroup,
   LazyImg,
+  Loading,
   Mask,
   Msgbox,
   NumComputer,

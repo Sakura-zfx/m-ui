@@ -20,7 +20,7 @@ function buildWevueEntry () {
 
   const content = `${tips}
 // import 'weui/dist/style/weui.min.css'
-// import '../src/style/component.css'
+// import '../src/style/component.scss'
 ${importList.join('\n')}
 
 const version = '${version}'

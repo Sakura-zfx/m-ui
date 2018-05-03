@@ -8,17 +8,31 @@
             <span>{{ msg }}</span>
           </slot>
         </div>
-        <div class="m-msgBox_foot">
+        <div class="m-msgBox_foot m-bd-t">
           <a
-            href="javascript:"
-            :class="cancelBtnCls"
             v-if="!noCancel"
-            @click="doAction('cancel')">{{ cancelTxt }}</a>
-          <a
             href="javascript:"
+            class="m-msgBox_btn"
+            :class="{
+              'm-bd-r': !this.noConfirm,
+              'w100': this.noConfirm
+            }"
+            @click="doAction('cancel')"
+          >
+            {{ cancelTxt }}
+          </a>
+          <a
             v-if="!noConfirm"
-            :class="confirmBtnCls"
-            @click="doAction('confirm')">{{ okTxt }}</a>
+            href="javascript:"
+            class="m-msgBox_btn"
+            :class="{
+              'w100': this.noCancel,
+              [confirmCls]: !this.noCancel
+            }"
+            @click="doAction('confirm')"
+          >
+            {{ okTxt }}
+          </a>
         </div>
       </div>
     </transition>
@@ -36,19 +50,12 @@ export default {
       okTxt: '确认',
       noCancel: false,
       noConfirm: false,
-      visible: false
+      visible: false,
+      confirmCls: ''
     }
   },
   destroyed() {
     this.visible = false
-  },
-  computed: {
-    confirmBtnCls() {
-      return `m-msgBox_btn ${this.noCancel ? 'w100 color-blue' : ''}`
-    },
-    cancelBtnCls() {
-      return `m-msgBox_btn ${this.noConfirm ? 'color-blue w100' : ''}`
-    }
   },
   methods: {
     doAction(action) {
@@ -93,10 +100,10 @@ export default {
       padding-top: 20px;
       overflow: hidden;
 
-      background-image: linear-gradient(0deg, #cecece, transparent);
-      background-size: 100% 1px;
-      background-repeat: no-repeat;
-      background-position: bottom center;
+      // background-image: linear-gradient(0deg, #cecece, transparent);
+      // background-size: 100% 1px;
+      // background-repeat: no-repeat;
+      // background-position: bottom center;
     }
     .m-msgBox_foot {
       font-size: 0;
@@ -107,12 +114,12 @@ export default {
         width: 50%;
         font-size: 14px;
         line-height: 40px;
-        color: #fff;
-        background-color: red;
-        &:first-child {
-          color: #333333 !important;
-          background-color: #fff !important;
-        }
+        color: #38f;
+        // background-color: red;
+        // &:first-child {
+        //   color: #333333 !important;
+        //   background-color: #fff !important;
+        // }
         &.w100 {
           width: 100%;
         }

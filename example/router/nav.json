@@ -18,6 +18,11 @@
     "groupTitle": "基础组件",
     "navItems": [
       {
+        "path": "/loading",
+        "name": "loading",
+        "description": "[xm-mui] 加载指示器"
+      },
+      {
         "path": "/checkbox",
         "name": "checkbox",
         "description": "[xm-mui] 复选框"

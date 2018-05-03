@@ -11,27 +11,23 @@
     @confirm="$emit('common-btn')"
     @toggle="$emit('toggle-show', false)"
   >
-    <span v-if="$slots.icon" slot="icon">
-      <slot name="icon" />
-    </span>
-
     <template slot="content">
       <p class="address__empty" v-if="!commonList || commonList.length === 0">{{ emptyText }}</p>
       <cell-group v-else>
         <cell
           v-for="item in commonList"
           class="address-list__item"
-          :style="getColorMain(addressIsCurrent(item))"
+          :style="getColorMain(isCurrent(item))"
           :key="item.id"
-          @click="addressSelect(item)"
+          @click="onSelect(item)"
         >
           <slot :row="item" />
           <icon
-            v-show="addressIsCurrent(item)"
+            v-show="isCurrent(item)"
             slot="right-icon"
             name="success"
             class="van-cell__right-icon"
-            :style="getColorMain(addressIsCurrent(item))"
+            :style="getColorMain(isCurrent(item))"
           />
         </cell>
       </cell-group>
@@ -117,11 +113,11 @@ export default {
       return val !== undefined && val !== null
     },
 
-    addressIsCurrent(item) {
+    isCurrent(item) {
       return this.commonCurrent && this.commonCurrent.id === item.id
     },
 
-    addressSelect(item) {
+    onSelect(item) {
       this.$emit('common-select', item)
       this.$emit('toggle-show', false)
     }
@@ -130,6 +126,8 @@ export default {
 </script>
 
 <style lang="scss">
+  // @import '../../assets/iconfont/iconfont.css';
+
   .address__empty {
     text-align: center;
     padding-top: 80px;

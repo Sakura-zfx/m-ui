@@ -4,10 +4,12 @@ import App from './app.vue'
 import './assets/style/demo.scss'
 import './assets/iconfont/iconfont.css'
 import router from './router'
+import Loading from '../src/components/loading'
 
 Vue.config.productionTip = false
 Vue.config.devtools = true
 
+Vue.use(Loading)
 Vue.use(NavBar)
 Vue.use(Search)
 Vue.use(Icon)

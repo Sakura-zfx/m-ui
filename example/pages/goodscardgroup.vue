@@ -2,11 +2,8 @@
   <common-entry title="组合商品卡片">
     <div class="mg--10">
       <m-goods-card-group
+        v-model="isCheck"
         :is-show-checkbox="true"
-        :is-checked="false"
-        check-icon="icon-cell"
-        checked-icon="icon-search"
-        @on-check-change="onCheckChange"
         @on-label-click="onLabelClick"
       >
         <span slot="label" class="color-info ib-middle">店铺名称</span>
@@ -14,6 +11,7 @@
 
         <m-goods-card
           v-for="(item, index) in list"
+          v-model="childCheckList[item.id]"
           :key="index"
           :is-checkbox-disable="false"
           :is-show-checkbox="true"
@@ -36,28 +34,28 @@
       </m-goods-card-group>
     </div>
 
-    <p>slot</p>
+    <p class="px-margin-t30">slot</p>
     <pre>
       default // 商品列表
       label // 例如店铺名称
       info  // 店铺状态
       bottom // 底部操作栏
     </pre>
+    <p>model</p>
+    <pre>
+      v-model=""
+    </pre>
     <p>props</p>
     <pre>
-      props: {
+     props: {
         isShowCheckbox: {
           type: Boolean,
           default: false
-        },
-        checkIcon: String,
-        checkedIcon: String,
-        isChecked: Boolean
+        }
       }
     </pre>
     <p>events</p>
     <pre>
-      @on-check-change="onCheckChange"
       @on-label-click="onLabelClick"
     </pre>
     <p>判断是否选中</p>
@@ -75,12 +73,14 @@ import MGoodsCard from '../../src/components/goods-card'
 
 const list = [
   {
+    id: 1,
     name: '商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称',
     spec: '25盒 * 12',
     num: 10,
     price: 100000
   },
   {
+    id: 2,
     name: '商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称商品名称',
     spec: '25盒 * 12',
     num: 10,
@@ -88,7 +88,7 @@ const list = [
   }
 ]
 export default {
-  name: 'goods-card',
+  name: 'example-goods-card',
 
   components: {
     CommonEntry, MGoodsCardGroup, MGoodsCard
@@ -96,16 +96,21 @@ export default {
 
   data() {
     return {
-      list
+      list,
+      isCheck: false,
+      childCheckList: {}
+    }
+  },
+
+  watch: {
+    isCheck(val) {
+      this.$dialog.alert({ message: `checkbox : ${val}` })
     }
   },
 
   methods: {
     onClickCard() {
       this.$dialog.alert({ message: 'click card' })
-    },
-    onCheckChange(val) {
-      this.$dialog.alert({ message: `checkbox : ${val}` })
     },
     onLabelClick() {
       this.$dialog.alert({ message: 'click label' })

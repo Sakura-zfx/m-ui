@@ -16,7 +16,6 @@
       @address-add="clickBtn"
       @address-select="handleAddressSelect"
     >
-      <span slot="icon">取消</span>
       <template slot-scope="scope">
         <span>{{ scope.row.formatAddress }}</span>
       </template>

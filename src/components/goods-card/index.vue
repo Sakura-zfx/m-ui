@@ -10,14 +10,12 @@
       :style="[imgHeightStyle, imgLineHeight]"
       @click.stop="checkCard"
     >
-      <i
-        class="iconfont color-c999"
-        :class="{
-          [checkboxIconChecked]: isChecked,
-          [checkboxIcon]: !isChecked,
-          'bg-f2': isCheckboxDisable
-        }"
-        :style="isChecked ? mainColorStyle : null"
+      <checkbox
+        :check-type="checkboxIconType"
+        :value="isCheckboxChecked"
+        :disabled="isCheckboxDisable"
+        :main-color="this.mainColor"
+        @change="checkCard"
       />
     </div>
     <div
@@ -76,8 +74,19 @@
 </template>
 
 <script>
+import Checkbox from '../checkbox'
+
 export default {
   name: 'goods-card',
+
+  components: {
+    Checkbox
+  },
+
+  model: {
+    prop: 'isCheckboxChecked',
+    event: 'input'
+  },
 
   props: {
     name: {
@@ -87,6 +96,11 @@ export default {
     img: String,
     num: [String, Number],
     imgDefault: String,
+    border: {
+      type: Boolean,
+      default: false
+    },
+    spec: String,
     imgHeight: {
       type: [String, Number],
       default: 80
@@ -129,19 +143,10 @@ export default {
       type: Boolean,
       default: false
     },
-    border: {
-      type: Boolean,
-      default: false
-    },
-    spec: String,
     isCheckboxChecked: Boolean,
-    checkboxIcon: {
-      type: String,
-      default: 'icon-cell'
-    },
-    checkboxIconChecked: {
-      type: String,
-      default: 'icon-search'
+    checkboxIconType: {
+      type: [String, Number],
+      default: 1
     }
   },
 
@@ -161,23 +166,11 @@ export default {
     },
     itemHeightStyle() {
       return { height: `${this.contentHeight}px` }
-    },
-    mainColorStyle() {
-      return { color: this.mainColor }
-    }
-  },
-
-  data() {
-    return {
-      isChecked: this.isCheckboxChecked
     }
   },
 
   watch: {
-    isCheckboxChecked(val) {
-      this.isChecked = val
-    },
-    isChecked() {
+    isCheckboxChecked() {
       const { checkGoodsCardAllChecked } = this.$parent
       checkGoodsCardAllChecked && checkGoodsCardAllChecked()
     }
@@ -195,10 +188,10 @@ export default {
         `</span>`
     },
 
-    checkCard() {
+    checkCard(checked) {
       if (!this.isCheckboxDisable) {
-        this.isChecked = !this.isChecked
-        this.$emit('on-check')
+        this.$emit('input', checked)
+        this.$emit('change', checked)
       }
     }
   }
@@ -211,9 +204,6 @@ export default {
     overflow : hidden;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-  }
-  .goods-card__checkbox i {
-    border-radius: 8px;
   }
   .goods-card__item {
     padding: 10px 10px 10px 0;

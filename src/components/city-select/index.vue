@@ -6,7 +6,6 @@
     :main-color="mainColor"
     @toggle="$emit('hide-panel')"
   >
-    <template slot="icon">取消</template>
     <div slot="content" class="city-select-sample height-100 position-r">
       <div class="px-height-40 px-line-40 m-bd-b bg-fff">
         <span
