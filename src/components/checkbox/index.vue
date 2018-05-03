@@ -103,7 +103,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../../assets/iconfont/iconfont.css';
+  // @import '../../assets/iconfont/iconfont.css';
 
   .m-checkbox__check {
     line-height: 1;

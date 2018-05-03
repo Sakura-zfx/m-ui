@@ -18,6 +18,12 @@
     <pre>
       //statics.jituancaiyun.com/css/mui/4.0.1/mui.css
     </pre>
+    <p class="px-margin-t20">
+      全局iconfont，引用地址：
+    </p>
+    <pre>
+      //at.alicdn.com/t/font_650971_p23co31pzl0daemi.css
+    </pre>
   </common-entry>
 </template>
 

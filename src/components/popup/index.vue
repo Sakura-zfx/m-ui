@@ -140,7 +140,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import '../../assets/iconfont/iconfont.css';
+  // @import '../../assets/iconfont/iconfont.css';
 
   .m-popup__wrap {
     transform: translateY(0);
