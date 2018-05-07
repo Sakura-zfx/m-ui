@@ -17,6 +17,7 @@
         ref="input"
         @click.stop=""
         @input="changeNum"
+        @blur="checkNum"
         :value="num"
       >
     </div>
@@ -49,12 +50,18 @@ export default {
       return event.constructor && event.constructor.name === 'InputEvent'
     },
 
+    checkNum(e) {
+      if (this.isEmpty(e.target.value)) {
+        this.num = this.value
+        this.changeNum(this.num)
+      }
+    },
+
     changeNum(e) {
       let val = this.isInputEvent(e) ? e.target.value : e
       if (this.isEmpty(val)) {
-        this.num = this.min
+        this.num = ''
         this.timer && clearTimeout(this.timer)
-        this.changeNum(this.num)
       } else if (
         /^[1-9]\d*$/.test(val) &&
         val >= this.min &&
@@ -67,11 +74,13 @@ export default {
         this.timer && clearTimeout(this.timer)
         this.timer = setTimeout(() => {
           this.broadCast(this.num)
-        }, 1000)
+        }, this.inputWait)
       } else {
         if (val > this.max) {
-          this.$refs.input.value = this.num
-          this.timer && clearTimeout(this.timer)
+          this.num = this.max
+          this.$refs.input.value = this.max
+          this.changeNum(this.max)
+          this.$emit('invalid', val)
         } else {
           console.log(`val is not legal : ${val}, max: ${this.max}, min: ${this.min}`)
           this.$refs.input.value = this.num
@@ -112,6 +121,10 @@ export default {
     min: {
       type: [Number, String],
       default: 1
+    },
+    inputWait: {
+      type: [Number, String],
+      default: 500
     }
   }
 }

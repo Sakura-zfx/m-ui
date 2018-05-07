@@ -4,7 +4,9 @@
       v-model="value"
       :min="1"
       :max="20"
+      input-wait="400"
       @on-change="numChangeCallback"
+      @invalid="callback"
     />
     <pre>
       import { NumComputer } from 'xm-mui'
@@ -14,7 +16,9 @@
         v-model="value"
         :min="1"
         :max="20"
+        input-wait="400"
         @on-change="numChangeCallback"
+        @invalid="callback"
       /&gt;
 
       numChangeCallback(num, oldNum) {
@@ -44,6 +48,10 @@ export default {
   methods: {
     numChangeCallback(num, oldNum) {
       console.log(`this.value: ${this.value} new: ${num}, old: ${oldNum}`)
+    },
+
+    callback(num) {
+      console.log(num)
     }
   }
 }
