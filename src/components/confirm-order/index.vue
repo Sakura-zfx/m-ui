@@ -180,6 +180,7 @@
 </template>
 
 <script>
+import Vue from 'vue'
 import { Cell, CellGroup, Icon, Switch, SubmitBar } from 'vant'
 import MPopup from '../popup'
 import MAddressSelect from '../address-select'
@@ -225,6 +226,14 @@ export default {
     colorMain() {
       return { color: this.mainColor }
     }
+  },
+
+  created() {
+    const Common = Vue.extend(CommonSelect)
+    const commonInstance = new Common({
+      el: document.createElement('div')
+    })
+    console.log(commonInstance)
   },
 
   methods: {

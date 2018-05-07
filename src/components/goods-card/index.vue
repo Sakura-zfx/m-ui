@@ -45,7 +45,7 @@
         :style="itemHeightStyle"
       >
         <p
-          class="goods-card__name"
+          class="goods-card__name two-line"
           :class="{ 'color-c999': isAbnormal }"
         >
           {{ name }}
@@ -199,12 +199,6 @@ export default {
 </script>
 
 <style>
-  .goods-card__name {
-    display: -webkit-box;
-    overflow : hidden;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-  }
   .goods-card__item {
     padding: 10px 10px 10px 0;
   }
