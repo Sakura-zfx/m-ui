@@ -1,4 +1,5 @@
 export default {
+  online: /https/.test(location.href),
   isDef(val) {
     return val !== undefined && val !== null
   },

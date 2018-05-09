@@ -23,19 +23,24 @@
         "description": "[xm-mui] 加载指示器"
       },
       {
+        "path": "/cell",
+        "name": "cell",
+        "description": "[xm-mui] 单元格"
+      },
+      {
         "path": "/checkbox",
         "name": "checkbox",
         "description": "[xm-mui] 复选框"
       },
       {
+        "path": "/switch",
+        "name": "switch",
+        "description": "[xm-mui] 开关"
+      },
+      {
         "path": "/input",
         "name": "Input",
         "description": "[vant] 输入框"
-      },
-      {
-        "path": "/cell",
-        "name": "Cell",
-        "description": "[vant] 单元格"
       },
       {
         "path": "/switchcell",
@@ -161,6 +166,11 @@
         "path": "/confirmorder",
         "name": "ConfirmOrder",
         "description": "[xm-mui] 确认订单页公用组件"
+      },
+      {
+        "path": "/confirmmodules",
+        "name": "ConfirmModules",
+        "description": "[xm-mui] 确认订单模块"
       }
     ]
   }

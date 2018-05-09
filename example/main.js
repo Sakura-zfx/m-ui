@@ -5,6 +5,7 @@ import './assets/style/demo.scss'
 import './assets/iconfont/iconfont.css'
 import router from './router'
 import Loading from '../src/components/loading'
+import Box from '../src/components/msgbox'
 
 Vue.config.productionTip = false
 Vue.config.devtools = true
@@ -16,6 +17,7 @@ Vue.use(Icon)
 // Vue.use(Dialog)
 Vue.use(Cell).use(CellGroup)
 Vue.prototype.$dialog = Dialog
+Vue.prototype.$box = Box
 
 router.afterEach((to) => {
   document.title = to.meta.title

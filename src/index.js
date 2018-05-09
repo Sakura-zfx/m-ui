@@ -6,9 +6,11 @@ import ApproveSelect from './components/approve-select'
 import Avatar from './components/avatar'
 import BottomTab from './components/bottom-tab'
 import BottomTabItem from './components/bottom-tab-item'
+import Cell from './components/cell'
 import Checkbox from './components/checkbox'
 import CitySelect from './components/city-select'
 import CommonSelect from './components/common-select'
+import ConfirmModules from './components/confirm-modules'
 import ConfirmOrder from './components/confirm-order'
 import Empty from './components/empty'
 import GoodsCard from './components/goods-card'
@@ -16,23 +18,27 @@ import GoodsCardGroup from './components/goods-card-group'
 import LazyImg from './components/lazy-img'
 import Loading from './components/loading'
 import Mask from './components/mask'
+import Message from './components/message'
 import Msgbox from './components/msgbox'
 import NumComputer from './components/num-computer'
 import Popup from './components/popup'
+import Switch from './components/switch'
 import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import UserPanel from './components/user-panel'
 
-const version = '0.0.53'
+const version = '0.0.54'
 const components = [
   AddressSelect,
   ApproveSelect,
   Avatar,
   BottomTab,
   BottomTabItem,
+  Cell,
   Checkbox,
   CitySelect,
   CommonSelect,
+  ConfirmModules,
   ConfirmOrder,
   Empty,
   GoodsCard,
@@ -40,9 +46,11 @@ const components = [
   LazyImg,
   Loading,
   Mask,
+  Message,
   Msgbox,
   NumComputer,
   Popup,
+  Switch,
   Tab,
   TagSelect,
   UserPanel

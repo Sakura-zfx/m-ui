@@ -1,6 +1,6 @@
 {
   "name": "xm-mui",
-  "version": "0.0.53",
+  "version": "0.0.54",
   "description": "Vue components",
   "author": "yangming <472102644@qq.com>",
   "private": false,
@@ -28,6 +28,7 @@
     "pub": "node build/release.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "vant": "^1.0.5",
     "vue-lazyload": "^1.2.0",
     "weui": "^1.1.2"
