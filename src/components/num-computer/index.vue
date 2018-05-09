@@ -38,6 +38,7 @@ export default {
   watch: {
     value(num) {
       this.num = num
+      this.$refs.input.value = num
     }
   },
 
