@@ -59,6 +59,7 @@
       </cell>
       <common-select
         title="选择审批单"
+        class="select-approve"
         :visible="showApprovePopup"
         confirm-text="取消关联审批单"
         :common-list="approveList || []"
@@ -145,12 +146,14 @@
       <common-select
         title="发票信息"
         :visible="showBillPopup"
-        :confirm-show="false"
+        :confirm-show="true"
+        confirm-text="管理发票信息"
         :common-list="billList || []"
         :common-current="billCurrent"
         :main-color="mainColor"
         @toggle-show="showBillPopup = false"
         @common-select="item => $emit('select-bill', item)"
+        @common-btn="$emit('open-bill-app', 8687222)"
       >
         <template slot-scope="scope">
           <p>{{ scope.row.orgName }}</p>
@@ -178,9 +181,11 @@
       >
         <input
           type="tel"
+          ref="welfareInput"
           class="text-right"
           :placeholder="welfare ? `剩余可用${welfare.amount}积分` : '加载中'"
-          v-model="welfareUseNum"
+          :value="welfareUseNum"
+          @input="handleInputWelfare"
         >
       </cell>
     </template>
@@ -420,6 +425,7 @@ export default {
           //   subscription: false,
           //   buyer: true
           // }
+          this.$emit('load-scope-detail', res)
           return this.scopeInfo
         })
         .catch(error => this.$emit('error-callback', error))
@@ -457,6 +463,7 @@ export default {
             //   this.$emit('change-open-welfare', false)
             // })
           }
+          // res.amount = 10
           this.welfare = res
           this.loading.welfare = false
         })
@@ -514,6 +521,22 @@ export default {
         isUseWelfare: this.isOpenWelfare,
         welfareNum: this.welfareUseNum
       }
+    },
+
+    handleInputWelfare(e) {
+      const val = e.target.value
+      const input = this.$refs.welfareInput
+      if (val === '') {
+        this.welfareUseNum = ''
+      } else if (
+        !/^\d+$/.test(val) ||
+        Number(val) > this.welfare.amount
+      ) {
+        input.value = this.welfareUseNum
+      } else {
+        this.welfareUseNum = Number(val)
+        input.value = this.welfareUseNum
+      }
     }
   }
 }
@@ -530,7 +553,7 @@ export default {
       margin: 0;
       padding: 0;
     }
-    .m-popup__wrap .btn-wrap {
+    .select-approve .m-popup__wrap .btn-wrap {
       color: #333333;
       font-size: 14px !important;
       background-color: #f7f8f9 !important;
