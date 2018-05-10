@@ -1,6 +1,15 @@
 # m-ui
 
-组件demo  
+```
+npm install xm-mui
+```
+
+```vue
+import { Loading } from 'xm-mui'
+Vue.use(Loading)
+```
+
+组件demo
 
 <img src="./example/assets/images/demo.jpeg" width="300px">
 
