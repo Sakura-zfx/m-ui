@@ -5,6 +5,7 @@
         v-model="isCheck"
         :is-show-checkbox="true"
         @on-label-click="onLabelClick"
+        @on-click="onClick"
       >
         <span slot="label" class="color-info ib-middle">店铺名称</span>
         <span slot="info" class="color-error">已拒收</span>
@@ -114,6 +115,9 @@ export default {
     },
     onLabelClick() {
       this.$dialog.alert({ message: 'click label' })
+    },
+    onClick() {
+      this.$dialog.alert({ message: 'click' })
     }
   }
 }

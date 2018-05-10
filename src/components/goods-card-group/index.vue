@@ -1,20 +1,19 @@
 <template>
-  <div class="m-goods-card-group">
+  <div class="m-goods-card-group" @click="$emit('on-click')">
     <div
       class="m-goods-card-group__title m-bd-b overflow-h px-padding-lr10 bg-fff"
-      @click="$emit('on-click')"
     >
       <div v-if="$slots.info" class="fr m-goods-card-group__title-info">
         <slot name="info" />
       </div>
-      <div class="m-goods-card-group__label font-0" @click.stop="$emit('on-label-click')">
+      <div class="m-goods-card-group__label font-0">
         <div v-if="isShowCheckbox" class="ib-middle px-width-30">
           <checkbox
             :value="isChecked"
             @change="onCheckLabel"
           />
         </div>
-        <div class="px-font-14 ib-middle" v-if="$slots.label">
+        <div v-if="$slots.label" class="px-font-14 ib-middle" @click.stop="$emit('on-label-click')">
           <slot name="label" />
           <icon class="ib-middle color-ccc px-font-12" name="arrow"/>
         </div>
