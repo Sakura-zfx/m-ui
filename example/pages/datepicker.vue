@@ -11,20 +11,20 @@
       @select-finish="handleDateChoose"
     />
 
-   <common-entry>
-     <div class="px-margin-t30">
-      <pre>
-        import { DatePicker } from 'xm-mui'
-      </pre>
-     </div>
+    <common-entry>
+      <div class="px-margin-t30">
+        <pre>
+          import { DatePicker } from 'xm-mui'
+        </pre>
+      </div>
 
-     <p>events</p>
-     <pre>
+      <p>events</p>
+      <pre>
       @date-select
       @select-finish
-    </pre>
-     <p>props</p>
-     <pre class="px-font-12">
+      </pre>
+      <p>props</p>
+      <pre class="px-font-12">
        props: {
          limitDays: {
            type: Number,
@@ -53,7 +53,7 @@
            }
          }
       }
-    </pre>
+      </pre>
     </common-entry>
   </div>
 </template>
