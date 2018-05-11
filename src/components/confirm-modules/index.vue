@@ -519,7 +519,8 @@ export default {
         bill: this.billCurrent,
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
-        welfareNum: this.welfareUseNum
+        welfareNum: this.welfareUseNum ? Number(this.welfareUseNum) : 0,
+        welfare: this.welfare
       }
     },
 
