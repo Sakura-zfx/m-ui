@@ -152,8 +152,6 @@ export default {
       toDate: null,
       // 下次点击是否重新开始
       resetClick: true,
-      // 选择完毕
-      pageEnd: false,
       lastScrollPosition: 0,
       toBottom: true,
       boxs: null
@@ -365,9 +363,6 @@ export default {
 
     // 点击选中
     doSelect(year, month, date, e) {
-      if (this.pageEnd) {
-        return
-      }
       this.$emit('date-select', this.getTimeStamp({ year, month, date }))
       if (
         e.target.classList.contains('disabled') ||
@@ -415,7 +410,6 @@ export default {
           endTime: this.getTimeStamp(this.toDate)
         })
       }
-      // this.pageEnd = true
       this.resetClick = true
     },
 
