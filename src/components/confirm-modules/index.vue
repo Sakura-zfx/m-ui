@@ -44,7 +44,7 @@
       </common-select>
     </template>
 
-    <template v-if="hasApproveModule && isShowApproveCell">
+    <template v-if="hasApproveModule">
       <cell
         label="选择审批单"
         :loading="loading.approve"
@@ -203,6 +203,10 @@
         />
         <span class="color-red fr">+ ¥ {{ freightMoney | formatPrice }}</span>
       </p>
+      <p v-if="hasWelfareModule && isOpenWelfare">
+        <span class="ib-middle">福利积分</span>
+        <span class="color-red fr">- ¥ {{ welfareUseNum | formatPrice }}</span>
+      </p>
       <p class="text-right">
         <span class="font-bold color-c000">总价：</span>
         <span class="color-red">¥ {{ totalMoney | formatPrice }}</span>
@@ -291,6 +295,7 @@ export default {
         welfare: false
       },
 
+      showWelfareCell: true,
       showPayWayPopup: false,
       showApprovePopup: false,
       showBillMethodPopup: false,
@@ -309,7 +314,9 @@ export default {
     },
 
     hasApproveModule() {
-      return this.config ? this.config.indexOf(4) > -1 : false
+      return this.config
+        ? this.config.indexOf(4) > -1 && this.isShowApproveCell
+        : false
     },
 
     hasBillModule() {
@@ -317,7 +324,9 @@ export default {
     },
 
     hasWelfareModule() {
-      return this.config ? this.config.indexOf(11) > -1 : false
+      return this.config
+        ? this.config.indexOf(11) > -1 && this.showWelfareCell
+        : false
     },
 
     hasMoneySum() {
@@ -351,12 +360,18 @@ export default {
         if (item.id === 1) {
           this.$emit('change-open-bill', true)
           this.showBillMethodCell = false
+          // 隐藏积分支付
+          this.toggleWelfareCell(false)
         } else if (item.id === 2) {
           this.$emit('change-open-bill', true)
           this.showBillMethodCell = true
+          // 隐藏积分支付
+          this.toggleWelfareCell(false)
         } else {
           this.$emit('change-open-bill', false)
           this.showBillMethodCell = false
+          // 显示积分支付
+          this.toggleWelfareCell(true)
         }
       }
     },
@@ -537,6 +552,14 @@ export default {
       } else {
         this.welfareUseNum = Number(val)
         input.value = this.welfareUseNum
+      }
+    },
+
+    toggleWelfareCell(show) {
+      this.showWelfareCell = show
+      if (!show) {
+        this.welfareUseNum = ''
+        this.$emit('change-open-welfare', false)
       }
     }
   }
