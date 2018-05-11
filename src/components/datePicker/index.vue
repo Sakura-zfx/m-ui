@@ -79,14 +79,14 @@
                 v-if="fromOrTo(date.year, date.month, day, 'fromDate')"
                 :style="{ color: mainColor }"
               >
-                {{ textArr[0] }}
+                {{ timeLabel[0] }}
               </span>
               <span
                 class="in-out-txt position-a px-font-12 color-main width-100 left-0 px-line-20"
                 v-if="fromOrTo(date.year, date.month, day, 'toDate')"
                 :style="{ color: mainColor }"
               >
-                {{ textArr[1] }}
+                {{ timeLabel[1] }}
               </span>
             </div>
           </div>
@@ -121,15 +121,15 @@ export default {
       type: String,
       default: '#ebe2ed'
     },
-    oneWay: {
+    isSingle: {
       type: Boolean,
       default: false
     },
-    timeStamp: {
+    defaultTimeStamp: {
       type: Number | String,
       default: Date.now()
     },
-    textArr: {
+    timeLabel: {
       type: Array,
       default() {
         return ['入店', '离店']
@@ -205,11 +205,11 @@ export default {
       return arr
     },
 
-    // 根据search传递的timeStamp 生成起始时间 、 结束时间
+    // 根据search传递的defaultTimeStamp 生成起始时间 、 结束时间
     setDate() {
-      const { year, month, date } = this.formatTime(this.timeStamp)
-      const endDate = this.formatTime(this.timeStamp + ((this.limitDays - 1) * 24 * 3600 * 1000))
-      const toDate = this.formatTime(this.timeStamp + 24 * 3600 * 1000)
+      const { year, month, date } = this.formatTime(this.defaultTimeStamp)
+      const endDate = this.formatTime(this.defaultTimeStamp + ((this.limitDays - 1) * 24 * 3600 * 1000))
+      const toDate = this.formatTime(this.defaultTimeStamp + 24 * 3600 * 1000)
       this.currentDate = { year, month, date }
       this.fromDate = { year, month, date }
       this.endDate = {
@@ -224,8 +224,8 @@ export default {
       }
     },
 
-    getDateObj(timeStamp) {
-      const date = this.formatTime(timeStamp)
+    getDateObj(defaultTimeStamp) {
+      const date = this.formatTime(defaultTimeStamp)
       return {
         year: date.year,
         month: date.month + 1,
@@ -379,12 +379,12 @@ export default {
       const thisStamp = this.getTimeStamp({ year, month, date })
       const fromStamp = this.getTimeStamp(this.fromDate)
       // 是否为单选 或者 当前选中的时间比之前选中的要小
-      if (this.oneWay || (thisStamp < fromStamp)) {
+      if (this.isSingle || (thisStamp < fromStamp)) {
         this.fromDate = { year, month, date }
       }
       // 当为单选 重置todate
       // finish
-      if (this.oneWay) {
+      if (this.isSingle) {
         this.resetToDate()
         this.doFinish()
         return
@@ -405,7 +405,7 @@ export default {
     },
 
     doFinish() {
-      if (this.oneWay) {
+      if (this.isSingle) {
         this.$emit('select-finish', {
           startTime: this.getTimeStamp(this.fromDate)
         })

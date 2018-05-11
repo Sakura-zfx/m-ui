@@ -2,11 +2,11 @@
   <div class="datepicker height-100">
     <date-picker
       :limit-days="90"
-      :main-color="`#f00`"
-      :sub-color="`#00f`"
-      :one-way="false"
-      :time-stamp="new Date('2018-05-14 14:00').getTime()"
-      :text-arr="['label1', 'label2']"
+      :main-color="`#753e81`"
+      :sub-color="`#ebe2ed`"
+      :is-single="false"
+      :default-time-stamp="new Date('2018-05-14 14:00').getTime()"
+      :time-label="['label1', 'label2']"
       @date-select="handleDateSelect"
       @select-finish="handleDateChoose"
     />
