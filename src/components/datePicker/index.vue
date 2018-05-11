@@ -86,7 +86,7 @@
                 v-if="fromOrTo(date.year, date.month, day, 'toDate')"
                 :style="{ color: mainColor }"
               >
-                {{ timeLabel[1] }}
+                {{ isSingle ? '' : timeLabel[1] }}
               </span>
             </div>
           </div>
@@ -218,9 +218,9 @@ export default {
         date: endDate.date
       }
       this.toDate = {
-        year: toDate.year,
-        month: toDate.month,
-        date: toDate.date
+        year: this.isSingle ? year : toDate.year,
+        month: this.isSingle ? month : toDate.month,
+        date: this.isSingle ? date : toDate.date
       }
     },
 
@@ -415,7 +415,8 @@ export default {
           endTime: this.getTimeStamp(this.toDate)
         })
       }
-      this.pageEnd = true
+      // this.pageEnd = true
+      this.resetClick = true
     },
 
     onScroll(e) {
