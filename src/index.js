@@ -12,6 +12,7 @@ import CitySelect from './components/city-select'
 import CommonSelect from './components/common-select'
 import ConfirmModules from './components/confirm-modules'
 import ConfirmOrder from './components/confirm-order'
+import DatePicker from './components/datePicker'
 import Empty from './components/empty'
 import GoodsCard from './components/goods-card'
 import GoodsCardGroup from './components/goods-card-group'
@@ -40,6 +41,7 @@ const components = [
   CommonSelect,
   ConfirmModules,
   ConfirmOrder,
+  DatePicker,
   Empty,
   GoodsCard,
   GoodsCardGroup,
