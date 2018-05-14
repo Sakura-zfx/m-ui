@@ -203,9 +203,9 @@
         />
         <span class="color-red fr">+ ¥ {{ freightMoney | formatPrice }}</span>
       </p>
-      <p v-if="hasWelfareModule && isOpenWelfare">
-        <span class="ib-middle">福利积分</span>
-        <span class="color-red fr">- ¥ {{ welfareUseNum | formatPrice }}</span>
+      <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
+        <span class="ib-middle">积分抵扣</span>
+        <span class="color-red fr">- ¥ {{ welfareUseNum | formatPrice }}({{ welfareUseNum }}积分)</span>
       </p>
       <p class="text-right">
         <span class="font-bold color-c000">总价：</span>
@@ -268,7 +268,8 @@ export default {
     isShowApproveCell: Boolean,
     skuMoney: Number,
     freightMoney: Number,
-    totalMoney: Number
+    totalMoney: Number,
+    welfareMaxUseNum: Number
   },
 
   data() {
@@ -542,11 +543,15 @@ export default {
     handleInputWelfare(e) {
       const val = e.target.value
       const input = this.$refs.welfareInput
+      const maxNum = this.welfareMaxUseNum
+        ? Math.min(this.welfareMaxUseNum, this.welfare.amount)
+        : this.welfare.amount
+
       if (val === '') {
         this.welfareUseNum = ''
       } else if (
         !/^\d+$/.test(val) ||
-        Number(val) > this.welfare.amount
+        Number(val) > maxNum
       ) {
         input.value = this.welfareUseNum
       } else {

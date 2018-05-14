@@ -18,6 +18,7 @@
         @click.stop=""
         @input="changeNum"
         @blur="checkNum"
+        @focus="handleFocus"
         :value="num"
       >
     </div>
@@ -107,6 +108,11 @@ export default {
       // @param val {Number} 更新前的数量
       this.$emit('input', num)
       this.$emit('on-change', num, this.value)
+    },
+
+    handleFocus() {
+      this.$refs.input.scrollIntoView(true)
+      // this.$refs.input.scrollIntoViewIfNeeded(true)
     }
   },
 
