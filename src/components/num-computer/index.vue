@@ -64,7 +64,6 @@ export default {
 
     changeNum(e) {
       let val = this.isInputEvent(e) ? e.target.value : e
-      alert(val)
       if (this.isEmpty(val)) {
         this.num = ''
         this.timer && clearTimeout(this.timer)
