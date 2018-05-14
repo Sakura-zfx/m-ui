@@ -49,7 +49,10 @@ export default {
     },
 
     isInputEvent(event) {
-      return event.constructor && event.constructor.name === 'InputEvent'
+      if (event.constructor) {
+        return /Event/.test(event.constructor.name)
+      }
+      return false
     },
 
     checkNum(e) {
@@ -61,6 +64,7 @@ export default {
 
     changeNum(e) {
       let val = this.isInputEvent(e) ? e.target.value : e
+      alert(val)
       if (this.isEmpty(val)) {
         this.num = ''
         this.timer && clearTimeout(this.timer)
