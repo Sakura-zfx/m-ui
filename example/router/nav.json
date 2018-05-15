@@ -23,6 +23,11 @@
         "description": "[xm-mui] 加载指示器"
       },
       {
+        "path": "/toast",
+        "name": "toast",
+        "description": "[xm-mui] toast"
+      },
+      {
         "path": "/cell",
         "name": "cell",
         "description": "[xm-mui] 单元格"
