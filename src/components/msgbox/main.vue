@@ -97,7 +97,7 @@ export default {
     .m-msgBox_content {
       max-height: 250px;
       min-height: 70px;
-      padding-top: 20px;
+      padding: 20px;
       overflow: hidden;
 
       // background-image: linear-gradient(0deg, #cecece, transparent);

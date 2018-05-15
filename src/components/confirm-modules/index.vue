@@ -549,11 +549,13 @@ export default {
 
       if (val === '') {
         this.welfareUseNum = ''
-      } else if (
-        !/^\d+$/.test(val) ||
-        Number(val) > maxNum
-      ) {
+      } else if (!/^\d+$/.test(val)) {
+        // 不合法的数字
         input.value = this.welfareUseNum
+      } else if (Number(val) > maxNum) {
+        // 大于最大值
+        input.value = maxNum
+        this.welfareUseNum = maxNum
       } else {
         this.welfareUseNum = Number(val)
         input.value = this.welfareUseNum

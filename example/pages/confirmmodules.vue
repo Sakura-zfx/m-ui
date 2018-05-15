@@ -17,6 +17,7 @@
         :freight-money="33"
         :total-money="4999"
         :is-show-approve-cell="true"
+        :welfare-max-use-num="20"
         @select-approve="item => selectApprove = item"
         @cancel-select-approve="selectApprove = null"
         @change-open-bill="val => isOpenBill = val"
