@@ -7,7 +7,11 @@
         @touchmove.prevent=""
         @click.stop=""
       >
-        <div v-if="!noTitle" :class="`title-wrap ${titleAlign} px-padding-lr10`" class="position-r">
+        <div
+          v-if="!noTitle"
+          :class="`title-wrap ${titleAlign} px-padding-lr10`"
+          class="position-r m-bd-b"
+        >
           <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
             <slot name="icon">
               <i class="iconfont icon-guanbi" />
@@ -154,7 +158,7 @@ export default {
     .title-wrap {
       height: 45px;
       line-height: 45px;
-      border-bottom: 1px #f2f2f2 solid;
+      // border-bottom: 1px #f2f2f2 solid;
 
       .right-close {
         height: 100%;

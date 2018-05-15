@@ -67,8 +67,8 @@ export default {
       font-size: 12px;
     }
     .circular {
-      width:42px;
-      height:42px;
+      width: 32px;
+      height: 32px;
       animation:loading-rotate 2s linear infinite
     }
     .path{

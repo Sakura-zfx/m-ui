@@ -36,6 +36,7 @@ export default {
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: rgba(0,0,0,.7);
+    z-index: 1110;
   }
   .m-toast__text {
     padding: 5px 10px;

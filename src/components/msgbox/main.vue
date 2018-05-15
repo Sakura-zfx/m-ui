@@ -92,7 +92,7 @@ export default {
     .m-msgBox_title {
       font-size: 16px;
       font-weight: bold;
-      padding-top: 10px;
+      padding: 10px 20px 0 20px;
     }
     .m-msgBox_content {
       max-height: 250px;

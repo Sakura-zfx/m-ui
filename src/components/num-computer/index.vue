@@ -142,6 +142,8 @@ export default {
 
 <style lang="scss">
   .num-compute {
+    border-radius: 2px;
+    overflow: hidden;
     &.input-db {
       border-top: 1px #f2f2f2 solid;
       border-bottom: 1px #f2f2f2 solid;
