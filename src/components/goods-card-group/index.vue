@@ -15,7 +15,11 @@
             @change="onCheckLabel"
           />
         </div>
-        <div v-if="$slots.label" class="px-font-14 ib-middle" @click.stop="$emit('on-label-click')">
+        <div
+          v-if="$slots.label"
+          class="px-font-14 ib-middle color-c262"
+          @click.stop="$emit('on-label-click')"
+        >
           <slot name="label" />
           <icon class="ib-middle color-ccc px-font-12" name="arrow"/>
         </div>
@@ -83,13 +87,9 @@ export default {
 </script>
 
 <style lang="scss">
-  .m-goods-card-group {
-
-  }
+  .color-c262 { color: #262a30; }
   .m-goods-card-group__title,
   .m-goods-card-group__bottom {
     line-height: 50px;
-    height: 50px;
-    overflow: hidden;
   }
 </style>
