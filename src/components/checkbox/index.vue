@@ -86,8 +86,8 @@ export default {
   methods: {
     setIcon() {
       if (this.checkType === 1) {
-        this.checkIconLocal = 'icon-duoxuankexuan'
-        this.checkedIconLocal = 'icon-duoxuanxuanzhong'
+        this.checkIconLocal = this.checkIcon
+        this.checkedIconLocal = this.checkedIcon
       } else {
         this.checkIconLocal = 'icon-quanxuan'
         this.checkedIconLocal = 'icon-quanxuanxuanzhong'

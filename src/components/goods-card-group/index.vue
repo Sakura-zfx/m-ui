@@ -9,6 +9,8 @@
       <div class="m-goods-card-group__label font-0">
         <div v-if="isShowCheckbox" class="ib-middle px-width-30">
           <checkbox
+            check-icon="icon-quanxuan1"
+            checked-icon="icon-quanxuancopy"
             :value="isChecked"
             @change="onCheckLabel"
           />
@@ -86,6 +88,8 @@ export default {
   }
   .m-goods-card-group__title,
   .m-goods-card-group__bottom {
-    line-height: 40px;
+    line-height: 50px;
+    height: 50px;
+    overflow: hidden;
   }
 </style>
