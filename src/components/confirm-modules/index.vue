@@ -183,7 +183,7 @@
           type="tel"
           ref="welfareInput"
           class="text-right"
-          :placeholder="welfare ? `剩余可用${welfare.amount}积分` : '加载中'"
+          :placeholder="welfare ? `剩余可用${welfare.restAmount}积分` : '加载中'"
           :value="welfareUseNum"
           @input="handleInputWelfare"
         >
@@ -357,23 +357,9 @@ export default {
 
     payWay: {
       deep: true,
-      handler(item) {
-        if (item.id === 1) {
-          this.$emit('change-open-bill', true)
-          this.showBillMethodCell = false
-          // 隐藏积分支付
-          this.toggleWelfareCell(false)
-        } else if (item.id === 2) {
-          this.$emit('change-open-bill', true)
-          this.showBillMethodCell = true
-          // 隐藏积分支付
-          this.toggleWelfareCell(false)
-        } else {
-          this.$emit('change-open-bill', false)
-          this.showBillMethodCell = false
-          // 显示积分支付
-          this.toggleWelfareCell(true)
-        }
+      handler() {
+        this.initBill(false)
+        this.initWelfare()
       }
     },
 
@@ -385,39 +371,16 @@ export default {
   },
 
   created() {
-    // 账户信息
-    this.getScopeInfo().then(res => {
-      const { balance, buyer, subscription } = res
-      let payWayList = []
-
-      if (!subscription || !buyer) {
-        payWayList = [PAY_WAY[2]]
-      } else if (!balance) {
-        payWayList = PAY_WAY.slice(1, 3)
-      } else {
-        payWayList = PAY_WAY.slice()
-      }
-
-      if (
-        !this.payWay ||
-        payWayList.every(x => x.id !== this.payWay.id)
-      ) {
-        this.$emit('select-pay-way', payWayList[0])
-      }
-      this.payWayList = payWayList
-    })
     // 模块配置
     this.getConfig().then(() => {
+      if (this.hasPayWayModule) {
+        this.initPay()
+      }
       if (this.hasBillModule) {
-        // 发票模块id为10
-        this.getBillList()
-        // 初始化开票方式等
-        if (!this.billMethodCurrent) {
-          this.$emit('select-bill-method', BILL_METHOD[0])
-        }
-        if (!this.billTypeCurrent) {
-          this.$emit('select-bill-type', BILL_TYPE_LIST[0])
-        }
+        this.initBill()
+      }
+      if (this.hasWelfareModule) {
+        this.initWelfare()
       }
     })
   },
@@ -474,7 +437,7 @@ export default {
       this.loading.welfare = true
       this.get(this.urlWelfare)
         .then(res => {
-          if (res.amount === 0) {
+          if (res.restAmount === 0) {
             // this.$box.alert('剩余可用积分数量为0').then(() => {
             //   this.$emit('change-open-welfare', false)
             // })
@@ -484,6 +447,83 @@ export default {
           this.loading.welfare = false
         })
         .catch(error => this.$emit('error-callback', error))
+    },
+
+    initPay() {
+      // 账户信息
+      this.getScopeInfo().then(res => {
+        const { balance, buyer, subscription } = res
+        // const buyer = false
+        // const balance = false
+        // const subscription = true
+
+        let payWayList = []
+
+        if (!subscription || !buyer) {
+          payWayList = [PAY_WAY[2]]
+        } else if (!balance) {
+          if (this.approveCurrent) {
+            payWayList = [PAY_WAY[1]]
+          } else {
+            payWayList = PAY_WAY.slice(1, 3)
+          }
+        } else {
+          payWayList = PAY_WAY.slice()
+        }
+
+        // 如果关联了审批单，没有个人支付
+        if (this.approveCurrent) {
+          payWayList = payWayList.slice(0, -1)
+        }
+
+        if (
+          !this.payWay ||
+          payWayList.every(x => x.id !== this.payWay.id)
+        ) {
+          this.$emit('select-pay-way', payWayList[0])
+        }
+        this.payWayList = payWayList
+      })
+    },
+
+    initBill(isNeedRequest = true) {
+      // 根据支付方式来控制发票模块的显示与隐藏
+      if (this.payWay) {
+        const { id } = this.payWay
+        if (id === 1 || id === 3) {
+          this.showBillMethodCell = false
+        } else {
+          this.showBillMethodCell = true
+        }
+        this.$emit('change-open-bill', true)
+      }
+
+      if (isNeedRequest) {
+        this.getBillList()
+      }
+      // 初始化开票方式等
+      if (!this.billMethodCurrent) {
+        this.$emit('select-bill-method', BILL_METHOD[0])
+      }
+      if (!this.billTypeCurrent) {
+        this.$emit('select-bill-type', BILL_TYPE_LIST[0])
+      }
+    },
+
+    initWelfare() {
+      // 根据支付方式来控制积分模块的显示与隐藏
+      if (this.payWay) {
+        const { id } = this.payWay
+        if (id === 1 || id === 2) {
+          this.toggleWelfareCell(false)
+        } else {
+          this.toggleWelfareCell(true)
+        }
+
+        if (this.isOpenWelfare && id === 3) {
+          this.$nextTick(this.getWelfare)
+        }
+      }
     },
 
     toSelectBill() {
@@ -567,6 +607,8 @@ export default {
       if (!show) {
         this.welfareUseNum = ''
         this.$emit('change-open-welfare', false)
+      } else {
+        this.$emit('change-open-welfare', true)
       }
     }
   }
