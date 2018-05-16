@@ -526,6 +526,13 @@ export default {
       }
     },
 
+    // 暴露给外部重置调用
+    reInitWelfare() {
+      this.welfareUseNum = ''
+      this.$refs.welfareInput.value = ''
+      this.getWelfare()
+    },
+
     toSelectBill() {
       this.showBillPopup = true
       this.getBillList()
