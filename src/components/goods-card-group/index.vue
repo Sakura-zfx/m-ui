@@ -1,7 +1,10 @@
 <template>
   <div class="m-goods-card-group" @click="$emit('on-click')">
     <div
-      class="m-goods-card-group__title m-bd-b overflow-h px-padding-lr10 bg-fff"
+      class="m-goods-card-group__title overflow-h px-padding-lr10 bg-fff"
+      :class="{
+        'm-bd-b': border
+      }"
     >
       <div v-if="$slots.info" class="fr m-goods-card-group__title-info">
         <slot name="info" />
@@ -32,7 +35,10 @@
 
     <div
       v-if="$slots.bottom"
-      class="m-goods-card-group__bottom text-right m-bd-t bg-fff"
+      class="m-goods-card-group__bottom text-right bg-fff"
+      :class="{
+        'm-bd-t': border
+      }"
     >
       <slot name="bottom" />
     </div>
@@ -57,7 +63,11 @@ export default {
       type: Boolean,
       default: false
     },
-    isChecked: Boolean
+    isChecked: Boolean,
+    border: {
+      type: Boolean,
+      default: true
+    }
   },
 
   data() {

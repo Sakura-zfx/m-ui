@@ -79,31 +79,26 @@ export default {
   }
   .m-msgBox {
     position: absolute;
-    width: 300px;
+    width: 270px;
     background-color: #fff;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border-radius: 10px;
+    border-radius: 12px;
     text-align: center;
     overflow: hidden;
     font-size: 14px;
+    padding-top: 24px;
 
     .m-msgBox_title {
-      font-size: 16px;
-      font-weight: bold;
-      padding: 10px 20px 0 20px;
+      font-size: 18px;
+      padding: 0 20px;
     }
     .m-msgBox_content {
       max-height: 250px;
-      min-height: 70px;
-      padding: 20px;
       overflow: hidden;
-
-      // background-image: linear-gradient(0deg, #cecece, transparent);
-      // background-size: 100% 1px;
-      // background-repeat: no-repeat;
-      // background-position: bottom center;
+      color: #262A30;
+      padding: 10px 20px 15px 20px;
     }
     .m-msgBox_foot {
       font-size: 0;
@@ -112,19 +107,14 @@ export default {
         display: inline-block;
         vertical-align: middle;
         width: 50%;
-        font-size: 14px;
-        line-height: 40px;
-        color: #38f;
-        // background-color: red;
-        // &:first-child {
-        //   color: #333333 !important;
-        //   background-color: #fff !important;
-        // }
+        font-size: 17px;
+        line-height: 44px;
+        color: #0076FF;
         &.w100 {
           width: 100%;
         }
         &.color-blue {
-          color: #22a7f0 !important;
+          color: #0076FF !important;
         }
       }
     }
