@@ -88,17 +88,16 @@ export default {
     text-align: center;
     overflow: hidden;
     font-size: 14px;
-    padding-top: 24px;
 
     .m-msgBox_title {
       font-size: 18px;
-      padding: 0 20px;
+      padding: 20px 20px 0 20px;
     }
     .m-msgBox_content {
       max-height: 250px;
       overflow: hidden;
       color: #262A30;
-      padding: 10px 20px 15px 20px;
+      padding: 15px 20px;
     }
     .m-msgBox_foot {
       font-size: 0;

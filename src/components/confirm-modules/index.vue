@@ -367,6 +367,12 @@ export default {
       if (!val) {
         this.showApprovePopup = true
       }
+    },
+
+    approveCurrent(val) {
+      if (val === null && !this.payWayList.find(x => x.id === 3)) {
+        this.payWayList.push(PAY_WAY[2])
+      }
     }
   },
 
@@ -473,7 +479,7 @@ export default {
 
         // 如果关联了审批单，没有个人支付
         if (this.approveCurrent) {
-          payWayList = payWayList.slice(0, -1)
+          payWayList = payWayList.filter(x => x.id !== 3)
         }
 
         if (
