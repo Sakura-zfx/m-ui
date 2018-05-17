@@ -11,7 +11,7 @@
       @click.stop="checkCard"
     >
       <checkbox
-        check-icon="icon-quanxuan1"
+        check-icon="icon-quanxuan"
         checked-icon="icon-quanxuancopy"
         :check-type="checkboxIconType"
         :value="isCheckboxChecked"

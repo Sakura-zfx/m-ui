@@ -57,7 +57,11 @@ export default {
       type: [Number, String],
       default: 1 // 复选框 // 2 单选框
     },
-    disabled: Boolean
+    disabled: Boolean,
+    radius: {
+      type: String,
+      default: '2'
+    }
   },
 
   computed: {
@@ -65,7 +69,7 @@ export default {
       return {
         width: `${this.size}px`,
         height: `${this.size}px`,
-        borderRadius: `${this.checkType === 1 ? 2 : this.size / 2}px`,
+        borderRadius: `${this.radius === 'circle' ? this.size / 2 : this.radius}px`,
         color: this.value ? this.mainColor : '',
         borderColor: this.value ? this.mainColor : '',
         border: this.checkIcon ? 'none' : '1px solid #dedede'
