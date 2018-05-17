@@ -17,6 +17,7 @@
         :value="isCheckboxChecked"
         :disabled="isCheckboxDisable"
         :main-color="this.mainColor"
+        radius="circle"
         @change="checkCard"
       />
     </div>

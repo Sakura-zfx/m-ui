@@ -12,8 +12,9 @@
       <div class="m-goods-card-group__label font-0">
         <div v-if="isShowCheckbox" class="ib-middle px-width-30">
           <checkbox
-            check-icon="icon-quanxuan1"
+            check-icon="icon-quanxuan"
             checked-icon="icon-quanxuancopy"
+            radius="circle"
             :value="isChecked"
             @change="onCheckLabel"
           />
