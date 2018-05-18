@@ -61,14 +61,14 @@
             <template v-else-if="num !== undefined">x{{ num }}</template>
           </div>
           <div
-            v-if="isMainPriceStyle && !isAbnormal"
+            v-if="isMainPriceStyle"
             v-html="genderPrice(price)"
           />
           <span
-            :class="{ 'color-c999': isAbnormal }"
+            class="color-c999"
             v-else
           >
-            ¥ {{ (price / 100).toFixed(2) }} 元
+            ¥ {{ (price / 100).toFixed(2) }}
           </span>
         </div>
       </div>
@@ -186,6 +186,9 @@ export default {
   methods: {
     genderPrice(price, color = this.mainColor) {
       const num = Number(price / 100).toFixed(this.priceFixed).split('.')
+      if (this.isAbnormal) {
+        color = '#999'
+      }
       return `<span class="rem-font-10" style="color: ${color}">¥ ` +
         `<span class="rem-font-16">${num[0]}</span>.<span>${num[1]}</span>` +
         `</span>`
