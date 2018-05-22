@@ -63,6 +63,11 @@
     "groupTitle": "高级组件",
     "navItems": [
       {
+        "path": "/search",
+        "name": "Search",
+        "description": "[xm-mui] 搜索输入框"
+      },
+      {
         "path": "/numcomputer",
         "name": "NumComputer",
         "description": "[xm-mui] 数字加减器"
@@ -106,6 +111,11 @@
         "path": "/popup",
         "name": "Popup",
         "description": "[xm-mui] 上拉面板"
+      },
+      {
+        "path": "/popupside",
+        "name": "PopupSide",
+        "description": "[xm-mui] 侧边面板"
       },
       {
         "path": "/msgbox",

@@ -23,13 +23,15 @@ import Message from './components/message'
 import Msgbox from './components/msgbox'
 import NumComputer from './components/num-computer'
 import Popup from './components/popup'
+import PopupSide from './components/popup-side'
+import Search from './components/search'
 import Switch from './components/switch'
 import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import UserPanel from './components/user-panel'
 
-const version = '0.1.19'
+const version = '0.1.20'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -53,6 +55,8 @@ const components = [
   Msgbox,
   NumComputer,
   Popup,
+  PopupSide,
+  Search,
   Switch,
   Tab,
   TagSelect,
