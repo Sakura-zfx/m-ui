@@ -15,6 +15,10 @@
       <p class="address__empty" v-if="!commonList || commonList.length === 0">{{ emptyText }}</p>
       <cell-group v-else>
         <cell
+          :title="cancelText"
+          @click="onSelect()"
+        />
+        <cell
           v-for="item in commonList"
           class="address-list__item"
           :style="getColorMain(isCurrent(item))"
@@ -101,6 +105,10 @@ export default {
       default() {
         return null
       }
+    },
+    cancelText: {
+      type: String,
+      default: '取消选择'
     }
   },
 
@@ -118,16 +126,18 @@ export default {
     },
 
     onSelect(item) {
-      this.$emit('common-select', item)
       this.$emit('toggle-show', false)
+      if (item) {
+        this.$emit('common-select', item)
+      } else {
+        this.$emit('cancel-select')
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-  // @import '../../assets/iconfont/iconfont.css';
-
   .address__empty {
     text-align: center;
     padding-top: 80px;

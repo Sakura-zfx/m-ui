@@ -6,6 +6,7 @@
         :get="get"
         :post="post"
         biz-type="22"
+        approve-title="关联采购单"
         :approve-current="selectApprove"
         :bill-method-current="billMethod"
         :bill-type-current="billType"

@@ -46,7 +46,7 @@ export default {
   props: {
     height: {
       type: Number,
-      default: 45
+      default: 50
     },
     border: {
       type: Boolean,

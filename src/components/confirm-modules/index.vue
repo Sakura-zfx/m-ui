@@ -46,7 +46,7 @@
 
     <template v-if="hasApproveModule">
       <cell
-        label="选择审批单"
+        :label="approveTitle"
         :loading="loading.approve"
         @on-click="getApprove"
       >
@@ -58,16 +58,17 @@
         </template>
       </cell>
       <common-select
-        title="选择审批单"
+        :title="approveTitle"
         class="select-approve"
         :visible="showApprovePopup"
-        confirm-text="取消关联审批单"
+        :confirm-show="false"
+        :cancel-text="`取消${approveTitle}`"
         :common-list="approveList || []"
         :common-current="approveCurrent"
         :main-color="mainColor"
         @toggle-show="showApprovePopup = false"
         @common-select="item => $emit('select-approve', item)"
-        @common-btn="$emit('cancel-select-approve')"
+        @cancel-select="$emit('cancel-select-approve')"
       >
         <template slot-scope="scope">
           <p>{{ scope.row.title }}</p>
@@ -163,7 +164,7 @@
 
     <template v-if="hasWelfareModule">
       <cell
-        label="积分支付"
+        label="福利积分"
         label-desc="每100积分可抵扣1.00元"
         has-info
         :is-link="false"
@@ -191,9 +192,13 @@
     </template>
 
     <div v-if="hasMoneySum" class="px-padding-10 bg-fff px-margin-t10">
+      <p class="px-font-16">
+        <span class="font-bold color-c000">订单总金额：</span>
+        <span class="color-red fr">¥ {{ totalMoney | formatPrice }}</span>
+      </p>
       <p>
         <span>商品金额</span>
-        <span class="color-red fr">¥ {{ skuMoney | formatPrice }}</span>
+        <span class="color-c999 fr">¥ {{ skuMoney | formatPrice }}</span>
       </p>
       <p>
         <span class="ib-middle">运费</span>
@@ -201,15 +206,11 @@
           class="iconfont icon-shuoming ib-middle color-info"
           @click="freightDesc"
         />
-        <span class="color-red fr">+ ¥ {{ freightMoney | formatPrice }}</span>
+        <span class="color-c999 fr">+ ¥ {{ freightMoney | formatPrice }}</span>
       </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
         <span class="ib-middle">积分抵扣</span>
-        <span class="color-red fr">- ¥ {{ welfareUseNum | formatPrice }}({{ welfareUseNum }}积分)</span>
-      </p>
-      <p class="text-right">
-        <span class="font-bold color-c000">总价：</span>
-        <span class="color-red">¥ {{ totalMoney | formatPrice }}</span>
+        <span class="color-c999 fr">- ¥ {{ welfareUseNum | formatPrice }}({{ welfareUseNum }}积分)</span>
       </p>
     </div>
   </div>
@@ -269,7 +270,8 @@ export default {
     skuMoney: Number,
     freightMoney: Number,
     totalMoney: Number,
-    welfareMaxUseNum: Number
+    welfareMaxUseNum: Number,
+    approveTitle: String
   },
 
   data() {
@@ -639,11 +641,11 @@ export default {
       margin: 0;
       padding: 0;
     }
-    .select-approve .m-popup__wrap .btn-wrap {
-      color: #333333;
-      font-size: 14px !important;
-      background-color: #f7f8f9 !important;
-    }
+    /*.select-approve .m-popup__wrap .btn-wrap {*/
+      /*color: #333333;*/
+      /*font-size: 14px !important;*/
+      /*background-color: #f7f8f9 !important;*/
+    /*}*/
     .color-red {
       color: red;
     }
