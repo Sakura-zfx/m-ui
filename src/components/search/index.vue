@@ -40,7 +40,7 @@
             v-model.trim="input"
           >
         </form>
-        <i class="iconfont icon-search position-a" />
+        <i class="iconfont icon-sousuo position-a" />
         <i
           v-show="input"
           class="iconfont icon-tupian- position-a"
@@ -48,7 +48,7 @@
         />
       </div>
       <template v-else>
-        <i class="iconfont icon-search" />
+        <i class="iconfont icon-sousuo" />
         <span>{{ placeholder }}</span>
       </template>
     </div>
@@ -125,7 +125,7 @@ export default {
       margin: 0;
       padding: 0 30px;
     }
-    .icon-search {
+    .icon-sousuo {
       left: 10px;
       top: 0;
     }
