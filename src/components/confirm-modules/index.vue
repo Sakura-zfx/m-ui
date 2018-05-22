@@ -17,33 +17,6 @@
       模块信息加载中
     </p>
 
-    <template v-if="hasPayWayModule">
-      <cell
-        label="支付方式"
-        :value="payWay ? payWay.title : ''"
-        @on-click="showPayWayPopup = true"
-      />
-      <common-select
-        title="选择支付方式"
-        :visible="showPayWayPopup"
-        :confirm-show="false"
-        :common-list="payWayList"
-        :common-current="payWay"
-        :main-color="mainColor"
-        @toggle-show="showPayWayPopup = false"
-        @common-select="item => $emit('select-pay-way', item)"
-      >
-        <template slot-scope="scope">
-          <p>{{ scope.row.title }}</p>
-          <p
-            :class="{ 'color-c999': !payWay || scope.row.id !== payWay.id }"
-          >
-            {{ scope.row.msg }}
-          </p>
-        </template>
-      </common-select>
-    </template>
-
     <template v-if="hasApproveModule">
       <cell
         :label="approveTitle"
@@ -76,6 +49,33 @@
             :class="{ 'color-c999': !approveCurrent || scope.row.id !== approveCurrent.id }"
           >
             {{ scope.row.reason }}
+          </p>
+        </template>
+      </common-select>
+    </template>
+
+    <template v-if="hasPayWayModule">
+      <cell
+        label="支付方式"
+        :value="payWay ? payWay.title : ''"
+        @on-click="showPayWayPopup = true"
+      />
+      <common-select
+        title="选择支付方式"
+        :visible="showPayWayPopup"
+        :confirm-show="false"
+        :common-list="payWayList"
+        :common-current="payWay"
+        :main-color="mainColor"
+        @toggle-show="showPayWayPopup = false"
+        @common-select="item => $emit('select-pay-way', item)"
+      >
+        <template slot-scope="scope">
+          <p>{{ scope.row.title }}</p>
+          <p
+            :class="{ 'color-c999': !payWay || scope.row.id !== payWay.id }"
+          >
+            {{ scope.row.msg }}
           </p>
         </template>
       </common-select>
@@ -508,7 +508,7 @@ export default {
         } else {
           this.showBillMethodCell = true
         }
-        this.$emit('change-open-bill', true)
+        this.$emit('change-open-bill', id !== 3)
       }
 
       if (isNeedRequest) {
