@@ -15,6 +15,7 @@
       <p class="address__empty" v-if="!commonList || commonList.length === 0">{{ emptyText }}</p>
       <cell-group v-else>
         <cell
+          v-if="cancelText"
           :title="cancelText"
           @click="onSelect()"
         />
@@ -106,10 +107,7 @@ export default {
         return null
       }
     },
-    cancelText: {
-      type: String,
-      default: '取消选择'
-    }
+    cancelText: String
   },
 
   methods: {
