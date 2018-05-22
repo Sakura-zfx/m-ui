@@ -371,6 +371,11 @@ export default {
       }
     },
 
+    welfareUseNum(num) {
+      // 通知业务num变化
+      this.$emit('welfare-num-change', num)
+    },
+
     approveCurrent(val) {
       if (val === null && !this.payWayList.find(x => x.id === 3)) {
         this.payWayList.push(PAY_WAY[2])
