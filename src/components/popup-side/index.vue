@@ -15,15 +15,20 @@
         <div
           class="m-popup-side__content height-100 no-wrap font-0"
           :style="{
-            transform: `translateX(${currentIndex * -50}%)`,
-            '-webkit-transform': `-webkit-translateX(${currentIndex * -50}%)`
+            width: `${100 * num}%`,
+            transform: `translateX(${currentIndex * -(100/num)}%)`,
+            '-webkit-transform': `-webkit-translateX(${currentIndex * -(100/num)}%)`
           }"
         >
-          <div class="ib-middle width-50 height-100 px-font-14 overflow-a touch-scroll">
-            <slot />
-          </div>
-          <div class="ib-middle width-50 height-100 px-font-14 overflow-a touch-scroll">
-            <slot name="right" />
+          <div
+            v-for="(key, i) in slotsArr"
+            :key="i"
+            class="ib-middle height-100 px-font-14 overflow-a touch-scroll"
+            :style="{
+              width: `${100/num}%`
+            }"
+          >
+            <slot :name="key" />
           </div>
         </div>
       </div>
@@ -46,13 +51,23 @@ export default {
       type: String,
       default: 'right'
     },
-    visible: Boolean
+    visible: Boolean,
+    num: {
+      type: Number,
+      default: 1
+    }
   },
 
   data() {
     return {
       localVar: false,
       currentIndex: 0
+    }
+  },
+
+  computed: {
+    slotsArr() {
+      return Object.keys(this.$slots)
     }
   },
 
@@ -87,7 +102,6 @@ export default {
     transition: transform .2s;
   }
   .m-popup-side__content {
-    width: 200%;
     transition: transform .2s;
   }
   .fade-right-enter-active {
