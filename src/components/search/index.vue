@@ -75,12 +75,19 @@ export default {
     placeholder: {
       type: String,
       default: '请输入'
-    }
+    },
+    value: String
   },
 
   data() {
     return {
       input: ''
+    }
+  },
+
+  created() {
+    if (this.value) {
+      this.input = this.value
     }
   },
 

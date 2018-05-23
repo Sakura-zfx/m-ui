@@ -9,6 +9,7 @@ import BottomTabItem from './components/bottom-tab-item'
 import Cell from './components/cell'
 import Checkbox from './components/checkbox'
 import CitySelect from './components/city-select'
+import CitySelectItem from './components/city-select-item'
 import CommonSelect from './components/common-select'
 import ConfirmModules from './components/confirm-modules'
 import ConfirmOrder from './components/confirm-order'
@@ -31,7 +32,7 @@ import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import UserPanel from './components/user-panel'
 
-const version = '0.1.24'
+const version = '0.1.25'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -41,6 +42,7 @@ const components = [
   Cell,
   Checkbox,
   CitySelect,
+  CitySelectItem,
   CommonSelect,
   ConfirmModules,
   ConfirmOrder,

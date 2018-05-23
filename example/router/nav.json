@@ -143,6 +143,11 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/cityselectitem",
+        "name": "CitySelectItem",
+        "description": "[xm-mui] 城市选择类目"
+      },
+      {
         "path": "/cityselect",
         "name": "CitySelect",
         "description": "[xm-mui] 城市选择"
