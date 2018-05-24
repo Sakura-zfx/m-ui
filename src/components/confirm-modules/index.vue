@@ -604,8 +604,8 @@ export default {
       const val = e.target.value
       const input = this.$refs.welfareInput
       const maxNum = this.welfareMaxUseNum
-        ? Math.min(this.welfareMaxUseNum, this.welfare.amount)
-        : this.welfare.amount
+        ? Math.min(this.welfareMaxUseNum, this.welfare.restAmount)
+        : this.welfare.restAmount
 
       if (val === '') {
         this.welfareUseNum = ''
