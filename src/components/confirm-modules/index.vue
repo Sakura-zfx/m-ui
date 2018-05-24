@@ -450,13 +450,15 @@ export default {
       this.loading.welfare = true
       this.get(this.urlWelfare)
         .then(res => {
-          if (res.restAmount === 0) {
+          let data = { ...res }
+          if (data.restAmount < 0) {
             // this.$box.alert('剩余可用积分数量为0').then(() => {
             //   this.$emit('change-open-welfare', false)
             // })
+            data.restAmount = 0
+            data.originRestAmount = res.restAmount
           }
-          // res.amount = 10
-          this.welfare = res
+          this.welfare = data
           this.loading.welfare = false
         })
         .catch(error => this.$emit('error-callback', error))

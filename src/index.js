@@ -32,7 +32,7 @@ import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import UserPanel from './components/user-panel'
 
-const version = '0.1.27'
+const version = '0.1.28'
 const components = [
   AddressSelect,
   ApproveSelect,
