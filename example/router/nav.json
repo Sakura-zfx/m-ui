@@ -3,6 +3,11 @@
     "groupTitle": "安装",
     "navItems": [
       {
+        "path": "/approveselect2",
+        "name": "ApproveSelect2",
+        "description": "[xm-mui] 审批单选择面板"
+      },
+      {
         "path": "/install",
         "name": "快速上手",
         "description": ""

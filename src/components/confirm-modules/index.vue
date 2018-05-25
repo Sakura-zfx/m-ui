@@ -39,12 +39,16 @@
         :common-list="approveList || []"
         :common-current="approveCurrent"
         :main-color="mainColor"
+        :has-link="false"
         @toggle-show="showApprovePopup = false"
         @common-select="item => $emit('select-approve', item)"
         @cancel-select="$emit('cancel-select-approve')"
       >
         <template slot-scope="scope">
-          <p>{{ scope.row.title }}</p>
+          <p>
+            <span class="fr m-bd px-padding-lr5 color-c666" @click.stop="openApproveDetail(scope.row)">查看详情</span>
+            <span>{{ scope.row.title }}</span>
+          </p>
           <p
             :class="{ 'color-c999': !approveCurrent || scope.row.id !== approveCurrent.id }"
           >
@@ -632,6 +636,15 @@ export default {
       } else {
         this.$emit('change-open-welfare', true)
       }
+    },
+
+    openApproveDetail(item) {
+      console.log(`${window.AppInfo.data.approveUrl}#/detail/${item.id}`)
+      window.JSBridge.native('openurl', {
+        url: `${window.AppInfo.data.approveUrl}#/detail/${item.id}`,
+        noDefaultMenu: 1,
+        cookie: 1
+      })
     }
   }
 }

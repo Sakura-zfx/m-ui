@@ -3,6 +3,7 @@
 // import '../src/style/component.scss'
 import AddressSelect from './components/address-select'
 import ApproveSelect from './components/approve-select'
+import ApproveSelect2 from './components/approve-select-2'
 import Avatar from './components/avatar'
 import BottomTab from './components/bottom-tab'
 import BottomTabItem from './components/bottom-tab-item'
@@ -32,10 +33,11 @@ import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import UserPanel from './components/user-panel'
 
-const version = '0.1.28'
+const version = '0.1.29'
 const components = [
   AddressSelect,
   ApproveSelect,
+  ApproveSelect2,
   Avatar,
   BottomTab,
   BottomTabItem,

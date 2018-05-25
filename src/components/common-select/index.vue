@@ -28,7 +28,7 @@
         >
           <slot :row="item" />
           <icon
-            v-show="isCurrent(item)"
+            v-show="hasLink && isCurrent(item)"
             slot="right-icon"
             name="success"
             class="van-cell__right-icon"
@@ -107,7 +107,11 @@ export default {
         return null
       }
     },
-    cancelText: String
+    cancelText: String,
+    hasLink: {
+      type: Boolean,
+      default: true
+    }
   },
 
   methods: {
