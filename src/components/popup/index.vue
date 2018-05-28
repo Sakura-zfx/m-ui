@@ -1,7 +1,6 @@
 <template>
   <div
     class="m-popup__container-width-mask"
-    @touchmove.prevent.stop=""
   >
     <m-mask :show="showMask"/>
 
@@ -10,13 +9,13 @@
         v-show="visible"
         :class="`m-popup__wrap ${getWrapperClass} position-f bottom-0 bg-fff left-0 width-100`"
         @click.stop=""
-        @touchmove.stop=""
+        @touchmove.prevent=""
       >
         <div
           v-if="!noTitle"
           :class="`title-wrap ${titleAlign} px-padding-lr10`"
           class="position-r m-bd-b"
-          @touchmove.prevent=""
+          @touchmove.stop=""
         >
           <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
             <slot name="icon">
@@ -28,6 +27,7 @@
         <div
           :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
           :style="{height: `${contentHeight}px`}"
+          @touchmove.stop=""
         >
           <div class="content-item-wrap break-all height-100">
             <slot name="content">
