@@ -22,7 +22,6 @@
         <div
           :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
           :style="{height: `${contentHeight}px`}"
-          @touchmove.stop=""
         >
           <div class="content-item-wrap break-all height-100">
             <slot name="content">
