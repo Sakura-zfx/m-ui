@@ -2,49 +2,47 @@
   <div
     class="m-popup__container-width-mask"
   >
-    <m-mask :show="showMask"/>
-
-    <transition name="zoom-up">
-      <div
-        v-show="visible"
-        :class="`m-popup__wrap ${getWrapperClass} position-f bottom-0 bg-fff left-0 width-100`"
-        @click.stop=""
-        @touchmove.prevent=""
-      >
+    <m-mask :show="showMask">
+      <transition name="zoom-up">
         <div
-          v-if="!noTitle"
-          :class="`title-wrap ${titleAlign} px-padding-lr10`"
-          class="position-r m-bd-b"
+          v-show="visible"
+          :class="`m-popup__wrap ${getWrapperClass} position-f bottom-0 bg-fff left-0 width-100`"
+          @click.stop=""
           @touchmove.stop=""
         >
-          <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
-            <slot name="icon">
-              <i class="iconfont icon-guanbi" />
-            </slot>
+          <div
+            v-if="!noTitle"
+            :class="`title-wrap ${titleAlign} px-padding-lr10`"
+            class="position-r m-bd-b"
+          >
+            <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
+              <slot name="icon">
+                <i class="iconfont icon-guanbi" />
+              </slot>
+            </div>
+            <div class="title color-c666 px-font-16">{{ title }}</div>
           </div>
-          <div class="title color-c666 px-font-16">{{ title }}</div>
-        </div>
-        <div
-          :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
-          :style="{height: `${contentHeight}px`}"
-          @touchmove.stop=""
-        >
-          <div class="content-item-wrap break-all height-100">
-            <slot name="content">
-              <p class="text-center">这是内容</p>
-            </slot>
+          <div
+            :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
+            :style="{height: `${contentHeight}px`}"
+          >
+            <div class="content-item-wrap break-all height-100">
+              <slot name="content">
+                <p class="text-center">这是内容</p>
+              </slot>
+            </div>
+          </div>
+          <div
+            v-if="showBtn"
+            class="btn-wrap hover-bg-main text-center px-font-18 color-fff"
+            :style="{ backgroundColor: mainColor }"
+            @click="confirm"
+          >
+            {{ confirmText }}
           </div>
         </div>
-        <div
-          v-if="showBtn"
-          class="btn-wrap hover-bg-main text-center px-font-18 color-fff"
-          :style="{ backgroundColor: mainColor }"
-          @click="confirm"
-        >
-          {{ confirmText }}
-        </div>
-      </div>
-    </transition>
+      </transition>
+    </m-mask>
   </div>
 </template>
 
@@ -188,17 +186,13 @@ export default {
     opacity: 0;
   }
   .zoom-up-enter-to {
-    animation: fadeInUp ease-out .4s;
+    animation: fadeInUp linear .2s .2s;
   }
   .zoom-up-leave-active {
     animation: fadeOutDown ease-out .2s;
   }
   @keyframes fadeInUp {
     from {
-      opacity: 0;
-      transform: translate3d(0, 100%, 0);
-    }
-    50% {
       opacity: 0;
       transform: translate3d(0, 100%, 0);
     }
