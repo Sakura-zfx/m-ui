@@ -183,6 +183,7 @@
         v-if="isOpenWelfare"
         :is-link="false"
         label="使用数量"
+        @on-click="noon"
       >
         <input
           type="tel"
@@ -645,6 +646,10 @@ export default {
         noDefaultMenu: 1,
         cookie: 1
       })
+    },
+
+    noon() {
+
     }
   }
 }

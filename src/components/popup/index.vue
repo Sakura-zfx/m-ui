@@ -1,6 +1,7 @@
 <template>
   <div
     class="m-popup__container-width-mask"
+    @touchmove.prevent=""
   >
     <m-mask :show="showMask">
       <transition name="zoom-up">
@@ -8,7 +9,7 @@
           v-show="visible"
           :class="`m-popup__wrap ${getWrapperClass} position-f bottom-0 bg-fff left-0 width-100`"
           @click.stop=""
-          @touchmove.stop=""
+          @touchmove.prevent=""
         >
           <div
             v-if="!noTitle"
@@ -25,6 +26,7 @@
           <div
             :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
             :style="{height: `${contentHeight}px`}"
+            @touchmove.stop=""
           >
             <div class="content-item-wrap break-all height-100">
               <slot name="content">
