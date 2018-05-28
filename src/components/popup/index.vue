@@ -1,10 +1,13 @@
 <template>
-  <div class="m-popup__container-width-mask">
+  <div
+    class="m-popup__container-width-mask"
+  >
+    <m-mask :show="showMask"/>
+
     <transition name="zoom-up">
       <div
         v-show="visible"
         :class="`m-popup__wrap ${getWrapperClass} position-f bottom-0 bg-fff left-0 width-100`"
-        @touchmove.prevent=""
         @click.stop=""
       >
         <div
@@ -39,8 +42,6 @@
         </div>
       </div>
     </transition>
-
-    <m-mask :show="showMask"/>
   </div>
 </template>
 
@@ -58,10 +59,10 @@ export default {
 
   watch: {
     visible(val) {
+      document.documentElement.style.overflow = val ? 'hidden' : ''
       setTimeout(() => {
         this.showMask = val
       }, 200)
-      return val
     }
   },
 
