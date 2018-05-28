@@ -28,14 +28,16 @@
       </div>
     </div>
 
-    <div class="ib-middle">
-      <slot>
-        <span v-if="value">{{ value }}</span>
-        <span class="color-c999" v-else>请选择</span>
-      </slot>
+    <div class="over-text">
+      <div class="ib-middle">
+        <slot>
+          <span v-if="value">{{ value }}</span>
+          <span class="color-c999" v-else>请选择</span>
+        </slot>
+      </div>
+      <img :src="require('../../assets/loading.gif')" width="20px" v-if="loading">
+      <i class="iconfont icon-jinru ib-middle color-c999" v-show="isLink" v-else/>
     </div>
-    <img :src="require('../../assets/loading.gif')" width="20px" v-if="loading">
-    <i class="iconfont icon-jinru ib-middle color-c999" v-show="isLink" v-else/>
   </div>
 </template>
 
