@@ -1,7 +1,7 @@
 <template>
   <div
     class="m-popup__container-width-mask"
-    @touchmove.prevent=""
+    @touchmove.prevent.stop=""
   >
     <m-mask :show="showMask"/>
 
