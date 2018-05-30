@@ -95,6 +95,7 @@
       >
         <m-switch
           :value="isOpenBill"
+          :main-color="mainColor"
           @change="val => $emit('change-open-bill', val)"
         />
       </cell>
@@ -176,6 +177,7 @@
       >
         <m-switch
           :value="isOpenWelfare"
+          :main-color="mainColor"
           @change="val => $emit('change-open-welfare', val)"
         />
       </cell>
@@ -660,11 +662,6 @@ export default {
       margin: 0;
       padding: 0;
     }
-    /*.select-approve .m-popup__wrap .btn-wrap {*/
-      /*color: #333333;*/
-      /*font-size: 14px !important;*/
-      /*background-color: #f7f8f9 !important;*/
-    /*}*/
     .color-red {
       color: red;
     }

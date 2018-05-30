@@ -3,8 +3,6 @@
     <div class="mg--10">
       <m-confirm-order
         ref="modules"
-        :get="get"
-        :post="post"
         biz-type="22"
         approve-title="关联采购单"
         :approve-current="selectApprove"
@@ -39,7 +37,7 @@
 <script>
 import CommonEntry from './commonEntry'
 import MConfirmOrder from '../../src/components/confirm-modules/index'
-import { get, post } from '../assets/http'
+// import { get, post } from '../assets/http'
 
 export default {
   name: 'cell',
@@ -62,13 +60,6 @@ export default {
   },
 
   methods: {
-    get(url, params) {
-      return get(url, params)
-    },
-    post(url, params) {
-      return post(url, params)
-    },
-
     getModulesData() {
       console.log(this.$refs.modules.getModulesData())
     }

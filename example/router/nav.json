@@ -201,6 +201,11 @@
         "path": "/confirmmodules",
         "name": "ConfirmModules",
         "description": "[xm-mui] 确认订单模块"
+      },
+      {
+        "path": "/submitbar",
+        "name": "SubmitBar",
+        "description": "[xm-mui] 提交栏"
       }
     ]
   }

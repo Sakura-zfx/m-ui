@@ -27,13 +27,14 @@ import NumComputer from './components/num-computer'
 import Popup from './components/popup'
 import PopupSide from './components/popup-side'
 import Search from './components/search'
+import SubmitBar from './components/submit-bar'
 import Switch from './components/switch'
 import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.2'
+const version = '1.0.3'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -61,6 +62,7 @@ const components = [
   Popup,
   PopupSide,
   Search,
+  SubmitBar,
   Switch,
   Tab,
   TagSelect,
