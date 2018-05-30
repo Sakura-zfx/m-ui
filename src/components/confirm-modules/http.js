@@ -4,16 +4,16 @@ import qs from 'qs'
 const search = (() => {
   let search = location.search
   let searchObj = {}
-  let key = ""
+  let key = ''
   if (search) {
-    let paramArr = search.split("&")
-    for (let i=0; i<paramArr.length; i++) {
-      key = paramArr[i].split("=")[0]
+    let paramArr = search.split('&')
+    for (let i = 0; i < paramArr.length; i++) {
+      key = paramArr[i].split('=')[0]
       key = key.replace(/\?/g, '')
-      searchObj[key] = paramArr[i].split("=")[1]
+      searchObj[key] = paramArr[i].split('=')[1]
     }
     return searchObj
-  } else return ""
+  } else return ''
 })()
 
 const toast = window.JSBridge ? window.JSBridge.toast : console.log
