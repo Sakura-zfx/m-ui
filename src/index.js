@@ -14,7 +14,7 @@ import CitySelectItem from './components/city-select-item'
 import CommonSelect from './components/common-select'
 import ConfirmModules from './components/confirm-modules'
 import ConfirmOrder from './components/confirm-order'
-import DatePicker from './components/datePicker'
+import DatePicker from './components/date-picker'
 import Empty from './components/empty'
 import GoodsCard from './components/goods-card'
 import GoodsCardGroup from './components/goods-card-group'
@@ -33,7 +33,7 @@ import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import UserPanel from './components/user-panel'
 
-const version = '0.2.0'
+const version = '1.0.1'
 const components = [
   AddressSelect,
   ApproveSelect,

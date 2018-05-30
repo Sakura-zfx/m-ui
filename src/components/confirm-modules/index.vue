@@ -228,6 +228,7 @@ import MMessage from '../message'
 import Cell from '../cell'
 import utils from '../../utils/utils'
 import { BILL_METHOD, BILL_TYPE_LIST, PAY_WAY } from './constant'
+import { get, post } from './http'
 const baseUrl = `//app.e.uban360.${utils.online ? 'com' : 'net'}`
 
 export default {
@@ -247,14 +248,6 @@ export default {
   },
 
   props: {
-    get: {
-      type: Function,
-      required: true
-    },
-    post: {
-      type: Function,
-      required: true
-    },
     bizType: {
       type: [Number, String],
       required: true
@@ -405,7 +398,7 @@ export default {
 
   methods: {
     getConfig() {
-      return this.get(this.urlConfig, { bizType: this.bizType })
+      return get(this.urlConfig, { bizType: this.bizType })
         .then(res => {
           this.config = res
           return res
@@ -414,7 +407,7 @@ export default {
     },
 
     getScopeInfo() {
-      return this.post(this.urlScope, { bizType: this.bizType })
+      return post(this.urlScope, { bizType: this.bizType })
         .then(res => {
           this.scopeInfo = res
           // this.scopeInfo = {
@@ -430,7 +423,7 @@ export default {
 
     getApprove() {
       this.loading.approve = true
-      this.get(this.urlApprove, { bizType: this.bizType })
+      get(this.urlApprove, { bizType: this.bizType })
         .then(res => {
           this.approveList = res.map(x => ({ ...x, id: x.approveId }))
           this.loading.approve = false
@@ -440,7 +433,7 @@ export default {
 
     getBillList() {
       this.loading.bill = true
-      this.get(this.urlBill)
+      get(this.urlBill)
         .then(res => {
           this.billList = res.map(x => ({ ...x, id: x.titleId }))
           this.loading.bill = false
@@ -453,7 +446,7 @@ export default {
 
     getWelfare() {
       this.loading.welfare = true
-      this.get(this.urlWelfare)
+      get(this.urlWelfare)
         .then(res => {
           let data = { ...res }
           if (data.restAmount < 0) {
@@ -600,6 +593,7 @@ export default {
         billMethod: this.billMethodCurrent,
         billType: this.billTypeCurrent,
         bill: this.billCurrent,
+        billList: this.billList,
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
         welfareNum: this.welfareUseNum ? Number(this.welfareUseNum) : 0,

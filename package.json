@@ -1,6 +1,6 @@
 {
   "name": "xm-mui",
-  "version": "0.2.0",
+  "version": "1.0.1",
   "description": "Vue components",
   "author": "yangming <472102644@qq.com>",
   "private": false,
@@ -82,7 +82,7 @@
     "mocha": "^5.0.0",
     "my-local-ip": "^1.0.0",
     "node-notifier": "^5.1.2",
-    "node-sass": "^4.7.2",
+    "node-sass": "^4.9.0",
     "normalize.css": "^8.0.0",
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^2.0.0",
