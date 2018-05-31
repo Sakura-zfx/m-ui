@@ -32,9 +32,10 @@ import Switch from './components/switch'
 import Tab from './components/tab'
 import TagSelect from './components/tag-select'
 import Toast from './components/toast'
+import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.3'
+const version = '1.0.4'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -67,6 +68,7 @@ const components = [
   Tab,
   TagSelect,
   Toast,
+  TravelPanel,
   UserPanel
 ]
 

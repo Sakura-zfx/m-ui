@@ -208,5 +208,15 @@
         "description": "[xm-mui] 提交栏"
       }
     ]
+  },
+  {
+    "groupTitle": "业务组件（差旅）",
+    "navItems": [
+      {
+        "path": "/travelpanel",
+        "name": "TravelPanel",
+        "description": "[xm-mui] 差旅入口面板"
+      }
+    ]
   }
 ]
