@@ -230,7 +230,7 @@ import MMessage from '../message'
 import Cell from '../cell'
 import utils from '../../utils/utils'
 import { BILL_METHOD, BILL_TYPE_LIST, PAY_WAY } from './constant'
-import { get, post } from './http'
+// import { get, post } from './http'
 const baseUrl = `//app.e.uban360.${utils.online ? 'com' : 'net'}`
 
 export default {
@@ -409,7 +409,7 @@ export default {
 
   methods: {
     getConfig() {
-      return get(this.urlConfig, { bizType: this.bizType })
+      return this.get(this.urlConfig, { bizType: this.bizType })
         .then(res => {
           this.config = res
           return res
@@ -418,7 +418,7 @@ export default {
     },
 
     getScopeInfo() {
-      return post(this.urlScope, { bizType: this.bizType })
+      return this.post(this.urlScope, { bizType: this.bizType })
         .then(res => {
           this.scopeInfo = res
           // this.scopeInfo = {
@@ -434,7 +434,7 @@ export default {
 
     getApprove() {
       this.loading.approve = true
-      get(this.urlApprove, { bizType: this.bizType })
+      this.get(this.urlApprove, { bizType: this.bizType })
         .then(res => {
           this.approveList = res.map(x => ({ ...x, id: x.approveId }))
           this.loading.approve = false
@@ -444,7 +444,7 @@ export default {
 
     getBillList() {
       this.loading.bill = true
-      get(this.urlBill)
+      this.get(this.urlBill)
         .then(res => {
           this.billList = res.map(x => ({ ...x, id: x.titleId }))
           this.loading.bill = false
@@ -457,7 +457,7 @@ export default {
 
     getWelfare() {
       this.loading.welfare = true
-      get(this.urlWelfare)
+      this.get(this.urlWelfare)
         .then(res => {
           let data = { ...res }
           if (data.restAmount < 0) {
