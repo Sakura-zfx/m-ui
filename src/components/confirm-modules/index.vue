@@ -467,6 +467,10 @@ export default {
             data.restAmount = 0
             data.originRestAmount = res.restAmount
           }
+          // 默认全部使用
+          this.welfareUseNum = this.welfareMaxUseNum
+            ? Math.min(this.welfareMaxUseNum, data.restAmount)
+            : data.restAmount
           this.welfare = data
           this.loading.welfare = false
         })
