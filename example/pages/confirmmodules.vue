@@ -35,8 +35,10 @@
 </template>
 
 <script>
+// import { ConfirmModules } from 'xm-mui'
+// import ConfirmOrder from 'xm-mui/lib/confirm-modules'
 import CommonEntry from './commonEntry'
-import MConfirmOrder from '../../src/components/confirm-modules/index'
+import ConfirmModules from '../../src/components/confirm-modules/index'
 // import { get, post } from '../assets/http'
 
 export default {
@@ -44,7 +46,7 @@ export default {
 
   components: {
     CommonEntry,
-    MConfirmOrder
+    MConfirmOrder: ConfirmModules
   },
 
   data() {

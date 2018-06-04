@@ -1,6 +1,6 @@
 {
   "name": "xm-mui",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Vue components",
   "author": "yangming <472102644@qq.com>",
   "private": false,
@@ -34,6 +34,7 @@
     "vue-lazyload": "^1.2.0"
   },
   "devDependencies": {
+    "xm-mui": "^1.0.5",
     "@vue/test-utils": "^1.0.0-beta.12",
     "animate.css": "^3.5.2",
     "autoprefixer": "^8.0.0",
@@ -41,6 +42,7 @@
     "babel-eslint": "^8.2.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-loader": "^7.1.1",
+    "babel-plugin-component": "^1.1.1",
     "babel-plugin-import": "^1.7.0",
     "babel-plugin-istanbul": "^4.1.1",
     "babel-plugin-syntax-jsx": "^6.18.0",

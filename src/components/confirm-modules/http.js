@@ -32,21 +32,21 @@ const instance = axios.create({
   }
 })
 
-instance.interceptors.response.use(
-  response => {
-    const data = response.data
-    if (data.success) {
-      return data.data || data.value
-    }
-
-    toast(data.error ? data.error.name : data.msg)
-    return Promise.reject(data)
-  },
-  error => {
-    toast(error.msg || '服务异常，请稍后再试')
-    return Promise.reject(error)
-  }
-)
+// instance.interceptors.response.use(
+//   response => {
+//     const data = response.data
+//     if (data.success) {
+//       return data.data || data.value
+//     }
+//
+//     toast(data.error ? data.error.name : data.msg)
+//     return Promise.reject(data)
+//   },
+//   error => {
+//     toast(error.msg || error.message || '服务异常，请稍后再试')
+//     return Promise.reject(error)
+//   }
+// )
 
 export const get = (uri, data = {}) => {
   if (search.token) {
@@ -55,9 +55,16 @@ export const get = (uri, data = {}) => {
   }
   return instance.get(`${uri}`, {
     params: data
+  }).then(res => {
+    return res.data.data || res.data.value
   })
 }
 
 export const post = (uri, data = {}) => (
-  instance.post(uri, qs.stringify(data, { arrayFormat: 'brackets' }))
+  instance.post(
+    uri,
+    qs.stringify(data, { arrayFormat: 'brackets' })
+  ).then(res => {
+    return res.data.data || res.data.value
+  })
 )
