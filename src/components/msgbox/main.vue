@@ -1,5 +1,13 @@
 <template>
-  <div class="m-msgBox__wrap" v-show="visible">
+  <div
+    v-show="visible"
+    class="m-msgBox__wrap position-f top-0 bottom-0 left-0 right-0 overflow-a"
+  >
+    <!--为解决滑动穿透，加一层节点来"吃掉"穿透的滚动-->
+    <div style="height: 200%" />
+
+    <m-mask :show="visible" />
+
     <transition name="bounce">
       <div class="m-msgBox" v-show="visible" @touchmove.stop="">
         <div class="m-msgBox_title" v-if="title">{{ title }}</div>
@@ -40,8 +48,15 @@
 </template>
 
 <script>
+import MMask from '../mask/mask'
+
 export default {
   name: 'msg-box',
+
+  components: {
+    MMask
+  },
+
   data() {
     return {
       title: '',
@@ -69,16 +84,10 @@ export default {
 
 <style lang="scss" scoped>
   .m-msgBox__wrap {
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    left: 0;
-    background-color: rgba(0,0,0,.5);
     z-index: 1003;
   }
   .m-msgBox {
-    position: absolute;
+    position: fixed;
     width: 270px;
     background-color: #fff;
     left: 50%;
@@ -88,6 +97,7 @@ export default {
     text-align: center;
     overflow: hidden;
     font-size: 14px;
+    z-index: 1003;
 
     .m-msgBox_title {
       font-size: 18px;
