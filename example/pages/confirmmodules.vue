@@ -17,6 +17,8 @@
         :total-money="4999"
         :is-show-approve-cell="true"
         :welfare-max-use-num="20"
+        :get="get"
+        :post="post"
         @select-approve="item => selectApprove = item"
         @cancel-select-approve="selectApprove = null"
         @change-open-bill="val => isOpenBill = val"
@@ -39,7 +41,7 @@
 // import ConfirmOrder from 'xm-mui/lib/confirm-modules'
 import CommonEntry from './commonEntry'
 import ConfirmModules from '../../src/components/confirm-modules/index'
-// import { get, post } from '../assets/http'
+import { get, post } from '../assets/http'
 
 export default {
   name: 'cell',
@@ -57,7 +59,9 @@ export default {
       billType: null,
       bill: null,
       isOpenWelfare: false,
-      payWay: null
+      payWay: null,
+      get,
+      post
     }
   },
 

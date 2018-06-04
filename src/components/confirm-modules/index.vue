@@ -271,7 +271,16 @@ export default {
     freightMoney: Number,
     totalMoney: Number,
     welfareMaxUseNum: Number,
-    approveTitle: String
+    approveTitle: String,
+
+    get: {
+      type: Function,
+      required: true
+    },
+    post: {
+      type: Function,
+      required: true
+    }
   },
 
   data() {
