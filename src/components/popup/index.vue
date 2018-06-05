@@ -11,7 +11,8 @@
     <transition name="zoom-up">
       <div
         v-show="visible"
-        :class="`m-popup__wrap ${getWrapperClass} position-f bottom-0 bg-fff left-0 width-100`"
+        class="m-popup__wrap position-f bottom-0 bg-fff left-0 width-100"
+        :class="[getWrapperClass]"
       >
         <div
           v-if="!noTitle"
@@ -63,9 +64,13 @@ export default {
   watch: {
     visible(val) {
       document.documentElement.style.overflow = val ? 'hidden' : ''
-      setTimeout(() => {
-        this.showMask = val
-      }, 200)
+      if (val) {
+        this.showMask = true
+      } else {
+        setTimeout(() => {
+          this.showMask = false
+        }, 300)
+      }
     }
   },
 
@@ -163,7 +168,6 @@ export default {
     .title-wrap {
       height: 45px;
       line-height: 45px;
-      // border-bottom: 1px #f2f2f2 solid;
 
       .right-close {
         height: 100%;
@@ -185,33 +189,29 @@ export default {
     }
   }
 
-  .zoom-up-enter,
-  .zoom-up-enter-active {
+  .zoom-up-enter {
     opacity: 0;
   }
-  .zoom-up-enter-to {
-    animation: fadeInUp linear .2s .2s;
+  .zoom-up-enter-active {
+    opacity: 1;
+    animation: fadeInUp ease-out 0.3s;
   }
   .zoom-up-leave-active {
-    animation: fadeOutDown ease-out .2s;
+    animation: fadeOutDown ease-out .3s;
   }
   @keyframes fadeInUp {
     from {
-      opacity: 0;
       transform: translate3d(0, 100%, 0);
     }
     to {
-      opacity: 1;
       transform: none;
     }
   }
 
   @keyframes fadeOutDown {
     from {
-      opacity: 1;
     }
     to {
-      opacity: 0;
       transform: translate3d(0, 100%, 0);
     }
   }
