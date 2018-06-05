@@ -27,3 +27,12 @@ export const PAY_WAY = [
   { title: '个人垫付', msg: '企业采购(审批-个人垫付-提交报销)', id: 2 },
   { title: '个人支付', msg: '个人消费', id: 3 }
 ]
+
+export const BIZTYPE = {
+  139: {
+    name: '优办商城'
+  },
+  22: {
+    name: '京东采购'
+  }
+}

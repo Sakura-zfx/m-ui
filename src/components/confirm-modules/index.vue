@@ -2,7 +2,7 @@
   <div class="confirm-modules bg-f2">
     <m-message
       v-if="showSubscribeMessage"
-      message="温馨提示：您所在企业尚未开通企业版京东采购，暂只支持个人消费，点击立即开通！"
+      :message="`温馨提示：您所在企业尚未开通企业版${app.name}，暂只支持个人消费，点击立即开通！`"
       :ball="false"
       @on-close="closeNotSubMessage"
       @on-click="$emit('open-app', scopeInfo.appId)"
@@ -210,6 +210,7 @@
       <p>
         <span class="ib-middle">运费</span>
         <i
+          v-if="Number(bizType) === 22"
           class="iconfont icon-shuoming ib-middle color-info"
           @click="freightDesc"
         />
@@ -229,7 +230,12 @@ import CommonSelect from '../common-select'
 import MMessage from '../message'
 import Cell from '../cell'
 import utils from '../../utils/utils'
-import { BILL_METHOD, BILL_TYPE_LIST, PAY_WAY } from './constant'
+import {
+  BILL_METHOD,
+  BILL_TYPE_LIST,
+  PAY_WAY,
+  BIZTYPE
+} from './constant'
 // import { get, post } from './http'
 const baseUrl = `//app.e.uban360.${utils.online ? 'com' : 'net'}`
 
@@ -354,6 +360,10 @@ export default {
         return false
       }
       return !subscription
+    },
+
+    app() {
+      return BIZTYPE[this.bizType]
     }
   },
 

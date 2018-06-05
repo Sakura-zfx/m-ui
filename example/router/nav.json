@@ -148,6 +148,11 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/http",
+        "name": "Http",
+        "description": "[xm-mui] axios请求模块"
+      },
+      {
         "path": "/cityselectitem",
         "name": "CitySelectItem",
         "description": "[xm-mui] 城市选择类目"

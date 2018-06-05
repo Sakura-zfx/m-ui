@@ -18,6 +18,7 @@ import DatePicker from './components/date-picker'
 import Empty from './components/empty'
 import GoodsCard from './components/goods-card'
 import GoodsCardGroup from './components/goods-card-group'
+import Http from './components/http'
 import LazyImg from './components/lazy-img'
 import Loading from './components/loading'
 import Mask from './components/mask'
@@ -35,7 +36,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.10'
+const version = '1.0.11'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -54,6 +55,7 @@ const components = [
   Empty,
   GoodsCard,
   GoodsCardGroup,
+  Http,
   LazyImg,
   Loading,
   Mask,
