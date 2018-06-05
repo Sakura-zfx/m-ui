@@ -1,5 +1,9 @@
 <template>
   <common-entry title="axios请求模块">
+    <p>usage</p>
+    <pre>
+ import Http from 'xm-mui/lib/http'
+    </pre>
     <p>options</p>
     <pre>
 const defaultOp = {
