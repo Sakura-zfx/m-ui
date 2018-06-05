@@ -47,8 +47,8 @@ this.$http.get('getInfo')
 
 <script>
 import CommonEntry from './commonEntry'
-import Http from '../../src/components/http'
-import Toast from '../../src/components/toast'
+import Http from '../../lib/http'
+import Toast from '../../lib/toast'
 
 export default {
   name: 'cell',
@@ -68,6 +68,9 @@ export default {
       loading: this.$loading,
       toast: Toast
     })
+
+    console.log(this.http)
+    // this.http.inject('get', 'getInfo', '/gateway/getInfo')({ name: 1 })
   }
 }
 </script>
