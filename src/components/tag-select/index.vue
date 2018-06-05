@@ -13,10 +13,14 @@
       class="tag-select__list font-0"
     >
       <li
-        class="tag-select__list-item ib-top px-line-30 px-font-14 m-bd text-center px-width-80"
+        class="tag-select__list-item ib-top"
         v-for="(item, index) in list"
         :key="index"
         :class="`${tagCls} ${isActiveItem(item) ? activeCls : ''}`"
+        :style="{
+          color: isActiveItem(item) ? mainColor : '',
+          borderColor: isActiveItem(item) ? mainColor : ''
+        }"
         @click="doSelect(item)"
       >
         <i
@@ -71,6 +75,10 @@ export default {
     multiChoose: {
       type: Boolean,
       default: false
+    },
+    mainColor: {
+      type: String,
+      default: '#753e81'
     }
   },
 
@@ -146,6 +154,12 @@ export default {
     width: 30%;
     margin: 0 5% 10px 0;
     color: #5c626b;
+    text-align: center;
+    font-size: 14px;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    line-height: 30px;
 
     &:nth-child(3n) {
       margin-right: 0;

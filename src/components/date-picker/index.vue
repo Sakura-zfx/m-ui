@@ -126,7 +126,7 @@ export default {
       default: false
     },
     defaultTimeStamp: {
-      type: Number | String,
+      type: [Number, String],
       default: Date.now()
     },
     timeLabel: {

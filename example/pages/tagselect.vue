@@ -4,10 +4,10 @@
       title="标题"
       title-cls="title-cls"
       tag-cls="tag-cls"
-      active-cls="m-bd-main-color color-main"
       :multi-choose="false"
       :list="list"
       :selected="activeList"
+      main-color="red"
       @tag-change="handleTagChange"
     />
     <pre>
