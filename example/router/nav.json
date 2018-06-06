@@ -198,11 +198,6 @@
         "description": "[xm-mui] 审批单选择面板"
       },
       {
-        "path": "/confirmorder",
-        "name": "ConfirmOrder",
-        "description": "[xm-mui] 确认订单页公用组件"
-      },
-      {
         "path": "/confirmmodules",
         "name": "ConfirmModules",
         "description": "[xm-mui] 确认订单模块"
