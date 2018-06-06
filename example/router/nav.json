@@ -148,6 +148,11 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/esc",
+        "name": "Esc",
+        "description": "[xm-mui] esc应用信息"
+      },
+      {
         "path": "/http",
         "name": "Http",
         "description": "[xm-mui] axios请求模块"

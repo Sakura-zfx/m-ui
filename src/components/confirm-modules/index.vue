@@ -17,6 +17,13 @@
       模块信息加载中
     </p>
 
+    <cell
+      v-if="hasTravelTypeModule"
+      label="消费方式"
+      :value="travelType === 0 ? '因公消费' : '因私消费'"
+      :is-link="false"
+    />
+
     <template v-if="hasApproveModule">
       <cell
         :label="approveTitle"
@@ -233,11 +240,11 @@ import utils from '../../utils/utils'
 import {
   BILL_METHOD,
   BILL_TYPE_LIST,
-  PAY_WAY,
-  BIZTYPE
+  PAY_WAY
 } from './constant'
-// import { get, post } from './http'
-const baseUrl = `//app.e.uban360.${utils.online ? 'com' : 'net'}`
+import esc from '../esc'
+
+const baseUrl = esc.domain
 
 export default {
   name: 'confirm-modules',
@@ -278,6 +285,7 @@ export default {
     totalMoney: Number,
     welfareMaxUseNum: Number,
     approveTitle: String,
+    travelType: [Number],
 
     get: {
       type: Function,
@@ -327,6 +335,10 @@ export default {
   },
 
   computed: {
+    hasTravelTypeModule() {
+      return this.config ? this.config.indexOf(3) > -1 : false
+    },
+
     hasPayWayModule() {
       return this.config ? this.config.indexOf(8) > -1 : false
     },
@@ -363,7 +375,13 @@ export default {
     },
 
     app() {
-      return BIZTYPE[this.bizType]
+      return esc.app[this.bizType]
+    },
+
+    // 采购类型的支付方式依旧支持个人垫付
+    // 其它只有因公因私 和 个人企业支付
+    isPurchase() {
+      return [22, 129, 139].indexOf(Number(this.bizType)) > -1
     }
   },
 
@@ -498,26 +516,33 @@ export default {
         let payWayList = []
 
         if (!subscription || !buyer) {
+          // 只支持个人支付
           payWayList = [PAY_WAY[2]]
         } else if (!balance) {
-          if (this.approveCurrent) {
-            payWayList = [PAY_WAY[1]]
-          } else {
-            payWayList = PAY_WAY.slice(1, 3)
-          }
+          // 企业额度不足
+          // 支持垫付与个人支付
+          payWayList = PAY_WAY.slice(1, 3)
         } else {
+          // 3种都支持
           payWayList = PAY_WAY.slice()
         }
 
-        // 如果关联了审批单，没有个人支付
-        if (this.approveCurrent) {
-          payWayList = payWayList.filter(x => x.id !== 3)
+        if (this.isPurchase) {
+          if (this.approveCurrent) {
+            // 如果关联了审批单，不支持个人支付
+            payWayList = payWayList.filter(x => x.id !== 3)
+          }
+        } else {
+          // 没有个人垫付
+          payWayList = payWayList.filter(x => x.id !== 2).map(x => ({ ...x, msg: '' }))
         }
 
         if (
           !this.payWay ||
           payWayList.every(x => x.id !== this.payWay.id)
         ) {
+          // 支付方式不存在
+          // 当前支付方式不在可选支付列表中
           this.$emit('select-pay-way', payWayList[0])
         }
         this.payWayList = payWayList
