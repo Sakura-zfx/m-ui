@@ -205,10 +205,11 @@ export default {
 
     // 根据search传递的defaultTimeStamp 生成起始时间 、 结束时间
     setDate() {
+      const today = Date.now()
       if (this.isSingle) {
         const { year, month, date } = this.formatTime(this.defaultTimeStamp)
-        const endDate = this.formatTime(this.defaultTimeStamp + ((this.limitDays - 1) * 24 * 3600 * 1000))
-        this.currentDate = { year, month, date }
+        const endDate = this.formatTime(today + ((this.limitDays - 1) * 24 * 3600 * 1000))
+        this.currentDate = this.formatTime(today)
         this.fromDate = { year, month, date }
         this.endDate = {
           year: endDate.year,
@@ -218,9 +219,9 @@ export default {
         this.toDate = { year, month, date }
       } else {
         const { year, month, date } = this.formatTime(this.defaultTimeStamp[0])
-        const endDate = this.formatTime(this.defaultTimeStamp[0] + ((this.limitDays - 1) * 24 * 3600 * 1000))
+        const endDate = this.formatTime(today + ((this.limitDays - 1) * 24 * 3600 * 1000))
         const toDate = this.formatTime(this.defaultTimeStamp[1])
-        this.currentDate = { year, month, date }
+        this.currentDate = this.formatTime(today)
         this.fromDate = { year, month, date }
         this.endDate = {
           year: endDate.year,
