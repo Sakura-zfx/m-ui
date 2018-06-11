@@ -10,7 +10,9 @@
   ],
   "plugins": [
     "transform-vue-jsx",
-    "transform-runtime",
+    ["transform-runtime", {
+      "polyfill": false
+    }],
     ["import", { "libraryName": "vant", "style": true }],
     ["component", { "libraryName": "xm-mui", "style": true }]
   ],
