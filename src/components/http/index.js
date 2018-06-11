@@ -57,9 +57,9 @@ export default class Http {
       withCredentials: true,
       // `paramsSerializer` is an optional function in charge of serializing `params`
       // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
-      paramsSerializer(params) {
-        return qs.stringify(params, { arrayFormat: 'repeat' })
-      },
+      // paramsSerializer(params) {
+      //   return qs.stringify(params, { arrayFormat: 'repeat' })
+      // },
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
       }
@@ -114,11 +114,20 @@ export default class Http {
     return this.instance.get(path, { params: data })
   }
 
+  serialize(data) {
+    let str = ''
+    Object.keys(data).forEach(item => {
+      str += `${item}=${encodeURIComponent(data[item])}&`
+    })
+    return str ? str.substr(0, str.length - 1) : ''
+  }
+
   post(uriName, data = {}) {
     this.showLoading()
     return this.instance.post(
       this.options.uri[uriName],
-      qs.stringify(data, { arrayFormat: 'repeat' })
+      // qs.stringify(data, { arrayFormat: 'repeat' })
+      qs.stringify(this.serialize(data))
     )
   }
 
