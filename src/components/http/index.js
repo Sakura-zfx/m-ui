@@ -58,7 +58,7 @@ export default class Http {
       // `paramsSerializer` is an optional function in charge of serializing `params`
       // (e.g. https://www.npmjs.com/package/qs, http://api.jquery.com/jquery.param/)
       paramsSerializer(params) {
-        return qs.stringify(params, { arrayFormat: 'brackets' })
+        return qs.stringify(params, { arrayFormat: 'repeat' })
       },
       headers: {
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -118,7 +118,7 @@ export default class Http {
     this.showLoading()
     return this.instance.post(
       this.options.uri[uriName],
-      qs.stringify(data, { arrayFormat: 'brackets' })
+      qs.stringify(data, { arrayFormat: 'repeat' })
     )
   }
 
