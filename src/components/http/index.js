@@ -114,10 +114,10 @@ export default class Http {
     return this.instance.get(path, { params: data })
   }
 
-  post(uri, data = {}) {
+  post(uriName, data = {}) {
     this.showLoading()
     return this.instance.post(
-      uri,
+      this.options.uri[uriName],
       qs.stringify(data, { arrayFormat: 'brackets' })
     )
   }
