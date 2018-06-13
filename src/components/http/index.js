@@ -1,5 +1,5 @@
 import axios from 'axios/dist/axios.min'
-import qs from 'qs'
+// import qs from 'qs'
 
 const local = !/s/.test(location.protocol)
 
@@ -127,7 +127,7 @@ export default class Http {
     return this.instance.post(
       this.options.uri[uriName],
       // qs.stringify(data, { arrayFormat: 'repeat' })
-      qs.stringify(this.serialize(data))
+      this.serialize(data)
     )
   }
 
