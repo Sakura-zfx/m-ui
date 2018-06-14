@@ -4,7 +4,7 @@
     class="m-msgBox__wrap position-f top-0 bottom-0 left-0 right-0 overflow-a"
   >
     <!--为解决滑动穿透，加一层节点来"吃掉"穿透的滚动-->
-    <div style="height: 200%" />
+    <!--<div style="height: 200%" />-->
 
     <m-mask :show="visible" />
 

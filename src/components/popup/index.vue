@@ -1,10 +1,10 @@
 <template>
   <div
-    class="m-popup__container-width-mask scroll-wrap position-f top-0 bottom-0 left-0 right-0 overflow-a"
+    class="m-popup__container-width-mask scroll-wrap position-f top-0 bottom-0 left-0 right-0"
     v-show="showMask"
   >
     <!--为解决滑动穿透，加一层节点来"吃掉"穿透的滚动-->
-    <div style="height: 200%;" class="empty__child" />
+    <!--<div style="height: 200%;" class="empty__child" />-->
 
     <m-mask :show="showMask" />
 
