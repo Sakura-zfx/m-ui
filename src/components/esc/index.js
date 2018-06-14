@@ -20,9 +20,9 @@ export default {
     return `${escUrl}#/select-quota?callback=${cbName}&selected=${selected}`
   },
 
-  userUrl(cbName, color = '2277EE', travelType = 0, selected) {
+  userUrl(cbName, color = '2277EE', travelType = 0, selected = '', num = '') {
     return `${escUrl}#/occupant-choose?callback=${cbName}` +
-      `&color=${color}&travelType=${travelType}&selected=${selected}`
+      `&color=${color}&travelType=${travelType}&selected=${selected}&num=${num}`
   },
 
   cityUrl(cbName, cityName) {
