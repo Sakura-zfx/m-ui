@@ -786,11 +786,11 @@ export default {
 
     noop() {},
 
-    setCustomReason() {
+    setCustomReason(val) {
       // const key = 'custom-stand-reason'
       // const session = sessionStorage.getItem(key)
       // if (session) {
-      //   this.currentOverStandReason = { id: -1, name: decodeURIComponent(session) }
+      this.currentOverStandReason = { id: -1, name: decodeURIComponent(val) }
       // }
     },
 
