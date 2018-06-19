@@ -31,9 +31,9 @@
         @on-click="getApprove"
       >
         <template class="ib-middle" v-if="approveCurrent">
-          <span>{{ approveCurrent.title }}</span>
-          <span class="color-c999" v-show="approveCurrent.reason">
-            ({{ approveCurrent.reason }})
+          <span>{{ formatApproveItem(approveCurrent).title }}</span>
+          <span class="color-c999" v-show="formatApproveItem(approveCurrent).reason">
+            ({{ formatApproveItem(approveCurrent).reason }})
           </span>
         </template>
       </cell>
@@ -44,7 +44,7 @@
         :confirm-show="false"
         :cancel-text="isPurchase ? `取消${approveTitle}` : ''"
         :common-list="approveList || []"
-        :common-current="approveCurrent"
+        :common-current="formatApproveItem(approveCurrent)"
         :main-color="mainColor"
         :has-link="false"
         @toggle-show="showApprovePopup = false"
@@ -526,13 +526,18 @@ export default {
       const isTravel = item.travelDetail
       const isQuota = item.quotaId
       // const isPurchase =
+      const formatTime = time => {
+        const { year, month, date } = utils.getTime(Number(time))
+        return `${year}/${month}/${date}`
+      }
+
       let title
       let reason = item.reason || item.approveReason
       if (isTravel) {
         const travel = item.travelDetail[0]
-        title = `${travel.startTime}-${travel.endTime}`
+        title = `${formatTime(travel.startTime)}-${formatTime(travel.endTime)}`
       } else if (isQuota) {
-        title = `${item.startTime}-${item.endTime}`
+        title = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
       }
       return {
         ...item,

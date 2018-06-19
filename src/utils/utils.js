@@ -37,5 +37,18 @@ export default {
       // eslint-disable-next-line
       alert('window.JSBridge 不存在')
     }
+  },
+
+  getTime(time) {
+    const obj = time ? new Date(time) : new Date()
+    const year = obj.getFullYear()
+    let month = obj.getMonth() + 1
+    let date = obj.getDate()
+
+    month = month > 9 ? month : `0${month}`
+    date = date > 9 ? date : `0${date}`
+    return {
+      year, month, date
+    }
   }
 }
