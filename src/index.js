@@ -17,6 +17,7 @@ import ConfirmOrder from './components/confirm-order'
 import DatePicker from './components/date-picker'
 import Empty from './components/empty'
 import Esc from './components/esc'
+import Feedback from './components/feedback'
 import GoodsCard from './components/goods-card'
 import GoodsCardGroup from './components/goods-card-group'
 import Http from './components/http'
@@ -37,7 +38,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.24'
+const version = '1.0.25'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -55,6 +56,7 @@ const components = [
   DatePicker,
   Empty,
   Esc,
+  Feedback,
   GoodsCard,
   GoodsCardGroup,
   Http,

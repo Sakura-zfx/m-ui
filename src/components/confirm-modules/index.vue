@@ -42,7 +42,7 @@
         class="select-approve"
         :visible="showApprovePopup"
         :confirm-show="false"
-        :cancel-text="`取消${approveTitle}`"
+        :cancel-text="isPurchase ? `取消${approveTitle}` : '1'"
         :common-list="approveList || []"
         :common-current="approveCurrent"
         :main-color="mainColor"
@@ -52,15 +52,59 @@
         @cancel-select="$emit('cancel-select-approve')"
       >
         <template slot-scope="scope">
-          <p>
-            <span class="fr m-bd px-padding-lr5 color-c666" @click.stop="openApproveDetail(scope.row)">查看详情</span>
-            <span>{{ scope.row.title }}</span>
-          </p>
-          <p
-            :class="{ 'color-c999': !approveCurrent || scope.row.id !== approveCurrent.id }"
+          <span
+            class="position-a px-right-10 px-top-15 m-bd px-padding-lr5 color-c666 line-normal"
+            @click.stop="openApproveDetail(scope.row)"
           >
-            {{ scope.row.reason }}
-          </p>
+            查看详情
+          </span>
+          <div class="line-normal text-left">
+            <p>{{ scope.row.title || '标题' }}</p>
+            <span
+              :class="{
+                'color-c999': !approveCurrent || scope.row.id !== approveCurrent.id
+              }"
+            >
+              {{ scope.row.reason }}
+            </span>
+          </div>
+        </template>
+      </common-select>
+    </template>
+
+    <template v-if="hasOverStandModule">
+      <cell
+        label="是否超标"
+        :is-link="false"
+        @on-click="$emit('on-click-stand')"
+      >
+        <span :style="{ color: mainColor }" v-if="isOverStand">
+          <i class="iconfont icon-shuoming ib-middle"/>
+          <span class="ib-middle">已超标</span>
+        </span>
+        <span class="color-c999" v-else>未超标</span>
+      </cell>
+    </template>
+
+    <template v-if="hasOverStandReasonModule && isOverStand">
+      <cell
+        label="超标原因"
+        @on-click="showOverStandPanel = true"
+      />
+      <common-select
+        title="选择超标原因"
+        :visible="showOverStandPanel"
+        :confirm-show="true"
+        confirm-text="自定义原因"
+        :common-list="STAND_REASON"
+        :common-current="currentOverStandReason"
+        :main-color="mainColor"
+        @toggle-show="showOverStandPanel = false"
+        @common-select="item => currentOverStandReason = item"
+        @common-btn="customOverStandReason"
+      >
+        <template slot-scope="scope">
+          <p>{{ scope.row.name }}</p>
         </template>
       </common-select>
     </template>
@@ -192,7 +236,7 @@
         v-if="isOpenWelfare"
         :is-link="false"
         label="使用数量"
-        @on-click="noon"
+        @on-click="noop"
       >
         <input
           type="tel"
@@ -240,10 +284,12 @@ import utils from '../../utils/utils'
 import {
   BILL_METHOD,
   BILL_TYPE_LIST,
-  PAY_WAY
+  PAY_WAY,
+  STAND_REASON
 } from './constant'
 import esc from '../esc'
 
+const FeedBack = () => import('../feedback')
 const baseUrl = esc.domain
 
 export default {
@@ -286,6 +332,7 @@ export default {
     welfareMaxUseNum: Number,
     approveTitle: String,
     travelType: [Number],
+    isOverStand: Boolean,
 
     get: {
       type: Function,
@@ -315,6 +362,9 @@ export default {
       welfareUseNum: '',
       scopeInfo: {},
 
+      // 超标原因
+      currentOverStandReason: STAND_REASON[0],
+
       loading: {
         approve: false,
         bill: false,
@@ -328,9 +378,11 @@ export default {
       showBillTypePopup: false,
       showBillPopup: false,
       showBillMethodCell: false,
+      showOverStandPanel: false,
 
       BILL_METHOD,
-      BILL_TYPE_LIST
+      BILL_TYPE_LIST,
+      STAND_REASON
     }
   },
 
@@ -357,6 +409,14 @@ export default {
       return this.config
         ? this.config.indexOf(11) > -1 && this.showWelfareCell
         : false
+    },
+
+    hasOverStandModule() {
+      return this.config ? this.config.indexOf(5) > -1 : false
+    },
+
+    hasOverStandReasonModule() {
+      return this.config ? this.config.indexOf(6) > -1 : false
     },
 
     hasMoneySum() {
@@ -464,7 +524,7 @@ export default {
       this.loading.approve = true
       this.get(this.urlApprove, { bizType: this.bizType })
         .then(res => {
-          this.approveList = res.map(x => ({ ...x, id: x.approveId }))
+          this.approveList = res.map(x => ({ ...x, id: x.approveId || x.quotaId }))
           this.loading.approve = false
         })
         .catch(error => this.$emit('error-callback', error))
@@ -647,7 +707,9 @@ export default {
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
         welfareNum: this.welfareUseNum ? Number(this.welfareUseNum) : 0,
-        welfare: this.welfare
+        welfare: this.welfare,
+        overStandReason: this.currentOverStandReason.name,
+        isOverStand: this.isOverStand
       }
     },
 
@@ -684,16 +746,39 @@ export default {
     },
 
     openApproveDetail(item) {
-      console.log(`${window.AppInfo.data.approveUrl}#/detail/${item.id}`)
-      window.JSBridge.native('openurl', {
-        url: `${window.AppInfo.data.approveUrl}#/detail/${item.id}`,
-        noDefaultMenu: 1,
-        cookie: 1
-      })
+      utils.openUrl(`${window.AppInfo.data.approveUrl}#/detail/${item.id}`)
     },
 
-    noon() {
+    noop() {},
 
+    customOverStandReason() {
+      // 动态注册路由
+      const router = this.$router
+      const routerName = 'custom-stand-reason'
+      const query = {
+        callback: 'set-custom-reason',
+        title: '编辑超标理由',
+        maxlength: 100
+      }
+      let path = `${location.href.split('#')[0]}#/${routerName}?`
+      path += Object.keys(query).map(key => `${key}=${encodeURIComponent(query[key])}`).join('&')
+
+      if (router.options.routes.every(x => x.name !== routerName)) {
+        router.addRoutes([{
+          name: routerName,
+          path: `/${routerName}`,
+          component: FeedBack
+        }])
+      }
+
+      if (utils.local) {
+        router.push(path.split('#')[1])
+      } else {
+        utils.setCallback(routerName, ({ data }) => {
+          this.currentOverStandReason = { id: -1, name: data }
+        })
+        utils.openUrl(path)
+      }
     }
   }
 }

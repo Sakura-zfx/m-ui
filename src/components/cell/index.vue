@@ -29,7 +29,12 @@
     </div>
 
     <i class="iconfont icon-jinru fr color-c999" v-show="isLink && !loading"/>
-
+    <img
+      v-show="loading"
+      class="fr px-margin-t15"
+      :src="require('../../assets/loading.gif')"
+      width="20px"
+    >
     <div class="over-text">
       <div class="ib-middle">
         <slot>
@@ -37,12 +42,6 @@
           <span class="color-c999" v-else>请选择</span>
         </slot>
       </div>
-      <img
-        v-if="loading"
-        class="ib-middle"
-        :src="require('../../assets/loading.gif')"
-        width="20px"
-      >
     </div>
   </div>
 </template>

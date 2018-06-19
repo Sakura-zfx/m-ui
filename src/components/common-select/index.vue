@@ -13,42 +13,45 @@
   >
     <template slot="content">
       <p class="address__empty" v-if="!commonList || commonList.length === 0">{{ emptyText }}</p>
-      <cell-group v-else>
+      <template v-else>
         <cell
           v-if="cancelText"
-          :title="cancelText"
-          @click="onSelect()"
+          :label="cancelText"
+          @on-click="onSelect()"
         />
         <cell
           v-for="item in commonList"
-          class="address-list__item"
+          class="position-r"
           :style="getColorMain(isCurrent(item))"
           :key="item.id"
-          @click="onSelect(item)"
+          :is-link="false"
+          @on-click="onSelect(item)"
         >
-          <slot :row="item" />
-          <icon
-            v-show="hasLink && isCurrent(item)"
-            slot="right-icon"
-            name="success"
-            class="van-cell__right-icon"
+          <template slot="label">
+            <slot :row="item" />
+          </template>
+          <i
+            v-if="hasLink && isCurrent(item)"
+            class="iconfont icon-duigou px-font-14"
             :style="getColorMain(isCurrent(item))"
           />
+          <i v-else />
         </cell>
-      </cell-group>
+      </template>
     </template>
   </m-popup>
 </template>
 
 <script>
-import { Cell, CellGroup, Icon } from 'vant'
+// import { Cell, CellGroup, Icon } from 'vant'
 import MPopup from '../popup'
+import Cell from '../cell'
 
 export default {
   name: 'address-select',
 
   components: {
-    MPopup, Cell, CellGroup, Icon
+    MPopup, Cell
   },
 
   computed: {
