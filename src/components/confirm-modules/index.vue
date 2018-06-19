@@ -42,7 +42,7 @@
         class="select-approve"
         :visible="showApprovePopup"
         :confirm-show="false"
-        :cancel-text="isPurchase ? `取消${approveTitle}` : '1'"
+        :cancel-text="isPurchase ? `取消${approveTitle}` : ''"
         :common-list="approveList || []"
         :common-current="approveCurrent"
         :main-color="mainColor"
