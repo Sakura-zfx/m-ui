@@ -34,7 +34,7 @@ export default {
     },
     btnText: {
       type: String,
-      default: '提交'
+      default: '保存'
     },
     mainColor: {
       type: String,
