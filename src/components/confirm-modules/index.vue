@@ -495,7 +495,7 @@ export default {
         this.initWelfare()
       }
       if (this.hasOverStandReasonModule) {
-        this.setCustomReason()
+        // this.setCustomReason()
       }
     })
   },

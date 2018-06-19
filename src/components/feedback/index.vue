@@ -97,5 +97,9 @@ export default {
     height: 150px;
     background-color: #fff;
     margin: 0;
+    border: none;
+    &:focus {
+      outline: none;
+    }
   }
 </style>
