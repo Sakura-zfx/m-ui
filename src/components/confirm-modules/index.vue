@@ -292,6 +292,7 @@ import esc from '../esc'
 
 const FeedBack = () => import('../feedback')
 const baseUrl = esc.domain
+let hasAddCustomReasonRoute = false
 
 export default {
   name: 'confirm-modules',
@@ -493,7 +494,13 @@ export default {
       if (this.hasWelfareModule) {
         this.initWelfare()
       }
+      if (this.hasOverStandReasonModule) {
+        this.setCustomReason()
+      }
     })
+  },
+
+  activated() {
   },
 
   methods: {
@@ -523,21 +530,22 @@ export default {
 
     // 审批单有额度、出差、采购3种格式，未统一
     formatApproveItem(item) {
+      if (!item) {
+        return
+      }
       const isTravel = item.travelDetail
-      const isQuota = item.quotaId
+      // const isQuota = item.quotaId
       // const isPurchase =
       const formatTime = time => {
         const { year, month, date } = utils.getTime(Number(time))
         return `${year}/${month}/${date}`
       }
 
-      let title
+      let title = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
       let reason = item.reason || item.approveReason
       if (isTravel) {
         const travel = item.travelDetail[0]
         title = `${formatTime(travel.startTime)}-${formatTime(travel.endTime)}`
-      } else if (isQuota) {
-        title = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
       }
       return {
         ...item,
@@ -778,36 +786,39 @@ export default {
 
     noop() {},
 
+    setCustomReason() {
+      // const key = 'custom-stand-reason'
+      // const session = sessionStorage.getItem(key)
+      // if (session) {
+      //   this.currentOverStandReason = { id: -1, name: decodeURIComponent(session) }
+      // }
+    },
+
     customOverStandReason() {
+      this.$emit('on-custom-reason')
       // 动态注册路由
-      const router = this.$router
-      const routerName = 'custom-stand-reason'
-      const query = {
-        callback: 'set-custom-reason',
-        title: '编辑超标理由',
-        maxlength: 100
-      }
-      let path = `${location.href.split('#')[0]}#/${routerName}?`
-      path += Object.keys(query).map(key => `${key}=${encodeURIComponent(query[key])}`).join('&')
-
-      // if (router.options.routes.every(x => x.name !== routerName)) {
-      router.addRoutes([{
-        name: routerName,
-        path: `/${routerName}`,
-        component: FeedBack
-      }])
+      // const router = this.$router
+      // const routerName = 'custom-stand-reason'
+      // const query = {
+      //   sessionKey: routerName,
+      //   title: '编辑超标理由',
+      //   maxlength: 100,
+      //   value: this.currentOverStandReason.name
       // }
-
-      // if (utils.local) {
-      //   router.push(path.split('#')[1])
-      // } else {
-      // eslint-disable-next-line
-      console.log(path)
-      utils.setCallback(routerName, ({ data }) => {
-        this.currentOverStandReason = { id: -1, name: data }
-      })
-      utils.openUrl(path)
+      //
+      // if (!hasAddCustomReasonRoute) {
+      //   router.addRoutes([{
+      //     name: routerName,
+      //     path: `/${routerName}`,
+      //     component: FeedBack
+      //   }])
+      //   hasAddCustomReasonRoute = true
       // }
+      //
+      // router.push({
+      //   path: `/${routerName}`,
+      //   query
+      // })
     }
   }
 }

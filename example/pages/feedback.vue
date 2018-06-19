@@ -39,7 +39,7 @@ export default {
 
   data() {
     return {
-      input: '1'
+      input: '1222'
     }
   },
 

@@ -10,7 +10,7 @@
     <div
       class="feed-btn"
       :style="{ backgroundColor: mainColor }"
-      @click="$emit('on-btn', content)"
+      @click="onBtn"
     >
       {{ btnText }}
     </div>
@@ -18,14 +18,12 @@
 </template>
 
 <script>
-import utils from '../../utils/utils'
-
 export default {
   name: 'feedback',
 
   data() {
     return {
-      // content: ''
+      content: this.value
     }
   },
 
@@ -49,10 +47,6 @@ export default {
   computed: {
     query() {
       return this.$route.query
-    },
-
-    content() {
-      return this.query.callback ? this.query.content : this.value
     }
   },
 
@@ -64,15 +58,24 @@ export default {
 
   created() {
     document.title = this.query.title || this.title
+    if (this.query.value) {
+      this.content = decodeURIComponent(this.query.value)
+    }
   },
 
   methods: {
-    handleInput(e) {
-      if (this.query.callback) {
-        utils.callParentJs(this.query.callback, e.target.value)
+    onBtn() {
+      if (this.query.sessionKey) {
+        sessionStorage.setItem(this.query.sessionKey, this.content)
+        history.back()
       } else {
-        this.$emit('input', e.target.value)
+        this.$emit('on-btn', this.content)
       }
+    },
+
+    handleInput(e) {
+      this.content = e.target.value
+      this.$emit('input', e.target.value)
     }
   }
 }
