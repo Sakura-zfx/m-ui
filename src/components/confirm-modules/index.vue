@@ -89,6 +89,7 @@
     <template v-if="hasOverStandReasonModule && isOverStand">
       <cell
         label="超标原因"
+        :value="currentOverStandReason.name"
         @on-click="showOverStandPanel = true"
       />
       <common-select

@@ -17,6 +17,7 @@
         :total-money="4999"
         :is-show-approve-cell="true"
         :welfare-max-use-num="20"
+        :is-over-stand="true"
         :get="get"
         :post="post"
         @select-approve="item => selectApprove = item"
