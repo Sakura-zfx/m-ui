@@ -521,11 +521,32 @@ export default {
         .catch(error => this.$emit('error-callback', error))
     },
 
+    // 审批单有额度、出差、采购3种格式，未统一
+    formatApproveItem(item) {
+      const isTravel = item.travelDetail
+      const isQuota = item.quotaId
+      // const isPurchase =
+      let title
+      let reason = item.reason || item.approveReason
+      if (isTravel) {
+        const travel = item.travelDetail[0]
+        title = `${travel.startTime}-${travel.endTime}`
+      } else if (isQuota) {
+        title = `${item.startTime}-${item.endTime}`
+      }
+      return {
+        ...item,
+        id: item.approveId || item.quotaId,
+        title,
+        reason
+      }
+    },
+
     getApprove() {
       this.loading.approve = true
       this.get(this.urlApprove, { bizType: this.bizType })
         .then(res => {
-          this.approveList = res.map(x => ({ ...x, id: x.approveId || x.quotaId }))
+          this.approveList = res.map(x => (this.formatApproveItem(x)))
           this.loading.approve = false
         })
         .catch(error => this.$emit('error-callback', error))
