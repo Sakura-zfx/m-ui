@@ -764,22 +764,24 @@ export default {
       let path = `${location.href.split('#')[0]}#/${routerName}?`
       path += Object.keys(query).map(key => `${key}=${encodeURIComponent(query[key])}`).join('&')
 
-      if (router.options.routes.every(x => x.name !== routerName)) {
-        router.addRoutes([{
-          name: routerName,
-          path: `/${routerName}`,
-          component: FeedBack
-        }])
-      }
+      // if (router.options.routes.every(x => x.name !== routerName)) {
+      router.addRoutes([{
+        name: routerName,
+        path: `/${routerName}`,
+        component: FeedBack
+      }])
+      // }
 
-      if (utils.local) {
-        router.push(path.split('#')[1])
-      } else {
-        utils.setCallback(routerName, ({ data }) => {
-          this.currentOverStandReason = { id: -1, name: data }
-        })
-        utils.openUrl(path)
-      }
+      // if (utils.local) {
+      //   router.push(path.split('#')[1])
+      // } else {
+      // eslint-disable-next-line
+      console.log(path)
+      utils.setCallback(routerName, ({ data }) => {
+        this.currentOverStandReason = { id: -1, name: data }
+      })
+      utils.openUrl(path)
+      // }
     }
   }
 }
