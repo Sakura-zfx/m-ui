@@ -20,6 +20,7 @@
         :is-over-stand="true"
         :get="get"
         :post="post"
+        :travel-type="0"
         @select-approve="item => selectApprove = item"
         @cancel-select-approve="selectApprove = null"
         @change-open-bill="val => isOpenBill = val"

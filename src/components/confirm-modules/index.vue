@@ -114,7 +114,8 @@
       <cell
         label="支付方式"
         :value="payWay ? payWay.title : ''"
-        @on-click="showPayWayPopup = true"
+        :is-link="payWayList.length > 1"
+        @on-click="payWayList.length > 1 ? showPayWayPopup = true : void 0"
       />
       <common-select
         title="选择支付方式"
@@ -290,9 +291,9 @@ import {
 } from './constant'
 import esc from '../esc'
 
-const FeedBack = () => import('../feedback')
+// const FeedBack = () => import('../feedback')
 const baseUrl = esc.domain
-let hasAddCustomReasonRoute = false
+// let hasAddCustomReasonRoute = false
 
 export default {
   name: 'confirm-modules',
@@ -517,11 +518,6 @@ export default {
       return this.post(this.urlScope, { bizType: this.bizType })
         .then(res => {
           this.scopeInfo = res
-          // this.scopeInfo = {
-          //   balance: false,
-          //   subscription: false,
-          //   buyer: true
-          // }
           this.$emit('load-scope-detail', res)
           return this.scopeInfo
         })
@@ -603,13 +599,19 @@ export default {
     initPay() {
       // 账户信息
       this.getScopeInfo().then(res => {
+        let payWayList = []
+        // 因私消费 只支持个人支付
+        // 因公消费 个人支付为 个人垫付
+        if (this.travelType === 1) {
+          this.payWayList = [PAY_WAY[2]]
+          this.$emit('select-pay-way', PAY_WAY[2])
+          return
+        }
+
         const { balance, buyer, subscription } = res
         // const buyer = false
         // const balance = false
         // const subscription = true
-
-        let payWayList = []
-
         if (!subscription || !buyer) {
           // 只支持个人支付
           payWayList = [PAY_WAY[2]]
