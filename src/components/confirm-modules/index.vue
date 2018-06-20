@@ -415,11 +415,15 @@ export default {
     },
 
     hasOverStandModule() {
-      return this.config ? this.config.indexOf(5) > -1 : false
+      return this.config
+        ? this.config.indexOf(5) > -1 && this.travelType === 0
+        : false
     },
 
     hasOverStandReasonModule() {
-      return this.config ? this.config.indexOf(6) > -1 : false
+      return this.config
+        ? this.config.indexOf(6) > -1 && this.travelType === 0
+        : false
     },
 
     hasMoneySum() {
