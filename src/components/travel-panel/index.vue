@@ -13,7 +13,7 @@
       <span>{{ text[1] }}</span>
     </div>
     <div class="travel-panel__item" @click="$emit('on-list')">
-      <div class="travel-panel__icon travel-panel__icon-last">
+      <div class="travel-panel__icon travel-panel__icon-last" v-if="hasExpense">
         <img :src="imgList" width="100%" height="100%">
         <div class="travel-panel__tag">去报销</div>
       </div>
@@ -43,7 +43,8 @@ export default {
       default() {
         return ['因私出行', '因公出行', '我的行程']
       }
-    }
+    },
+    hasExpense: Boolean
   }
 }
 </script>
