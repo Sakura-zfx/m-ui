@@ -13,9 +13,9 @@
       <span>{{ text[1] }}</span>
     </div>
     <div class="travel-panel__item" @click="$emit('on-list')">
-      <div class="travel-panel__icon travel-panel__icon-last" v-if="hasExpense">
+      <div class="travel-panel__icon travel-panel__icon-last">
         <img :src="imgList" width="100%" height="100%">
-        <div class="travel-panel__tag">去报销</div>
+        <div class="travel-panel__tag" v-if="hasExpense">去报销</div>
       </div>
       <span>{{ text[2] }}</span>
     </div>
