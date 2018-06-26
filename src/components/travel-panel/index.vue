@@ -4,20 +4,20 @@
       <div class="travel-panel__icon">
         <img :src="imgPer" width="100%" height="100%">
       </div>
-      <span>因私出行</span>
+      <span>{{ text[0] }}</span>
     </div>
     <div class="travel-panel__item" @click="$emit('on-public')">
       <div class="travel-panel__icon">
         <img :src="imgPub" width="100%" height="100%">
       </div>
-      <span>因公出行</span>
+      <span>{{ text[1] }}</span>
     </div>
     <div class="travel-panel__item" @click="$emit('on-list')">
       <div class="travel-panel__icon travel-panel__icon-last">
         <img :src="imgList" width="100%" height="100%">
         <div class="travel-panel__tag">去报销</div>
       </div>
-      <span>我的行程</span>
+      <span>{{ text[2] }}</span>
     </div>
   </div>
 </template>
@@ -34,6 +34,15 @@ export default {
       imgPub: require('../../assets/images/public.png'),
       // eslint-disable-next-line
       imgList: require('../../assets/images/list.png')
+    }
+  },
+
+  props: {
+    text: {
+      type: Array,
+      default() {
+        return ['因私出行', '因公出行', '我的行程']
+      }
     }
   }
 }
