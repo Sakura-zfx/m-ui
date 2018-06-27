@@ -128,12 +128,14 @@
         @common-select="item => $emit('select-pay-way', item)"
       >
         <template slot-scope="scope">
-          <p>{{ scope.row.title }}</p>
-          <p
-            :class="{ 'color-c999': !payWay || scope.row.id !== payWay.id }"
-          >
-            {{ scope.row.msg }}
-          </p>
+          <div class="line-normal text-left">
+            <p>{{ scope.row.title }}</p>
+            <span
+              :class="{ 'color-c999': !payWay || scope.row.id !== payWay.id }"
+            >
+              {{ scope.row.msg }}
+            </span>
+          </div>
         </template>
       </common-select>
     </template>
@@ -334,7 +336,11 @@ export default {
     totalMoney: Number,
     welfareMaxUseNum: Number,
     approveTitle: String,
-    travelType: [Number],
+    travelType: {
+      // 默认因私消费
+      type: Number,
+      default: 1
+    },
     isOverStand: Boolean,
 
     get: {
@@ -416,13 +422,13 @@ export default {
 
     hasOverStandModule() {
       return this.config
-        ? this.config.indexOf(5) > -1 && this.travelType === 0
+        ? this.config.indexOf(5) > -1 && this.isPublicExpense
         : false
     },
 
     hasOverStandReasonModule() {
       return this.config
-        ? this.config.indexOf(6) > -1 && this.travelType === 0
+        ? this.config.indexOf(6) > -1 && this.isPublicExpense
         : false
     },
 
@@ -449,6 +455,11 @@ export default {
     // 其它只有因公因私 和 个人企业支付
     isPurchase() {
       return [22, 129, 139].indexOf(Number(this.bizType)) > -1
+    },
+
+    // 因公消费
+    isPublicExpense() {
+      return this.travelType === 0
     }
   },
 
@@ -604,9 +615,9 @@ export default {
       // 账户信息
       this.getScopeInfo().then(res => {
         let payWayList = []
-        // 因私消费 只支持个人支付
+        // 非采购 且 因私消费 只支持个人支付
         // 因公消费 个人支付为 个人垫付
-        if (this.travelType === 1) {
+        if (!this.isPurchase && !this.isPublicExpense) {
           this.payWayList = [PAY_WAY[2]]
           this.$emit('select-pay-way', PAY_WAY[2])
           return
@@ -678,13 +689,24 @@ export default {
       // 根据支付方式来控制积分模块的显示与隐藏
       if (this.payWay) {
         const { id } = this.payWay
-        if (id === 1 || id === 2) {
+        if (
+          id === 1 ||
+          id === 2 ||
+          (id === 3 && this.isPublicExpense)
+        ) {
+          // 企业支付
+          // 个人垫付
+          // 因公消费的个人支付 不支持积分
           this.toggleWelfareCell(false)
         } else {
           this.toggleWelfareCell(true)
         }
 
-        if (this.isOpenWelfare && id === 3) {
+        if (
+          this.isOpenWelfare &&
+          id === 3 &&
+          this.isPublicExpense
+        ) {
           this.$nextTick(this.getWelfare)
         }
       }
