@@ -8,7 +8,7 @@
 
     <m-mask :show="showMask" />
 
-    <transition name="zoom-up">
+    <transition name="m-popup__zoom-up">
       <div
         v-show="visible"
         class="m-popup__wrap position-f bottom-0 bg-fff left-0 width-100"
@@ -53,24 +53,39 @@
 import MMask from '../mask/mask'
 
 export default {
-  data() {
-    return {
-      showMask: this.visible
-    }
-  },
-
   name: 'm-popup',
 
-  watch: {
-    visible(val) {
-      document.documentElement.style.overflow = val ? 'hidden' : ''
-      if (val) {
-        this.showMask = true
-      } else {
-        setTimeout(() => {
-          this.showMask = false
-        }, 300)
-      }
+  props: {
+    title: {
+      type: String,
+      default: '标题'
+    },
+    titleAlign: {
+      type: String,
+      default: 'text-center'
+    },
+    contentHeight: {
+      type: Number
+    },
+    confirmText: {
+      type: String,
+      default: '确定'
+    },
+    noTitle: {
+      type: Boolean,
+      default: false
+    },
+    visible: {
+      type: Boolean,
+      default: false
+    },
+    showBtn: {
+      type: Boolean,
+      default: true
+    },
+    mainColor: {
+      type: String,
+      default: 'red'
     }
   },
 
@@ -83,50 +98,21 @@ export default {
     }
   },
 
-  props: {
-    title: {
-      type: String,
-      default: function () {
-        return '标题'
-      }
-    },
-    titleAlign: {
-      type: String,
-      default: function () {
-        return 'text-center'
-      }
-    },
-    contentHeight: {
-      type: Number
-    },
-    confirmText: {
-      type: String,
-      default: function () {
-        return '确定'
-      }
-    },
-    noTitle: {
-      type: Boolean,
-      default: function () {
-        return false
-      }
-    },
-    visible: {
-      type: Boolean,
-      default: function () {
-        return false
-      }
-    },
-    showBtn: {
-      type: Boolean,
-      default: function () {
-        return true
-      }
-    },
-    mainColor: {
-      type: String,
-      default: function () {
-        return 'red'
+  data() {
+    return {
+      showMask: this.visible
+    }
+  },
+
+  watch: {
+    visible(val) {
+      // document.documentElement.style.overflow = val ? 'hidden' : ''
+      if (val) {
+        this.showMask = true
+      } else {
+        setTimeout(() => {
+          this.showMask = false
+        }, 300)
       }
     }
   },
@@ -135,10 +121,12 @@ export default {
     confirm() {
       this.$emit('confirm')
       this.$emit('toggle')
+      this.$emit('update:visible', false)
     },
     close() {
       this.$emit('close')
       this.$emit('toggle')
+      this.$emit('update:visible', false)
     }
   },
   destroyed () {
@@ -157,7 +145,6 @@ export default {
   }
 
   .m-popup__wrap {
-    transform: translateY(0);
     box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.50);
     z-index: 1002;
 
@@ -189,17 +176,13 @@ export default {
     }
   }
 
-  .zoom-up-enter {
-    opacity: 0;
+  .m-popup__zoom-up-enter-active {
+    animation: m-popup__fadeInUp ease-out .3s;
   }
-  .zoom-up-enter-active {
-    opacity: 1;
-    animation: fadeInUp ease-out 0.3s;
+  .m-popup__zoom-up-leave-active {
+    animation: m-popup__fadeOutDown ease-out .3s;
   }
-  .zoom-up-leave-active {
-    animation: fadeOutDown ease-out .3s;
-  }
-  @keyframes fadeInUp {
+  @keyframes m-popup__fadeInUp {
     from {
       transform: translate3d(0, 100%, 0);
     }
@@ -207,8 +190,7 @@ export default {
       transform: none;
     }
   }
-
-  @keyframes fadeOutDown {
+  @keyframes m-popup__fadeOutDown {
     from {
     }
     to {

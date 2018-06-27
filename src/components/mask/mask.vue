@@ -50,7 +50,7 @@ export default {
 
   methods: {
     showOverflow(hide) {
-      document.documentElement.style.overflow = hide ? 'hidden' : ''
+      // document.documentElement.style.overflow = hide ? 'hidden' : ''
     }
   }
 }
