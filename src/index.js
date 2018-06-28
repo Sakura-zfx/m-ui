@@ -33,12 +33,13 @@ import Search from './components/search'
 import SubmitBar from './components/submit-bar'
 import Switch from './components/switch'
 import Tab from './components/tab'
+import Tag from './components/tag'
 import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.40'
+const version = '1.0.41'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -72,6 +73,7 @@ const components = [
   SubmitBar,
   Switch,
   Tab,
+  Tag,
   TagSelect,
   Toast,
   TravelPanel,

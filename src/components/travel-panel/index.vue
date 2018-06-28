@@ -70,7 +70,7 @@ export default {
   .travel-panel__icon
     width 45px
     height 45px
-    margin 33px auto 15px auto
+    margin 5vh auto 2vh auto
 
     &.travel-panel__icon-last
       position relative
