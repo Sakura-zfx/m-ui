@@ -3,7 +3,7 @@
     <div class="mg--10">
       <m-confirm-order
         ref="modules"
-        biz-type="146"
+        biz-type="22"
         approve-title="关联采购单"
         :approve-current="selectApprove"
         :bill-method-current="billMethod"
@@ -25,6 +25,7 @@
         @cancel-select-approve="selectApprove = null"
         @change-open-bill="val => isOpenBill = val"
         @change-open-welfare="val => isOpenWelfare = val"
+        @change-open-welfare-error="errorNotice"
         @select-bill-method="item => billMethod = item"
         @select-bill-type="item => billType = item"
         @select-bill="item => bill = item"
@@ -70,6 +71,9 @@ export default {
   methods: {
     getModulesData() {
       console.log(this.$refs.modules.getModulesData())
+    },
+    errorNotice() {
+      console.log('不支持积分')
     }
   }
 }

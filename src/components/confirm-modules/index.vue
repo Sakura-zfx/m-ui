@@ -102,7 +102,7 @@
         :main-color="mainColor"
         @toggle-show="showOverStandPanel = false"
         @common-select="item => currentOverStandReason = item"
-        @common-btn="customOverStandReason"
+        @common-btn="$emit('on-custom-reason')"
       >
         <template slot-scope="scope">
           <p>{{ scope.row.name }}</p>
@@ -233,7 +233,7 @@
         <m-switch
           :value="isOpenWelfare"
           :main-color="mainColor"
-          @change="val => $emit('change-open-welfare', val)"
+          @change="onChangeOpenWelfare"
         />
       </cell>
       <cell
@@ -380,7 +380,7 @@ export default {
         welfare: false
       },
 
-      showWelfareCell: true,
+      // showWelfareCell: true,
       showPayWayPopup: false,
       showApprovePopup: false,
       showBillMethodPopup: false,
@@ -416,7 +416,7 @@ export default {
 
     hasWelfareModule() {
       return this.config
-        ? this.config.indexOf(11) > -1 && this.showWelfareCell
+        ? this.config.indexOf(11) > -1
         : false
     },
 
@@ -475,7 +475,9 @@ export default {
     payWay: {
       deep: true,
       handler() {
-        this.initBill(false)
+        if (this.hasBillModule) {
+          this.initBill(false)
+        }
         this.initWelfare()
       }
     },
@@ -514,9 +516,6 @@ export default {
         // this.setCustomReason()
       }
     })
-  },
-
-  activated() {
   },
 
   methods: {
@@ -624,14 +623,10 @@ export default {
         }
 
         const { balance, buyer, subscription } = res
-        // const buyer = false
-        // const balance = false
-        // const subscription = true
-        if (!subscription || !buyer) {
+        if (!subscription || (!buyer && this.isPurchase)) {
           // 只支持个人支付
           payWayList = [PAY_WAY[2]]
         } else if (!balance) {
-          // 企业额度不足
           // 支持垫付与个人支付
           payWayList = PAY_WAY.slice(1, 3)
         } else {
@@ -645,8 +640,14 @@ export default {
             payWayList = payWayList.filter(x => x.id !== 3)
           }
         } else {
-          // 没有个人垫付
-          payWayList = payWayList.filter(x => x.id !== 2).map(x => ({ ...x, msg: '' }))
+          // 没有个人支付，此时个人垫付就是个人支付
+          payWayList = payWayList
+            .filter(x => x.id !== 3)
+            .map(x => ({
+              ...x,
+              msg: '',
+              title: x.id === 2 ? '个人支付' : x.title
+            }))
         }
 
         if (
@@ -799,7 +800,7 @@ export default {
     },
 
     toggleWelfareCell(show) {
-      this.showWelfareCell = show
+      // this.showWelfareCell = show
       if (!show) {
         this.welfareUseNum = ''
         this.$emit('change-open-welfare', false)
@@ -815,38 +816,15 @@ export default {
     noop() {},
 
     setCustomReason(val) {
-      // const key = 'custom-stand-reason'
-      // const session = sessionStorage.getItem(key)
-      // if (session) {
       this.currentOverStandReason = { id: -1, name: decodeURIComponent(val) }
-      // }
     },
 
-    customOverStandReason() {
-      this.$emit('on-custom-reason')
-      // 动态注册路由
-      // const router = this.$router
-      // const routerName = 'custom-stand-reason'
-      // const query = {
-      //   sessionKey: routerName,
-      //   title: '编辑超标理由',
-      //   maxlength: 100,
-      //   value: this.currentOverStandReason.name
-      // }
-      //
-      // if (!hasAddCustomReasonRoute) {
-      //   router.addRoutes([{
-      //     name: routerName,
-      //     path: `/${routerName}`,
-      //     component: FeedBack
-      //   }])
-      //   hasAddCustomReasonRoute = true
-      // }
-      //
-      // router.push({
-      //   path: `/${routerName}`,
-      //   query
-      // })
+    onChangeOpenWelfare(val) {
+      if (this.payWay && this.payWay.id === 3) {
+        this.$emit('change-open-welfare', val)
+      } else {
+        this.$emit('change-open-welfare-error')
+      }
     }
   }
 }
