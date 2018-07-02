@@ -350,12 +350,17 @@ export default {
     post: {
       type: Function,
       required: true
+    },
+    scopeType: {
+      type: [Number, String],
+      default: 0
     }
   },
 
   data() {
     return {
-      urlScope: `${baseUrl}/purchase/order/checkScopeDetail`,
+      urlPurchaseScope: `${baseUrl}/purchase/order/checkScopeDetail`,
+      urlTravelScope: `${baseUrl}/gateway/common/payAuth`,
       urlConfig: `${baseUrl}/gateway/buycenter/module/getModuleList`,
       urlApprove: `${baseUrl}/gateway/buycenter/approve/getList`,
       urlBill: `${baseUrl}/gateway/buycenter/invoice/getList`,
@@ -529,13 +534,15 @@ export default {
     },
 
     getScopeInfo() {
-      return this.post(this.urlScope, { bizType: this.bizType })
-        .then(res => {
-          this.scopeInfo = res
-          this.$emit('load-scope-detail', res)
-          return this.scopeInfo
-        })
-        .catch(error => this.$emit('error-callback', error))
+      const handle = this.isPurchase
+        ? this.post(this.urlPurchaseScope, { bizType: this.bizType })
+        // travelType 1机票 2火车票 3酒店 4打车
+        : this.get(this.urlTravelScope, { bizType: this.bizType, travelType: this.scopeType })
+      handle.then(res => {
+        this.scopeInfo = res
+        this.$emit('load-scope-detail', res)
+        return this.scopeInfo
+      }).catch(error => this.$emit('error-callback', error))
     },
 
     // 审批单有额度、出差、采购3种格式，未统一
@@ -621,13 +628,12 @@ export default {
           this.$emit('select-pay-way', PAY_WAY[2])
           return
         }
-        console.log(PAY_WAY)
 
-        const { balance, buyer, subscription } = res
+        const { balance, buyer, subscription, haveOrgPay } = res
         if (!subscription || (!buyer && this.isPurchase)) {
           // 只支持个人支付
           payWayList = [PAY_WAY[2]]
-        } else if (!balance) {
+        } else if (!balance || (!this.isPurchase && !haveOrgPay)) {
           // 支持垫付与个人支付
           payWayList = PAY_WAY.slice(1, 3)
         } else {
