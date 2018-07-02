@@ -17,6 +17,7 @@
         <cell
           v-if="cancelText"
           :label="cancelText"
+          value="' '"
           @on-click="onSelect()"
         />
         <cell

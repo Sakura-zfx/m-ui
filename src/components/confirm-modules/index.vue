@@ -621,6 +621,7 @@ export default {
           this.$emit('select-pay-way', PAY_WAY[2])
           return
         }
+        console.log(PAY_WAY)
 
         const { balance, buyer, subscription } = res
         if (!subscription || (!buyer && this.isPurchase)) {
