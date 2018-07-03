@@ -538,7 +538,7 @@ export default {
         ? this.post(this.urlPurchaseScope, { bizType: this.bizType })
         // travelType 1机票 2火车票 3酒店 4打车
         : this.get(this.urlTravelScope, { bizType: this.bizType, travelType: this.scopeType })
-      handle.then(res => {
+      return handle.then(res => {
         this.scopeInfo = res
         this.$emit('load-scope-detail', res)
         return this.scopeInfo
