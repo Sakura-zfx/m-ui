@@ -40,7 +40,8 @@ export default {
   },
 
   getTime(time) {
-    const obj = time ? new Date(time) : new Date()
+    const isTimeStamp = /^\d+$/.test(time)
+    const obj = time ? new Date(isTimeStamp ? Number(time) : time) : new Date()
     const year = obj.getFullYear()
     let month = obj.getMonth() + 1
     let date = obj.getDate()

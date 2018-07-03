@@ -47,6 +47,7 @@
         :common-current="formatApproveItem(approveCurrent)"
         :main-color="mainColor"
         :has-link="false"
+        :cell-height="isPurchase ? undefined : 80"
         @toggle-show="showApprovePopup = false"
         @common-select="item => $emit('select-approve', item)"
         @cancel-select="$emit('cancel-select-approve')"
@@ -59,14 +60,21 @@
             查看详情
           </span>
           <div class="line-normal text-left">
-            <p>{{ scope.row.title || '标题' }}</p>
-            <span
+            <p
+              class="px-font-16"
+              v-if="scope.row.typeName"
+            >
+              {{ scope.row.typeName }}
+              <span v-if="scope.row.balance">({{ scope.row.balance.toFixed(2) }})元</span>
+            </p>
+            <div
               :class="{
                 'color-c999': !approveCurrent || scope.row.id !== approveCurrent.id
               }"
             >
-              {{ scope.row.reason }}
-            </span>
+              <p>{{ scope.row.title || '标题' }}</p>
+              <span>{{ scope.row.reason }}</span>
+            </div>
           </div>
         </template>
       </common-select>
@@ -123,6 +131,7 @@
         :confirm-show="false"
         :common-list="payWayList"
         :common-current="payWay"
+        :cell-height="isPurchase ? 60 : undefined"
         :main-color="mainColor"
         @toggle-show="showPayWayPopup = false"
         @common-select="item => $emit('select-pay-way', item)"
@@ -550,25 +559,35 @@ export default {
       if (!item) {
         return
       }
-      const isTravel = item.travelDetail
-      // const isQuota = item.quotaId
-      // const isPurchase =
+      let title
+      let reason
+      let typeName
+      const isTravel = item.quotaType === 3
       const formatTime = time => {
-        const { year, month, date } = utils.getTime(Number(time))
+        const { year, month, date } = utils.getTime(time)
         return `${year}/${month}/${date}`
       }
 
-      let title = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
-      let reason = item.reason || item.approveReason
-      if (isTravel) {
-        const travel = item.travelDetail[0]
-        title = `${formatTime(travel.startTime)}-${formatTime(travel.endTime)}`
+      if (this.isPurchase) {
+        title = item.title
+        reason = item.reason
+      } else {
+        const approveTypeName = ['', '固定额度', '临时额度', '出差', '外出']
+        title = item.reason || item.approveReason
+        reason = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
+        typeName = approveTypeName[item.quotaType]
+        if (isTravel) {
+          const travel = item.travelDetail[0]
+          // title = `${formatTime(travel.startTime)}-${formatTime(travel.endTime)}`
+          reason = `${travel.startTime}-${travel.endTime}`
+        }
       }
       return {
         ...item,
         id: item.approveId || item.quotaId,
         title,
-        reason
+        reason,
+        typeName
       }
     },
 

@@ -27,6 +27,7 @@
           :style="getColorMain(isCurrent(item))"
           :key="item.id"
           :is-link="false"
+          :height="cellHeight"
           @on-click="onSelect(item)"
         >
           <template slot="label">
@@ -116,7 +117,8 @@ export default {
     hasLink: {
       type: Boolean,
       default: true
-    }
+    },
+    cellHeight: Number
   },
 
   methods: {
