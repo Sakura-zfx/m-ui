@@ -562,7 +562,7 @@ export default {
       let title
       let reason
       let typeName
-      const isTravel = item.quotaType === 3
+      // const isTravel = item.quotaType === 3 && item.
       const formatTime = time => {
         const { year, month, date } = utils.getTime(time)
         return `${year}/${month}/${date}`
@@ -576,11 +576,11 @@ export default {
         title = item.reason || item.approveReason
         reason = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
         typeName = approveTypeName[item.quotaType]
-        if (isTravel) {
-          const travel = item.travelDetail[0]
-          // title = `${formatTime(travel.startTime)}-${formatTime(travel.endTime)}`
-          reason = `${travel.startTime}-${travel.endTime}`
-        }
+        // if (isTravel) {
+        //   const travel = item.travelDetail[0]
+        // title = `${formatTime(travel.startTime)}-${formatTime(travel.endTime)}`
+        // reason = `${travel.startTime}-${travel.endTime}`
+        // }
       }
       return {
         ...item,
