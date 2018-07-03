@@ -97,7 +97,7 @@
     <template v-if="hasOverStandReasonModule && isOverStand">
       <cell
         label="超标原因"
-        :value="currentOverStandReason.name"
+        :value="currentOverStandReason && currentOverStandReason.name"
         @on-click="showOverStandPanel = true"
       />
       <common-select
@@ -106,7 +106,7 @@
         :confirm-show="true"
         confirm-text="自定义原因"
         :common-list="STAND_REASON"
-        :common-current="currentOverStandReason"
+        :common-current="currentOverStandReason || {}"
         :main-color="mainColor"
         @toggle-show="showOverStandPanel = false"
         @common-select="item => currentOverStandReason = item"
@@ -386,7 +386,7 @@ export default {
       scopeInfo: {},
 
       // 超标原因
-      currentOverStandReason: STAND_REASON[0],
+      currentOverStandReason: null,
 
       loading: {
         approve: false,
@@ -798,7 +798,7 @@ export default {
         isUseWelfare: this.isOpenWelfare,
         welfareNum: this.welfareUseNum ? Number(this.welfareUseNum) : 0,
         welfare: this.welfare,
-        overStandReason: this.currentOverStandReason.name,
+        overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
         isOverStand: this.isOverStand
       }
     },
