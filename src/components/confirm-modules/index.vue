@@ -726,8 +726,8 @@ export default {
 
         if (
           this.isOpenWelfare &&
-          id === 3 &&
-          this.isPublicExpense
+          id === 3
+          // this.isPublicExpense
         ) {
           this.$nextTick(this.getWelfare)
         }
