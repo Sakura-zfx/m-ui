@@ -54,6 +54,7 @@
       >
         <template slot-scope="scope">
           <span
+            v-if="scope.row.approveId"
             class="position-a px-right-10 px-top-15 m-bd px-padding-lr5 color-c666 line-normal"
             @click.stop="openApproveDetail(scope.row)"
           >
@@ -562,7 +563,6 @@ export default {
       let title
       let reason
       let typeName
-      // const isTravel = item.quotaType === 3 && item.
       const formatTime = time => {
         const { year, month, date } = utils.getTime(time)
         return `${year}/${month}/${date}`
@@ -576,11 +576,6 @@ export default {
         title = item.reason || item.approveReason
         reason = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
         typeName = approveTypeName[item.quotaType]
-        // if (isTravel) {
-        //   const travel = item.travelDetail[0]
-        // title = `${formatTime(travel.startTime)}-${formatTime(travel.endTime)}`
-        // reason = `${travel.startTime}-${travel.endTime}`
-        // }
       }
       return {
         ...item,
@@ -620,9 +615,6 @@ export default {
         .then(res => {
           let data = { ...res }
           if (data.restAmount < 0) {
-            // this.$box.alert('剩余可用积分数量为0').then(() => {
-            //   this.$emit('change-open-welfare', false)
-            // })
             data.restAmount = 0
             data.originRestAmount = res.restAmount
           }
@@ -652,7 +644,10 @@ export default {
         if (!subscription || (!buyer && this.isPurchase)) {
           // 只支持个人支付
           payWayList = [PAY_WAY[2]]
-        } else if (!balance || (!this.isPurchase && !haveOrgPay)) {
+        } else if (
+          (this.isPurchase && !balance) ||
+          (!this.isPurchase && !haveOrgPay)
+        ) {
           // 支持垫付与个人支付
           payWayList = PAY_WAY.slice(1, 3)
         } else {
