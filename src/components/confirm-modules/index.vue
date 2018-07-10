@@ -281,6 +281,10 @@
         />
         <span class="color-c999 fr">+ ¥ {{ freightMoney | formatPrice }}</span>
       </p>
+      <p v-if="servicePrice">
+        <span>服务费</span>
+        <span class="color-c999 fr">¥ {{ servicePrice | formatPrice }}</span>
+      </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
         <span class="ib-middle">积分抵扣</span>
         <span class="color-c999 fr">- ¥ {{ welfareUseNum | formatPrice }}({{ welfareUseNum }}积分)</span>
@@ -363,6 +367,10 @@ export default {
     },
     scopeType: {
       type: [Number, String],
+      default: 0
+    },
+    servicePrice: {
+      type: Number,
       default: 0
     }
   },
