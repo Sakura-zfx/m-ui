@@ -5,7 +5,7 @@
       sub-text="合计"
       main-text="呵呵"
     >
-      <span>全选</span>
+      <span slot="info">明细</span>
     </m-submit-bar>
   </common-entry>
 </template>

@@ -1,9 +1,10 @@
 <template>
-  <div class="width-100 px-height-50 text-right bg-fff">
+  <div class="width-100 px-height-50 bg-fff text-right">
     <div v-if="$slots.default" class="fl px-width-60 px-line-50 text-left">
       <slot />
     </div>
-    <div class="font-bold font-16 ib-middle px-margin-r5">
+    <slot v-if="$slots.info" name="info" />
+    <div class="font-bold font-16 ib-middle px-margin-r5" v-else>
       <span class="color-c000">{{ subText }}：</span>
       <span style="color: red;">¥ {{ money }}</span>
     </div>
