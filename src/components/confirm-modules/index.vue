@@ -282,7 +282,11 @@
         <span class="color-c999 fr">+ ¥ {{ freightMoney | formatPrice }}</span>
       </p>
       <p v-if="serviceRate">
-        <span>服务费</span>
+        <span class="ib-middle">服务费</span>
+        <i
+          class="iconfont icon-shuoming ib-middle color-info"
+          @click="serviceRateDesc"
+        />
         <span class="color-c999 fr">¥ {{ Math.ceil(serviceRate * totalMoney) | formatPrice }}</span>
       </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
@@ -780,6 +784,15 @@ export default {
       this.$box({
         title: '运费说明',
         msg: p,
+        noCancel: true,
+        okTxt: '我知道了'
+      })
+    },
+
+    serviceRateDesc() {
+      this.$box({
+        title: '服务费说明',
+        msg: `该商品需收取${this.serviceRate * 100}%的服务费。`,
         noCancel: true,
         okTxt: '我知道了'
       })

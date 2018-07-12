@@ -21,6 +21,7 @@
         :get="get"
         :post="post"
         :travel-type="1"
+        :service-rate="0.06"
         @select-approve="item => selectApprove = item"
         @cancel-select-approve="selectApprove = null"
         @change-open-bill="val => isOpenBill = val"
