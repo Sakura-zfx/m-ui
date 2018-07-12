@@ -281,9 +281,9 @@
         />
         <span class="color-c999 fr">+ ¥ {{ freightMoney | formatPrice }}</span>
       </p>
-      <p v-if="servicePrice">
+      <p v-if="serviceRate">
         <span>服务费</span>
-        <span class="color-c999 fr">¥ {{ servicePrice | formatPrice }}</span>
+        <span class="color-c999 fr">¥ {{ Math.ceil(serviceRate * totalMoney) | formatPrice }}</span>
       </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
         <span class="ib-middle">积分抵扣</span>
@@ -369,7 +369,7 @@ export default {
       type: [Number, String],
       default: 0
     },
-    servicePrice: {
+    serviceRate: {
       type: Number,
       default: 0
     }
