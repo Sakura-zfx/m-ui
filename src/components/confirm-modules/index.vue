@@ -443,7 +443,8 @@ export default {
 
     hasWelfareModule() {
       return this.config
-        ? this.config.indexOf(11) > -1
+        ? this.config.indexOf(11) > -1 &&
+          (this.isPurchase || (!this.isPurchase && this.payWay && this.payWay.id === 3))
         : false
     },
 

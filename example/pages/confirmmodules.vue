@@ -20,7 +20,7 @@
         :is-over-stand="true"
         :get="get"
         :post="post"
-        :travel-type="1"
+        :travel-type="0"
         :service-rate="0.06"
         @select-approve="item => selectApprove = item"
         @cancel-select-approve="selectApprove = null"
