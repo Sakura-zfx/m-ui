@@ -12,7 +12,7 @@
         v-else
       />
     </div>
-    <p class="px-font-16 color-c333">{{ title }}</p>
+    <p class="px-font-16 color-c333 px-margin-t30">{{ title }}</p>
     <p class="color-c999 px-font-12">{{ desc }}</p>
     <div
       v-show="btnText"
