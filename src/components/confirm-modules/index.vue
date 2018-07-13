@@ -287,7 +287,7 @@
           class="iconfont icon-shuoming ib-middle color-info"
           @click="serviceRateDesc"
         />
-        <span class="color-c999 fr">¥ {{ Math.ceil(serviceRate * totalMoney) | formatPrice }}</span>
+        <span class="color-c999 fr">¥ {{ Math.round(serviceRate * skuMoney) | formatPrice }}</span>
       </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
         <span class="ib-middle">积分抵扣</span>
