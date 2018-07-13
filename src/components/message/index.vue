@@ -1,23 +1,23 @@
 <template>
   <div
-    class="warning px-padding-tb5"
+    class="message__wrap px-padding-tb5"
+    :class="`message__wrap-${type}`"
     v-show="showWarning"
   >
-    <div class="px-padding-5 fl px-width-30 text-center" v-if="ball">
-      <i class="iconfont icon-tixing font-12" />
+    <div class="message__left">
+      <div class="message__icon" v-if="ball">
+        <i class="font-12" :class="icon" />
+      </div>
+      <p
+        class="message px-font-12"
+        @click="$emit('on-click')"
+      >
+        {{ message }}
+      </p>
     </div>
-    <div class="px-padding-5 fr px-width-30 text-center" @click="close">
+    <div v-if="close" class="message__close" @click="doClose">
       <i class="iconfont icon-guanbi font-10" />
     </div>
-    <p
-      class="px-font-12 overflow-h"
-      :class="{
-        'px-padding-l10': !ball
-      }"
-      @click="$emit('on-click')"
-    >
-      {{ message }}
-    </p>
   </div>
 </template>
 
@@ -30,7 +30,7 @@ export default {
     }
   },
   methods: {
-    close() {
+    doClose() {
       this.showWarning = false
       this.$emit('on-close')
     }
@@ -40,17 +40,48 @@ export default {
       type: String,
       default: '这是一段提示'
     },
+    // 废弃
     ball: {
       type: Boolean,
       default: true
+    },
+    icon: {
+      type: String,
+      default: 'iconfont icon-tixing'
+    },
+    close: {
+      type: Boolean,
+      default: true
+    },
+    type: {
+      type: String,
+      default: 'warn'
     }
   }
 }
 </script>
 
 <style lang="scss">
-  .warning {
+  .message__wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .message__left {
+    display: flex;
+    align-items: center;
+
+    .message {
+      display: flex;
+      justify-content: start;
+    }
+  }
+  .message__wrap-warn {
     background-color: #FEFBE5;
     color: #FE6A00;
+  }
+  .message__close,
+  .message__icon {
+    padding: 0 7px;
   }
 </style>

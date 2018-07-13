@@ -58,6 +58,11 @@
         "description": "[vant] 开关单元格"
       },
       {
+        "path": "/message",
+        "name": "message",
+        "description": "[xm-mui] message"
+      },
+      {
         "path": "/avatar",
         "name": "Avatar",
         "description": "[xm-mui] 头像"
