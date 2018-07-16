@@ -31,7 +31,9 @@ MaskConstructor.setCb = (cb) => {
 }
 
 MaskConstructor.hide = () => {
-  instance.visible = false
+  if (instance) {
+    instance.visible = false
+  }
 }
 
 export default MaskConstructor
