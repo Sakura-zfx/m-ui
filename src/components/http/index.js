@@ -111,12 +111,16 @@ export default class Http {
       data.token = search.token
     }
 
-    this.showLoading()
+    if (data.loading !== false) {
+      this.showLoading()
+    }
     return this.instance.get(path, { params: data })
   }
 
   post(uriName, data = {}) {
-    this.showLoading()
+    if (data.loading !== false) {
+      this.showLoading()
+    }
     return this.instance.post(
       this.options.uri[uriName],
       qs.stringify(data, { arrayFormat: this.options.arrayFormat })
