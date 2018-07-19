@@ -51,8 +51,9 @@ this.$http.get('getInfo')
 
 <script>
 import CommonEntry from './commonEntry'
-import Http from '../../lib/http'
-import Toast from '../../lib/toast'
+// import Http from '../../lib/http'
+import Http from '../../src/components/http'
+import Toast from '../../src/components/toast'
 
 export default {
   name: 'cell',
@@ -70,11 +71,23 @@ export default {
   created() {
     this.http = new Http({
       loading: this.$loading,
-      toast: Toast
+      toast: Toast,
+      uri: {
+        bizInfo: '/gateway/common/app',
+        payAuth: '/gateway/common/payAuth',
+        getUsersDetail: '/gateway/external/get',
+        pay: '/gateway/common/pay',
+        createOrder: '/plane/plane/create'
+      }
     })
 
-    console.log(this.http)
+    // console.log(this.http)
     // this.http.inject('get', 'getInfo', '/gateway/getInfo')({ name: 1 })
+    this.http.get('createOrder', { bizType: 0, toast: true }).then(res => {
+      console.log('success', res)
+    }).catch(res => {
+      console.log('error', res)
+    })
   }
 }
 </script>

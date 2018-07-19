@@ -66,35 +66,35 @@ export default class Http {
       }
     })
 
-    this.instance.interceptors.response.use(
-      response => {
-        this.hideLoading()
-
-        const res = response.data
-        if (res.data === undefined) {
-          // gateway
-          res.data = res.value
-        }
-
-        if (res.success) {
-          return res
-        }
-
-        if (
-          allowCodes.indexOf(res.code) === -1 &&
-          allowCodes.indexOf(res.status) === -1
-        ) {
-          this.options.toast(res.error ? res.error.name : res.msg)
-        }
-
-        return Promise.reject(res)
-      },
-      error => {
-        this.hideLoading()
-        this.options.toast(error.msg || error.message || '服务异常，请稍后再试')
-        return Promise.reject(error)
-      }
-    )
+    // this.instance.interceptors.response.use(
+    //   response => {
+    //     this.hideLoading()
+    //
+    //     const res = response.data
+    //     if (res.data === undefined) {
+    //       // gateway
+    //       res.data = res.value
+    //     }
+    //
+    //     if (res.success) {
+    //       return res
+    //     }
+    //
+    //     if (
+    //       allowCodes.indexOf(res.code) === -1 &&
+    //       allowCodes.indexOf(res.status) === -1
+    //     ) {
+    //       this.options.toast(res.error ? res.error.name : res.msg)
+    //     }
+    //
+    //     return Promise.reject(res)
+    //   },
+    //   error => {
+    //     this.hideLoading()
+    //     this.options.toast(error.msg || error.message || '服务异常，请稍后再试')
+    //     return Promise.reject(error)
+    //   }
+    // )
   }
 
   get(uriName, data = {}) {
@@ -115,6 +115,8 @@ export default class Http {
       this.showLoading()
     }
     return this.instance.get(path, { params: data })
+      .then(response => this.commonThen(response, data))
+      .catch(error => this.commonCatch(error, data))
   }
 
   post(uriName, data = {}) {
@@ -125,6 +127,46 @@ export default class Http {
       this.options.uri[uriName],
       qs.stringify(data, { arrayFormat: this.options.arrayFormat })
     )
+      .then(response => this.commonThen(response, data))
+      .catch(error => this.commonCatch(error, data))
+  }
+
+  commonThen(response, data) {
+    const { allowCodes } = this.options
+
+    if (data.loading !== false) {
+      this.hideLoading()
+    }
+
+    const res = response.data
+    if (res.data === undefined) {
+      // gateway
+      res.data = res.value
+    }
+
+    if (res.success) {
+      return res
+    }
+
+    if (
+      allowCodes.indexOf(res.code) === -1 &&
+      allowCodes.indexOf(res.status) === -1 &&
+      data.toast !== false
+    ) {
+      this.options.toast(res.error ? res.error.name : res.msg)
+    }
+
+    return Promise.reject(res)
+  }
+
+  commonCatch(error, data) {
+    if (data.loading !== false) {
+      this.hideLoading()
+    }
+    if (data.toast !== false) {
+      this.options.toast(error.msg || error.message || '服务异常，请稍后再试')
+    }
+    return Promise.reject(error)
   }
 
   showLoading() {
