@@ -51,7 +51,7 @@ export default class Http {
   }
 
   init() {
-    const { timeout, baseURL, allowCodes, arrayFormat } = this.options
+    const { timeout, baseURL, arrayFormat } = this.options
     this.instance = axios.create({
       baseURL,
       timeout,
