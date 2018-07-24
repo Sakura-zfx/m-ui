@@ -20,6 +20,7 @@ import Esc from './components/esc'
 import Feedback from './components/feedback'
 import GoodsCard from './components/goods-card'
 import GoodsCardGroup from './components/goods-card-group'
+import HitDot from './components/hit-dot'
 import Http from './components/http'
 import LazyImg from './components/lazy-img'
 import Loading from './components/loading'
@@ -39,7 +40,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.63'
+const version = '1.0.64'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -60,6 +61,7 @@ const components = [
   Feedback,
   GoodsCard,
   GoodsCardGroup,
+  HitDot,
   Http,
   LazyImg,
   Loading,

@@ -25,11 +25,17 @@ export default {
       `&color=${color}&travelType=${travelType}&selected=${selected}&num=${num}`
   },
 
-  cityUrl(cbName, cityName) {
+  userEditUrl(cbName, color = '2277EE', travelType = 0, externalId, scenes = 1) {
+    return `${escUrl}#/occupant-add?color=${color}&` +
+    `scenes=1&travelType=${travelType}&` +
+    `externalId=${externalId}&callback=${cbName}&scenes=${scenes}`
+  },
+
+  cityUrl(cbName, cityName, scenes) {
     return `${escUrl}#/city-choose?locateCityName=${encodeURIComponent(cityName)}&callback=${cbName}`
   },
 
-  travelStandardUrl() {
+  travelStandardUrl(showType = 3) {
     return `${escUrl.replace('/app-entry-dist/index.html?', '/app-entry/static-pages/travelStandard.html?showType=3&')}`
   },
 

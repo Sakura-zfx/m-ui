@@ -793,7 +793,7 @@ export default {
     serviceRateDesc() {
       this.$box({
         title: '服务费说明',
-        msg: `该商品需收取${this.serviceRate * 100}%的服务费。`,
+        msg: `该商品需收取${(this.serviceRate * 100).toFixed(2)}%的服务费。`,
         noCancel: true,
         okTxt: '我知道了'
       })
