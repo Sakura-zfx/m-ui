@@ -573,9 +573,9 @@ export default {
       if (!item) {
         return
       }
-      let title
-      let reason
-      let typeName
+      let title = item.title
+      let reason = item.reason
+      let typeName = item.typeName
       const formatTime = time => {
         const { year, month, date } = utils.getTime(time)
         return `${year}/${month}/${date}`
@@ -584,11 +584,13 @@ export default {
       if (this.isPurchase) {
         title = item.title
         reason = item.reason
-      } else {
+      } else if (!item.hasTransferField) {
+        // 未做过字段对调
         const approveTypeName = ['', '固定额度', '临时额度', '出差', '外出']
         title = item.reason || item.approveReason
         reason = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
         typeName = approveTypeName[item.quotaType]
+        item.hasTransferField = true
       }
       return {
         ...item,

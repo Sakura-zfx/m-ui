@@ -36,7 +36,7 @@ export default {
   },
 
   travelStandardUrl(showType = 3) {
-    return `${escUrl.replace('/app-entry-dist/index.html?', '/app-entry/static-pages/travelStandard.html?showType=3&')}`
+    return `${escUrl.replace('/app-entry-dist/index.html?', `/app-entry/static-pages/travelStandard.html?showType=${showType}&`)}`
   },
 
   purchaseUrl(type = 0) {
