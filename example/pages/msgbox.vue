@@ -13,6 +13,9 @@
       <p>
         <a href="javascript:" @click="msgBoxConfirm2">vNode message</a>
       </p>
+      <p>
+        <a href="javascript:" @click="show = true">个性弹窗</a>
+      </p>
     </div>
     <p class="px-margin-t20">tips: 支持传vNode</p>
     <p>代码示例</p>
@@ -35,18 +38,31 @@
         visible: false
       }
     </pre>
+
+    <msg-box-style
+      :show.sync="show"
+      type="doing"
+    />
   </common-entry>
 </template>
 
 <script>
 import CommonEntry from './commonEntry'
 import msgBox from '../../src/components/msgbox/index'
+import msgBoxStyle from '../../src/components/msgbox-style/index'
 
 export default {
   name: 'msg-box',
 
   components: {
-    CommonEntry
+    CommonEntry,
+    msgBoxStyle
+  },
+
+  data() {
+    return {
+      show: false
+    }
   },
 
   methods: {

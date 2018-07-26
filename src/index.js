@@ -27,6 +27,7 @@ import Loading from './components/loading'
 import Mask from './components/mask'
 import Message from './components/message'
 import Msgbox from './components/msgbox'
+import MsgboxStyle from './components/msgbox-style'
 import NumComputer from './components/num-computer'
 import Popup from './components/popup'
 import PopupSide from './components/popup-side'
@@ -40,7 +41,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.65'
+const version = '1.0.66'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -68,6 +69,7 @@ const components = [
   Mask,
   Message,
   Msgbox,
+  MsgboxStyle,
   NumComputer,
   Popup,
   PopupSide,
