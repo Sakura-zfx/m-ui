@@ -11,7 +11,7 @@
     @click="$emit('on-click')"
   >
     <div class="fl">
-      <div class="ib-middle">
+      <div class="ib-middle cell__label">
         <slot name="label">
           <span>{{ label }}</span>
         </slot>
@@ -75,5 +75,9 @@ export default {
 <style lang="scss">
   .cell {
     padding: 0 10px;
+
+    .cell__label {
+      color: #959ba3;
+    }
   }
 </style>

@@ -7,7 +7,9 @@
         @click="close"
       />
       <div class="msgbox-style__img">
-        <template v-if="$slots.img" />
+        <template v-if="$slots.img">
+          <slot name="img"/>
+        </template>
         <img
           :src="type | getImg"
           width="100%"

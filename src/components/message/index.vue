@@ -5,7 +5,7 @@
     v-show="showWarning"
   >
     <div class="message__left">
-      <div class="message__icon" v-if="ball">
+      <div class="message__icon" v-if="ball && icon">
         <i class="font-12" :class="icon" />
       </div>
       <p
