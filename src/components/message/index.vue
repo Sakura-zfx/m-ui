@@ -9,7 +9,7 @@
         <i class="font-12" :class="icon" />
       </div>
       <p
-        class="message px-font-12"
+        class="message px-font-12 px-margin-l10"
         @click="$emit('on-click')"
       >
         {{ message }}
@@ -83,5 +83,8 @@ export default {
   .message__close,
   .message__icon {
     padding: 0 7px;
+  }
+  .message__icon {
+    padding-right: 0;
   }
 </style>

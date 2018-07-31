@@ -55,7 +55,7 @@
         </p>
 
         <div class="goods-card__item-info position-a bottom-0 left-0 width-100">
-          <p class="color-c999 px-font-12" v-if="spec">{{ spec }}</p>
+          <p class="color-c999 px-font-12 over-text" v-if="spec">{{ spec }}</p>
           <div class="fr color-c999">
             <slot v-if="$slots.right" name="right" />
             <template v-else-if="num !== undefined">x{{ num }}</template>
