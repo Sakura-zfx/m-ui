@@ -234,32 +234,47 @@
 
     <template v-if="hasWelfareModule">
       <cell
-        label="福利积分"
-        label-desc="每100积分可抵扣1.00元"
-        has-info
+        label="积分"
         :is-link="false"
-        @on-click-info="onClickWelfareInfo"
       >
+        <div class="text-left" slot="label">
+          <div class="ib-middle px-width-60 position-r">积分<span class="position-a welfare__tag">推荐</span></div>
+          <div
+            class="ib-middle color-c999 line-normal"
+            :class="{ 'welfare__info': welfare && welfare.restAmount }"
+          >
+            <span v-if="welfare && welfare.restAmount">
+              您有{{ welfare.restAmount }}积分，可抵¥{{ welfare.restAmount | formatPrice }}
+            </span>
+            <span :style="{fontSize: '3.73vw'}" v-else>您没有可用积分，暂不可用积分抵扣</span>
+            <i class="iconfont icon-shuoming color-info" @click="onClickWelfareInfo" />
+          </div>
+        </div>
         <m-switch
+          v-if="welfare && welfare.restAmount"
           :value="isOpenWelfare"
           :main-color="mainColor"
           @change="onChangeOpenWelfare"
         />
+        <span v-else />
       </cell>
       <cell
         v-if="isOpenWelfare"
         :is-link="false"
-        label="使用数量"
-        @on-click="noop"
+        value=" "
       >
-        <input
-          type="tel"
-          ref="welfareInput"
-          class="text-right"
-          :placeholder="welfare ? `剩余可用${welfare.restAmount}积分` : '加载中'"
-          :value="welfareUseNum"
-          @input="handleInputWelfare"
-        >
+        <div slot="label" class="text-left">
+          <span class="ib-middle px-width-60">使用</span>
+          <input
+            type="tel"
+            ref="welfareInput"
+            class="welfare__input"
+            :placeholder="welfare ? `剩余可用${welfare.restAmount}积分` : '加载中'"
+            :value="welfareUseNum"
+            @input="handleInputWelfare"
+          >
+          <span class="color-000">积分，抵 <span class="color-red">¥{{ welfareUseNum | formatPrice }}</span></span>
+        </div>
       </cell>
     </template>
 
@@ -495,8 +510,6 @@ export default {
     isOpenWelfare(val) {
       if (val) {
         this.getWelfare()
-      } else {
-        this.welfare = null
       }
     },
 
@@ -738,14 +751,12 @@ export default {
         } else {
           this.toggleWelfareCell(true)
         }
-
-        if (
-          this.isOpenWelfare &&
-          id === 3
-          // this.isPublicExpense
-        ) {
-          this.$nextTick(this.getWelfare)
-        }
+        // if (
+        //   this.isOpenWelfare &&
+        //   id === 3
+        // ) {
+        this.$nextTick(this.getWelfare)
+        // }
       }
     },
 
@@ -776,7 +787,28 @@ export default {
     },
 
     onClickWelfareInfo() {
-      this.$box.alert('积分抵扣金额将不开具发票')
+      const h = this.$createElement
+      this.$box.confirm({
+        title: '积分使用规则',
+        msg: h('div', null, [
+          h('p', { class: 'text-left' }, '1.积分为贵司发放给员工的一种福利，可直接抵扣现金'),
+          h('p', { class: 'text-left' }, '2.100积分可抵扣1元，若全额抵扣则无需再支付现金'),
+          h('p', { class: 'text-left' }, '3.积分抵扣的部分金额不开具发票')
+        ]),
+        okTxt: '了解详情',
+        cancelTxt: '我知道了'
+      }).then(() => {
+        try {
+          // eslint-disable-next-line
+          JSBridge.native('openurl', {
+            noDefaultMenu: 1,
+            url: 'https://note.uban360.com/u-h5/show/index.html?name=flsc-jfwt-hqjf&dadian='
+          })
+        } catch (e) {
+          // eslint-disable-next-line
+          console.error(e)
+        }
+      })
     },
 
     freightDesc() {
@@ -888,6 +920,33 @@ export default {
     }
     .color-red {
       color: red;
+    }
+    .welfare__tag {
+      background-color: #FB9916;
+      border-radius: 100px 100px 100px 0;
+      font-size: 12px;
+      color: #fff;
+      width: 37.95px;
+      height: 21.69px;
+      line-height: 21.69px;
+      top: 2px;
+      right: -5px;
+      text-align: center;
+      transform: scale(0.83);
+    }
+    .welfare__info {
+      width: 55vw;
+      word-break: break-all;
+    }
+    .welfare__input {
+      width: 88px;
+      height: 26px;
+      border: 1px #dcdcdc solid;
+      border-radius: 2px;
+      text-align: center;
+    }
+    .color-000 {
+      color: #000;
     }
   }
 </style>
