@@ -158,6 +158,11 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/hitdot",
+        "name": "HitDot",
+        "description": "[xm-mui] 打点"
+      },
+      {
         "path": "/esc",
         "name": "Esc",
         "description": "[xm-mui] esc应用信息"
