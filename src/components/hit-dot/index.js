@@ -9,7 +9,7 @@ let keyId = '事件id'
 let keyName = '事件名称'
 
 // @params filePath {String|Array} 打点文件的路径
-export function initDot(opts) {
+function initDot(opts) {
   if (typeof opts !== 'object') {
     console.warn(
       `params is filePath {String|Array},
@@ -46,9 +46,10 @@ export function initDot(opts) {
 
 // @params filePath {String} 相对链接或绝对链接
 // @params index {Number} 编号,文件或名称
-export function hitDot(number, index = 0) {
+function hitDot(number, index = 0) {
   const cacheKey = `${dotName[index]}_${number}`
   if (cacheDot[cacheKey]) {
+    console.log('cache log')  // eslint-disable-line
     hitDotDirect(cacheDot[cacheKey][keyId], cacheDot[cacheKey][keyName])
     return
   }
@@ -62,7 +63,7 @@ export function hitDot(number, index = 0) {
   })
 }
 
-export function hitDotDirect(eventId, param) {
+function hitDotDirect(eventId, param) {
   if (window.JSBridge === undefined) {
     console.warn('window.JSBridge is undefined')
     return false
@@ -73,8 +74,15 @@ export function hitDotDirect(eventId, param) {
     return false
   }
 
+  console.log('hit log ok')  // eslint-disable-line
   window.JSBridge.native('pagestat', {
     eventId,
     param
   })
+}
+
+export default {
+  initDot,
+  hitDot,
+  hitDotDirect
 }
