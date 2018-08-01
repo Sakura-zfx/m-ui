@@ -55,7 +55,7 @@ function hitDot(number, index = 0) {
   }
   // 先加载对应的js文件
   utils.loadScript(fileArr[index]).then(() => {
-    const numberItem = dotName[index].find(item => item[keyNumber])
+    const numberItem = eval(dotName[index]).find(item => item[keyNumber]) // eslint-disable-line
     if (numberItem) {
       cacheDot[cacheKey] = numberItem
       hitDotDirect(numberItem[keyId], numberItem[keyName])
