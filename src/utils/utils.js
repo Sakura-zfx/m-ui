@@ -51,5 +51,21 @@ export default {
     return {
       year, month, date
     }
+  },
+
+  loadScript(src) {
+    return new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = src
+      script.onload = () => {
+        resolve()
+      }
+
+      script.onerror = () => {
+        reject()  // eslint-disable-line
+      }
+
+      document.body.appendChild(script)
+    })
   }
 }
