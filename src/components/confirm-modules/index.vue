@@ -272,12 +272,14 @@
           <input
             type="tel"
             ref="welfareInput"
-            class="welfare__input"
+            class="welfare__input ib-middle"
             :placeholder="welfare ? `剩余可用${welfare.restAmount}积分` : '加载中'"
             :value="welfareUseNum"
             @input="handleInputWelfare"
           >
-          <span class="color-000">积分，抵 <span class="color-red">¥{{ welfareUseNum | formatPrice }}</span></span>
+          <span class="color-000 ib-middle">
+            积分，抵 <span class="color-red">¥{{ welfareUseNum | formatPrice }}</span>
+          </span>
         </div>
       </cell>
     </template>
@@ -914,6 +916,9 @@ export default {
 
 <style lang="scss">
   .confirm-modules {
+    .m-bd-b:before {
+      border-color: #e5e5e5;
+    }
     .confirm-modules__item {
       line-height: 45px;
       padding: 0 10px;
@@ -940,6 +945,8 @@ export default {
       border: 1px #dcdcdc solid;
       border-radius: 2px;
       text-align: center;
+      line-height: normal;
+      -webkit-appearance: none;
     }
     .color-000 {
       color: #000;
