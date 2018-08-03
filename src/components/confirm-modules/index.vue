@@ -238,7 +238,11 @@
         :is-link="false"
       >
         <div class="text-left" slot="label">
-          <div class="ib-middle px-width-60 position-r">积分<span class="position-a welfare__tag">推荐</span></div>
+          <div class="ib-middle px-width-60 position-r">
+            积分
+            <!--<span class="position-a welfare__tag">推荐</span>-->
+            <img class="position-a welfare__tag" :src="require('../../assets/images/tag.png')" width="36px">
+          </div>
           <div
             class="ib-middle color-c999 line-normal"
             :class="{ 'welfare__info': welfare && welfare.restAmount }"
@@ -396,7 +400,8 @@ export default {
 
   data() {
     return {
-      urlPurchaseScope: `${baseUrl}/purchase/order/checkScopeDetail`,
+      // urlPurchaseScope: `${baseUrl}/purchase/order/checkScopeDetail`,
+      urlPurchaseScope: `${baseUrl}/mc/order/checkScopeDetail`,
       urlTravelScope: `${baseUrl}/gateway/common/payAuth`,
       urlConfig: `${baseUrl}/gateway/buycenter/module/getModuleList`,
       urlApprove: `${baseUrl}/gateway/buycenter/approve/getList`,
@@ -571,7 +576,7 @@ export default {
 
     getScopeInfo() {
       const handle = this.isPurchase
-        ? this.post(this.urlPurchaseScope, { bizType: this.bizType })
+        ? this.get(this.urlPurchaseScope, { bizType: this.bizType })
         // travelType 1机票 2火车票 3酒店 4打车
         : this.get(this.urlTravelScope, { bizType: this.bizType, travelType: this.scopeType })
       return handle.then(res => {
@@ -922,17 +927,8 @@ export default {
       color: red;
     }
     .welfare__tag {
-      background-color: #FB9916;
-      border-radius: 100px 100px 100px 0;
-      font-size: 12px;
-      color: #fff;
-      width: 37.95px;
-      height: 21.69px;
-      line-height: 21.69px;
       top: 2px;
       right: -5px;
-      text-align: center;
-      transform: scale(0.83);
     }
     .welfare__info {
       width: 55vw;
