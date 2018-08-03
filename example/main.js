@@ -37,6 +37,22 @@ new Vue({
     }
   },
 
+  created() {
+    // history.pushState(1, '', '')
+    // window.addEventListener('popstate', () => {
+    //   this.$box.confirm({
+    //     title: '确认要离开收银台？',
+    //     msg: '您的订单在24小时内未支付将被取消，请尽快完成支付',
+    //     cancelTxt: '继续支付',
+    //     okTxt: '确认离开'
+    //   }).then(() => {
+    //     history.back()
+    //   }).catch(() => {
+    //     history.pushState(1, '', '')
+    //   })
+    // }, false)
+  },
+
   methods: {
     message (msg) {
       this.$toast.text(msg)
