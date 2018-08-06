@@ -139,9 +139,14 @@
       >
         <template slot-scope="scope">
           <div class="line-normal text-left">
-            <p>{{ scope.row.title }}</p>
+            <p
+              class="px-font-16"
+              :style="{ color: payWay && payWay.id === scope.row.id ? mainColor : '#262A30' }"
+            >
+              {{ scope.row.title }}
+            </p>
             <span
-              :class="{ 'color-c999': !payWay || scope.row.id !== payWay.id }"
+              :style="{ color: payWay && payWay.id === scope.row.id ? mainColor : '' }"
             >
               {{ scope.row.msg }}
             </span>
@@ -233,35 +238,29 @@
     </template>
 
     <template v-if="hasWelfareModule">
-      <cell
-        label="积分"
-        :is-link="false"
-      >
-        <div class="text-left" slot="label">
-          <div class="ib-middle px-width-60 position-r">
-            积分
-            <!--<span class="position-a welfare__tag">推荐</span>-->
-            <img class="position-a welfare__tag" :src="require('../../assets/images/tag.png')" width="36px">
-          </div>
-          <div
-            class="ib-middle color-c999 line-normal"
-            :class="{ 'welfare__info': welfare && welfare.restAmount }"
-          >
-            <span v-if="welfare && welfare.restAmount">
-              您有{{ welfare.restAmount }}积分，可抵¥{{ welfare.restAmount | formatPrice }}
-            </span>
-            <span :style="{fontSize: '3.73vw'}" v-else>您没有可用积分，暂不可用积分抵扣</span>
-            <i class="iconfont icon-shuoming color-info" @click="onClickWelfareInfo" />
-          </div>
-        </div>
+      <div class="custom__cell bg-fff m-bd-b">
         <m-switch
+          class="fr"
           v-if="welfare && welfare.restAmount"
           :value="isOpenWelfare"
           :main-color="mainColor"
           @change="onChangeOpenWelfare"
         />
-        <span v-else />
-      </cell>
+        <div class="ib-top px-width-60 position-r color-c666">
+          积分
+          <img class="position-a welfare__tag" :src="require('../../assets/images/tag.png')" width="36px">
+        </div>
+        <div
+          class="ib-top color-c999 line-normal"
+          :class="{ 'welfare__info': welfare && welfare.restAmount }"
+        >
+          <span v-if="welfare && welfare.restAmount">
+            您有{{ welfare.restAmount }}积分，可抵¥{{ welfare.restAmount | formatPrice }}
+          </span>
+          <span :style="{fontSize: '3.73vw'}" v-else>您没有可用积分，暂不可用积分抵扣</span>
+          <i class="iconfont icon-shuoming color-info" @click="onClickWelfareInfo" />
+        </div>
+      </div>
       <cell
         v-if="isOpenWelfare"
         :is-link="false"
@@ -273,9 +272,10 @@
             type="tel"
             ref="welfareInput"
             class="welfare__input ib-middle"
-            :placeholder="welfare ? `剩余可用${welfare.restAmount}积分` : '加载中'"
+            :placeholder="welfare ? '请输入' : '加载中'"
             :value="welfareUseNum"
             @input="handleInputWelfare"
+            @blur="checkInputWelfare"
           >
           <span class="color-000 ib-middle">
             积分，抵 <span class="color-red">¥{{ welfareUseNum | formatPrice }}</span>
@@ -386,10 +386,10 @@ export default {
       type: Function,
       required: true
     },
-    post: {
-      type: Function,
-      required: true
-    },
+    // post: {
+    //   type: Function,
+    //   required: true
+    // },
     scopeType: {
       type: [Number, String],
       default: 0
@@ -520,14 +520,11 @@ export default {
       }
     },
 
-    payWay: {
-      deep: true,
-      handler() {
-        if (this.hasBillModule) {
-          this.initBill(false)
-        }
-        this.initWelfare()
+    payWay() {
+      if (this.hasBillModule) {
+        this.initBill(false)
       }
+      this.initWelfare()
     },
 
     'loading.approve': function(val) {
@@ -560,9 +557,9 @@ export default {
       if (this.hasWelfareModule) {
         this.initWelfare()
       }
-      if (this.hasOverStandReasonModule) {
-        // this.setCustomReason()
-      }
+      // if (this.hasOverStandReasonModule) {
+      //   this.setCustomReason()
+      // }
     })
   },
 
@@ -758,12 +755,12 @@ export default {
         } else {
           this.toggleWelfareCell(true)
         }
-        // if (
-        //   this.isOpenWelfare &&
-        //   id === 3
-        // ) {
-        this.$nextTick(this.getWelfare)
-        // }
+        if (
+          this.isOpenWelfare &&
+          id === 3
+        ) {
+          this.$nextTick(this.getWelfare)
+        }
       }
     },
 
@@ -883,6 +880,15 @@ export default {
       }
     },
 
+    checkInputWelfare(e) {
+      const val = e.target.value
+      const input = this.$refs.welfareInput
+      if (val.trim() === '') {
+        this.welfareUseNum = 0
+        input.value = 0
+      }
+    },
+
     toggleWelfareCell(show) {
       // this.showWelfareCell = show
       if (!show) {
@@ -932,12 +938,18 @@ export default {
       color: red;
     }
     .welfare__tag {
-      top: 2px;
+      top: -10px;
       right: -5px;
     }
     .welfare__info {
       width: 55vw;
       word-break: break-all;
+    }
+    .custom__cell {
+      padding: 15px 10px;
+      .radio {
+        margin-top: -5px;
+      }
     }
     .welfare__input {
       width: 88px;
