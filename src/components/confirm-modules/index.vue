@@ -62,16 +62,15 @@
           </span>
           <div class="line-normal text-left">
             <p
-              class="px-font-16"
               v-if="scope.row.typeName"
+              class="px-font-16"
+              :style="isCurrentItem(approveCurrent, scope)"
             >
               {{ scope.row.typeName }}
               <span v-if="scope.row.balance">({{ scope.row.balance.toFixed(2) }})元</span>
             </p>
             <div
-              :class="{
-                'color-c999': !approveCurrent || scope.row.id !== approveCurrent.id
-              }"
+              :style="isCurrentItem(approveCurrent, scope, false)"
             >
               <p>{{ scope.row.title || '标题' }}</p>
               <span>{{ scope.row.reason }}</span>
@@ -141,12 +140,12 @@
           <div class="line-normal text-left">
             <p
               class="px-font-16"
-              :style="{ color: payWay && payWay.id === scope.row.id ? mainColor : '#262A30' }"
+              :style="isCurrentItem(payWay, scope)"
             >
               {{ scope.row.title }}
             </p>
             <span
-              :style="{ color: payWay && payWay.id === scope.row.id ? mainColor : '' }"
+              :style="isCurrentItem(payWay, scope, false)"
             >
               {{ scope.row.msg }}
             </span>
@@ -922,10 +921,14 @@ export default {
       utils.openUrl(`${window.AppInfo.data.approveUrl}#/detail/${item.id}`)
     },
 
-    noop() {},
-
     setCustomReason(val) {
       this.currentOverStandReason = { id: -1, name: decodeURIComponent(val) }
+    },
+
+    isCurrentItem(item, scope, title = true) {
+      return {
+        color: item && item.id === scope.row.id ? this.mainColor : title ? '#262A30' : ''
+      }
     },
 
     onChangeOpenWelfare(val) {
