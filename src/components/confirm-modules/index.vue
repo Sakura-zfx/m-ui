@@ -262,7 +262,7 @@
         </div>
       </div>
       <cell
-        v-if="isOpenWelfare"
+        v-if="isOpenWelfare && welfare && welfare.restAmount"
         :is-link="false"
         value=" "
       >
@@ -331,10 +331,21 @@ import {
   STAND_REASON
 } from './constant'
 import esc from '../esc'
+import Http from '../http'
 
 // const FeedBack = () => import('../feedback')
-const baseUrl = esc.domain
+// const baseUrl = esc.domain
 // let hasAddCustomReasonRoute = false
+const http = new Http({
+  uri: {
+    urlPurchaseScope: '/mc/order/checkScopeDetail',
+    urlTravelScope: '/gateway/common/payAuth',
+    urlConfig: '/gateway/buycenter/module/getModuleList',
+    urlApprove: '/gateway/buycenter/approve/getList',
+    urlBill: '/gateway/buycenter/invoice/getList',
+    urlWelfare: '/welfare/mall/user/account'
+  }
+})
 
 export default {
   name: 'confirm-modules',
@@ -381,11 +392,10 @@ export default {
       default: 1
     },
     isOverStand: Boolean,
-
-    get: {
-      type: Function,
-      required: true
-    },
+    // get: {
+    //   type: Function,
+    //   required: true
+    // },
     // post: {
     //   type: Function,
     //   required: true
@@ -403,12 +413,12 @@ export default {
   data() {
     return {
       // urlPurchaseScope: `${baseUrl}/purchase/order/checkScopeDetail`,
-      urlPurchaseScope: `${baseUrl}/mc/order/checkScopeDetail`,
-      urlTravelScope: `${baseUrl}/gateway/common/payAuth`,
-      urlConfig: `${baseUrl}/gateway/buycenter/module/getModuleList`,
-      urlApprove: `${baseUrl}/gateway/buycenter/approve/getList`,
-      urlBill: `${baseUrl}/gateway/buycenter/invoice/getList`,
-      urlWelfare: `${baseUrl}/welfare/mall/user/account`,
+      // urlPurchaseScope: `${baseUrl}/mc/order/checkScopeDetail`,
+      // urlTravelScope: `${baseUrl}/gateway/common/payAuth`,
+      // urlConfig: `${baseUrl}/gateway/buycenter/module/getModuleList`,
+      // urlApprove: `${baseUrl}/gateway/buycenter/approve/getList`,
+      // urlBill: `${baseUrl}/gateway/buycenter/invoice/getList`,
+      // urlWelfare: `${baseUrl}/welfare/mall/user/account`,
 
       config: null,
       approveList: null,
@@ -524,7 +534,7 @@ export default {
       if (this.hasBillModule) {
         this.initBill(false)
       }
-      this.initWelfare()
+      this.initWelfare(false)
     },
 
     'loading.approve': function(val) {
@@ -555,7 +565,7 @@ export default {
         this.initBill()
       }
       if (this.hasWelfareModule) {
-        this.initWelfare()
+        this.initWelfare(true)
       }
       // if (this.hasOverStandReasonModule) {
       //   this.setCustomReason()
@@ -565,9 +575,10 @@ export default {
 
   methods: {
     getConfig() {
-      return this.get(this.urlConfig, { bizType: this.bizType })
+      return http.get('urlConfig', { bizType: this.bizType })
+      // return this.get(this.urlConfig, { bizType: this.bizType })
         .then(res => {
-          this.config = res
+          this.config = res.data
           return res
         })
         .catch(error => this.$emit('error-callback', error))
@@ -575,12 +586,14 @@ export default {
 
     getScopeInfo() {
       const handle = this.isPurchase
-        ? this.get(this.urlPurchaseScope, { bizType: this.bizType })
+        // ? this.get(this.urlPurchaseScope, { bizType: this.bizType })
+        ? http.get('urlPurchaseScope', { bizType: this.bizType })
         // travelType 1机票 2火车票 3酒店 4打车
-        : this.get(this.urlTravelScope, { bizType: this.bizType, travelType: this.scopeType })
+        // : this.get(this.urlTravelScope, { bizType: this.bizType, travelType: this.scopeType })
+        : http.get('urlTravelScope', { bizType: this.bizType, travelType: this.scopeType })
       return handle.then(res => {
-        this.scopeInfo = res
-        this.$emit('load-scope-detail', res)
+        this.scopeInfo = res.data
+        this.$emit('load-scope-detail', this.scopeInfo)
         return this.scopeInfo
       }).catch(error => this.$emit('error-callback', error))
     },
@@ -620,9 +633,10 @@ export default {
 
     getApprove() {
       this.loading.approve = true
-      this.get(this.urlApprove, { bizType: this.bizType })
+      // this.get(this.urlApprove, { bizType: this.bizType })
+      http.get('urlApprove', { bizType: this.bizType })
         .then(res => {
-          this.approveList = res.map(x => (this.formatApproveItem(x)))
+          this.approveList = res.data.map(x => (this.formatApproveItem(x)))
           this.loading.approve = false
         })
         .catch(error => this.$emit('error-callback', error))
@@ -630,9 +644,10 @@ export default {
 
     getBillList() {
       this.loading.bill = true
-      this.get(this.urlBill)
+      // this.get(this.urlBill)
+      http.get('urlBill')
         .then(res => {
-          this.billList = res.map(x => ({ ...x, id: x.titleId }))
+          this.billList = res.data.map(x => ({ ...x, id: x.titleId }))
           this.loading.bill = false
           if (!this.billCurrent) {
             this.$emit('select-bill', this.billList[0])
@@ -643,9 +658,10 @@ export default {
 
     getWelfare() {
       this.loading.welfare = true
-      this.get(this.urlWelfare)
+      // this.get(this.urlWelfare)
+      http.get('urlWelfare')
         .then(res => {
-          let data = { ...res }
+          let data = { ...res.value }
           if (data.restAmount < 0) {
             data.restAmount = 0
             data.originRestAmount = res.restAmount
@@ -739,7 +755,7 @@ export default {
       }
     },
 
-    initWelfare() {
+    initWelfare(noCheck) {
       // 根据支付方式来控制积分模块的显示与隐藏
       if (this.payWay) {
         const { id } = this.payWay
@@ -755,12 +771,15 @@ export default {
         } else {
           this.toggleWelfareCell(true)
         }
-        if (
-          this.isOpenWelfare &&
-          id === 3
-        ) {
-          this.$nextTick(this.getWelfare)
-        }
+      }
+      // 存在几种case，所以加了noCheck参数来控制
+      // 初始化时必须请求
+      // 支付方式不存在且商旅类，因公无个人支付，后支付方式赋值，会出发监听回调；
+      if (
+        (this.isOpenWelfare && this.payWay && this.payWay.id === 3) ||
+        noCheck
+      ) {
+        this.$nextTick(this.getWelfare)
       }
     },
 

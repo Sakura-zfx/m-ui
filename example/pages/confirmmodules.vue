@@ -3,7 +3,7 @@
     <div class="mg--10">
       <m-confirm-order
         ref="modules"
-        biz-type="22"
+        biz-type="146"
         approve-title="关联采购单"
         :approve-current="selectApprove"
         :bill-method-current="billMethod"
@@ -20,7 +20,7 @@
         :is-over-stand="true"
         :get="get"
         :post="post"
-        :travel-type="0"
+        :travel-type="1"
         :service-rate="0.01"
         :scope-type="3"
         @select-approve="item => selectApprove = item"
@@ -64,7 +64,7 @@ export default {
       billType: null,
       bill: null,
       isOpenWelfare: true,
-      payWay: {id: 3, title: 'gr支付'},
+      payWay: null,
       get,
       post
     }
