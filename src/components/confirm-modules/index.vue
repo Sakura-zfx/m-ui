@@ -254,7 +254,7 @@
           :class="{ 'welfare__info': welfare && welfare.restAmount }"
         >
           <span v-if="welfare && welfare.restAmount">
-            您有{{ welfare.restAmount / 100 }}积分，可抵¥{{ welfare.restAmount | formatPrice }}
+            您有{{ welfare.restAmount }}积分，可抵¥{{ welfare.restAmount | formatPrice }}
           </span>
           <span :style="{fontSize: '3.73vw'}" v-else>您没有可用积分，暂不可用积分抵扣</span>
           <i class="iconfont icon-shuoming color-info" @click="onClickWelfareInfo" />
@@ -277,7 +277,7 @@
             @blur="checkInputWelfare"
           >
           <span class="color-000 ib-middle">
-            积分，抵 <span class="color-red">¥{{ Number(welfareUseNum).toFixed(2) }}</span>
+            积分，抵 <span class="color-red">¥{{ welfareUseNum | formatPrice }}</span>
           </span>
         </div>
       </cell>
@@ -311,7 +311,7 @@
       </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
         <span class="ib-middle">积分抵扣</span>
-        <span class="color-c999 fr">- ¥ {{ welfareUseNum.toFixed(2) }}({{ welfareUseNum }}积分)</span>
+        <span class="color-c999 fr">- ¥ {{ welfareUseNum | formatPrice }}({{ welfareUseNum }}积分)</span>
       </p>
     </div>
   </div>
@@ -337,7 +337,8 @@ import Http from '../http'
 // let hasAddCustomReasonRoute = false
 const http = new Http({
   uri: {
-    urlPurchaseScope: '/mc/order/checkScopeDetail',
+    // urlPurchaseScope: '/mc/order/checkScopeDetail',
+    urlPurchaseScope: '/purchase/order/checkScopeDetail',
     urlTravelScope: '/gateway/common/payAuth',
     urlConfig: '/gateway/buycenter/module/getModuleList',
     urlApprove: '/gateway/buycenter/approve/getList',
@@ -528,7 +529,8 @@ export default {
 
     welfareUseNum(num) {
       // 通知业务num变化
-      this.$emit('welfare-num-change', num * 100)
+      // this.$emit('welfare-num-change', num * 100)
+      this.$emit('welfare-num-change', num)
     },
 
     approveCurrent(val) {
@@ -569,10 +571,9 @@ export default {
 
     getScopeInfo() {
       const handle = this.isPurchase
-        // ? this.get(this.urlPurchaseScope, { bizType: this.bizType })
-        ? http.get('urlPurchaseScope', { bizType: this.bizType })
+        // ? http.get('urlPurchaseScope', { bizType: this.bizType })
+        ? http.post('urlPurchaseScope', { bizType: this.bizType })
         // travelType 1机票 2火车票 3酒店 4打车
-        // : this.get(this.urlTravelScope, { bizType: this.bizType, travelType: this.scopeType })
         : http.get('urlTravelScope', { bizType: this.bizType, travelType: this.scopeType })
       return handle.then(res => {
         this.scopeInfo = res.data
@@ -653,7 +654,7 @@ export default {
           this.welfareUseNum = this.welfareMaxUseNum
             ? Math.min(this.welfareMaxUseNum, data.restAmount)
             : data.restAmount
-          this.welfareUseNum /= 100
+          // this.welfareUseNum /= 100
           this.welfare = data
           this.loading.welfare = false
         })
@@ -799,7 +800,7 @@ export default {
         title: '积分使用规则',
         msg: h('div', null, [
           h('p', { class: 'text-left' }, '1.积分为贵司发放给员工的一种福利，可直接抵扣现金'),
-          h('p', { class: 'text-left' }, '2.1积分可抵扣1元，若全额抵扣则无需再支付现金'),
+          h('p', { class: 'text-left' }, '2.100积分可抵扣1元，若全额抵扣则无需再支付现金'),
           h('p', { class: 'text-left' }, '3.积分抵扣的部分金额不开具发票')
         ]),
         okTxt: '了解详情',
@@ -854,7 +855,8 @@ export default {
         billList: this.billList,
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
-        welfareNum: this.welfareUseNum ? Number(this.welfareUseNum) * 100 : 0,
+        // welfareNum: this.welfareUseNum ? Number(this.welfareUseNum) * 100 : 0,
+        welfareNum: this.welfareUseNum ? Number(this.welfareUseNum) : 0,
         welfare: this.welfare,
         overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
         isOverStand: this.isOverStand
@@ -864,27 +866,49 @@ export default {
     handleInputWelfare(e) {
       const val = e.target.value
       const input = this.$refs.welfareInput
-      const maxNum = (this.welfareMaxUseNum
+      const maxNum = this.welfareMaxUseNum
         ? Math.min(this.welfareMaxUseNum, this.welfare.restAmount)
-        : this.welfare.restAmount) / 100
+        : this.welfare.restAmount
 
       if (val === '') {
         this.welfareUseNum = ''
-      } else if (!/^\d+(\.{0,1}\d{0,2})$/.test(val)) {
+      } else if (!/^\d+$/.test(val)) {
         // 不合法的数字
         input.value = this.welfareUseNum
-      } else if (/^\d+\.$/.test(val)) {
-        // 小数点结尾，认为未输入完成
-        // input.value = this.welfareUseNum
       } else if (Number(val) > maxNum) {
         // 大于最大值
         input.value = maxNum
         this.welfareUseNum = maxNum
       } else {
-        this.welfareUseNum = Number(val)
+        this.welfareUseNum = val
         input.value = this.welfareUseNum
       }
     },
+
+    // handleInputWelfare(e) {
+    //   const val = e.target.value
+    //   const input = this.$refs.welfareInput
+    //   const maxNum = (this.welfareMaxUseNum
+    //     ? Math.min(this.welfareMaxUseNum, this.welfare.restAmount)
+    //     : this.welfare.restAmount) / 100
+    //
+    //   if (val === '') {
+    //     this.welfareUseNum = ''
+    //   } else if (!/^\d+(\.{0,1}\d{0,2})$/.test(val)) {
+    //     // 不合法的数字
+    //     input.value = this.welfareUseNum
+    //   } else if (/^\d+\.$/.test(val)) {
+    //     // 小数点结尾，认为未输入完成
+    //     // input.value = this.welfareUseNum
+    //   } else if (Number(val) > maxNum) {
+    //     // 大于最大值
+    //     input.value = maxNum
+    //     this.welfareUseNum = maxNum
+    //   } else {
+    //     this.welfareUseNum = val
+    //     input.value = this.welfareUseNum
+    //   }
+    // },
 
     checkInputWelfare(e) {
       const val = e.target.value
@@ -954,8 +978,11 @@ export default {
       right: -5px;
     }
     .welfare__info {
-      width: 55vw;
       word-break: break-all;
+      width: 60vw;
+      @media screen and (max-width: 320px) {
+        width: 55vw;
+      }
     }
     .custom__cell {
       padding: 15px 10px;
