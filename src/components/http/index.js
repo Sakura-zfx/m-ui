@@ -1,7 +1,8 @@
 import axios from 'axios/dist/axios.min'
 import qs from 'qs'
 
-const local = !/s/.test(location.protocol)
+// const local = !/s/.test(location.protocol)
+const local = /\.net/.test(location.origin)
 
 const search = (() => {
   const lSearch = location.search
@@ -32,14 +33,14 @@ const defaultOp = {
     close() {}
   },
   allowCodes: [],
-  arrayFormat: 'repeat'
+  arrayFormat: 'repeat',
+  contentType: 'application/x-www-form-urlencoded'
 }
 
 export default class Http {
+  local = local
   instance = null
-
   cacheRequest = {}
-
   loadingNum = 0
 
   constructor(options) {
@@ -51,7 +52,7 @@ export default class Http {
   }
 
   init() {
-    const { timeout, baseURL, arrayFormat } = this.options
+    const { timeout, baseURL, arrayFormat, contentType } = this.options
     this.instance = axios.create({
       baseURL,
       timeout,
@@ -62,7 +63,7 @@ export default class Http {
         return qs.stringify(params, { arrayFormat })
       },
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': contentType
       }
     })
 

@@ -569,10 +569,8 @@ export default {
 
     getScopeInfo() {
       const handle = this.isPurchase
-        // ? this.get(this.urlPurchaseScope, { bizType: this.bizType })
         ? http.get('urlPurchaseScope', { bizType: this.bizType })
         // travelType 1机票 2火车票 3酒店 4打车
-        // : this.get(this.urlTravelScope, { bizType: this.bizType, travelType: this.scopeType })
         : http.get('urlTravelScope', { bizType: this.bizType, travelType: this.scopeType })
       return handle.then(res => {
         this.scopeInfo = res.data
@@ -603,14 +601,14 @@ export default {
         title = item.reason || item.approveReason
         reason = `${formatTime(item.startTime)}-${formatTime(item.endTime)}`
         typeName = approveTypeName[item.quotaType]
-        item.hasTransferField = true
       }
       return {
         ...item,
         id: item.approveId || item.quotaId,
         title,
         reason,
-        typeName
+        typeName,
+        hasTransferField: true
       }
     },
 
@@ -799,7 +797,7 @@ export default {
         title: '积分使用规则',
         msg: h('div', null, [
           h('p', { class: 'text-left' }, '1.积分为贵司发放给员工的一种福利，可直接抵扣现金'),
-          h('p', { class: 'text-left' }, '2.1积分可抵扣1元，若全额抵扣则无需再支付现金'),
+          h('p', { class: 'text-left' }, '2.1积分可抵扣1.00元，若全额抵扣则无需再支付现金'),
           h('p', { class: 'text-left' }, '3.积分抵扣的部分金额不开具发票')
         ]),
         okTxt: '了解详情',
@@ -809,7 +807,7 @@ export default {
           // eslint-disable-next-line
           JSBridge.native('openurl', {
             noDefaultMenu: 1,
-            url: 'https://note.uban360.com/u-h5/show/index.html?name=flsc-jfwt-hqjf&dadian='
+            url: 'https://cms.jituancaiyun.com/xme/qiyefuwu/index.html#/huoqujifen'
           })
         } catch (e) {
           // eslint-disable-next-line

@@ -18,7 +18,8 @@ const defaultOp = {
     open() {},
     close() {}
   },
-  allowCodes: []
+  allowCodes: [],
+  contentType: 'application/x-www-form-urlencoded'
 }
     </pre>
     <p class="px-margin-t10">methods</p>
@@ -42,10 +43,14 @@ this.$http.inject(
 // 注入后也可以直接使用
 this.$http.get('getInfo')
     </pre>
-    <p class="px-margin-t10">特性</p>
-    <p>1. mock特性，data.mock = true，会去请求static文件夹下的同名json</p>
-    <p>2. 允许特殊状态的code或status，即allowCodes</p>
-    <p>3. 自动处理loading与toast（同时发起多个请求，loading会在所有请求结束后才close）</p>
+    <p class="px-margin-t10 color-c999">特性</p>
+    <p>data有3个特性参数：</p>
+    <p>1. mock特性，data.mock = true，会去请求/static/文件夹下的同名json</p>
+    <p>2. toast，data.toast = false，请求报错时，不提示。result.error ? result.error.name : result.msg</p>
+    <p>3. loading, data.loading = true，请求时不显示loading。</p>
+    <p class="px-margin-t20 color-c999">其它特性</p>
+    <p>1. 允许特殊状态的code或status，即allowCodes</p>
+    <p>2. 自动处理loading与toast（同时发起多个请求，loading会在所有请求结束后才close）</p>
   </common-entry>
 </template>
 
@@ -83,7 +88,7 @@ export default {
 
     // console.log(this.http)
     // this.http.inject('get', 'getInfo', '/gateway/getInfo')({ name: 1 })
-    this.http.get('createOrder', { bizType: 0, toast: true }).then(res => {
+    this.http.get('bizInfo', { bizType: 0, toast: true }).then(res => {
       console.log('success', res)
     }).catch(res => {
       console.log('error', res)
