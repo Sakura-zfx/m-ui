@@ -13,7 +13,6 @@ import CitySelect from './components/city-select'
 import CitySelectItem from './components/city-select-item'
 import CommonSelect from './components/common-select'
 import ConfirmModules from './components/confirm-modules'
-import ConfirmOrder from './components/confirm-order'
 import DatePicker from './components/date-picker'
 import Empty from './components/empty'
 import Esc from './components/esc'
@@ -24,6 +23,7 @@ import HitDot from './components/hit-dot'
 import Http from './components/http'
 import LazyImg from './components/lazy-img'
 import Loading from './components/loading'
+import MInput from './components/m-input'
 import Mask from './components/mask'
 import Message from './components/message'
 import Msgbox from './components/msgbox'
@@ -41,7 +41,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.82'
+const version = '1.0.83'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -55,7 +55,6 @@ const components = [
   CitySelectItem,
   CommonSelect,
   ConfirmModules,
-  ConfirmOrder,
   DatePicker,
   Empty,
   Esc,
@@ -66,6 +65,7 @@ const components = [
   Http,
   LazyImg,
   Loading,
+  MInput,
   Mask,
   Message,
   Msgbox,

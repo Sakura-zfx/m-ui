@@ -50,12 +50,7 @@
       {
         "path": "/input",
         "name": "Input",
-        "description": "[vant] 输入框"
-      },
-      {
-        "path": "/switchcell",
-        "name": "SwitchCell",
-        "description": "[vant] 开关单元格"
+        "description": "[xm-mui] 输入框"
       },
       {
         "path": "/message",

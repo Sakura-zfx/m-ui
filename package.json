@@ -1,6 +1,6 @@
 {
   "name": "xm-mui",
-  "version": "1.0.82",
+  "version": "1.0.83",
   "description": "Vue components",
   "author": "yangming <472102644@qq.com>",
   "private": false,
@@ -30,8 +30,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "qs": "^6.5.2",
-    "vant": "^1.0.5",
-    "vue-lazyload": "^1.2.0"
+    "vant": "^1.0.5"
   },
   "devDependencies": {
     "@vue/test-utils": "^1.0.0-beta.12",

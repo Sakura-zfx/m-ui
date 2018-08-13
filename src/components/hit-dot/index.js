@@ -1,19 +1,40 @@
-// import utils from '../../utils/utils'
 const isIOS = /iPhone/.test(navigator.userAgent)
 
-// native://pagestat?data={eventId:"checkin", param:"123"}
-export default {
+const defaultOptions = {
   moduleId: 0,
+  eventId: 0,
+  orgId: undefined,
+  userId: undefined,
+  platform: isIOS ? 'iOS' : 'android'
+}
+
+export default {
+  options: {},
   init(moduleId) {
-    this.moduleId = moduleId
+    if (typeof moduleId === 'number') {
+      this.options.moduleId = moduleId
+    } else if (typeof moduleId === 'object') {
+      this.options = {...defaultOptions, ...moduleId}
+    } else {
+      throw new Error('moduleId is must')
+    }
   },
-  hit(eventId, moduleId = this.moduleId) {
-    // `admin.jituancaiyun.com/dot-log/log.json?orgId=${orgId}&platform=${isIOS ? 'iOS' : 'android'}&mid=${mid}&eid=${eid}`
-    const url = `https://admin.jituancaiyun.com/dot-log/log.json?` +
-      `platform=${isIOS ? 'iOS' : 'android'}&mid=${moduleId}&eid=${eventId}`
-    const img = document.createElement('img')
+  hit(eventId, moduleId = this.options.moduleId) {
+    const { orgId, userId, platform } = this.options
+    let url = 'https://admin.jituancaiyun.com/dot-log/log.json?' +
+      `platform=${platform}&mid=${moduleId}&eid=${eventId}`
+
+    if (userId) {
+      url += `&userId=${userId}`
+    }
+    if (orgId) {
+      url += `&orgId=${orgId}`
+    }
+
+    let img = new Image()
     img.src = url
-    document.body.appendChild(img)
-    document.body.removeChild(img)
+    img.onload = img.onerror = () => {
+      img = null
+    }
   }
 }

@@ -7,7 +7,15 @@
       import dot from 'xm-mui/esc/lib/hit-dot'
 
       // 第二步
-      dot.initDot(modulesId)  // 模块编号，为了不重复传入模块id
+      dot.initDot(modulesId)  // 简单写法，模块编号，为了不重复传入模块id
+      // 复杂写法
+      dot.initDot({
+        moduleId: 0,
+        eventId: 0,
+        orgId: undefined,
+        userId: undefined,
+        platform: isIOS ? 'iOS' : 'android'
+      })
 
       // 第三步
       dot.hitDot(101) // 事件编号
