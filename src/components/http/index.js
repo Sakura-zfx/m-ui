@@ -2,7 +2,7 @@ import axios from 'axios/dist/axios.min'
 import qs from 'qs'
 
 // const local = !/s/.test(location.protocol)
-const local = /\.net/.test(location.origin)
+const local = /\.net/.test(location.origin) || /808/.test(location.port)
 
 const search = (() => {
   const lSearch = location.search

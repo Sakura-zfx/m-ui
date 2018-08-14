@@ -268,7 +268,7 @@
         <div slot="label" class="text-left">
           <span class="ib-middle px-width-60">使用</span>
           <input
-            type="tel"
+            type="number"
             ref="welfareInput"
             class="welfare__input ib-middle"
             :placeholder="welfare ? '请输入' : '加载中'"
