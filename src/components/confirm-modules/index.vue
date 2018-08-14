@@ -856,7 +856,7 @@ export default {
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
         welfareNum: this.welfareUseNum
-          ? ((Number(this.welfareUseNum) * 1000) / 10).toFixed(0)
+          ? ((Number(this.welfareUseNum) * 1000) / 10).toFixed(0) * 1
           : 0,
         welfare: this.welfare,
         overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
