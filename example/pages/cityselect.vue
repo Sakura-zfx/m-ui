@@ -3,10 +3,9 @@
     <m-city-select
       :current-level-list="city"
       :max-level="maxLevel"
-      :visible="showPanel"
+      :visible.sync="showPanel"
       @on-city-change="getCity"
       @on-select="finalSelect"
-      @hide-panel="showPanel = false"
     />
     <pre>
       import { CitySelect } from 'xm-mui'
@@ -26,7 +25,6 @@
         :visible="showPanel"
         @on-city-change="getCity"
         @on-select="finalSelect"
-        @hide-panel="showPanel = false"
       /&gt;
     </pre>
     <p class="px-margin-t20">events</p>

@@ -276,7 +276,7 @@
             @input="handleInputWelfare"
             @blur="checkInputWelfare"
           >
-          <span class="color-000 ib-middle">
+          <span class="color-000 ib-middle" v-if="welfareUseNum">
             积分，抵 <span class="color-red">¥{{ Number(welfareUseNum).toFixed(2) }}</span>
           </span>
         </div>
@@ -311,7 +311,9 @@
       </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
         <span class="ib-middle">积分抵扣</span>
-        <span class="color-c999 fr">- ¥ {{ welfareUseNum.toFixed(2) }}({{ welfareUseNum }}积分)</span>
+        <span class="color-c999 fr" v-if="welfareUseNum">
+          - ¥ {{ Number(welfareUseNum).toFixed(2) }}({{ welfareUseNum }}积分)
+        </span>
       </p>
     </div>
   </div>
@@ -343,7 +345,8 @@ const http = new Http({
     urlApprove: '/gateway/buycenter/approve/getList',
     urlBill: '/gateway/buycenter/invoice/getList',
     urlWelfare: '/welfare/mall/user/account'
-  }
+  },
+  baseURL: 'http://app.e.uban360.net'
 })
 
 export default {

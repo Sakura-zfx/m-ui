@@ -2,15 +2,16 @@
   <popup
     :title="title"
     :show-btn="false"
-    :visible="visible"
+    :visible.sync="visible"
     :main-color="mainColor"
-    @toggle="$emit('hide-panel')"
+    @toggle="$emit('update:visible', false)"
   >
     <div slot="content" class="city-select-sample height-100 position-r">
       <city-item
         ref="item"
         :current-level-list="currentLevelList"
         :max-level="maxLevel"
+        :main-color="mainColor"
         @on-city-change="onCityChange"
         @on-select="onSelect"
       />
@@ -72,7 +73,7 @@ export default {
     },
 
     onSelect(res, index) {
-      this.$emit('hide-panel')
+      this.$emit('update:visible', false)
       this.$emit('on-select', res, index)
     }
   }

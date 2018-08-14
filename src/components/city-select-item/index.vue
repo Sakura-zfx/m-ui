@@ -2,7 +2,7 @@
   <div class="city-select-item">
     <div class="px-height-40 px-line-40 m-bd-b bg-fff">
       <span
-        class="rem-width-70 over-text ib-middle text-center"
+        class="px-width-70 over-text ib-middle text-center"
         v-for="(item, i) in selectedRes"
         :key="`${currLevel}-${item.code}`"
         @click="handleSelectTab(item, i)"

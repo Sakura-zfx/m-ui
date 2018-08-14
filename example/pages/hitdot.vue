@@ -4,10 +4,13 @@
     <p>2. 用法</p>
     <pre>
       // 第一步
-      import dot from 'xm-mui/esc/lib/hit-dot'
+      import dot from 'xm-mui/lib/hit-dot'
 
       // 第二步
-      dot.initDot(modulesId)  // 简单写法，模块编号，为了不重复传入模块id
+
+      // 简单写法
+      dot.initDot(modulesId)
+
       // 复杂写法
       dot.initDot({
         moduleId: 0,
@@ -20,7 +23,7 @@
       // 第三步
       dot.hitDot(101) // 事件编号
     </pre>
-    <p>3. 根据excel生成的js文件的脚本地址为 <a href="https://statics.e.uban360.com/pages/xlsx2json/index.html" target="_blank">https://statics.e.uban360.com/pages/xlsx2json</a></p>
+    <p>3. 根据excel生成的js文件的脚本地址为 <a href="https://statics.e.uban360.com/pages/xlsx2json/index.html?a=1" target="_blank">https://statics.e.uban360.com/pages/xlsx2json</a></p>
   </common-entry>
 </template>
 

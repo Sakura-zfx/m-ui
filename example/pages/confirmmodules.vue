@@ -3,7 +3,7 @@
     <div class="mg--10">
       <m-confirm-order
         ref="modules"
-        biz-type="146"
+        biz-type="22"
         approve-title="关联采购单"
         :approve-current="selectApprove"
         :bill-method-current="billMethod"
@@ -18,7 +18,7 @@
         :is-show-approve-cell="true"
         :welfare-max-use-num="20"
         :is-over-stand="true"
-        :travel-type="0"
+        :travel-type="1"
         :service-rate="0.01"
         :scope-type="3"
         @select-approve="item => selectApprove = item"
@@ -56,18 +56,19 @@ export default {
 
   data() {
     return {
-      selectApprove: {
-        'money': 5000.00,
-        'balance': 5000.00,
-        'approveReason': '公司每月发放的公费额度',
-        'startTime': 1527782400000,
-        'endTime': 1530374399999,
-        id: 2485,
-        quotaId: 2485,
-        quotaType: 1,
-        bizType: 146,
-        onClick: true
-      },
+      selectApprove: null,
+      // selectApprove: {
+      //   'money': 5000.00,
+      //   'balance': 5000.00,
+      //   'approveReason': '公司每月发放的公费额度',
+      //   'startTime': 1527782400000,
+      //   'endTime': 1530374399999,
+      //   id: 2485,
+      //   quotaId: 2485,
+      //   quotaType: 1,
+      //   bizType: 146,
+      //   onClick: true
+      // },
       isOpenBill: false,
       billMethod: null,
       billType: null,
