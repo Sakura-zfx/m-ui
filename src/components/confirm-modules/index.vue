@@ -345,8 +345,8 @@ const http = new Http({
     urlApprove: '/gateway/buycenter/approve/getList',
     urlBill: '/gateway/buycenter/invoice/getList',
     urlWelfare: '/welfare/mall/user/account'
-  },
-  baseURL: 'http://app.e.uban360.net'
+  }
+  // baseURL: 'http://app.e.uban360.net'
 })
 
 export default {
