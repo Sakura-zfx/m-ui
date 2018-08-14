@@ -855,7 +855,9 @@ export default {
         billList: this.billList,
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
-        welfareNum: this.welfareUseNum ? Number(this.welfareUseNum) * 100 : 0,
+        welfareNum: this.welfareUseNum
+          ? ((Number(this.welfareUseNum) * 1000) / 10).toFixed(0)
+          : 0,
         welfare: this.welfare,
         overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
         isOverStand: this.isOverStand
