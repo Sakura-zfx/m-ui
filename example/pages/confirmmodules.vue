@@ -16,7 +16,7 @@
         :freight-money="33"
         :total-money="4999"
         :is-show-approve-cell="true"
-        :welfare-max-use-num="20"
+        :welfare-max-use-num="200000"
         :is-over-stand="true"
         :travel-type="1"
         :service-rate="0.01"

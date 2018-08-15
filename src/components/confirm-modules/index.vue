@@ -268,7 +268,7 @@
         <div slot="label" class="text-left">
           <span class="ib-middle px-width-60">使用</span>
           <input
-            type="number"
+            type="text"
             ref="welfareInput"
             class="welfare__input ib-middle"
             :placeholder="welfare ? '请输入' : '加载中'"
@@ -531,7 +531,7 @@ export default {
 
     welfareUseNum(num) {
       // 通知业务num变化
-      this.$emit('welfare-num-change', num * 100)
+      this.$emit('welfare-num-change', this.outputWelfareNum(num))
     },
 
     approveCurrent(val) {
@@ -855,13 +855,15 @@ export default {
         billList: this.billList,
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
-        welfareNum: this.welfareUseNum
-          ? ((Number(this.welfareUseNum) * 1000) / 10).toFixed(0) * 1
-          : 0,
+        welfareNum: this.welfareUseNum ? this.outputWelfareNum(this.welfareUseNum) : 0,
         welfare: this.welfare,
         overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
         isOverStand: this.isOverStand
       }
+    },
+
+    outputWelfareNum(num) {
+      return num ? ((Number(num) * 1000) / 10).toFixed(0) * 1 : 0
     },
 
     handleInputWelfare(e) {
@@ -874,11 +876,10 @@ export default {
       if (val === '') {
         this.welfareUseNum = ''
       } else if (!/^\d+(\.{0,1}\d{0,2})$/.test(val)) {
-        // 不合法的数字
+        // 不合法的数字，重置
         input.value = this.welfareUseNum
       } else if (/^\d+\.$/.test(val)) {
         // 小数点结尾，认为未输入完成
-        // input.value = this.welfareUseNum
       } else if (Number(val) > maxNum) {
         // 大于最大值
         input.value = maxNum
