@@ -264,6 +264,7 @@
         v-if="isOpenWelfare && welfare && welfare.restAmount"
         :is-link="false"
         value=" "
+        @on-click="noop"
       >
         <div slot="label" class="text-left">
           <span class="ib-middle px-width-60">使用</span>
@@ -931,6 +932,9 @@ export default {
       } else {
         this.$emit('change-open-welfare-error')
       }
+    },
+
+    noop() {
     }
   }
 }

@@ -31,7 +31,8 @@
           :style="{height: `${contentHeight}px`}"
         >
           <div class="content-item-wrap break-all height-100">
-            <slot name="content">
+            <slot v-if="$slots.default" />
+            <slot name="content" v-else>
               <p class="text-center">这是内容</p>
             </slot>
           </div>
