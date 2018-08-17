@@ -2,7 +2,7 @@
   <popup
     :title="title"
     :show-btn="false"
-    :visible.sync="visible"
+    :visible.sync="showPanel"
     :main-color="mainColor"
     @toggle="$emit('update:visible', false)"
   >
@@ -34,7 +34,8 @@ export default {
   data() {
     return {
       selectedIndex: [],
-      selectedRes: []
+      selectedRes: [],
+      showPanel: false
     }
   },
 
@@ -58,8 +59,17 @@ export default {
     currentLevelList: [Array, null]
   },
 
+  created() {
+    this.showPanel = this.visible
+  },
+
   watch: {
+    showPanel(val) {
+      this.$emit('update:visible', val)
+    },
+
     visible(val) {
+      this.showPanel = val
       if (val) {
         this.$refs.item.reset()
         this.$refs.item.init()
@@ -75,6 +85,10 @@ export default {
     onSelect(res, index) {
       this.$emit('update:visible', false)
       this.$emit('on-select', res, index)
+    },
+
+    getSelect() {
+      this.$refs.item.doSelect()
     }
   }
 }

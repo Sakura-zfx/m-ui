@@ -1,6 +1,7 @@
 <template>
   <common-entry title="城市选择">
     <m-city-select
+      ref="a"
       :current-level-list="city"
       :max-level="maxLevel"
       :visible.sync="showPanel"
@@ -55,6 +56,8 @@
         }
       }
     </pre>
+
+    <p class="color-info" @click="getData">点击主动获取已选择</p>
   </common-entry>
 </template>
 
@@ -81,6 +84,7 @@ export default {
 
   methods: {
     finalSelect(res) {
+      console.log('触发')
       this.selected = res
     },
 
@@ -106,6 +110,10 @@ export default {
           }
         ]
       }
+    },
+
+    getData() {
+      this.$refs.a.getSelect()
     }
   }
 }
