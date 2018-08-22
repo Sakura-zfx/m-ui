@@ -132,6 +132,31 @@ export default class Http {
       .catch(error => this.commonCatch(error, data))
   }
 
+  postBinary(uriName, data = {}) {
+    if (data.loading !== false) {
+      this.showLoading()
+    }
+
+    let path
+    if (/http/.test(uriName)) {
+      path = uriName
+    } else {
+      path = this.options.baseURL + this.options.uri[uriName]
+    }
+
+    const blobData = new Blob([JSON.stringify(data)], { type: 'application/octet-stream' })
+    return axios({
+      url: path,
+      method: 'post',
+      data: blobData,
+      headers: {
+        'Content-Type': 'application/octet-stream'
+      }
+    })
+      .then(response => this.commonThen(response, data))
+      .catch(error => this.commonCatch(error, data))
+  }
+
   commonThen(response, data) {
     const { allowCodes } = this.options
 

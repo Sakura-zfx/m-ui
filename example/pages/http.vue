@@ -82,17 +82,22 @@ export default {
         payAuth: '/gateway/common/payAuth',
         getUsersDetail: '/gateway/external/get',
         pay: '/gateway/common/pay',
-        createOrder: '/plane/plane/create'
-      }
+        createOrder: '/plane/plane/create',
+        testBinary: '/ygw/api/dispatch/test/demo'
+      },
+      baseURL: 'https://api.yuecard.net'
     })
 
     // console.log(this.http)
     // this.http.inject('get', 'getInfo', '/gateway/getInfo')({ name: 1 })
-    this.http.get('bizInfo', { bizType: 0, toast: true }).then(res => {
-      console.log('success', res)
-    }).catch(res => {
-      console.log('error', res)
-    })
+    // this.http.get('bizInfo', { bizType: 0, toast: true }).then(res => {
+    //   console.log('success', res)
+    // }).catch(res => {
+    //   console.log('error', res)
+    // })
+    // eslint-disable-next-line
+    const str = ["name",[1,2,3],{"osInfo":"osInfo","osType":"1","deviceId":"deviceId","version":"version","cardNo":"9001180800100001"}]
+    this.http.postBinary('testBinary', str)
   }
 }
 </script>
