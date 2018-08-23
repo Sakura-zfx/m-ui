@@ -59,6 +59,7 @@ import CommonEntry from './commonEntry'
 // import Http from '../../lib/http'
 import Http from '../../src/components/http'
 import Toast from '../../src/components/toast'
+import axios from 'axios'
 
 export default {
   name: 'cell',
@@ -85,19 +86,25 @@ export default {
         createOrder: '/plane/plane/create',
         testBinary: '/ygw/api/dispatch/test/demo'
       },
-      baseURL: 'https://api.yuecard.net'
+      // baseURL: 'https://api.yuecard.net'
+      baseURL: 'http://app.e.uban360.net'
     })
 
     // console.log(this.http)
     // this.http.inject('get', 'getInfo', '/gateway/getInfo')({ name: 1 })
+    // axios.get('http://app.e.uban360.net/gateway/common/app', {
+    //   headers: {
+    //     'Cookie': 'token=20273a7a72a5e3b7a136d44bd14966e8; timestamp=1534904984376; uid=3;'
+    //   }
+    // })
     // this.http.get('bizInfo', { bizType: 0, toast: true }).then(res => {
     //   console.log('success', res)
     // }).catch(res => {
     //   console.log('error', res)
     // })
     // eslint-disable-next-line
-    const str = ["name",[1,2,3],{"osInfo":"osInfo","osType":"1","deviceId":"deviceId","version":"version","cardNo":"9001180800100001"}]
-    this.http.postBinary('testBinary', str)
+    // const str = ["name",[1,2,3],{"osInfo":"osInfo","osType":"1","deviceId":"deviceId","version":"version","cardNo":"9001180800100001"}]
+    // this.http.postBinary('testBinary', str)
   }
 }
 </script>

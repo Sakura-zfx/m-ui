@@ -34,7 +34,8 @@ const defaultOp = {
   },
   allowCodes: [],
   arrayFormat: 'repeat',
-  contentType: 'application/x-www-form-urlencoded'
+  contentType: 'application/x-www-form-urlencoded',
+  headers: null
 }
 
 export default class Http {
@@ -52,7 +53,7 @@ export default class Http {
   }
 
   init() {
-    const { timeout, baseURL, arrayFormat, contentType } = this.options
+    const { timeout, baseURL, arrayFormat, contentType, headers } = this.options
     this.instance = axios.create({
       baseURL,
       timeout,
@@ -63,7 +64,8 @@ export default class Http {
         return qs.stringify(params, { arrayFormat })
       },
       headers: {
-        'Content-Type': contentType
+        'Content-Type': contentType,
+        ...(headers || {})
       }
     })
 
@@ -144,7 +146,7 @@ export default class Http {
       path = this.options.baseURL + this.options.uri[uriName]
     }
 
-    const blobData = new Blob([JSON.stringify(data)], { type: 'application/octet-stream' })
+    const blobData = new Blob([JSON.stringify(data)], { type: 'text/plain' })
     return axios({
       url: path,
       method: 'post',

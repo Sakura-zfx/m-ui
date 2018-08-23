@@ -16,6 +16,7 @@
         @on-click="onClick"
       >
         <p slot="right">右下角slots</p>
+        <div>尼玛</div>
       </m-goods-card>
     </div>
     <div class="px-margin-t30">
@@ -25,6 +26,7 @@
     </div>
     <p>slots</p>
     <pre>
+      $slots.default 生效时 下面二者不生效
       $slots.img
       $slots.right
     </pre>

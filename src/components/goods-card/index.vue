@@ -6,7 +6,7 @@
   >
     <div
       v-if="isShowCheckbox"
-      class="goods-card__checkbox ib-top px-font-16 rem-width-40 text-center px-padding-tb10"
+      class="goods-card__checkbox ib-top px-font-16 text-center px-padding-tb10"
       :style="[imgHeightStyle, imgLineHeight]"
       @click.stop="checkCard"
     >
@@ -55,21 +55,24 @@
         </p>
 
         <div class="goods-card__item-info position-a bottom-0 left-0 width-100">
-          <p class="color-c999 px-font-12 over-text" v-if="spec">{{ spec }}</p>
-          <div class="fr color-c999">
-            <slot v-if="$slots.right" name="right" />
-            <template v-else-if="num !== undefined">x{{ num }}</template>
-          </div>
-          <div
-            v-if="isMainPriceStyle"
-            v-html="genderPrice(price)"
-          />
-          <span
-            class="color-c999"
-            v-else
-          >
-            ¥ {{ (price / 100).toFixed(2) }}
-          </span>
+          <slot v-if="$slots.default" />
+          <template v-else>
+            <p class="color-c999 px-font-12 over-text" v-if="spec">{{ spec }}</p>
+            <div class="fr color-c999">
+              <slot v-if="$slots.right" name="right" />
+              <template v-else-if="num !== undefined">x{{ num }}</template>
+            </div>
+            <div
+              v-if="isMainPriceStyle"
+              v-html="genderPrice(price)"
+            />
+            <span
+              class="color-c999"
+              v-else
+            >
+              ¥ {{ (price / 100).toFixed(2) }}
+            </span>
+          </template>
         </div>
       </div>
     </div>
@@ -165,7 +168,7 @@ export default {
     },
     itemWidthStyle() {
       const width = this.isShowCheckbox ? 335 : 375
-      return { width: `${width / 37.5}rem` }
+      return { width: `${width / 3.75}vw` }
     },
     itemHeightStyle() {
       return { height: `${this.contentHeight}px` }
@@ -189,8 +192,8 @@ export default {
       if (this.isAbnormal) {
         color = '#999'
       }
-      return `<span class="rem-font-10" style="color: ${color}">¥ ` +
-        `<span class="rem-font-16">${num[0]}</span>.<span>${num[1]}</span>` +
+      return `<span class="px-font-10" style="color: ${color}">¥ ` +
+        `<span class="px-font-16">${num[0]}</span>.<span>${num[1]}</span>` +
         `</span>`
     },
 
@@ -207,5 +210,8 @@ export default {
 <style>
   .goods-card__item {
     padding: 10px 10px 10px 0;
+  }
+  .goods-card__checkbox {
+    width: 10.67vw;
   }
 </style>
