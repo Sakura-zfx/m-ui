@@ -6,7 +6,7 @@
     <slot v-if="$slots.info" name="info" />
     <div class="font-bold font-16 ib-middle px-margin-r5" v-else>
       <span class="color-c000">{{ subText }}：</span>
-      <span style="color: red;">¥ {{ money }}</span>
+      <span :style="{ color: mainColor }">¥ {{ money }}</span>
     </div>
     <div
       class="ib-middle px-width-100 height-100 px-line-50 color-fff text-center"
