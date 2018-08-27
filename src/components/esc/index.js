@@ -13,7 +13,7 @@ export default {
     if (typeof bizType === 'string') {
       Object.keys(this.app).forEach(key => {
         if (this.app[key].projectName === bizType) {
-          bizType = key
+          bizType = Number(key)
         }
       })
     }

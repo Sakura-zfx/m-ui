@@ -35,7 +35,8 @@ const defaultOp = {
   allowCodes: [],
   arrayFormat: 'repeat',
   contentType: 'application/x-www-form-urlencoded',
-  headers: null
+  headers: null,
+  postDataStringifyType: 'qs'
 }
 
 export default class Http {
@@ -68,36 +69,6 @@ export default class Http {
         ...(headers || {})
       }
     })
-
-    // this.instance.interceptors.response.use(
-    //   response => {
-    //     this.hideLoading()
-    //
-    //     const res = response.data
-    //     if (res.data === undefined) {
-    //       // gateway
-    //       res.data = res.value
-    //     }
-    //
-    //     if (res.success) {
-    //       return res
-    //     }
-    //
-    //     if (
-    //       allowCodes.indexOf(res.code) === -1 &&
-    //       allowCodes.indexOf(res.status) === -1
-    //     ) {
-    //       this.options.toast(res.error ? res.error.name : res.msg)
-    //     }
-    //
-    //     return Promise.reject(res)
-    //   },
-    //   error => {
-    //     this.hideLoading()
-    //     this.options.toast(error.msg || error.message || '服务异常，请稍后再试')
-    //     return Promise.reject(error)
-    //   }
-    // )
   }
 
   get(uriName, data = {}) {
@@ -126,10 +97,14 @@ export default class Http {
     if (data.loading !== false) {
       this.showLoading()
     }
-    return this.instance.post(
-      this.options.uri[uriName],
-      qs.stringify(data, { arrayFormat: this.options.arrayFormat })
-    )
+    let reqData
+    if (this.options.postDataStringifyType === 'qs') {
+      reqData = qs.stringify(data, { arrayFormat: this.options.arrayFormat })
+    } else {
+      reqData = JSON.stringify(data)
+    }
+
+    return this.instance.post(this.options.uri[uriName], reqData)
       .then(response => this.commonThen(response, data))
       .catch(error => this.commonCatch(error, data))
   }
