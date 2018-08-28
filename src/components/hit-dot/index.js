@@ -1,4 +1,6 @@
 const isIOS = /iPhone/.test(navigator.userAgent)
+const online = /\.com/.test(location.origin)
+const base = online ? 'https://admin.jituancaiyun.com' : 'http://admin.jituancaiyun.net'
 
 const defaultOptions = {
   moduleId: 0,
@@ -25,14 +27,13 @@ export default {
   },
   hit(eventId, moduleId = this.options.moduleId) {
     const { orgId, userId, platform, apiExt } = this.options
-    let url = `https://admin.jituancaiyun.com/dot-log/${apiExt}.json?` +
+    let url = `${base}/dot-log/${apiExt}.json?` +
       `platform=${platform}&mid=${moduleId}&eid=${eventId}`
-
     if (userId) {
-      url += `&userId=${userId}`
+      url += `&uid=${userId}`
     } else if (apiExt === 'logExt') {
       // uid必传
-      url += '&userId=1'
+      url += '&uid=1'
     }
 
     if (orgId) {
