@@ -30,7 +30,11 @@ export default {
 
     if (userId) {
       url += `&userId=${userId}`
+    } else if (apiExt === 'logExt') {
+      // uid必传
+      url += '&userId=1'
     }
+
     if (orgId) {
       url += `&orgId=${orgId}`
     }
