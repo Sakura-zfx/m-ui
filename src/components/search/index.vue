@@ -51,6 +51,9 @@
         <i
           v-show="input"
           class="iconfont icon-tupian- position-a"
+          :class="{
+            'right-no-btn': !hasBtn
+          }"
           @click.stop="clear"
         />
       </div>
@@ -102,6 +105,14 @@ export default {
     }
   },
 
+  watch: {
+    isOpen(val) {
+      if (val && this.autoFocus) {
+        this.$nextTick(this.focusInput)
+      }
+    }
+  },
+
   created() {
     if (this.value) {
       this.input = this.value
@@ -120,7 +131,7 @@ export default {
     },
 
     focusInput() {
-      this.$refs.input.focus()
+      this.$refs.input && this.$refs.input.focus()
     },
 
     search() {
@@ -162,6 +173,9 @@ export default {
     .icon-tupian- {
       right: 80px;
       top: 0;
+      &.right-no-btn {
+        right: 10px;
+      }
     }
   }
   .m-search__btn {

@@ -2,7 +2,6 @@
   <div class="bg-fff">
     <search
       :is-open="isOpen"
-      :has-btn="false"
       @on-click="onClick"
       @on-search="onSearch"
     >
