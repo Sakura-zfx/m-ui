@@ -5,14 +5,18 @@ const defaultOptions = {
   eventId: 0,
   orgId: undefined,
   userId: undefined,
-  platform: isIOS ? 'iOS' : 'android'
+  platform: isIOS ? 'iOS' : 'android',
+  apiExt: 'logExt'
 }
 
 export default {
   options: {},
   init(moduleId) {
     if (typeof moduleId === 'number') {
-      this.options.moduleId = moduleId
+      this.options = {
+        ...defaultOptions,
+        moduleId
+      }
     } else if (typeof moduleId === 'object') {
       this.options = {...defaultOptions, ...moduleId}
     } else {
@@ -20,8 +24,8 @@ export default {
     }
   },
   hit(eventId, moduleId = this.options.moduleId) {
-    const { orgId, userId, platform } = this.options
-    let url = 'https://admin.jituancaiyun.com/dot-log/log.json?' +
+    const { orgId, userId, platform, apiExt } = this.options
+    let url = `https://admin.jituancaiyun.com/dot-log/${apiExt}.json?` +
       `platform=${platform}&mid=${moduleId}&eid=${eventId}`
 
     if (userId) {
