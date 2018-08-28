@@ -2,9 +2,12 @@
   <div class="bg-fff">
     <search
       :is-open="isOpen"
+      :has-btn="false"
       @on-click="onClick"
       @on-search="onSearch"
-    />
+    >
+      <span>插槽</span>
+    </search>
   </div>
 </template>
 

@@ -6,11 +6,12 @@
     <div
       class="m-search__input px-height-30 px-line-30 px-margin-lr15 color-c999"
       :class="{
-        radius: !isOpen,
-        'px-padding-lr10': !isOpen
+        'px-padding-lr10': !isOpen && !$slots.default,
+        'px-padding-r10': !isOpen && $slots.default
       }"
       :style="{
-        backgroundColor: isOpen ? '' : this.bgColor
+        backgroundColor: isOpen ? '' : bgColor,
+        borderRadius: isOpen ? '' : `${radius}px`
       }"
     >
       <div
@@ -19,22 +20,28 @@
         @click.stop="focusInput"
       >
         <div
+          v-if="hasBtn"
           class="fr m-search__btn px-width-50 text-center color-fff radius-2"
           :style="{
-            backgroundColor: this.color
+            backgroundColor: color
           }"
           @click="search"
         >
           搜索
         </div>
-        <form class="m-search__form" action="javascript:">
+        <form
+          :class="{
+            'm-search__form': hasBtn
+          }"
+          action="javascript:"
+        >
           <input
             ref="input"
-            class="radius"
             type="search"
             :placeholder="placeholder"
             :style="{
-              backgroundColor: this.bgColor
+              backgroundColor: bgColor,
+              borderRadius: isOpen ? `${radius}px` : ''
             }"
             @keyup.enter.prevent="search"
             v-model.trim="input"
@@ -48,6 +55,7 @@
         />
       </div>
       <template v-else>
+        <slot />
         <i class="iconfont icon-sousuo" />
         <span>{{ placeholder }}</span>
       </template>
@@ -76,7 +84,16 @@ export default {
       type: String,
       default: '请输入'
     },
-    value: String
+    value: String,
+    radius: {
+      type: Number,
+      default: 15
+    },
+    hasBtn: {
+      type: Boolean,
+      default: true
+    },
+    autoFocus: Boolean
   },
 
   data() {
@@ -88,6 +105,12 @@ export default {
   created() {
     if (this.value) {
       this.input = this.value
+    }
+  },
+
+  mounted() {
+    if (this.autoFocus) {
+      this.focusInput()
     }
   },
 
