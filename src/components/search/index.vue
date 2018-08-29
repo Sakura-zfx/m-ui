@@ -110,6 +110,9 @@ export default {
       if (val && this.autoFocus) {
         this.$nextTick(this.focusInput)
       }
+    },
+    input(val) {
+      this.$emit('on-search', val, true)
     }
   },
 

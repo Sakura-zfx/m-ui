@@ -1,7 +1,7 @@
 <template>
   <div class="confirm-modules bg-f2">
     <m-message
-      v-if="showSubscribeMessage"
+      v-if="showSubscribeMessage && isPurchase"
       :message="`温馨提示：您所在企业尚未开通企业版${app.name}，暂只支持个人消费，点击立即开通！`"
       :ball="false"
       @on-close="closeNotSubMessage"
