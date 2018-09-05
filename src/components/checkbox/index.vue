@@ -110,4 +110,9 @@ export default {
   .m-checkbox__check {
     line-height: 1;
   }
+.ib-middle
+{
+  display:inline-block
+}
+
 </style>
