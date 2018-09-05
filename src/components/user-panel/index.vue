@@ -52,6 +52,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .user-panel {
     background-image: linear-gradient(-124deg, #E1B960 0%, #EBCE8F 100%);
   }

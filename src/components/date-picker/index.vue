@@ -449,6 +449,7 @@ export default {
 </script>
 
 <style lang='scss' scoped>
+@import '../../style/common';
   html,
   div {
     box-sizing: border-box;

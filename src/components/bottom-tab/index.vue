@@ -58,6 +58,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .bottom-tab__wrap-fixed {
     position: fixed;
     bottom: 0;

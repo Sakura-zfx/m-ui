@@ -85,6 +85,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .m-avatar {
     &.s36 {
       width: 36px;
@@ -92,6 +93,15 @@ export default {
       line-height: 36px;
     }
   }
+.px-width-60{
+  width: 60px;
+}
+.px-height-60{
+  height: 60ox;
+}
+.px-line-60 {
+  line-height: 60px;
+}
 .overflow-h
 {
   overflow:hidden !important

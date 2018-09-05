@@ -97,6 +97,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .m-popup-side {
     width: 8rem;
     transition: transform .2s;

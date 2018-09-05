@@ -143,6 +143,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
 .tag-select {
   .tag-select__title {
     line-height: 1;

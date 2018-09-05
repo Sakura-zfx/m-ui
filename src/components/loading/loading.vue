@@ -40,6 +40,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .m-loading__wrap {
     position: fixed;
     top:0;

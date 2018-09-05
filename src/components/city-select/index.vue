@@ -95,6 +95,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
 .height-100
 {
   height:100%

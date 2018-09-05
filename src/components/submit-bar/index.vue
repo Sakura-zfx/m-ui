@@ -39,7 +39,7 @@ export default {
 </script>
 
 <style lang="scss">
-
+@import '../../style/common';
 .width-100
 {
   width:100%

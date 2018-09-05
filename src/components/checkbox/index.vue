@@ -107,6 +107,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .m-checkbox__check {
     line-height: 1;
   }

@@ -141,6 +141,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .m-popup__container-width-mask {
     z-index: 1000;
   }

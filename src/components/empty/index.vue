@@ -53,6 +53,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .m-empty__wrap {
     .iconfont {
       font-size: 60px;

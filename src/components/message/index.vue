@@ -62,6 +62,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .message__wrap {
     display: flex;
     align-items: center;

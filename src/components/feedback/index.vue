@@ -82,6 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/common';
   .feed-back {
     padding-bottom: 10px;
   }

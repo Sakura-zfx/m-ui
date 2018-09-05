@@ -144,6 +144,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .wait-select {
     line-height: 37px;
     border-bottom: 2px transparent solid;

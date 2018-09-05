@@ -100,6 +100,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .tab__line {
     transition: left .2s;
   }
