@@ -21,6 +21,7 @@ import GoodsCard from './components/goods-card'
 import GoodsCardGroup from './components/goods-card-group'
 import HitDot from './components/hit-dot'
 import Http from './components/http'
+import InfiniteScroll from './components/infinite-scroll'
 import LazyImg from './components/lazy-img'
 import Loading from './components/loading'
 import MInput from './components/m-input'
@@ -41,7 +42,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.101'
+const version = '1.0.102'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -63,6 +64,7 @@ const components = [
   GoodsCardGroup,
   HitDot,
   Http,
+  InfiniteScroll,
   LazyImg,
   Loading,
   MInput,

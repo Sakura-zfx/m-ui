@@ -73,6 +73,11 @@
         "description": "[xm-mui] 搜索输入框"
       },
       {
+        "path": "/infinitescroll",
+        "name": "Infinitescroll",
+        "description": "[xm-mui] 列表无限滚动"
+      },
+      {
         "path": "/numcomputer",
         "name": "NumComputer",
         "description": "[xm-mui] 数字加减器"
