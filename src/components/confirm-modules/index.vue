@@ -1058,7 +1058,8 @@ export default {
 }
 .ib-top
 {
-  display:inline-block
+  display:inline-block;
+  vertical-align: top;
 }
 .px-width-60
 {

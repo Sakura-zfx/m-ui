@@ -83,7 +83,8 @@ export default {
   }
 .ib-middle
 {
-  display:inline-block
+  display:inline-block;
+  vertical-align: middle;
 }
 .text-center
 {

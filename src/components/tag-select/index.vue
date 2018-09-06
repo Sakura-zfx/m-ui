@@ -185,7 +185,8 @@ export default {
 }
 .ib-top
 {
-  display:inline-block
+  display:inline-block;
+  vertical-align: top;
 }
 .over-text
 {

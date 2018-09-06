@@ -221,7 +221,8 @@ export default {
 }
 .ib-top
 {
-  display:inline-block
+  display:inline-block;
+  vertical-align: top;
 }
 .px-font-16
 {

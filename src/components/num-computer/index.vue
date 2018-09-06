@@ -173,6 +173,9 @@ export default {
 {
   height:30px
 }
+.px-width-30 {
+  width: 30px;
+}
 .px-width-100
 {
   width:100px

@@ -136,5 +136,8 @@ export default {
 {
   display:inline-block !important
 }
+.px-line-40 {
+  line-height: 40px;
+}
 
 </style>

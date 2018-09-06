@@ -271,5 +271,7 @@ export default {
 {
   color:#fff
 }
-
+.overflow-a{
+  overflow: auto;
+}
 </style>
