@@ -31,6 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/common';
   .m-toast {
     top: 50%;
     left: 50%;
@@ -47,4 +48,25 @@ export default {
   .fade-enter, .fade-leave-to {
     opacity: 0;
   }
+.position-f
+{
+  position:fixed
+}
+.radius-4
+{
+  border-radius:4px
+}
+.overflow-h
+{
+  overflow:hidden !important
+}
+.px-font-14
+{
+  font-size:14px !important
+}
+.color-fff
+{
+  color:#fff
+}
+
 </style>

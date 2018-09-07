@@ -73,6 +73,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .cell {
     padding: 0 10px;
 
@@ -80,4 +81,50 @@ export default {
       color: #959ba3;
     }
   }
+.overflow-h
+{
+  overflow:hidden !important
+}
+.text-right
+{
+  text-align:right
+}
+.bg-fff
+{
+  background-color:#fff
+}
+.fl
+{
+  float:left
+}
+.ib-middle
+{
+  display:inline-block;
+  vertical-align: middle;
+}
+.color-info
+{
+  color:#0275d8
+}
+.color-c999
+{
+  color:#999
+}
+.px-font-12
+{
+  font-size:12px !important
+}
+.fr
+{
+  float:right
+}
+.px-margin-t15
+{
+  margin:15px 0 0 0
+}
+.over-text
+{
+  overflow:hidden;text-overflow:ellipsis
+}
+
 </style>

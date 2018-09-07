@@ -107,7 +107,14 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .m-checkbox__check {
     line-height: 1;
   }
+.ib-middle
+{
+  display:inline-block;
+  vertical-align: middle;
+}
+
 </style>

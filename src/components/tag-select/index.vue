@@ -143,6 +143,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
 .tag-select {
   .tag-select__title {
     line-height: 1;
@@ -166,4 +167,30 @@ export default {
     }
   }
 }
+.px-padding-lr15
+{
+  padding:0 15px
+}
+.px-font-12
+{
+  font-size:12px !important
+}
+.px-padding-tb15
+{
+  padding:15px 0
+}
+.font-0
+{
+  font-size:0 !important
+}
+.ib-top
+{
+  display:inline-block;
+  vertical-align: top;
+}
+.over-text
+{
+  overflow:hidden;text-overflow:ellipsis
+}
+
 </style>

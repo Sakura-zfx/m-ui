@@ -55,6 +55,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .radio {
     width: 46px;
     height: 28px;
@@ -80,4 +81,14 @@ export default {
       box-shadow: 0 3px 1px 0 rgba(0,0,0,0.05), 0 2px 2px 0 rgba(0,0,0,0.10), 0 3px 3px 0 rgba(0,0,0,0.05);
     }
   }
+.ib-middle
+{
+  display:inline-block;
+  vertical-align: middle;
+}
+.text-center
+{
+  text-align:center
+}
+
 </style>

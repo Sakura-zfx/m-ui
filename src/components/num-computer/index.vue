@@ -141,6 +141,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import '../../style/common';
   .num-compute {
     border-radius: 2px;
     overflow: hidden;
@@ -160,4 +161,48 @@ export default {
       border-right: 1px #f2f2f2 solid;
     }
   }
+.cl
+{
+  *zoom:1
+}
+.text-center
+{
+  text-align:center
+}
+.px-height-30
+{
+  height:30px
+}
+.px-width-30 {
+  width: 30px;
+}
+.px-width-100
+{
+  width:100px
+}
+.color-c999
+{
+  color:#999
+}
+.bg-fff
+{
+  background-color:#fff
+}
+.px-width-40
+{
+  width:40px
+}
+.height-100
+{
+  height:100%
+}
+.display-ib
+{
+  display:inline-block !important
+}
+.width-100
+{
+  width:100%
+}
+
 </style>

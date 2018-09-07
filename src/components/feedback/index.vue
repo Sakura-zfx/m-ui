@@ -82,6 +82,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '../../style/common';
   .feed-back {
     padding-bottom: 10px;
   }
@@ -102,4 +103,13 @@ export default {
       outline: none;
     }
   }
+.px-padding-t10
+{
+  padding:10px 0 0 0
+}
+.px-padding-10
+{
+  padding:10px
+}
+
 </style>
