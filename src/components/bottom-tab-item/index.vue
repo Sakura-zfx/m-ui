@@ -60,7 +60,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .badge {
     color: #fff;
     left: 50%;

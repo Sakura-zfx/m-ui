@@ -141,7 +141,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .num-compute {
     border-radius: 2px;
     overflow: hidden;

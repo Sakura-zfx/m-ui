@@ -73,7 +73,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .cell {
     padding: 0 10px;
 

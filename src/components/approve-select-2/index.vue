@@ -75,7 +75,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .address__empty {
     text-align: center;
     padding-top: 80px;

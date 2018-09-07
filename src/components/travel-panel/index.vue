@@ -88,5 +88,5 @@ export default {
 </style>
 
 <style lang="scss" scoped>
-@import '../../style/common';
+
 </style>

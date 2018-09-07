@@ -94,5 +94,4 @@ export default {
 </style>
 
 <style lang="scss">
-@import '../../style/common';
 </style>

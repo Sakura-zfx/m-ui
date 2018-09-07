@@ -55,7 +55,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .radio {
     width: 46px;
     height: 28px;

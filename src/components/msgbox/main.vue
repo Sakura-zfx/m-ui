@@ -83,7 +83,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../style/common';
   .m-msgBox__wrap {
     z-index: 1003;
   }

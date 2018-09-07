@@ -31,7 +31,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '../../style/common';
   .m-toast {
     top: 50%;
     left: 50%;

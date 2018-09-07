@@ -208,7 +208,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .goods-card__item {
     padding: 10px 10px 10px 0;
   }

@@ -85,7 +85,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .m-avatar {
     &.s36 {
       width: 36px;

@@ -151,7 +151,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .m-search__wrap {
     .bg {
       background-color: #f7f8f9;
