@@ -24,6 +24,7 @@ export default {
     } else {
       throw new Error('moduleId is must')
     }
+    return this.hit.bind(this)
   },
   hit(eventId, moduleId = this.options.moduleId) {
     const { orgId, userId, platform, apiExt } = this.options

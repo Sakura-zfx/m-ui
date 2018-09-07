@@ -9,10 +9,10 @@
       // 第二步
 
       // 简单写法
-      dot.initDot(modulesId)
+      dot.init(modulesId)
 
       // 复杂写法
-      dot.initDot({
+      dot.init({
         moduleId: 0,
         eventId: 0,
         orgId: undefined,
@@ -21,7 +21,7 @@
       })
 
       // 第三步
-      dot.hitDot(101) // 事件编号
+      dot.hit(101) // 事件编号
     </pre>
     <p>3. 根据excel生成的js文件的脚本地址为 <a href="https://statics.e.uban360.com/pages/xlsx2json/index.html?a=1" target="_blank">https://statics.e.uban360.com/pages/xlsx2json</a></p>
   </common-entry>
