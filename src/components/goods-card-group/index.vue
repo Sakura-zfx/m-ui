@@ -98,7 +98,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .color-c262 { color: #262a30; }
   .m-goods-card-group__title,
   .m-goods-card-group__bottom {

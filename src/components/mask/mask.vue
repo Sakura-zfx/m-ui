@@ -57,7 +57,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .m-mask__wrap {
     background-color: rgba(0,0,0,.59);
     z-index: 1001;

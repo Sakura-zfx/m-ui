@@ -941,7 +941,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../style/common';
   .confirm-modules {
     .m-bd-b:before {
       border-color: #e5e5e5;
