@@ -83,91 +83,82 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .m-msgBox__wrap {
-    z-index: 1003;
+.m-msgBox__wrap {
+  z-index: 1003;
+}
+.m-msgBox {
+  position: fixed;
+  width: 270px;
+  background-color: #fff;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 12px;
+  text-align: center;
+  overflow: hidden;
+  font-size: 14px;
+  z-index: 1003;
+
+  .m-msgBox_title {
+    font-size: 18px;
+    padding: 20px 20px 0 20px;
   }
-  .m-msgBox {
-    position: fixed;
-    width: 270px;
-    background-color: #fff;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 12px;
-    text-align: center;
+  .m-msgBox_content {
+    max-height: 250px;
     overflow: hidden;
-    font-size: 14px;
-    z-index: 1003;
+    color: #262A30;
+    padding: 15px 20px;
+  }
+  .m-msgBox_foot {
+    font-size: 0;
 
-    .m-msgBox_title {
-      font-size: 18px;
-      padding: 20px 20px 0 20px;
-    }
-    .m-msgBox_content {
-      max-height: 250px;
-      overflow: hidden;
-      color: #262A30;
-      padding: 15px 20px;
-    }
-    .m-msgBox_foot {
-      font-size: 0;
-
-      .m-msgBox_btn {
-        display: inline-block;
-        vertical-align: middle;
-        width: 50%;
-        font-size: 17px;
-        line-height: 44px;
-        color: #0076FF;
-        &.w100 {
-          width: 100%;
-        }
-        &.color-blue {
-          color: #0076FF !important;
-        }
+    .m-msgBox_btn {
+      display: inline-block;
+      vertical-align: middle;
+      width: 50%;
+      font-size: 17px;
+      line-height: 44px;
+      color: #0076FF;
+      &.w100 {
+        width: 100%;
+      }
+      &.color-blue {
+        color: #0076FF !important;
       }
     }
   }
-
-  .bounce-enter,
-  .bounce-enter-active {
-    opacity: 0;
-  }
-  .bounce-enter-to {
-    opacity: 1;
-    transition: opacity .1s;
-  }
-.position-f
-{
-  position:fixed
-}
-.top-0
-{
-  top:0
-}
-.bottom-0
-{
-  bottom:0
-}
-.left-0
-{
-  left:0
-}
-.right-0
-{
-  right:0
-}
-.overflow-a
-{
-  overflow:auto !important
-}
-.touch-scroll
-{
-  -webkit-overflow-scrolling:touch
-}
-.m-bd-t
-{
-  position:relative
 }
 
+.bounce-enter,
+.bounce-enter-active {
+  opacity: 0;
+}
+.bounce-enter-to {
+  opacity: 1;
+  transition: opacity .1s;
+}
+.position-f {
+  position:fixed;
+}
+.top-0 {
+  top:0;
+}
+.bottom-0 {
+  bottom:0;
+}
+.left-0 {
+  left:0;
+}
+.right-0 {
+  right:0;
+}
+.overflow-a {
+  overflow:auto !important;
+}
+.touch-scroll {
+  -webkit-overflow-scrolling:touch;
+}
+.m-bd-t {
+  position:relative;
+}
 </style>

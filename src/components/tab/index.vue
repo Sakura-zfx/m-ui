@@ -99,44 +99,36 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .tab__line {
-    transition: left .2s;
-  }
-  .tab__line-color {
-    width: 60px;
-    height: 2px;
-  }
-.font-0
-{
-  font-size:0 !important
+<style lang="scss" scoped>
+.tab__line {
+  transition: left .2s;
 }
-.position-r
-{
-  position:relative
+.tab__line-color {
+  width: 60px;
+  height: 2px;
 }
-.bg-fff
-{
-  background-color:#fff
+.font-0 {
+  font-size:0 !important;
 }
-.position-a
-{
-  position:absolute
+.position-r {
+  position:relative;
 }
-.bottom-0
-{
-  bottom:0
+.bg-fff {
+  background-color:#fff;
 }
-.text-center
-{
-  text-align:center
+.position-a {
+  position:absolute;
 }
-.display-ib
-{
-  display:inline-block !important
+.bottom-0 {
+  bottom:0;
+}
+.text-center {
+  text-align:center;
+}
+.display-ib {
+  display:inline-block !important;
 }
 .px-line-40 {
   line-height: 40px;
 }
-
 </style>

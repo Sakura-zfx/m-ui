@@ -57,34 +57,27 @@ export default {
 </script>
 
 <style lang="scss">
-  .m-mask__wrap {
-    background-color: rgba(0,0,0,.59);
-    z-index: 1001;
-    transition: opacity .2s;
-  }
-.position-f
-{
-  position:fixed
+.m-mask__wrap {
+  background-color: rgba(0,0,0,.59);
+  z-index: 1001;
+  transition: opacity .2s;
 }
-.left-0
-{
-  left:0
+.position-f {
+  position:fixed;
 }
-.top-0
-{
-  top:0
+.left-0 {
+  left:0;
 }
-.bottom-0
-{
-  bottom:0
+.top-0 {
+  top:0;
 }
-.width-100
-{
-  width:100%
+.bottom-0 {
+  bottom:0;
 }
-.height-100
-{
-  height:100%
+.width-100 {
+  width:100%;
 }
-
+.height-100 {
+  height:100%;
+}
 </style>

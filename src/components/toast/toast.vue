@@ -31,41 +31,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-  .m-toast {
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgba(0,0,0,.7);
-    z-index: 1110;
-  }
-  .m-toast__text {
-    padding: 5px 10px;
-  }
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .3s;
-  }
-  .fade-enter, .fade-leave-to {
-    opacity: 0;
-  }
-.position-f
-{
-  position:fixed
+.m-toast {
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0,0,0,.7);
+  z-index: 1110;
 }
-.radius-4
-{
-  border-radius:4px
+.m-toast__text {
+  padding: 5px 10px;
 }
-.overflow-h
-{
-  overflow:hidden !important
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
 }
-.px-font-14
-{
-  font-size:14px !important
+.fade-enter, .fade-leave-to {
+  opacity: 0;
 }
-.color-fff
-{
-  color:#fff
+.position-f {
+  position:fixed;
 }
-
+.radius-4 {
+  border-radius:4px;
+}
+.overflow-h {
+  overflow:hidden !important;
+}
+.px-font-14 {
+  font-size:14px !important;
+}
+.color-fff {
+  color:#fff;
+}
 </style>

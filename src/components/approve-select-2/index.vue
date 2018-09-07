@@ -74,7 +74,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .address__empty {
     text-align: center;
     padding-top: 80px;

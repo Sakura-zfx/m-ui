@@ -150,101 +150,85 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .m-search__wrap {
-    .bg {
-      background-color: #f7f8f9;
-    }
-    .radius {
-      border-radius: 15px;
+<style lang="scss" scoped>
+.m-search__wrap {
+  .bg {
+    background-color: #f7f8f9;
+  }
+  .radius {
+    border-radius: 15px;
+  }
+}
+.m-search__input-con {
+  .m-search__form {
+    margin-right: 70px;
+  }
+  input {
+    width: 100%;
+    border: none;
+    margin: 0;
+    padding: 0 30px;
+  }
+  .icon-sousuo {
+    left: 10px;
+    top: 0;
+  }
+  .icon-tupian- {
+    right: 80px;
+    top: 0;
+    &.right-no-btn {
+      right: 10px;
     }
   }
-  .m-search__input-con {
-    .m-search__form {
-      margin-right: 70px;
-    }
-    input {
-      width: 100%;
-      border: none;
-      margin: 0;
-      padding: 0 30px;
-    }
-    .icon-sousuo {
-      left: 10px;
-      top: 0;
-    }
-    .icon-tupian- {
-      right: 80px;
-      top: 0;
-      &.right-no-btn {
-        right: 10px;
-      }
-    }
-  }
-  .m-search__btn {
-    line-height: 25px;
-    margin-top: 2.5px;
-  }
-  ::-webkit-search-cancel-button { display: none; }
-.px-height-50
-{
-  height:50px
 }
-.px-line-50
-{
-  line-height:50px
+.m-search__btn {
+  line-height: 25px;
+  margin-top: 2.5px;
 }
-.px-padding-t10
-{
-  padding:10px 0 0 0
+::-webkit-search-cancel-button { display: none; }
+.px-height-50 {
+  height:50px;
 }
-.px-font-14
-{
-  font-size:14px !important
+.px-line-50 {
+  line-height:50px;
 }
-.px-height-30
-{
-  height:30px
+.px-padding-t10 {
+  padding:10px 0 0 0;
 }
-.px-line-30
-{
-  line-height:30px
+.px-font-14 {
+  font-size:14px !important;
 }
-.px-margin-lr15
-{
-  margin:0 15px
+.px-height-30 {
+  height:30px;
 }
-.color-c999
-{
-  color:#999
+.px-line-30 {
+  line-height:30px;
 }
-.position-r
-{
-  position:relative
+.px-margin-lr15 {
+  margin:0 15px;
 }
-.fr
-{
-  float:right
+.color-c999 {
+  color:#999;
 }
-.px-width-50
-{
-  width:50px
+.position-r {
+  position:relative;
 }
-.text-center
-{
-  text-align:center
+.fr {
+  float:right;
 }
-.color-fff
-{
-  color:#fff
+.px-width-50 {
+  width:50px;
 }
-.radius-2
-{
-  border-radius:2px
+.text-center {
+  text-align:center;
 }
-.position-a
-{
-  position:absolute
+.color-fff {
+  color:#fff;
 }
-
+.radius-2 {
+  border-radius:2px;
+}
+.position-a {
+  position:absolute;
+}
 </style>

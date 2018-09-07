@@ -106,14 +106,12 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .m-checkbox__check {
     line-height: 1;
   }
-.ib-middle
-{
-  display:inline-block;
-  vertical-align: middle;
-}
-
+  .ib-middle {
+    display:inline-block;
+    vertical-align: middle;
+  }
 </style>

@@ -38,67 +38,51 @@ export default {
 }
 </script>
 
-<style lang="scss">
-.width-100
-{
-  width:100%
+<style lang="scss" scoped>
+.width-100 {
+  width:100%;
 }
-.px-height-50
-{
-  height:50px
+.px-height-50 {
+  height:50px;
 }
-.bg-fff
-{
-  background-color:#fff
+.bg-fff {
+  background-color:#fff;
 }
-.text-right
-{
-  text-align:right
+.text-right {
+  text-align:right;
 }
-.fl
-{
-  float:left
+.fl {
+  float:left;
 }
-.px-width-60
-{
-  width:60px
+.px-width-60 {
+  width:60px;
 }
-.px-line-50
-{
-  line-height:50px
+.px-line-50 {
+  line-height:50px;
 }
-.text-left
-{
-  text-align:left
+.text-left {
+  text-align:left;
 }
-.font-bold
-{
-  font-weight:bold
+.font-bold {
+  font-weight:bold;
 }
-.ib-middle
-{
+.ib-middle {
   display:inline-block;
   vertical-align: middle;
 }
-.px-margin-r5
-{
-  margin:0 5px 0 0
+.px-margin-r5 {
+  margin:0 5px 0 0;
 }
-.px-width-100
-{
-  width:100px
+.px-width-100 {
+  width:100px;
 }
-.height-100
-{
-  height:100%
+.height-100 {
+  height:100%;
 }
-.color-fff
-{
-  color:#fff
+.color-fff {
+  color:#fff;
 }
-.text-center
-{
-  text-align:center
+.text-center {
+  text-align:center;
 }
-
 </style>
