@@ -57,35 +57,28 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .bottom-tab__wrap-fixed {
     position: fixed;
     bottom: 0;
     left: 0;
   }
-.shadow-top
-{
-  box-shadow:0 -2px 3px rgba(0,0,0,0.12)
+.shadow-top {
+  box-shadow:0 -2px 3px rgba(0,0,0,0.12);
 }
-.width-100
-{
-  width:100%
+.width-100 {
+  width:100%;
 }
-.px-height-50
-{
-  height:50px
+.px-height-50 {
+  height:50px;
 }
-.bg-fff
-{
-  background-color:#fff
+.bg-fff {
+  background-color:#fff;
 }
-.font-0
-{
-  font-size:0 !important
+.font-0 {
+  font-size:0 !important;
 }
-.text-center
-{
-  text-align:center
+.text-center {
+  text-align:center;
 }
-
 </style>

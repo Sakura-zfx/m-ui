@@ -140,68 +140,63 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .num-compute {
-    border-radius: 2px;
-    overflow: hidden;
-    &.input-db {
-      border-top: 1px #f2f2f2 solid;
-      border-bottom: 1px #f2f2f2 solid;
-    }
-    input {
-      border: none;
-      margin: 0;
-      padding: 0;
-    }
-    .decrease,
-    .plus {
-      line-height: 25px;
-      border-left: 1px #f2f2f2 solid;
-      border-right: 1px #f2f2f2 solid;
-    }
+<style lang="scss" scoped>
+.num-compute {
+  border-radius: 2px;
+  overflow: hidden;
+  &.input-db {
+    border-top: 1px #f2f2f2 solid;
+    border-bottom: 1px #f2f2f2 solid;
   }
-.cl
-{
-  *zoom:1
+  input {
+    border: none;
+    margin: 0;
+    padding: 0;
+  }
+  .decrease,
+  .plus {
+    line-height: 25px;
+    border-left: 1px #f2f2f2 solid;
+    border-right: 1px #f2f2f2 solid;
+  }
 }
-.text-center
-{
-  text-align:center
+.fr {
+  float: right;
 }
-.px-height-30
-{
-  height:30px
+.fl {
+  float: left;
+}
+.cl {
+  *zoom:1;
+}
+.text-center {
+  text-align:center;
+}
+.px-height-30 {
+  height:30px;
 }
 .px-width-30 {
   width: 30px;
 }
-.px-width-100
-{
-  width:100px
+.px-width-100 {
+  width:100px;
 }
-.color-c999
-{
-  color:#999
+.color-c999 {
+  color:#999;
 }
-.bg-fff
-{
-  background-color:#fff
+.bg-fff {
+  background-color:#fff;
 }
-.px-width-40
-{
-  width:40px
+.px-width-40 {
+  width:40px;
 }
-.height-100
-{
-  height:100%
+.height-100 {
+  height:100%;
 }
-.display-ib
-{
-  display:inline-block !important
+.display-ib {
+  display:inline-block !important;
 }
-.width-100
-{
-  width:100%
+.width-100 {
+  width:100%;
 }
-
 </style>

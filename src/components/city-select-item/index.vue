@@ -143,7 +143,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .wait-select {
     line-height: 37px;
     border-bottom: 2px transparent solid;
@@ -151,82 +151,63 @@ export default {
     color: #666666;
     z-index: 2;
   }
-.px-height-40
-{
-  height:40px
+.px-height-40 {
+  height:40px;
 }
-.px-line-40
-{
-  line-height:40px
+.px-line-40 {
+  line-height:40px;
 }
-.m-bd-b
-{
-  position:relative
+.m-bd-b {
+  position:relative;
 }
-.bg-fff
-{
-  background-color:#fff
+.bg-fff {
+  background-color:#fff;
 }
-.px-width-70
-{
-  width:70px
+.px-width-70 {
+  width:70px;
 }
-.over-text
-{
-  overflow:hidden;text-overflow:ellipsis
+.over-text {
+  overflow:hidden;
+  text-overflow:ellipsis;
 }
-.ib-middle
-{
+.ib-middle {
   display:inline-block;
   vertical-align: middle;
 }
-.text-center
-{
+.text-center {
   text-align:center
 }
-.px-width-60
-{
+.px-width-60 {
   width:60px
 }
-.px-margin-lr5
-{
+.px-margin-lr5 {
   margin:0 5px
 }
-.position-a
-{
+.position-a {
   position:absolute
 }
-.px-top-40
-{
-  top:40px
+.px-top-40 {
+  top:40px;
 }
-.bottom-0
-{
-  bottom:0
+.bottom-0 {
+  bottom:0;
 }
-.overflow-a
-{
-  overflow:auto !important
+.overflow-a {
+  overflow:auto !important;
 }
-.touch-scroll
-{
-  -webkit-overflow-scrolling:touch
+.touch-scroll {
+  -webkit-overflow-scrolling:touch;
 }
-.width-100
-{
-  width:100%
+.width-100 {
+  width:100%;
 }
-.color-c999
-{
-  color:#999
+.color-c999 {
+  color:#999;
 }
-.px-padding-t30
-{
-  padding:30px 0 0 0
+.px-padding-t30 {
+  padding:30px 0 0 0;
 }
-.px-padding-lr10
-{
+.px-padding-lr10 {
   padding:0 10px
 }
-
 </style>

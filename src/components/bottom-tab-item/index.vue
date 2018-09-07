@@ -59,7 +59,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .badge {
     color: #fff;
     left: 50%;
@@ -77,38 +77,29 @@ export default {
     // background-color: #f44;
     font-family: PingFang SC, Helvetica Neue, Arial, sans-serif;
   }
-.ib-middle
-{
+.ib-middle {
   display:inline-block;
   vertical-align: middle;
 }
-.height-100
-{
-  height:100%
+.height-100 {
+  height:100%;
 }
-.px-font-10
-{
-  font-size:10px !important
+.px-font-10 {
+  font-size:10px !important;
 }
-.display-ib
-{
-  display:inline-block !important
+.display-ib {
+  display:inline-block !important;
 }
-.text-center
-{
-  text-align:center
+.text-center {
+  text-align:center;
 }
-.px-height-30
-{
-  height:30px
+.px-height-30 {
+  height:30px;
 }
-.position-r
-{
-  position:relative
+.position-r {
+  position:relative;
 }
-.px-font-24
-{
-  font-size:24px !important
+.px-font-24 {
+  font-size:24px !important;
 }
-
 </style>

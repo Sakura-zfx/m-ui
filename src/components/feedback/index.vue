@@ -102,13 +102,10 @@ export default {
       outline: none;
     }
   }
-.px-padding-t10
-{
-  padding:10px 0 0 0
+.px-padding-t10 {
+  padding:10px 0 0 0;
 }
-.px-padding-10
-{
-  padding:10px
+.px-padding-10 {
+  padding:10px;
 }
-
 </style>

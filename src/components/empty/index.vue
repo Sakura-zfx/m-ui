@@ -52,7 +52,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .m-empty__wrap {
     .iconfont {
       font-size: 60px;
@@ -61,66 +61,50 @@ export default {
       padding: 5px 15px;
     }
   }
-.width-100
-{
-  width:100%
+.width-100 {
+  width:100%;
 }
-.text-center
-{
-  text-align:center
+.text-center {
+  text-align:center;
 }
-.px-padding-t30
-{
-  padding:30px 0 0 0
+.px-padding-t30 {
+  padding:30px 0 0 0;
 }
-.px-width-90
-{
-  width:90px
+.px-width-90 {
+  width:90px;
 }
-.px-height-90
-{
-  height:90px
+.px-height-90 {
+  height:90px;
 }
-.margin-auto
-{
-  margin:0 auto
+.margin-auto {
+  margin:0 auto;
 }
-.height-100
-{
+.height-100 {
   height:100%
 }
-.color-c666
-{
-  color:#666
+.color-c666 {
+  color:#666;
 }
-.px-font-16
-{
-  font-size:16px !important
+.px-font-16 {
+  font-size:16px !important;
 }
-.px-margin-t30
-{
-  margin:30px 0 0 0
+.px-margin-t30 {
+  margin:30px 0 0 0;
 }
-.color-c999
-{
+.color-c999 {
   color:#999
 }
-.px-font-12
-{
-  font-size:12px !important
+.px-font-12 {
+  font-size:12px !important;
 }
-.ib-middle
-{
+.ib-middle {
   display:inline-block;
   vertical-align: middle;
 }
-.m-bd
-{
-  position:relative
+.m-bd {
+  position:relative;
 }
-.px-margin-t20
-{
-  margin:20px 0 0 0
+.px-margin-t20 {
+  margin:20px 0 0 0;
 }
-
 </style>

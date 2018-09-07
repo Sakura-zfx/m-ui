@@ -97,56 +97,44 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .color-c262 { color: #262a30; }
-  .m-goods-card-group__title,
-  .m-goods-card-group__bottom {
-    line-height: 50px;
-  }
-.overflow-h
-{
-  overflow:hidden !important
+<style lang="scss" scoped>
+.color-c262 { color: #262a30; }
+.m-goods-card-group__title,
+.m-goods-card-group__bottom {
+  line-height: 50px;
 }
-.px-padding-lr10
-{
-  padding:0 10px
+.overflow-h {
+  overflow:hidden !important;
 }
-.bg-fff
-{
-  background-color:#fff
+.px-padding-lr10 {
+  padding:0 10px;
 }
-.fr
-{
-  float:right
+.bg-fff {
+  background-color:#fff;
 }
-.font-0
-{
-  font-size:0 !important
+.fr {
+  float:right;
 }
-.ib-middle
-{
+.font-0 {
+  font-size:0 !important;
+}
+.ib-middle {
   display:inline-block;
   vertical-align: middle;
 }
-.px-width-30
-{
-  width:30px
+.px-width-30 {
+  width:30px;
 }
-.px-font-14
-{
-  font-size:14px !important
+.px-font-14 {
+  font-size:14px !important;
 }
-.color-ccc
-{
-  color:#ccc
+.color-ccc {
+  color:#ccc;
 }
-.px-font-12
-{
-  font-size:12px !important
+.px-font-12 {
+  font-size:12px !important;
 }
-.text-right
-{
-  text-align:right
+.text-right {
+  text-align:right;
 }
-
 </style>

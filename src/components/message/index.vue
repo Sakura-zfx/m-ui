@@ -61,43 +61,39 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .message__wrap {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .message__left {
-    display: flex;
-    align-items: center;
+<style lang="scss" scoped>
+.message__wrap {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.message__left {
+  display: flex;
+  align-items: center;
 
-    .message {
-      display: flex;
-      justify-content: start;
-    }
+  .message {
+    display: flex;
+    justify-content: start;
   }
-  .message__wrap-warn {
-    background-color: #FEFBE5;
-    color: #FE6A00;
-  }
-  .message__close,
-  .message__icon {
-    padding: 0 7px;
-  }
-  .message__icon {
-    padding-right: 0;
-  }
-.px-padding-tb5
-{
-  padding:5px 0
 }
-.px-font-12
-{
-  font-size:12px !important
+.message__wrap-warn {
+  background-color: #FEFBE5;
+  color: #FE6A00;
 }
-.px-margin-l10
-{
-  margin:0 0 0 10px
+.message__close,
+.message__icon {
+  padding: 0 7px;
 }
-
+.message__icon {
+  padding-right: 0;
+}
+.px-padding-tb5 {
+  padding:5px 0;
+}
+.px-font-12 {
+  font-size:12px !important;
+}
+.px-margin-l10 {
+  margin:0 0 0 10px;
+}
 </style>

@@ -96,62 +96,52 @@ export default {
 }
 </script>
 
-<style lang="scss">
-  .m-popup-side {
-    width: 8rem;
-    transition: transform .2s;
-  }
-  .m-popup-side__content {
-    transition: transform .2s;
-  }
-  .fade-right-enter-active {
-    transform: translateX(100%);
-  }
-  .fade-left-enter-active {
-    transform: translateX(-100%);
-  }
-  .fade-right-leave-active {
-    transform: translateX(100%);
-  }
-  .fade-left-leave-active {
-    transform: translateX(-100%);
-  }
-.display-ib
-{
-  display:inline-block !important
+<style lang="scss" scoped>
+.m-popup-side {
+  width: 8rem;
+  transition: transform .2s;
 }
-.height-100
-{
-  height:100%
+.m-popup-side__content {
+  transition: transform .2s;
 }
-.bg-fff
-{
-  background-color:#fff
+.fade-right-enter-active {
+  transform: translateX(100%);
 }
-.overflow-h
-{
-  overflow:hidden !important
+.fade-left-enter-active {
+  transform: translateX(-100%);
 }
-.font-0
-{
-  font-size:0 !important
+.fade-right-leave-active {
+  transform: translateX(100%);
 }
-.ib-middle
-{
+.fade-left-leave-active {
+  transform: translateX(-100%);
+}
+.display-ib {
+  display:inline-block !important;
+}
+.height-100 {
+  height:100%;
+}
+.bg-fff {
+  background-color:#fff;
+}
+.overflow-h {
+  overflow:hidden !important;
+}
+.font-0 {
+  font-size:0 !important;
+}
+.ib-middle {
   display:inline-block;
   vertical-align: middle;
 }
-.px-font-14
-{
-  font-size:14px !important
+.px-font-14 {
+  font-size:14px !important;
 }
-.overflow-a
-{
-  overflow:auto !important
+.overflow-a {
+  overflow:auto !important;
 }
-.touch-scroll
-{
-  -webkit-overflow-scrolling:touch
+.touch-scroll {
+  -webkit-overflow-scrolling:touch;
 }
-
 </style>

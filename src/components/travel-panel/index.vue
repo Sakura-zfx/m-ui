@@ -86,7 +86,3 @@ export default {
     padding px2vw(3)
     transform scale(.7)
 </style>
-
-<style lang="scss" scoped>
-
-</style>
