@@ -32,7 +32,7 @@ const defaultOp = {
     open() {},
     close() {}
   },
-  allowCodes: [],
+  // allowCodes: [],
   arrayFormat: 'repeat',
   contentType: 'application/x-www-form-urlencoded',
   headers: null,
@@ -135,7 +135,7 @@ export default class Http {
   }
 
   commonThen(response, data) {
-    const { allowCodes } = this.options
+    // const { allowCodes } = this.options
 
     if (data.loading !== false) {
       this.hideLoading()
@@ -151,13 +151,13 @@ export default class Http {
       return res
     }
 
-    if (
-      allowCodes.indexOf(res.code) === -1 &&
-      allowCodes.indexOf(res.status) === -1 &&
-      data.toast !== false
-    ) {
-      this.options.toast(res.error ? res.error.name : res.msg)
-    }
+    // if (
+    //   allowCodes.indexOf(res.code) === -1 &&
+    //   allowCodes.indexOf(res.status) === -1 &&
+    //   data.toast !== false
+    // ) {
+    //   this.options.toast(res.error ? res.error.name : res.msg)
+    // }
 
     return Promise.reject(res)
   }
@@ -167,7 +167,11 @@ export default class Http {
       this.hideLoading()
     }
     if (data.toast !== false) {
-      this.options.toast(error.msg || error.message || '服务异常，请稍后再试')
+      this.options.toast(
+        error.msg ||
+        error.error ? error.error.name : error.message ||
+        '服务异常，请稍后再试'
+      )
     }
     return Promise.reject(error)
   }

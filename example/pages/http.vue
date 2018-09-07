@@ -18,7 +18,6 @@ const defaultOp = {
     open() {},
     close() {}
   },
-  allowCodes: [],
   contentType: 'application/x-www-form-urlencoded'
 }
     </pre>
