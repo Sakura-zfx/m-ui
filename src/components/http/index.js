@@ -167,11 +167,11 @@ export default class Http {
       this.hideLoading()
     }
     if (data.toast !== false) {
-      this.options.toast(
-        error.msg ||
-        error.error ? error.error.name : error.message ||
-        '服务异常，请稍后再试'
-      )
+      let msg = '服务异常，请稍后再试'
+      if (error) {
+        msg = error.msg || (error.error ? error.error.name : error.message) || msg
+      }
+      this.options.toast(msg)
     }
     return Promise.reject(error)
   }
