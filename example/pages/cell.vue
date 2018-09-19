@@ -2,7 +2,7 @@
   <common-entry title="单元格">
     <m-cell
       label="单元格"
-      value="value"
+      value="超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长超长"
     />
     <p>slot</p>
     <pre>

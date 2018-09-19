@@ -36,12 +36,10 @@
       width="20px"
     >
     <div class="over-text">
-      <div class="ib-middle">
-        <slot>
-          <span v-if="value">{{ value }}</span>
-          <span class="color-c999" v-else>请选择</span>
-        </slot>
-      </div>
+      <slot>
+        <span v-if="value">{{ value }}</span>
+        <span class="color-c999" v-else-if="isLink">请选择</span>
+      </slot>
     </div>
   </div>
 </template>
