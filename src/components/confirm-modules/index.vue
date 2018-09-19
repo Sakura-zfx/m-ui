@@ -906,7 +906,11 @@ export default {
     },
 
     openApproveDetail(item) {
-      utils.openUrl(`${window.AppInfo.data.approveUrl}#/detail/${item.id}`)
+      if (window.AppInfo && window.AppInfo.data && window.AppInfo.data.approveUrl) {
+        utils.openUrl(`${window.AppInfo.data.approveUrl}#/detail/${item.id}`)
+      } else {
+        this.$emit('open-approve', `#/detail/${item.id}`, item)
+      }
     },
 
     setCustomReason(val) {
