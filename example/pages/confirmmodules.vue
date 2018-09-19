@@ -3,7 +3,7 @@
     <div class="mg--10">
       <m-confirm-order
         ref="modules"
-        biz-type="22"
+        biz-type="146"
         approve-title="关联采购单"
         :approve-current="selectApprove"
         :bill-method-current="billMethod"
@@ -18,7 +18,7 @@
         :is-show-approve-cell="true"
         :welfare-max-use-num="200000"
         :is-over-stand="true"
-        :travel-type="1"
+        :travel-type="0"
         :service-rate="0.01"
         :scope-type="3"
         @select-approve="item => selectApprove = item"

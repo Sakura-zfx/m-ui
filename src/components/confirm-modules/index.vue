@@ -100,22 +100,13 @@
         :value="currentOverStandReason && currentOverStandReason.name"
         @on-click="showOverStandPanel = true"
       />
-      <common-select
-        title="选择超标原因"
-        :visible="showOverStandPanel"
-        :confirm-show="true"
-        confirm-text="自定义原因"
-        :common-list="STAND_REASON"
-        :common-current="currentOverStandReason || {}"
+      <popup-over-stand
+        :visible.sync="showOverStandPanel"
         :main-color="mainColor"
-        @toggle-show="showOverStandPanel = false"
-        @common-select="item => currentOverStandReason = item"
-        @common-btn="$emit('on-custom-reason')"
-      >
-        <template slot-scope="scope">
-          <p>{{ scope.row.name }}</p>
-        </template>
-      </common-select>
+        :selected-item="currentOverStandReason"
+        :list="STAND_REASON"
+        :do-select-reason="val => currentOverStandReason = val"
+      />
     </template>
 
     <template v-if="hasPayWayModule">
@@ -334,6 +325,7 @@ import {
 } from './constant'
 import esc from '../esc'
 import Http from '../http'
+import PopupOverStand from './popups/OverStandReason'
 
 // const FeedBack = () => import('../feedback')
 // const baseUrl = esc.domain
@@ -357,7 +349,8 @@ export default {
     MSwitch,
     CommonSelect,
     Cell,
-    MMessage
+    MMessage,
+    PopupOverStand
   },
 
   filters: {
