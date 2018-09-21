@@ -69,10 +69,10 @@
     <m-popup
       title="古天乐"
       :content-height="220"
-      :visible="showPopup"
+      :visible.sync="showPopup"
       title-align="left"
       :no-title="false"
-      @toggle="showPopup = false"
+      wrapper-selector="#app"
     >
       <div slot="content">
         <p class="px-line-40 bd-ccc-b">this is a test!</p>
@@ -102,6 +102,9 @@ export default {
     return {
       showPopup: false
     }
+  },
+
+  mounted() {
   }
 }
 </script>

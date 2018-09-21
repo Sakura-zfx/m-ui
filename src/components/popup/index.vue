@@ -8,7 +8,10 @@
 
     <m-mask :show="showMask" />
 
-    <transition name="m-popup__zoom-up">
+    <transition
+      name="m-popup__zoom-up"
+      @after-leave="animationEnd"
+    >
       <div
         v-show="visible"
         class="m-popup__wrap position-f bottom-0 bg-fff left-0 width-100"
@@ -87,6 +90,14 @@ export default {
     mainColor: {
       type: String,
       default: 'red'
+    },
+    // DomElem: {
+    //   type: HTMLDivElement,
+    //   default: null
+    // }
+    wrapperSelector: {
+      type: String,
+      default: ''
     }
   },
 
@@ -101,24 +112,35 @@ export default {
 
   data() {
     return {
-      showMask: this.visible
+      showMask: this.visible,
+      wrapperElem: null
     }
   },
 
   watch: {
     visible(val) {
-      // document.documentElement.style.overflow = val ? 'hidden' : ''
+      const dom = this.getElem()
+      if (dom && dom.style) {
+        dom.style.overflow = val ? 'hidden' : ''
+      }
       if (val) {
         this.showMask = true
-      } else {
-        setTimeout(() => {
-          this.showMask = false
-        }, 300)
       }
     }
   },
 
   methods: {
+    getElem() {
+      if (!this.wrapperElem) {
+        this.wrapperElem = document.querySelector(this.wrapperSelector)
+      }
+      return this.wrapperElem
+    },
+
+    animationEnd() {
+      this.showMask = false
+    },
+
     confirm() {
       this.$emit('confirm')
       this.$emit('toggle')
@@ -132,6 +154,7 @@ export default {
   },
   destroyed () {
     this.$emit('toggle')
+    this.$emit('update:visible', false)
   },
 
   components: {
@@ -148,6 +171,7 @@ export default {
   .m-popup__wrap {
     box-shadow: 0 -1px 6px 0 rgba(0,0,0,0.50);
     z-index: 1002;
+    transition: transform .3s ease;
 
     &.no-confirm {
       height: 360px;
@@ -177,25 +201,14 @@ export default {
     }
   }
 
+  .m-popup__zoom-up-enter {
+    opacity: 0;
+  }
   .m-popup__zoom-up-enter-active {
-    animation: m-popup__fadeInUp ease-out .3s;
+    opacity: 1;
+    transform: translate3d(0, 100%, 0);
   }
   .m-popup__zoom-up-leave-active {
-    animation: m-popup__fadeOutDown ease-out .3s;
-  }
-  @keyframes m-popup__fadeInUp {
-    from {
-      transform: translate3d(0, 100%, 0);
-    }
-    to {
-      transform: none;
-    }
-  }
-  @keyframes m-popup__fadeOutDown {
-    from {
-    }
-    to {
-      transform: translate3d(0, 100%, 0);
-    }
+    transform: translate3d(0, 100%, 0);
   }
 </style>
