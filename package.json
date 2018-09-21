@@ -1,6 +1,6 @@
 {
   "name": "xm-mui",
-  "version": "1.0.109",
+  "version": "1.0.110",
   "description": "Vue components",
   "author": "yangming <472102644@qq.com>",
   "private": false,
@@ -28,6 +28,7 @@
     "pub": "node build/release.js"
   },
   "dependencies": {
+    "@sentry/browser": "^4.0.3",
     "axios": "^0.18.0",
     "qs": "^6.5.2",
     "vant": "^1.0.5"

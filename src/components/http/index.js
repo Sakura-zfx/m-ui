@@ -32,11 +32,11 @@ const defaultOp = {
     open() {},
     close() {}
   },
-  // allowCodes: [],
   arrayFormat: 'repeat',
   contentType: 'application/x-www-form-urlencoded',
   headers: null,
-  postDataStringifyType: 'qs'
+  postDataStringifyType: 'qs',
+  bindSentry: null
 }
 
 export default class Http {
@@ -135,8 +135,6 @@ export default class Http {
   }
 
   commonThen(response, data) {
-    // const { allowCodes } = this.options
-
     if (data.loading !== false) {
       this.hideLoading()
     }
@@ -150,14 +148,6 @@ export default class Http {
     if (res.success) {
       return res
     }
-
-    // if (
-    //   allowCodes.indexOf(res.code) === -1 &&
-    //   allowCodes.indexOf(res.status) === -1 &&
-    //   data.toast !== false
-    // ) {
-    //   this.options.toast(res.error ? res.error.name : res.msg)
-    // }
 
     return Promise.reject(res)
   }
@@ -173,6 +163,7 @@ export default class Http {
       }
       this.options.toast(msg)
     }
+    this.capture(error)
     return Promise.reject(error)
   }
 
@@ -197,9 +188,6 @@ export default class Http {
     }
 
     const fn = data => {
-      // if (this.isUriExist(name)) {
-      //   this.options.toast('request uri name is exist, will be overwritten')
-      // }
       this.options.uri[name] = path
       return this[method](name, data)
     }
@@ -210,5 +198,14 @@ export default class Http {
 
   isUriExist(name) {
     return Boolean(this.options.uri[name])
+  }
+
+  capture(error) {
+    const { bindSentry } = this.options
+    if (bindSentry) {
+      if (error instanceof Error) {
+        bindSentry.captureException(error)
+      }
+    }
   }
 }

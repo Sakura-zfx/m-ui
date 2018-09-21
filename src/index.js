@@ -33,6 +33,7 @@ import NumComputer from './components/num-computer'
 import Popup from './components/popup'
 import PopupSide from './components/popup-side'
 import Search from './components/search'
+import Sentry from './components/sentry'
 import SubmitBar from './components/submit-bar'
 import Switch from './components/switch'
 import Tab from './components/tab'
@@ -42,7 +43,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.109'
+const version = '1.0.110'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -76,6 +77,7 @@ const components = [
   Popup,
   PopupSide,
   Search,
+  Sentry,
   SubmitBar,
   Switch,
   Tab,

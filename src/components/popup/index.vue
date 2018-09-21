@@ -131,6 +131,9 @@ export default {
 
   methods: {
     getElem() {
+      if (!this.wrapperSelector) {
+        return null
+      }
       if (!this.wrapperElem) {
         this.wrapperElem = document.querySelector(this.wrapperSelector)
       }
