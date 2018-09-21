@@ -203,7 +203,7 @@ export default class Http {
   capture(error) {
     const { bindSentry } = this.options
     if (bindSentry) {
-      if (error instanceof Error) {
+      if (error instanceof Error && bindSentry.captureException) {
         bindSentry.captureException(error)
       }
     }

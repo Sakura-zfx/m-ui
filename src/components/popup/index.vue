@@ -19,8 +19,10 @@
       >
         <div
           v-if="!noTitle"
-          :class="`title-wrap ${titleAlign} px-padding-lr10`"
-          class="position-r m-bd-b"
+          :style="{
+            padding: titleAlign === 'center' ? '0 50px' : '0 50px 0 10px'
+          }"
+          class="title-wrap position-r m-bd-b"
         >
           <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
             <slot name="icon">
@@ -66,7 +68,7 @@ export default {
     },
     titleAlign: {
       type: String,
-      default: 'text-center'
+      default: 'center'
     },
     contentHeight: {
       type: Number
@@ -180,6 +182,12 @@ export default {
       height: 360px;
     }
 
+    .title {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
     .title-wrap {
       height: 45px;
       line-height: 45px;
@@ -208,10 +216,17 @@ export default {
     opacity: 0;
   }
   .m-popup__zoom-up-enter-active {
-    opacity: 1;
-    transform: translate3d(0, 100%, 0);
+    animation: fadeIn .3s ease;
   }
   .m-popup__zoom-up-leave-active {
     transform: translate3d(0, 100%, 0);
+  }
+  @keyframes fadeIn {
+    from {
+      transform: translate3d(0, 100%, 0);
+    }
+    to {
+      transform: none;
+    }
   }
 </style>
