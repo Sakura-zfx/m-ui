@@ -67,7 +67,7 @@
     </pre>
 
     <m-popup
-      title="古天乐古天乐古天乐古天乐古天乐古天乐古天乐古天乐古天乐"
+      title="古天乐"
       :content-height="220"
       :visible.sync="showPopup"
       title-align="center"

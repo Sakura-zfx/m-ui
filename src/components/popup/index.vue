@@ -29,7 +29,14 @@
               <i class="iconfont icon-guanbi" />
             </slot>
           </div>
-          <div class="title color-c666 px-font-16">{{ title }}</div>
+          <div
+            :class="{
+              'text-center': titleAlign === 'center'
+            }"
+            class="title color-c666 px-font-16"
+          >
+            {{ title }}
+          </div>
         </div>
         <div
           :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
