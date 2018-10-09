@@ -86,7 +86,7 @@ export default {
     3: {
       name: '滴滴出行',
       // dev, online
-      appId: ['', 33537318],
+      appId: [6563143, 33537318],
       projectName: 'dd'
     },
     18: {

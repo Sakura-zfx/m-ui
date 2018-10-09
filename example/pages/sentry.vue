@@ -1,66 +1,40 @@
 <template>
-  <common-entry title="头像">
-    <avatar
-      :avatar-url="avatarUrl"
-      :user="{ name, uid }"
-      :is-block="true"
-      :radius="10"
-    />
+  <common-entry title="错误收集">
+    <p>用法</p>
     <pre>
-      import { avatar } from 'xm-mui'
-    </pre>
-    <p>props</p>
-    <pre>
-      props: {
-        size: {
-          type: String,
-          default: 's60' // s36
-        },
-        user: {
-          type: Object,
-          default() {
-            return {}
-          }
-        },
-        avatarUrl: {
-          type: String,
-          required: true
-        },
-        isBlock: Boolean,
-        radius: {
-          type: Number,
-          default: 6
-        }
-      }
-    </pre>
+      import sentry from 'xm-mui/lib/sentry'
 
-    <p>usage</p>
-    <pre>
-      &lt;avatar
-        :avatar-url="avatarUrl"
-        :user="{ name, uid }"
-      /&gt;
+      sentry.init('京东三期')
+      // init 参数说明
+      // @params release {String} 发布的版本名称
+      // @params dsn {String} sentry收集的账号唯一链接
+      // @params open {Boolean} 是否打开收集，默认情况下只在protocol === 'https:'时开启
+
+      // 挂载实例
+      Vue.prototype.$sentry = sentry
+
+      // 手动捕获异常
+      sentry.capture(error, errorName)
+      // @params error {Error|Object|String} 错误对象
+      // 默认应该为Error对象，也可以接收正常的对象或String
+      // @params errorName {String} 可选
     </pre>
   </common-entry>
 </template>
 
 <script>
 import CommonEntry from './commonEntry'
-import Avatar from '../../src/components/avatar'
 
 export default {
   name: 't-avatar',
 
   data() {
     return {
-      avatarUrl: '',
-      name: 'jmingzi',
-      uid: 269840
     }
   },
 
   components: {
-    CommonEntry, Avatar
+    CommonEntry
   }
 }
 </script>

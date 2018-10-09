@@ -18,7 +18,8 @@ const defaultOp = {
     open() {},
     close() {}
   },
-  contentType: 'application/x-www-form-urlencoded'
+  contentType: 'application/x-www-form-urlencoded',
+  bindSentry: sentry // 引入的sentry组件，在接口异常时捕获
 }
     </pre>
     <p class="px-margin-t10">methods</p>
@@ -37,10 +38,10 @@ this.$http.inject(
   'get',
   'getInfo',
   '/gateway/common/user/info'
-)({ bizType: 3 })
+)
 
 // 注入后也可以直接使用
-this.$http.get('getInfo')
+this.$http.get('getInfo', { bizType: 3 })
     </pre>
     <p class="px-margin-t10 color-c999">特性</p>
     <p>data有3个特性参数：</p>
@@ -48,17 +49,17 @@ this.$http.get('getInfo')
     <p>2. toast，data.toast = false，请求报错时，不提示。result.error ? result.error.name : result.msg</p>
     <p>3. loading, data.loading = true，请求时不显示loading。</p>
     <p class="px-margin-t20 color-c999">其它特性</p>
-    <p>1. 允许特殊状态的code或status，即allowCodes</p>
+    <p class="line-through">1. 允许特殊状态的code或status，即allowCodes。（已废弃）</p>
     <p>2. 自动处理loading与toast（同时发起多个请求，loading会在所有请求结束后才close）</p>
   </common-entry>
 </template>
 
 <script>
 import CommonEntry from './commonEntry'
-// import Http from '../../lib/http'
 import Http from '../../src/components/http'
 import Toast from '../../src/components/toast'
-import axios from 'axios'
+// import axios from 'axios'
+import sentry from '../../src/components/sentry'
 
 export default {
   name: 'cell',
@@ -74,6 +75,8 @@ export default {
   },
 
   created() {
+    sentry.init('xm-mui库test', undefined, true)
+
     this.http = new Http({
       loading: this.$loading,
       toast: Toast,
@@ -86,11 +89,12 @@ export default {
         testBinary: '/ygw/api/dispatch/test/demo'
       },
       // baseURL: 'https://api.yuecard.net'
-      baseURL: 'http://app.e.uban360.net'
+      baseURL: 'http://app.e.uban360.net',
+      bindSentry: sentry
     })
 
     // console.log(this.http)
-    // this.http.inject('get', 'getInfo', '/gateway/getInfo')({ name: 1 })
+    this.http.inject('get', 'getInfo', '/gateway/getInfo')({ name: 1 })
     // axios.get('http://app.e.uban360.net/gateway/common/app', {
     //   headers: {
     //     'Cookie': 'token=20273a7a72a5e3b7a136d44bd14966e8; timestamp=1534904984376; uid=3;'

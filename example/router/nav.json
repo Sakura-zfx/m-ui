@@ -158,6 +158,11 @@
         "description": "[xm-mui] 打点"
       },
       {
+        "path": "/sentry",
+        "name": "Sentry",
+        "description": "[xm-mui] sentry线上错误收集"
+      },
+      {
         "path": "/esc",
         "name": "Esc",
         "description": "[xm-mui] esc应用信息"

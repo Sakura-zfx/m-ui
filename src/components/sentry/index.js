@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import * as Sentry from '@sentry/browser'
+import MyError from '../../utils/customError.js'
 
 const online = location.protocol === 'https:'
 
@@ -7,6 +8,7 @@ export default {
   open: online,
   dsn: 'https://cc415d712650488a936395f97869ecf1@sentry.io/212146',
   release: '',
+  sentryInstance: null,
   setDsn(dsn) {
     if (dsn) {
       this.dsn = dsn
@@ -33,9 +35,19 @@ export default {
         integrations: [new Sentry.Integrations.Vue({ Vue })],
         release: this.release
       })
+      this.sentryInstance = Sentry
       return Sentry
     }
-
     return null
+  },
+  capture(error, errorName) {
+    if (this.sentryInstance && this.sentryInstance.captureException) {
+      let captureError = error
+      // eslint-disable-next-line
+      if (!error instanceof Error) {
+        captureError = new MyError(error, errorName || error.name)
+      }
+      this.sentryInstance.captureException(captureError)
+    }
   }
 }

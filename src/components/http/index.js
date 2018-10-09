@@ -1,5 +1,6 @@
 import axios from 'axios/dist/axios.min'
 import qs from 'qs'
+import MyError from '../../utils/customError.js'
 
 // const local = !/s/.test(location.protocol)
 const local = /\.net/.test(location.origin) || /808/.test(location.port)
@@ -149,7 +150,7 @@ export default class Http {
       return res
     }
 
-    return Promise.reject(res)
+    return Promise.reject(res, data)
   }
 
   commonCatch(error, data) {
@@ -163,7 +164,13 @@ export default class Http {
       }
       this.options.toast(msg)
     }
-    this.capture(error)
+    // 如果error不是Error的实例，将error结合data封装成Error的实例
+    let captureError = error
+    // eslint-disable-next-line
+    if (!error instanceof Error) {
+      captureError = new MyError(Object.assign(error, { params: data }), '接口异常')
+    }
+    this.capture(captureError)
     return Promise.reject(error)
   }
 
@@ -205,6 +212,10 @@ export default class Http {
     if (bindSentry) {
       if (error instanceof Error && bindSentry.captureException) {
         bindSentry.captureException(error)
+      } else if (bindSentry.capture && bindSentry.sentryInstance) {
+        bindSentry.capture(error, error.name)
+      } else {
+        throw new Error('bindSentry参数传入不正确，应该为引入的sentry对象（推荐）或第三方Sentry的实例')
       }
     }
   }
