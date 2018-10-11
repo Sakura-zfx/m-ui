@@ -45,6 +45,7 @@ export default {
       let captureError = error
       // eslint-disable-next-line
       if (!error instanceof Error) {
+        // 如果error不是Error的实例，将error封装成Error的实例
         captureError = new MyError(error, errorName || error.name)
       }
       this.sentryInstance.captureException(captureError)
