@@ -45,6 +45,7 @@ export default class Http {
   instance = null
   cacheRequest = {}
   loadingNum = 0
+  cancelQueen = []
 
   constructor(options) {
     this.options = {
@@ -72,6 +73,22 @@ export default class Http {
     })
   }
 
+  cancel(message = 'Operation canceled by the user.') {
+    if (this.cancelQueen.length > 0) {
+      this.cancelQueen.forEach(source => {
+        if (source.cancel && source.cancel instanceof Function) {
+          source.cancel(message)
+        }
+      })
+    }
+  }
+
+  genCancelSource() {
+    const source = axios.CancelToken.source()
+    this.cancelQueen.push(source)
+    return source
+  }
+
   get(uriName, data = {}) {
     if (!this.instance) {
       this.init()
@@ -89,7 +106,11 @@ export default class Http {
     if (data.loading !== false) {
       this.showLoading()
     }
-    return this.instance.get(path, { params: data })
+
+    return this.instance.get(path, {
+      params: data,
+      cancelToken: this.genCancelSource().token
+    })
       .then(response => this.commonThen(response, data))
       .catch(error => this.commonCatch(error, data))
   }
@@ -105,7 +126,11 @@ export default class Http {
       reqData = JSON.stringify(data)
     }
 
-    return this.instance.post(this.options.uri[uriName], reqData)
+    return this.instance.post(
+      this.options.uri[uriName],
+      reqData,
+      { cancelToken: this.genCancelSource().token }
+    )
       .then(response => this.commonThen(response, data))
       .catch(error => this.commonCatch(error, data))
   }
@@ -157,6 +182,12 @@ export default class Http {
     if (data.loading !== false) {
       this.hideLoading()
     }
+
+    // cancel request do nothing
+    if (error.__CANCEL__) {
+      return Promise.reject(error)
+    }
+
     if (data.toast !== false) {
       let msg = '服务异常，请稍后再试'
       if (error) {
@@ -164,6 +195,7 @@ export default class Http {
       }
       this.options.toast(msg)
     }
+
     // 如果error不是Error的实例，将error结合data封装成Error的实例
     let captureError = error
     // eslint-disable-next-line
@@ -171,6 +203,7 @@ export default class Http {
       captureError = new MyError(Object.assign(error, { params: data }), '接口异常')
     }
     this.capture(captureError)
+
     return Promise.reject(error)
   }
 

@@ -94,7 +94,10 @@ export default {
     })
 
     // console.log(this.http)
-    this.http.inject('get', 'getInfo', '/gateway/getInfo')({ name: 1 })
+    this.http.get('bizInfo', { bizType: 3 }).then(err => {
+      console.log(err)
+    })
+    this.http.cancel()
     // axios.get('http://app.e.uban360.net/gateway/common/app', {
     //   headers: {
     //     'Cookie': 'token=20273a7a72a5e3b7a136d44bd14966e8; timestamp=1534904984376; uid=3;'
