@@ -43,7 +43,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.114'
+const version = '1.0.115'
 const components = [
   AddressSelect,
   ApproveSelect,

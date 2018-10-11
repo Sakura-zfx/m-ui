@@ -80,6 +80,7 @@ export default class Http {
           source.cancel(message)
         }
       })
+      this.cancelQueen = []
     }
   }
 

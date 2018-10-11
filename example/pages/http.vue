@@ -94,9 +94,7 @@ export default {
     })
 
     // console.log(this.http)
-    this.http.get('bizInfo', { bizType: 3 }).then(err => {
-      console.log(err)
-    })
+    this.http.get('bizInfo', { bizType: 3 })
     this.http.cancel()
     // axios.get('http://app.e.uban360.net/gateway/common/app', {
     //   headers: {
