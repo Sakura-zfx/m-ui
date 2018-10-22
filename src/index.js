@@ -14,6 +14,7 @@ import CitySelectItem from './components/city-select-item'
 import CommonSelect from './components/common-select'
 import ConfirmModules from './components/confirm-modules'
 import DatePicker from './components/date-picker'
+import DetailTitleBar from './components/detail-title-bar'
 import Empty from './components/empty'
 import Esc from './components/esc'
 import Feedback from './components/feedback'
@@ -34,6 +35,7 @@ import Popup from './components/popup'
 import PopupSide from './components/popup-side'
 import Search from './components/search'
 import Sentry from './components/sentry'
+import ShopBar from './components/shop-bar'
 import SubmitBar from './components/submit-bar'
 import Switch from './components/switch'
 import Tab from './components/tab'
@@ -43,7 +45,7 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 
-const version = '1.0.116'
+const version = '1.0.117'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -58,6 +60,7 @@ const components = [
   CommonSelect,
   ConfirmModules,
   DatePicker,
+  DetailTitleBar,
   Empty,
   Esc,
   Feedback,
@@ -78,6 +81,7 @@ const components = [
   PopupSide,
   Search,
   Sentry,
+  ShopBar,
   SubmitBar,
   Switch,
   Tab,

@@ -226,6 +226,16 @@
         "path": "/submitbar",
         "name": "SubmitBar",
         "description": "[xm-mui] 提交栏"
+      },
+      {
+        "path": "/shopbar",
+        "name": "Shopbar",
+        "description": "[xm-mui] 店铺栏"
+      },
+      {
+        "path": "/detailtitlebar",
+        "name": "Detailtitlebar",
+        "description": "[xm-mui] 商品详情标题栏"
       }
     ]
   },
