@@ -101,7 +101,7 @@ export default {
 
   data() {
     return {
-      input: ''
+      input: this.value
     }
   },
 
@@ -117,9 +117,9 @@ export default {
   },
 
   created() {
-    if (this.value) {
-      this.input = this.value
-    }
+    // if (this.value) {
+    //   this.input = this.value
+    // }
   },
 
   mounted() {

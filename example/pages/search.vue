@@ -4,6 +4,7 @@
       :is-open="isOpen"
       @on-click="onClick"
       @on-search="onSearch"
+      value="1212"
     >
       <span>插槽</span>
     </search>
