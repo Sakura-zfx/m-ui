@@ -37,7 +37,8 @@ const defaultOp = {
   contentType: 'application/x-www-form-urlencoded',
   headers: null,
   postDataStringifyType: 'qs',
-  bindSentry: null
+  bindSentry: null,
+  beforeCatch: null
 }
 
 export default class Http {
@@ -180,13 +181,19 @@ export default class Http {
   }
 
   commonCatch(error, data) {
-    if (data.loading !== false) {
-      this.hideLoading()
-    }
-
     // cancel request do nothing
     if (error.__CANCEL__) {
       return Promise.reject(error)
+    }
+
+    // 统一错误回调
+    const { beforeCatch } = this.options
+    if (beforeCatch instanceof Function) {
+      beforeCatch(error)
+    }
+
+    if (data.loading !== false) {
+      this.hideLoading()
     }
 
     if (data.toast !== false) {

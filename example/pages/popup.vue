@@ -72,7 +72,7 @@
       :visible.sync="showPopup"
       title-align="center"
       :no-title="false"
-      wrapper-selector="#app"
+      wrapper-selector="html"
     >
       <div slot="content">
         <p class="px-line-40 bd-ccc-b">this is a test!</p>

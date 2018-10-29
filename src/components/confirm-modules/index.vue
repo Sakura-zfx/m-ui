@@ -388,6 +388,7 @@ export default {
       default: 1
     },
     isOverStand: Boolean,
+    onlySelfPay: Boolean,
     scopeType: {
       type: [Number, String],
       default: 0
@@ -661,7 +662,10 @@ export default {
         let payWayList = []
         // 非采购 且 因私消费 只支持个人支付
         // 因公消费 个人支付为 个人垫付
-        if (!this.isPurchase && !this.isPublicExpense) {
+        if (
+          (!this.isPurchase && !this.isPublicExpense) ||
+          this.onlySelfPay
+        ) {
           this.payWayList = [PAY_WAY[2]]
           this.$emit('select-pay-way', PAY_WAY[2])
           return
