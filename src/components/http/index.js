@@ -181,6 +181,10 @@ export default class Http {
   }
 
   commonCatch(error, data) {
+    if (data.loading !== false) {
+      this.hideLoading()
+    }
+
     // cancel request do nothing
     if (error.__CANCEL__) {
       return Promise.reject(error)
@@ -190,10 +194,6 @@ export default class Http {
     const { beforeCatch } = this.options
     if (beforeCatch instanceof Function) {
       beforeCatch(error)
-    }
-
-    if (data.loading !== false) {
-      this.hideLoading()
     }
 
     if (data.toast !== false) {
