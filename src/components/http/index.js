@@ -1,6 +1,6 @@
 import axios from 'axios/dist/axios.min'
 import qs from 'qs'
-import MyError from '../../utils/customError.js'
+// import MyError from '../../utils/customError.js'
 
 // const local = !/s/.test(location.protocol)
 const local = /\.net/.test(location.origin) || /808/.test(location.port)

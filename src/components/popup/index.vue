@@ -1,12 +1,10 @@
 <template>
+  <!--scroll-wrap position-f top-0 bottom-0 left-0 right-0-->
   <div
-    class="m-popup__container-width-mask scroll-wrap position-f top-0 bottom-0 left-0 right-0"
+    class="m-popup__container-width-mask"
     v-show="showMask"
   >
-    <!--为解决滑动穿透，加一层节点来"吃掉"穿透的滚动-->
-    <!--<div style="height: 200%;" class="empty__child" />-->
-
-    <m-mask :show="showMask" />
+    <m-mask :show="showMask" @tap="close" />
 
     <transition
       name="m-popup__zoom-up"
@@ -15,7 +13,7 @@
       <div
         v-show="visible"
         class="m-popup__wrap position-f bottom-0 bg-fff left-0 width-100"
-        :class="[getWrapperClass]"
+        @click.stop=""
       >
         <div
           v-if="!noTitle"
@@ -24,7 +22,7 @@
           }"
           class="title-wrap position-r m-bd-b"
         >
-          <div class="right-close position-a right-0 px-line-45 text-center" @click.stop="close">
+          <div class="right-close position-a right-0 px-line-45 text-center" @click="close">
             <slot name="icon">
               <i class="iconfont icon-guanbi" />
             </slot>
@@ -39,15 +37,14 @@
           </div>
         </div>
         <div
-          :class="`content-wrap touch-scroll overflow-a ${noTitle ? 'no-title' : ''}`"
+          class="content-wrap overflow-a break-all touch-scroll"
+          :class="{ 'no-title': noTitle }"
           :style="{height: `${contentHeight}px`}"
         >
-          <div class="content-item-wrap break-all height-100">
-            <slot v-if="$slots.default" />
-            <slot name="content" v-else>
-              <p class="text-center">这是内容</p>
-            </slot>
-          </div>
+          <slot v-if="$slots.default" />
+          <slot name="content" v-else>
+            <p class="text-center">这是内容</p>
+          </slot>
         </div>
         <div
           v-if="showBtn"
@@ -78,7 +75,8 @@ export default {
       default: 'center'
     },
     contentHeight: {
-      type: Number
+      type: Number,
+      default: 360
     },
     confirmText: {
       type: String,
@@ -99,55 +97,65 @@ export default {
     mainColor: {
       type: String,
       default: 'red'
-    },
+    }
     // DomElem: {
     //   type: HTMLDivElement,
     //   default: null
     // }
-    wrapperSelector: {
-      type: String,
-      default: ''
-    }
+    // wrapperSelector: {
+    //   type: String,
+    //   default: ''
+    // }
   },
 
   computed: {
-    getWrapperClass() {
-      if (!this.showBtn && !this.contentHeight) {
-        return 'no-confirm'
-      }
-      return ''
-    }
+    // getWrapperClass() {
+    //   if (!this.showBtn && !this.contentHeight) {
+    //     return 'no-confirm'
+    //   }
+    //   return ''
+    // }
   },
 
   data() {
     return {
-      showMask: this.visible,
-      wrapperElem: null
+      showMask: this.visible
+      // wrapperElem: null
     }
   },
 
   watch: {
     visible(val) {
-      const dom = this.getElem()
-      if (dom && dom.style) {
-        dom.style.overflow = val ? 'hidden' : ''
-      }
       if (val) {
+        const top = document.documentElement.scrollTop || document.body.scrollTop
+        document.body.style.cssText = `position:fixed;width:100%;top:${-top}px;overflow:hidden;`
         this.showMask = true
+        document.body.addEventListener('touchmove', e => {
+          e.stopPropagation()
+          e.preventDefault()
+        })
+      } else {
+        const top = parseInt(document.body.style.top) * -1
+        document.body.style.cssText = ``
+        document.documentElement.scrollTop = top
+        document.body.scrollTop = top
       }
+      // if (val) {
+      //   this.showMask = true
+      // }
     }
   },
 
   methods: {
-    getElem() {
-      if (!this.wrapperSelector) {
-        return null
-      }
-      if (!this.wrapperElem) {
-        this.wrapperElem = document.querySelector(this.wrapperSelector)
-      }
-      return this.wrapperElem
-    },
+    // getElem() {
+    //   if (!this.wrapperSelector) {
+    //     return null
+    //   }
+    //   if (!this.wrapperElem) {
+    //     this.wrapperElem = document.querySelector(this.wrapperSelector)
+    //   }
+    //   return this.wrapperElem
+    // },
 
     animationEnd() {
       this.showMask = false
@@ -177,7 +185,7 @@ export default {
 
 <style lang="scss">
   .m-popup__container-width-mask {
-    z-index: 1000;
+    // z-index: 1000;
   }
 
   .m-popup__wrap {
@@ -185,9 +193,9 @@ export default {
     z-index: 1002;
     transition: transform .3s ease;
 
-    &.no-confirm {
-      height: 360px;
-    }
+    /*&.no-confirm {*/
+      /*height: 360px;*/
+    /*}*/
 
     .title {
       white-space: nowrap;
@@ -206,17 +214,25 @@ export default {
       }
     }
 
-    .content-wrap {
-      height: 315px;
-      &.no-title {
-        height: 360px;
-      }
-    }
+    /*.content-wrap {*/
+      /*height: 315px;*/
+      /*&.no-title {*/
+        /*height: 360px;*/
+      /*}*/
+    /*}*/
 
     .btn-wrap {
       height: 55px;
       line-height: 55px;
     }
+  }
+
+  /*html, body, div {*/
+    /*overscroll-behavior: none;*/
+  /*}*/
+  .content-wrap {
+    /*overscroll-behavior: smooth;*/
+    scroll-behavior: smooth;
   }
 
   .m-popup__zoom-up-enter {

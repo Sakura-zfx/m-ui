@@ -71,10 +71,18 @@
       :content-height="220"
       :visible.sync="showPopup"
       title-align="center"
-      :no-title="false"
+      :no-title="true"
+      :show-btn="false"
       wrapper-selector="html"
     >
       <div slot="content">
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
+        <p class="px-line-40 bd-ccc-b">this is a test!</p>
         <p class="px-line-40 bd-ccc-b">this is a test!</p>
         <p class="px-line-40 bd-ccc-b">this is a test!</p>
         <p class="px-line-40 bd-ccc-b">this is a test!</p>
