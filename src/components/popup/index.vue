@@ -130,15 +130,13 @@ export default {
         const top = document.documentElement.scrollTop || document.body.scrollTop
         document.body.style.cssText = `position:fixed;width:100%;top:${-top}px;overflow:hidden;`
         this.showMask = true
-        document.body.addEventListener('touchmove', e => {
-          e.stopPropagation()
-          e.preventDefault()
-        })
+        document.body.addEventListener('touchmove', this.listenMoveEventHandler)
       } else {
         const top = parseInt(document.body.style.top) * -1
         document.body.style.cssText = ``
         document.documentElement.scrollTop = top
         document.body.scrollTop = top
+        document.body.removeEventListener('touchmove', this.listenMoveEventHandler)
       }
       // if (val) {
       //   this.showMask = true
@@ -161,6 +159,11 @@ export default {
       this.showMask = false
     },
 
+    listenMoveEventHandler(e) {
+      e.stopPropagation()
+      e.preventDefault()
+    },
+
     confirm() {
       this.$emit('confirm')
       this.$emit('toggle')
@@ -172,9 +175,19 @@ export default {
       this.$emit('update:visible', false)
     }
   },
-  destroyed () {
+
+  deactivated() {
     this.$emit('toggle')
     this.$emit('update:visible', false)
+    document.body.style.cssText = ``
+    document.body.removeEventListener('touchmove', this.listenMoveEventHandler)
+  },
+
+  beforeDestroy() {
+    this.$emit('toggle')
+    this.$emit('update:visible', false)
+    document.body.style.cssText = ``
+    document.body.removeEventListener('touchmove', this.listenMoveEventHandler)
   },
 
   components: {
