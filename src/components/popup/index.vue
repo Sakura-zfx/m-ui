@@ -111,18 +111,7 @@ export default {
 
   watch: {
     visible(val) {
-      if (val) {
-        const top = document.documentElement.scrollTop || document.body.scrollTop
-        document.body.style.cssText = `position:fixed;width:100%;top:${-top}px;overflow:hidden;`
-        this.showMask = true
-        // document.body.addEventListener('touchmove', this.listenMoveEventHandler)
-      } else {
-        const top = parseInt(document.body.style.top) * -1
-        document.body.style.cssText = ``
-        document.documentElement.scrollTop = top
-        document.body.scrollTop = top
-        // document.body.removeEventListener('touchmove', this.listenMoveEventHandler)
-      }
+      this.toggleVisible(val)
     }
   },
 
@@ -131,10 +120,18 @@ export default {
       this.showMask = false
     },
 
-    // listenMoveEventHandler(e) {
-    //   e.stopPropagation()
-    //   e.preventDefault()
-    // },
+    toggleVisible(val) {
+      if (val) {
+        const top = document.documentElement.scrollTop || document.body.scrollTop
+        document.body.style.cssText = `position:fixed;width:100%;top:${-top}px;overflow:hidden;`
+        this.showMask = true
+      } else {
+        const top = parseInt(document.body.style.top) * -1
+        document.body.style.cssText = ``
+        document.documentElement.scrollTop = top
+        document.body.scrollTop = top
+      }
+    },
 
     confirm() {
       this.$emit('confirm')
@@ -153,6 +150,7 @@ export default {
   },
 
   beforeDestroy() {
+    this.toggleVisible(false)
     this.close()
   },
 
