@@ -299,7 +299,7 @@
           class="iconfont icon-shuoming ib-middle color-info"
           @click="serviceRateDesc"
         />
-        <span class="color-c999 fr">¥ {{ Math.ceil(serviceRate * skuMoney) | formatPrice }}</span>
+        <span class="color-c999 fr">¥ {{ formatPrice(Math.ceil(serviceRate * skuMoney)) }}</span>
       </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
         <span class="ib-middle">积分抵扣</span>
@@ -936,6 +936,10 @@ export default {
     },
 
     noop() {
+    },
+
+    formatPrice(num) {
+      return utils.formatMoney(num)
     }
   }
 }

@@ -98,29 +98,14 @@ export default {
       type: String,
       default: 'red'
     }
-    // DomElem: {
-    //   type: HTMLDivElement,
-    //   default: null
-    // }
-    // wrapperSelector: {
-    //   type: String,
-    //   default: ''
-    // }
   },
 
   computed: {
-    // getWrapperClass() {
-    //   if (!this.showBtn && !this.contentHeight) {
-    //     return 'no-confirm'
-    //   }
-    //   return ''
-    // }
   },
 
   data() {
     return {
       showMask: this.visible
-      // wrapperElem: null
     }
   },
 
@@ -130,39 +115,26 @@ export default {
         const top = document.documentElement.scrollTop || document.body.scrollTop
         document.body.style.cssText = `position:fixed;width:100%;top:${-top}px;overflow:hidden;`
         this.showMask = true
-        document.body.addEventListener('touchmove', this.listenMoveEventHandler)
+        // document.body.addEventListener('touchmove', this.listenMoveEventHandler)
       } else {
         const top = parseInt(document.body.style.top) * -1
         document.body.style.cssText = ``
         document.documentElement.scrollTop = top
         document.body.scrollTop = top
-        document.body.removeEventListener('touchmove', this.listenMoveEventHandler)
+        // document.body.removeEventListener('touchmove', this.listenMoveEventHandler)
       }
-      // if (val) {
-      //   this.showMask = true
-      // }
     }
   },
 
   methods: {
-    // getElem() {
-    //   if (!this.wrapperSelector) {
-    //     return null
-    //   }
-    //   if (!this.wrapperElem) {
-    //     this.wrapperElem = document.querySelector(this.wrapperSelector)
-    //   }
-    //   return this.wrapperElem
-    // },
-
     animationEnd() {
       this.showMask = false
     },
 
-    listenMoveEventHandler(e) {
-      e.stopPropagation()
-      e.preventDefault()
-    },
+    // listenMoveEventHandler(e) {
+    //   e.stopPropagation()
+    //   e.preventDefault()
+    // },
 
     confirm() {
       this.$emit('confirm')
@@ -177,17 +149,11 @@ export default {
   },
 
   deactivated() {
-    this.$emit('toggle')
-    this.$emit('update:visible', false)
-    document.body.style.cssText = ``
-    document.body.removeEventListener('touchmove', this.listenMoveEventHandler)
+    this.close()
   },
 
   beforeDestroy() {
-    this.$emit('toggle')
-    this.$emit('update:visible', false)
-    document.body.style.cssText = ``
-    document.body.removeEventListener('touchmove', this.listenMoveEventHandler)
+    this.close()
   },
 
   components: {
