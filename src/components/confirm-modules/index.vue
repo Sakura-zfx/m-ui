@@ -299,7 +299,12 @@
           class="iconfont icon-shuoming ib-middle color-info"
           @click="serviceRateDesc"
         />
-        <span class="color-c999 fr">¥ {{ formatPrice(Math.ceil(serviceRate * skuMoney)) }}</span>
+        <span class="color-c999 fr">
+          <template v-if="$slots.service">
+            <slot name="service" />
+          </template>
+          <template v-else>¥ {{ formatPrice(Math.ceil(serviceRate * skuMoney)) }}</template>
+        </span>
       </p>
       <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
         <span class="ib-middle">积分抵扣</span>
