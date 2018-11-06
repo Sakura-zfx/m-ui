@@ -102,7 +102,7 @@ export default class Http {
     }
     if (search && search.token) {
       /* eslint-disable-next-line */
-      data.token = search.token
+      data.payToken = search.token
     }
 
     if (data.loading !== false) {
