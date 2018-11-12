@@ -36,7 +36,7 @@
     <p class="px-margin-20">
       <a href="javascript:" @click="getModulesData">获取data</a>
     </p>
-
+    <p>props</p>
     <pre>
       bizType: {
         type: [Number, String],
@@ -92,6 +92,22 @@
         type: Number,
         default: 0
       }
+    </pre>
+    <p>events</p>
+    <pre>
+      // 选择支付方式
+      @select-pay-way="item => payWay = item"
+      // 是否开启积分支付
+      @change-open-welfare="val => isOpenWelfare = val"
+      // 选择审批单
+      @select-approve="item => selectApprove = item"
+    </pre>
+    <p>methods</p>
+    <pre>
+      // 获取data
+      this.$refs.modules.getModulesData()
+      // 重置积分
+      this.$refs.modules.reInitWelfare()
     </pre>
   </common-entry>
 </template>
