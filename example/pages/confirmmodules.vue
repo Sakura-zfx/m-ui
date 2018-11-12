@@ -36,6 +36,63 @@
     <p class="px-margin-20">
       <a href="javascript:" @click="getModulesData">获取data</a>
     </p>
+
+    <pre>
+      bizType: {
+        type: [Number, String],
+        required: true
+      },
+      mainColor: {
+        type: String,
+        default: 'red'
+      },
+      // 当前审批单，结构同中间页面选审批单一致
+      approveCurrent: Object,
+      // 发票相关
+      isOpenBill: Boolean,
+      billMethodCurrent: Object,
+      billTypeCurrent: Object,
+      billCurrent: Object,
+      // 支付方式，因公消费时，个人垫付就是个人支付
+      // { title: '企业支付', id: 1 },
+      // { title: '个人垫付', id: 2 },
+      // { title: '个人支付', id: 3 }
+      payWay: Object,
+      // 是否使用积分
+      isOpenWelfare: Boolean,
+      // 是否显示审批单
+      isShowApproveCell: Boolean,
+      // 商品金额
+      skuMoney: Number,
+      // 运费
+      freightMoney: Number,
+      // 总金额
+      totalMoney: Number,
+      // 积分使用的最大数量
+      welfareMaxUseNum: Number,
+      // 选审批单这一栏的标题label
+      approveTitle: String,
+      // 因公还是因私 0 因公；1 因私
+      travelType: {
+        // 默认因私消费
+        type: Number,
+        default: 1
+      },
+      // 是否超标
+      isOverStand: Boolean,
+      // 是否只有个人支付
+      onlySelfPay: Boolean,
+      // 业务类型 1机票 2火车票 3酒店 4打车
+      scopeType: {
+        type: [Number, String],
+        default: 0
+      },
+      // 服务费率，例如0.06
+      serviceRate: {
+        type: Number,
+        default: 0
+      }
+    </pre>
   </common-entry>
 </template>
 
