@@ -626,7 +626,7 @@ export default {
           const restAmountCaidou = res.value.find(x => x.integralType === 2).restAmount
           this.welfare = {
             restAmountWelfare: restAmountWelfare > 0 ? restAmountWelfare : 0,
-            restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 1000
+            restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 0
           }
           this.$nextTick(this.$refs.welfareInput.setNum)
           this.loading.welfare = false
@@ -770,9 +770,9 @@ export default {
 
     changeOpen(val, type) {
       this.$emit(`change-open-${type}`, val)
-      if (val) {
-        this.getWelfare().then(this.initWelfare)
-      }
+      // if (val) {
+      //   this.getWelfare().then(this.initWelfare)
+      // }
     },
 
     toggleWelfareInput(show) {
