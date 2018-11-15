@@ -17,7 +17,12 @@
           v-else
         >
       </div>
-      <p class="msgbox-style__title">{{ title }}</p>
+      <p class="msgbox-style__title">
+        <slot v-if="$slots.default" />
+        <template v-else>
+          {{ title }}
+        </template>
+      </p>
       <p class="msgbox-style__desc">{{ desc }}</p>
       <div class="msgbox-style__btns" v-if="cancelText || confirmText">
         <div

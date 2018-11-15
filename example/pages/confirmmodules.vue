@@ -3,14 +3,16 @@
     <div class="mg--10">
       <m-confirm-order
         ref="modules"
-        biz-type="146"
+        biz-type="22"
         approve-title="关联采购单"
+        :app-type="1"
         :approve-current="selectApprove"
         :bill-method-current="billMethod"
         :bill-type-current="billType"
         :bill-current="bill"
         :is-open-bill="isOpenBill"
         :is-open-welfare="isOpenWelfare"
+        :is-open-caidou="isOpenCaidou"
         :pay-way="payWay"
         :sku-money="1"
         :freight-money="33"
@@ -18,18 +20,21 @@
         :is-show-approve-cell="true"
         :welfare-max-use-num="200000"
         :is-over-stand="true"
-        :travel-type="0"
+        :travel-type="1"
         :service-rate="0.01"
         :scope-type="3"
         @select-approve="item => selectApprove = item"
         @cancel-select-approve="selectApprove = null"
         @change-open-bill="val => isOpenBill = val"
         @change-open-welfare="val => isOpenWelfare = val"
+        @change-open-caidou="val => isOpenCaidou = val"
         @change-open-welfare-error="errorNotice"
         @select-bill-method="item => billMethod = item"
         @select-bill-type="item => billType = item"
         @select-bill="item => bill = item"
         @select-pay-way="item => payWay = item"
+        @welfare-num-change="changeNum"
+        @caidou-num-change="changeNum"
       />
     </div>
 
@@ -41,6 +46,9 @@
       bizType: {
         type: [Number, String],
         required: true
+      },
+      appType: {
+        type: Number
       },
       mainColor: {
         type: String,
@@ -60,6 +68,8 @@
       payWay: Object,
       // 是否使用积分
       isOpenWelfare: Boolean,
+      // 是否使用彩豆
+      isOpenCaidou: Boolean,
       // 是否显示审批单
       isShowApproveCell: Boolean,
       // 商品金额
@@ -99,14 +109,20 @@
       @select-pay-way="item => payWay = item"
       // 是否开启积分支付
       @change-open-welfare="val => isOpenWelfare = val"
+      // 是否开启彩豆
+      @change-open-caidou="val => isOpenWelfare = val"
       // 选择审批单
       @select-approve="item => selectApprove = item"
+      // 积分变化
+      @welfare-num-change="changeNum"
+      // 彩豆变化
+      @caidou-num-change="changeNum"
     </pre>
     <p>methods</p>
     <pre>
       // 获取data
       this.$refs.modules.getModulesData()
-      // 重置积分
+      // 重置积分和彩豆
       this.$refs.modules.reInitWelfare()
     </pre>
   </common-entry>
@@ -146,7 +162,8 @@ export default {
       billMethod: null,
       billType: null,
       bill: null,
-      isOpenWelfare: true,
+      isOpenWelfare: false,
+      isOpenCaidou: false,
       payWay: null,
       get,
       post
@@ -159,6 +176,9 @@ export default {
     },
     errorNotice() {
       console.log('不支持积分')
+    },
+    changeNum(num) {
+      console.log(num)
     }
   }
 }

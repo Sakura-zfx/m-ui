@@ -63,7 +63,7 @@ export default {
       if (this.isNumber) {
         let reg
         if (this.isInt) {
-          reg = /^d+$/
+          reg = /^\d+$/
         } else {
           reg = new RegExp(`^\\d+(\\.{0,1}\\d{0,${this.fixed}})$`)
         }
@@ -107,6 +107,8 @@ export default {
     format(e) {
       if (!this.isText && !this.isInt) {
         this.$emit('input', Number(e.target.value).toFixed(this.fixed))
+      } else if (this.isInt) {
+        this.$emit('input', Number(e.target.value))
       }
     }
   }

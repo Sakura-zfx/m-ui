@@ -218,6 +218,11 @@
         "description": "[xm-mui] 审批单选择面板"
       },
       {
+        "path": "/welfareinput",
+        "name": "WelfareInput",
+        "description": "[xm-mui] 积分输入"
+      },
+      {
         "path": "/confirmmodules",
         "name": "ConfirmModules",
         "description": "[xm-mui] 确认订单模块"

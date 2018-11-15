@@ -81,31 +81,11 @@
     </template>
 
     <template v-if="hasOverStandModule">
-      <cell
-        label="是否超标"
-        :is-link="false"
-        @on-click="$emit('on-click-stand')"
-      >
-        <span :style="{ color: mainColor }" v-if="isOverStand">
-          <i class="iconfont icon-shuoming ib-middle"/>
-          <span class="ib-middle">已超标</span>
-        </span>
-        <span class="color-c999" v-else>未超标</span>
-      </cell>
-    </template>
-
-    <template v-if="hasOverStandReasonModule && isOverStand">
-      <cell
-        label="超标原因"
-        :value="currentOverStandReason && currentOverStandReason.name"
-        @on-click="showOverStandPanel = true"
-      />
-      <popup-over-stand
-        :visible.sync="showOverStandPanel"
+      <over-tand
+        ref="overStand"
         :main-color="mainColor"
-        :selected-item="currentOverStandReason"
-        :list="STAND_REASON"
-        :do-select-reason="val => currentOverStandReason = val"
+        :is-over-stand="isOverStand"
+        @on-click-stand="$emit('on-click-stand')"
       />
     </template>
 
@@ -228,51 +208,22 @@
     </template>
 
     <template v-if="hasWelfareModule">
-      <div class="custom__cell bg-fff m-bd-b">
-        <m-switch
-          class="fr"
-          v-if="welfare && welfare.restAmount"
-          :value="isOpenWelfare"
-          :main-color="mainColor"
-          @change="onChangeOpenWelfare"
-        />
-        <div class="ib-top px-width-60 position-r color-c666">
-          积分
-          <img class="position-a welfare__tag" :src="require('../../assets/images/tag.png')" width="36px">
-        </div>
-        <div
-          class="ib-top color-c999 line-normal"
-          :class="{ 'welfare__info': welfare && welfare.restAmount }"
-        >
-          <span v-if="welfare && welfare.restAmount">
-            您有{{ welfare.restAmount / 100 }}积分，可抵¥{{ welfare.restAmount | formatPrice }}
-          </span>
-          <span :style="{fontSize: '3.73vw'}" v-else>您没有可用积分，暂不可用积分抵扣</span>
-          <i class="iconfont icon-shuoming color-info" @click="onClickWelfareInfo" />
-        </div>
-      </div>
-      <cell
-        v-if="isOpenWelfare && welfare && welfare.restAmount"
-        :is-link="false"
-        value=" "
-        @on-click="noop"
-      >
-        <div slot="label" class="text-left">
-          <span class="ib-middle px-width-60">使用</span>
-          <input
-            type="text"
-            ref="welfareInput"
-            class="welfare__input ib-middle"
-            :placeholder="welfare ? '请输入' : '加载中'"
-            :value="welfareUseNum"
-            @input="handleInputWelfare"
-            @blur="checkInputWelfare"
-          >
-          <span class="color-000 ib-middle" v-if="welfareUseNum">
-            积分，抵 <span class="color-red">¥{{ Number(welfareUseNum).toFixed(2) }}</span>
-          </span>
-        </div>
-      </cell>
+      <welfare-input
+        ref="welfareInput"
+        :rest-amount-welfare="welfare && welfare.restAmountWelfare"
+        :rest-amount-caidou="welfare && welfare.restAmountCaidou"
+        :is-open-welfare="isOpenWelfare"
+        :is-open-caidou="isOpenCaidou"
+        :pay-way-id="payWay && payWay.id"
+        :welfare-max-use-num="welfareMaxUseNum"
+        :caidou-max-use-num="caidouMaxUseNum"
+        :main-color="mainColor"
+        @change-open-welfare="val => changeOpen(val, 'welfare')"
+        @change-open-caidou="val => changeOpen(val, 'caidou')"
+        @welfare-num-change="num => onChangeLocalNum(num, 'welfare')"
+        @caidou-num-change="num => onChangeLocalNum(num, 'caidou')"
+        @change-open-welfare-error="$emit('change-open-welfare-error')"
+      />
     </template>
 
     <div v-if="hasMoneySum" class="px-padding-10 bg-fff px-margin-t10">
@@ -306,10 +257,16 @@
           <template v-else>¥ {{ formatPrice(Math.ceil(serviceRate * skuMoney)) }}</template>
         </span>
       </p>
-      <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
+      <p v-if="hasWelfareModule && isOpenWelfare && welfareLocalNum">
         <span class="ib-middle">积分抵扣</span>
-        <span class="color-c999 fr" v-if="welfareUseNum">
-          - ¥ {{ Number(welfareUseNum).toFixed(2) }}({{ welfareUseNum }}积分)
+        <span class="color-c999 fr" v-if="welfareLocalNum">
+          - ¥ {{ welfareLocalNum | formatPrice }}({{ Number(welfareLocalNum / 100).toFixed(0) }}积分)
+        </span>
+      </p>
+      <p v-if="hasWelfareModule && isOpenCaidou && caidouLocalNum">
+        <span class="ib-middle">彩豆抵扣</span>
+        <span class="color-c999 fr" v-if="caidouLocalNum">
+          - ¥ {{ caidouLocalNum | formatPrice }}({{ caidouLocalNum }}彩豆)
         </span>
       </p>
     </div>
@@ -321,16 +278,18 @@ import MSwitch from '../switch'
 import CommonSelect from '../common-select'
 import MMessage from '../message'
 import Cell from '../cell'
+import WelfareInput from '../welfare-input/index'
 import utils from '../../utils/utils'
 import {
   BILL_METHOD,
   BILL_TYPE_LIST,
-  PAY_WAY,
-  STAND_REASON
+  PAY_WAY
 } from './constant'
 import esc from '../esc'
 import Http from '../http'
-import PopupOverStand from './popups/OverStandReason'
+// import PopupOverStand from './popups/OverStandReason'
+import Msgbox from '../msgbox'
+import OverTand from '../over-stand'
 
 // const FeedBack = () => import('../feedback')
 // const baseUrl = esc.domain
@@ -342,9 +301,9 @@ const http = new Http({
     urlConfig: '/gateway/buycenter/module/getModuleList',
     urlApprove: '/gateway/buycenter/approve/getList',
     urlBill: '/gateway/buycenter/invoice/getList',
-    urlWelfare: '/welfare/mall/user/account'
+    urlWelfare: '/welfare/mall/user/accountTwo',
+    urlRate: '/config/rateConfig/getIntegralRate'
   }
-  // baseURL: 'http://app.e.uban360.net'
 })
 
 export default {
@@ -355,7 +314,9 @@ export default {
     CommonSelect,
     Cell,
     MMessage,
-    PopupOverStand
+    // PopupOverStand,
+    WelfareInput,
+    OverTand
   },
 
   filters: {
@@ -369,11 +330,14 @@ export default {
       type: [Number, String],
       required: true
     },
+    appType: {
+      type: Number,
+      required: true
+    },
     mainColor: {
       type: String,
       default: 'red'
     },
-
     approveCurrent: Object,
     isOpenBill: Boolean,
     billMethodCurrent: Object,
@@ -381,11 +345,13 @@ export default {
     billCurrent: Object,
     payWay: Object,
     isOpenWelfare: Boolean,
+    isOpenCaidou: Boolean,
     isShowApproveCell: Boolean,
     skuMoney: Number,
     freightMoney: Number,
     totalMoney: Number,
     welfareMaxUseNum: Number,
+    // caidouMaxUseNum: Number,
     approveTitle: String,
     travelType: {
       // 默认因私消费
@@ -413,11 +379,16 @@ export default {
       payWayList: [],
 
       // 积分使用数量
-      welfareUseNum: '',
+      // welfareUseNum: '',
+      // caidouUseNum: '',
+      caidouMaxUseNum: 0,
       scopeInfo: {},
 
+      welfareLocalNum: 0,
+      caidouLocalNum: 0,
+
       // 超标原因
-      currentOverStandReason: null,
+      // currentOverStandReason: null,
 
       loading: {
         approve: false,
@@ -432,11 +403,11 @@ export default {
       showBillTypePopup: false,
       showBillPopup: false,
       showBillMethodCell: false,
-      showOverStandPanel: false,
+      // showOverStandPanel: false,
 
       BILL_METHOD,
-      BILL_TYPE_LIST,
-      STAND_REASON
+      BILL_TYPE_LIST
+      // STAND_REASON
     }
   },
 
@@ -510,17 +481,23 @@ export default {
   },
 
   watch: {
-    isOpenWelfare(val) {
-      if (val) {
-        this.getWelfare()
-      }
-    },
+    // isOpenWelfare(val) {
+    //   if (val) {
+    //     this.getWelfare().then(this.initWelfare)
+    //   }
+    // },
+    //
+    // isOpenCaidou(val) {
+    //   if (val) {
+    //     this.getWelfare().then(this.initWelfare)
+    //   }
+    // },
 
-    payWay() {
+    payWay(val) {
       if (this.hasBillModule) {
         this.initBill(false)
       }
-      this.initWelfare(false)
+      this.initWelfare()
     },
 
     'loading.approve': function(val) {
@@ -529,10 +506,10 @@ export default {
       }
     },
 
-    welfareUseNum(num) {
-      // 通知业务num变化
-      this.$emit('welfare-num-change', this.outputWelfareNum(num))
-    },
+    // welfareUseNum(num) {
+    //   // 通知业务num变化
+    //   this.$emit('welfare-num-change', this.outputWelfareNum(num))
+    // },
 
     approveCurrent(val) {
       if (val === null && !this.payWayList.find(x => x.id === 3)) {
@@ -551,8 +528,9 @@ export default {
         this.initBill()
       }
       if (this.hasWelfareModule) {
-        this.initWelfare(true)
+        this.initWelfare()
       }
+      // this.getCaidouRate()
       // if (this.hasOverStandReasonModule) {
       //   this.setCustomReason()
       // }
@@ -642,23 +620,30 @@ export default {
 
     getWelfare() {
       this.loading.welfare = true
-      // this.get(this.urlWelfare)
-      http.get('urlWelfare')
+      return http.get('urlWelfare')
         .then(res => {
-          let data = { ...res.value }
-          if (data.restAmount < 0) {
-            data.restAmount = 0
-            data.originRestAmount = res.restAmount
+          const restAmountWelfare = res.value.find(x => x.integralType === 1).restAmount
+          const restAmountCaidou = res.value.find(x => x.integralType === 2).restAmount
+          this.welfare = {
+            restAmountWelfare: restAmountWelfare > 0 ? restAmountWelfare : 0,
+            restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 1000
           }
-          // 默认全部使用
-          this.welfareUseNum = this.welfareMaxUseNum
-            ? Math.min(this.welfareMaxUseNum, data.restAmount)
-            : data.restAmount
-          this.welfareUseNum /= 100
-          this.welfare = data
+          this.$nextTick(this.$refs.welfareInput.setNum)
           this.loading.welfare = false
+          return ''
         })
         .catch(error => this.$emit('error-callback', error))
+    },
+
+    getCaidouRate() {
+      http.get('urlRate', {
+        bizType: this.bizType,
+        appType: this.appType,
+        integralType: 1,
+        payToken: 'eyJzaXRlSWQiOjEsInVpZCI6IjI2OTg0MCIsInNpZ25hdHVyZSI6IjcyZGFhNTMyM2Y3MGI2MmI3MWNlMTg3N2UzNjllNzcyIiwib3JnSWQiOjgzODE3LCJhcHBJZCI6IjMyNjk0NDQ1Iiwic2NvcGVJZCI6OTcsInRpbWVzdGFtcCI6MTU0MTY3NTE4NzE1NX0'
+      }).then(res => {
+        this.caidouMaxUseNum = Math.ceil(this.totalMoney * res.data.businessRate / 100)
+      })
     },
 
     initPay() {
@@ -743,7 +728,7 @@ export default {
       }
     },
 
-    initWelfare(noCheck) {
+    initWelfare() {
       // 根据支付方式来控制积分模块的显示与隐藏
       if (this.payWay) {
         const { id } = this.payWay
@@ -755,26 +740,62 @@ export default {
           // 企业支付
           // 个人垫付
           // 因公消费的个人支付 不支持积分
-          this.toggleWelfareCell(false)
+          if (!this.welfare) {
+            this.getWelfare().then(() => {
+              this.toggleWelfareInput(false)
+            })
+          } else {
+            this.toggleWelfareInput(false)
+          }
+        } else if (!this.welfare) {
+          this.getWelfare().then(() => {
+            this.getCaidouRate()
+            this.toggleWelfareInput(true)
+          })
         } else {
-          this.toggleWelfareCell(true)
+          this.toggleWelfareInput(true)
         }
       }
       // 存在几种case，所以加了noCheck参数来控制
       // 初始化时必须请求
       // 支付方式不存在且商旅类，因公无个人支付，后支付方式赋值，会出发监听回调；
-      if (
-        (this.isOpenWelfare && this.payWay && this.payWay.id === 3) ||
-        noCheck
-      ) {
-        this.$nextTick(this.getWelfare)
+      // if ((this.payWay && this.payWay.id === 3) && !this.welfare) {
+      //   this.$nextTick(() => {
+      //     this.getWelfare().then(() => {
+      //       this.toggleWelfareInput(true)
+      //     })
+      //   })
+      // }
+    },
+
+    changeOpen(val, type) {
+      this.$emit(`change-open-${type}`, val)
+      if (val) {
+        this.getWelfare().then(this.initWelfare)
+      }
+    },
+
+    toggleWelfareInput(show) {
+      // this.showWelfareCell = show
+      // console.log(this.welfare)
+      if (!show) {
+        // this.welfareUseNum = ''
+        this.$emit('change-open-welfare', false)
+        this.$emit('change-open-caidou', false)
+      } else if (this.welfare && this.welfare.restAmountCaidou) {
+        this.$emit('change-open-welfare', false)
+        this.$emit('change-open-caidou', true)
+      } else {
+        this.$emit('change-open-welfare', true)
+        this.$emit('change-open-caidou', false)
       }
     },
 
     // 暴露给外部重置调用
     reInitWelfare() {
-      this.welfareUseNum = ''
-      this.$refs.welfareInput.value = ''
+      // this.welfareUseNum = ''
+      // this.$refs.welfareInput.value = ''
+      this.$refs.welfareInput.resetNum()
       this.getWelfare()
     },
 
@@ -785,7 +806,7 @@ export default {
 
     onClickBillInfo() {
       const h = this.$createElement
-      this.$box({
+      Msgbox({
         title: '发票说明',
         msg: h('div', { class: 'px-padding-lr10' }, [
           h('p', { class: 'text-left' }, '1.用户下单时没有选择开具发票，后续将不再提供发票'),
@@ -797,37 +818,42 @@ export default {
       })
     },
 
-    onClickWelfareInfo() {
-      const h = this.$createElement
-      this.$box.confirm({
-        title: '积分使用规则',
-        msg: h('div', null, [
-          h('p', { class: 'text-left' }, '1.积分为贵司发放给员工的一种福利，可直接抵扣现金'),
-          h('p', { class: 'text-left' }, '2.1积分可抵扣1.00元，若全额抵扣则无需再支付现金'),
-          h('p', { class: 'text-left' }, '3.积分抵扣的部分金额不开具发票')
-        ]),
-        okTxt: '了解详情',
-        cancelTxt: '我知道了'
-      }).then(() => {
-        try {
-          // eslint-disable-next-line
-          JSBridge.native('openurl', {
-            noDefaultMenu: 1,
-            url: 'https://cms.jituancaiyun.com/xme/qiyefuwu/index.html#/huoqujifen'
-          })
-        } catch (e) {
-          // eslint-disable-next-line
-          console.error(e)
-        }
-      })
+    onChangeLocalNum(num, type) {
+      this[`${type}LocalNum`] = num
+      this.$emit(`${type}-num-change`, num)
     },
+
+    // onClickWelfareInfo() {
+    //   const h = this.$createElement
+    //   this.$box.confirm({
+    //     title: '积分使用规则',
+    //     msg: h('div', null, [
+    //       h('p', { class: 'text-left' }, '1.积分为贵司发放给员工的一种福利，可直接抵扣现金'),
+    //       h('p', { class: 'text-left' }, '2.1积分可抵扣1.00元，若全额抵扣则无需再支付现金'),
+    //       h('p', { class: 'text-left' }, '3.积分抵扣的部分金额不开具发票')
+    //     ]),
+    //     okTxt: '了解详情',
+    //     cancelTxt: '我知道了'
+    //   }).then(() => {
+    //     try {
+    //       // eslint-disable-next-line
+    //       JSBridge.native('openurl', {
+    //         noDefaultMenu: 1,
+    //         url: 'https://cms.jituancaiyun.com/xme/qiyefuwu/index.html#/huoqujifen'
+    //       })
+    //     } catch (e) {
+    //       // eslint-disable-next-line
+    //       console.error(e)
+    //     }
+    //   })
+    // },
 
     freightDesc() {
       const p = this.$createElement('p', {class: 'px-padding-b10 px-margin-lr10 text-left'},
         '运费将根据订单金额以及地区由京东自动计算生成，订单金额达到一定数额时将降低或免运费' +
         '（免运费订单金额110元左右，以页面实际展示为准）'
       )
-      this.$box({
+      Msgbox({
         title: '运费说明',
         msg: p,
         noCancel: true,
@@ -836,7 +862,7 @@ export default {
     },
 
     serviceRateDesc() {
-      this.$box({
+      Msgbox({
         title: '服务费说明',
         msg: `该商品需收取${(this.serviceRate * 100).toFixed(2)}%的服务费。`,
         noCancel: true,
@@ -858,61 +884,54 @@ export default {
         billList: this.billList,
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
-        welfareNum: this.welfareUseNum ? this.outputWelfareNum(this.welfareUseNum) : 0,
-        welfare: this.welfare,
-        overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
-        isOverStand: this.isOverStand
+        // welfareNum: this.welfareUseNum ? this.outputWelfareNum(this.welfareUseNum) : 0,
+        // 兼容老版本
+        welfare: { restAmount: this.welfare.restAmountWelfare },
+        // overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
+        isOverStand: this.isOverStand,
+        ...this.$refs.welfareInput.getData(),
+        overStandReason: this.$refs.overStand.getData()
       }
     },
 
-    outputWelfareNum(num) {
-      return num ? ((Number(num) * 1000) / 10).toFixed(0) * 1 : 0
-    },
+    // outputWelfareNum(num) {
+    //   return num ? ((Number(num) * 1000) / 10).toFixed(0) * 1 : 0
+    // },
 
-    handleInputWelfare(e) {
-      const val = e.target.value
-      const input = this.$refs.welfareInput
-      const maxNum = (this.welfareMaxUseNum
-        ? Math.min(this.welfareMaxUseNum, this.welfare.restAmount)
-        : this.welfare.restAmount) / 100
+    // handleInputWelfare(e) {
+    //   const val = e.target.value
+    //   const input = this.$refs.welfareInput
+    //   const maxNum = (this.welfareMaxUseNum
+    //     ? Math.min(this.welfareMaxUseNum, this.welfare.restAmount)
+    //     : this.welfare.restAmount) / 100
+    //
+    //   if (val === '') {
+    //     this.welfareUseNum = ''
+    //   } else if (!/^\d+(\.{0,1}\d{0,2})$/.test(val)) {
+    //     // 不合法的数字，重置
+    //     input.value = this.welfareUseNum
+    //   } else if (/^\d+\.$/.test(val)) {
+    //     // 小数点结尾，认为未输入完成
+    //   } else if (Number(val) > maxNum) {
+    //     // 大于最大值
+    //     input.value = maxNum
+    //     this.welfareUseNum = maxNum
+    //   } else {
+    //     this.welfareUseNum = val
+    //     input.value = this.welfareUseNum
+    //   }
+    // },
 
-      if (val === '') {
-        this.welfareUseNum = ''
-      } else if (!/^\d+(\.{0,1}\d{0,2})$/.test(val)) {
-        // 不合法的数字，重置
-        input.value = this.welfareUseNum
-      } else if (/^\d+\.$/.test(val)) {
-        // 小数点结尾，认为未输入完成
-      } else if (Number(val) > maxNum) {
-        // 大于最大值
-        input.value = maxNum
-        this.welfareUseNum = maxNum
-      } else {
-        this.welfareUseNum = val
-        input.value = this.welfareUseNum
-      }
-    },
-
-    checkInputWelfare(e) {
-      const val = e.target.value
-      const input = this.$refs.welfareInput
-      if (val.trim() === '') {
-        this.welfareUseNum = 0
-        input.value = 0
-      } else if (/^\d+\.$/.test(val)) {
-        input.value = this.welfareUseNum
-      }
-    },
-
-    toggleWelfareCell(show) {
-      // this.showWelfareCell = show
-      if (!show) {
-        this.welfareUseNum = ''
-        this.$emit('change-open-welfare', false)
-      } else {
-        this.$emit('change-open-welfare', true)
-      }
-    },
+    // checkInputWelfare(e) {
+    //   const val = e.target.value
+    //   const input = this.$refs.welfareInput
+    //   if (val.trim() === '') {
+    //     this.welfareUseNum = 0
+    //     input.value = 0
+    //   } else if (/^\d+\.$/.test(val)) {
+    //     input.value = this.welfareUseNum
+    //   }
+    // },
 
     openApproveDetail(item) {
       if (window.AppInfo && window.AppInfo.data && window.AppInfo.data.approveUrl) {
@@ -922,9 +941,9 @@ export default {
       }
     },
 
-    setCustomReason(val) {
-      this.currentOverStandReason = { id: -1, name: decodeURIComponent(val) }
-    },
+    // setCustomReason(val) {
+    //   this.currentOverStandReason = { id: -1, name: decodeURIComponent(val) }
+    // },
 
     isCurrentItem(item, scope, title = true) {
       return {
@@ -959,11 +978,6 @@ export default {
       line-height: 45px;
       padding: 0 10px;
     }
-    input {
-      border: none;
-      margin: 0;
-      padding: 0;
-    }
     .color-red {
       color: red;
     }
@@ -983,15 +997,6 @@ export default {
       .radio {
         margin-top: -5px;
       }
-    }
-    .welfare__input {
-      width: 88px;
-      height: 26px;
-      border: 1px #dcdcdc solid;
-      border-radius: 2px;
-      text-align: center;
-      line-height: normal;
-      -webkit-appearance: none;
     }
     .color-000 {
       color: #000;

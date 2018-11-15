@@ -49,8 +49,8 @@ export default {
     `externalId=${externalId}&callback=${cbName}&scenes=${scenes}`
   },
 
-  cityUrl(cbName, cityName, scenes) {
-    return `${escUrl}#/city-choose?locateCityName=${encodeURIComponent(cityName)}&callback=${cbName}`
+  cityUrl(cbName, cityName, bizType = this.bizType) {
+    return `${escUrl}#/city-choose?locateCityName=${encodeURIComponent(cityName)}&callback=${cbName}&bizType=${bizType}`
   },
 
   travelStandardUrl(showType = 3) {

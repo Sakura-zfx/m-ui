@@ -31,6 +31,7 @@ import Message from './components/message'
 import Msgbox from './components/msgbox'
 import MsgboxStyle from './components/msgbox-style'
 import NumComputer from './components/num-computer'
+import OverStand from './components/over-stand'
 import Popup from './components/popup'
 import PopupSide from './components/popup-side'
 import Search from './components/search'
@@ -44,8 +45,9 @@ import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
+import WelfareInput from './components/welfare-input'
 
-const version = '1.0.126'
+const version = '1.0.127'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -77,6 +79,7 @@ const components = [
   Msgbox,
   MsgboxStyle,
   NumComputer,
+  OverStand,
   Popup,
   PopupSide,
   Search,
@@ -89,7 +92,8 @@ const components = [
   TagSelect,
   Toast,
   TravelPanel,
-  UserPanel
+  UserPanel,
+  WelfareInput
 ]
 
 const install = (Vue, config = {}) => {
