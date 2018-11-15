@@ -165,7 +165,7 @@ export default {
       bill: null,
       isOpenWelfare: false,
       isOpenCaidou: false,
-      payWay: null,
+      payWay: { id: 3, title: 'grzf' },
       get,
       post
     }

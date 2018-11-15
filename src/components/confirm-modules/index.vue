@@ -533,7 +533,6 @@ export default {
         this.initBill()
       }
       if (this.hasWelfareModule) {
-        this.getCaidouRate()
         this.initWelfare()
       }
       // this.getCaidouRate()
@@ -642,7 +641,11 @@ export default {
     },
 
     getCaidouRate() {
-      http.get('urlRate', {
+      if (!this.welfare.restAmountCaidou) {
+        return Promise.resolve()
+      }
+
+      return http.get('urlRate', {
         bizType: this.bizType,
         appType: this.appType,
         integralType: 1,
@@ -650,6 +653,7 @@ export default {
       }).then(res => {
         this.caidouRate = res.data.businessRate
         this.setMaxUseNum()
+        return ''
       })
     },
 
@@ -761,10 +765,14 @@ export default {
           }
         } else if (!this.welfare) {
           this.getWelfare().then(() => {
-            this.toggleWelfareInput(true)
+            this.getCaidouRate().then(() => {
+              this.toggleWelfareInput(true)
+            })
           })
         } else {
-          this.toggleWelfareInput(true)
+          this.getCaidouRate().then(() => {
+            this.toggleWelfareInput(true)
+          })
         }
       }
       // 存在几种case，所以加了noCheck参数来控制
