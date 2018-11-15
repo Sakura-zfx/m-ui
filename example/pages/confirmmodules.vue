@@ -3,7 +3,7 @@
     <div class="mg--10">
       <m-confirm-order
         ref="modules"
-        biz-type="22"
+        biz-type="144"
         approve-title="关联采购单"
         :app-type="1"
         :approve-current="selectApprove"

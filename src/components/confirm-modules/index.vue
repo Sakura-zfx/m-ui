@@ -486,23 +486,13 @@ export default {
   },
 
   watch: {
-    // isOpenWelfare(val) {
-    //   if (val) {
-    //     this.getWelfare().then(this.initWelfare)
-    //   }
-    // },
-    //
-    // isOpenCaidou(val) {
-    //   if (val) {
-    //     this.getWelfare().then(this.initWelfare)
-    //   }
-    // },
-
-    payWay() {
+    payWay(item, oldItem) {
       if (this.hasBillModule) {
         this.initBill(false)
       }
-      this.initWelfare()
+      if (!oldItem || item.id !== oldItem.id) {
+        this.initWelfare()
+      }
     },
 
     'loading.approve': function(val) {
@@ -535,10 +525,6 @@ export default {
       if (this.hasWelfareModule) {
         this.initWelfare()
       }
-      // this.getCaidouRate()
-      // if (this.hasOverStandReasonModule) {
-      //   this.setCustomReason()
-      // }
     })
   },
 
@@ -623,7 +609,11 @@ export default {
         .catch(error => this.$emit('error-callback', error))
     },
 
-    getWelfare() {
+    getWelfare(force) {
+      if (!force && this.welfare) {
+        return Promise.resolve()
+      }
+
       this.loading.welfare = true
       return http.get('urlWelfare')
         .then(res => {
@@ -644,7 +634,6 @@ export default {
       if (!this.welfare.restAmountCaidou) {
         return Promise.resolve()
       }
-
       return http.get('urlRate', {
         bizType: this.bizType,
         appType: this.appType,
@@ -756,42 +745,21 @@ export default {
           // 企业支付
           // 个人垫付
           // 因公消费的个人支付 不支持积分
-          if (!this.welfare) {
-            this.getWelfare().then(() => {
-              this.toggleWelfareInput(false)
-            })
-          } else {
+          this.getWelfare().then(() => {
             this.toggleWelfareInput(false)
-          }
-        } else if (!this.welfare) {
+          })
+        } else {
           this.getWelfare().then(() => {
             this.getCaidouRate().then(() => {
               this.toggleWelfareInput(true)
             })
           })
-        } else {
-          this.getCaidouRate().then(() => {
-            this.toggleWelfareInput(true)
-          })
         }
       }
-      // 存在几种case，所以加了noCheck参数来控制
-      // 初始化时必须请求
-      // 支付方式不存在且商旅类，因公无个人支付，后支付方式赋值，会出发监听回调；
-      // if ((this.payWay && this.payWay.id === 3) && !this.welfare) {
-      //   this.$nextTick(() => {
-      //     this.getWelfare().then(() => {
-      //       this.toggleWelfareInput(true)
-      //     })
-      //   })
-      // }
     },
 
     changeOpen(val, type) {
       this.$emit(`change-open-${type}`, val)
-      // if (val) {
-      //   this.getWelfare().then(this.initWelfare)
-      // }
     },
 
     toggleWelfareInput(show) {
@@ -812,10 +780,8 @@ export default {
 
     // 暴露给外部重置调用
     reInitWelfare() {
-      // this.welfareUseNum = ''
-      // this.$refs.welfareInput.value = ''
       this.$refs.welfareInput.resetNum()
-      this.getWelfare()
+      this.getWelfare(true)
     },
 
     toSelectBill() {
