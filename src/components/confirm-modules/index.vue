@@ -349,8 +349,11 @@ export default {
     isShowApproveCell: Boolean,
     skuMoney: Number,
     freightMoney: Number,
-    totalMoney: Number,
-    welfareMaxUseNum: Number,
+    totalMoney: {
+      type: Number,
+      required: true
+    },
+    // welfareMaxUseNum: Number,
     // caidouMaxUseNum: Number,
     approveTitle: String,
     travelType: {
@@ -382,6 +385,7 @@ export default {
       // welfareUseNum: '',
       // caidouUseNum: '',
       caidouMaxUseNum: 0,
+      welfareMaxUseNum: this.totalMoney,
       scopeInfo: {},
 
       welfareLocalNum: 0,
@@ -890,7 +894,7 @@ export default {
         // overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
         isOverStand: this.isOverStand,
         ...this.$refs.welfareInput.getData(),
-        overStandReason: this.$refs.overStand.getData()
+        overStandReason: this.$refs.overStand && this.$refs.overStand.getData()
       }
     },
 

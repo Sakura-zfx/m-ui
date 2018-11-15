@@ -132,13 +132,13 @@ export default {
 
   computed: {
     maxNumWelfare() {
-      const num = this.welfareMaxUseNum
+      const num = /\d+/.test(this.welfareMaxUseNum)
         ? Math.min(this.welfareMaxUseNum, this.restAmountWelfare)
         : this.restAmountWelfare
       return num / 100
     },
     maxNumCaidou() {
-      return this.caidouMaxUseNum
+      return /\d+/.test(this.caidouMaxUseNum)
         ? Math.min(this.caidouMaxUseNum, this.restAmountCaidou)
         : this.restAmountCaidou
     }

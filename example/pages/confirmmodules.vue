@@ -16,7 +16,7 @@
         :pay-way="payWay"
         :sku-money="1"
         :freight-money="33"
-        :total-money="4999"
+        :total-money="0"
         :is-show-approve-cell="true"
         :welfare-max-use-num="200000"
         :is-over-stand="true"
