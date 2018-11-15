@@ -47,7 +47,7 @@ import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 import WelfareInput from './components/welfare-input'
 
-const version = '1.0.129'
+const version = '1.0.130'
 const components = [
   AddressSelect,
   ApproveSelect,

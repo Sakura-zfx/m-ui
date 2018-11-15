@@ -16,9 +16,8 @@
         :pay-way="payWay"
         :sku-money="1"
         :freight-money="33"
-        :total-money="0"
+        :total-money="totalMoney"
         :is-show-approve-cell="true"
-        :welfare-max-use-num="200000"
         :is-over-stand="true"
         :travel-type="1"
         :service-rate="0.01"
@@ -40,6 +39,7 @@
 
     <p class="px-margin-20">
       <a href="javascript:" @click="getModulesData">获取data</a>
+      <a href="javascript:" @click="totalMoney = 122200">改变totalMoney</a>
     </p>
     <p>props</p>
     <pre>
@@ -146,6 +146,7 @@ export default {
   data() {
     return {
       selectApprove: null,
+      totalMoney: 2000,
       // selectApprove: {
       //   'money': 5000.00,
       //   'balance': 5000.00,

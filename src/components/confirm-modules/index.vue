@@ -390,6 +390,7 @@ export default {
 
       welfareLocalNum: 0,
       caidouLocalNum: 0,
+      caidouRate: 0,
 
       // 超标原因
       // currentOverStandReason: null,
@@ -497,7 +498,7 @@ export default {
     //   }
     // },
 
-    payWay(val) {
+    payWay() {
       if (this.hasBillModule) {
         this.initBill(false)
       }
@@ -510,10 +511,10 @@ export default {
       }
     },
 
-    // welfareUseNum(num) {
-    //   // 通知业务num变化
-    //   this.$emit('welfare-num-change', this.outputWelfareNum(num))
-    // },
+    totalMoney(val) {
+      // 更新最大数量
+      this.setMaxUseNum(val)
+    },
 
     approveCurrent(val) {
       if (val === null && !this.payWayList.find(x => x.id === 3)) {
@@ -532,6 +533,7 @@ export default {
         this.initBill()
       }
       if (this.hasWelfareModule) {
+        this.getCaidouRate()
         this.initWelfare()
       }
       // this.getCaidouRate()
@@ -646,8 +648,14 @@ export default {
         integralType: 1,
         payToken: 'eyJzaXRlSWQiOjEsInVpZCI6IjI2OTg0MCIsInNpZ25hdHVyZSI6IjcyZGFhNTMyM2Y3MGI2MmI3MWNlMTg3N2UzNjllNzcyIiwib3JnSWQiOjgzODE3LCJhcHBJZCI6IjMyNjk0NDQ1Iiwic2NvcGVJZCI6OTcsInRpbWVzdGFtcCI6MTU0MTY3NTE4NzE1NX0'
       }).then(res => {
-        this.caidouMaxUseNum = Math.ceil(this.totalMoney * res.data.businessRate / 100)
+        this.caidouRate = res.data.businessRate
+        this.setMaxUseNum()
       })
+    },
+
+    setMaxUseNum(totalMoney = this.totalMoney) {
+      this.welfareMaxUseNum = totalMoney
+      this.caidouMaxUseNum = Math.ceil(totalMoney * this.caidouRate / 100)
     },
 
     initPay() {
@@ -753,7 +761,6 @@ export default {
           }
         } else if (!this.welfare) {
           this.getWelfare().then(() => {
-            this.getCaidouRate()
             this.toggleWelfareInput(true)
           })
         } else {

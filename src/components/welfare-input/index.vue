@@ -155,13 +155,21 @@ export default {
     },
     caidouUseNum(num) {
       this.$emit('caidou-num-change', num ? Number(num) : 0)
+    },
+    welfareMaxUseNum(val) {
+      // 更新最大输入
+      this.setNum(val)
+    },
+    caidouMaxUseNum(val) {
+      // 更新最大输入
+      this.setNum(undefined, val)
     }
   },
 
   methods: {
-    setNum() {
-      this.welfareUseNum = this.maxNumWelfare
-      this.caidouUseNum = this.maxNumCaidou
+    setNum(welfare = this.maxNumWelfare, caidou = this.maxNumCaidou) {
+      this.welfareUseNum = welfare
+      this.caidouUseNum = caidou
     },
 
     resetNum() {
@@ -185,14 +193,22 @@ export default {
     },
 
     onChangeOpen(val, type) {
+      const isWelfare = type === 'welfare'
+      const isCaidou = type === 'caidou'
+
       if (this.payWayId === 3) {
         if (
-          (type === 'welfare' && val && this.isOpenCaidou) ||
-          (type === 'caidou' && val && this.isOpenWelfare)
+          (isWelfare && val && this.isOpenCaidou) ||
+          (isCaidou && val && this.isOpenWelfare)
         ) {
           Toast('彩豆与积分不支持同时使用')
           return
         }
+        // if (!val) {
+        //   // 切换开关时，重置数量为0
+        //   isCaidou && (this.caidouUseNum = 0)
+        //   isWelfare && (this.welfareUseNum = 0)
+        // }
         this.$emit(`change-open-${type}`, val)
       } else {
         this.$emit('change-open-welfare-error')
