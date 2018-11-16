@@ -207,7 +207,7 @@
       </common-select>
     </template>
 
-    <template v-if="hasWelfareModule">
+    <template v-if="hasWelfareModule && !loading.welfare">
       <welfare-input
         ref="welfareInput"
         :rest-amount-welfare="welfare && welfare.restAmountWelfare"
@@ -215,9 +215,10 @@
         :is-open-welfare="isOpenWelfare"
         :is-open-caidou="isOpenCaidou"
         :pay-way-id="payWay && payWay.id"
-        :welfare-max-use-num="welfareMaxUseNum"
-        :caidou-max-use-num="caidouMaxUseNum"
+        :total-money="totalMoney"
         :main-color="mainColor"
+        :biz-type="bizType"
+        :app-type="appType"
         @change-open-welfare="val => changeOpen(val, 'welfare')"
         @change-open-caidou="val => changeOpen(val, 'caidou')"
         @welfare-num-change="num => onChangeLocalNum(num, 'welfare')"
@@ -280,11 +281,7 @@ import MMessage from '../message'
 import Cell from '../cell'
 import WelfareInput from '../welfare-input/index'
 import utils from '../../utils/utils'
-import {
-  BILL_METHOD,
-  BILL_TYPE_LIST,
-  PAY_WAY
-} from './constant'
+import { BILL_METHOD, BILL_TYPE_LIST, PAY_WAY } from './constant'
 import esc from '../esc'
 import Http from '../http'
 // import PopupOverStand from './popups/OverStandReason'
@@ -384,8 +381,8 @@ export default {
       // 积分使用数量
       // welfareUseNum: '',
       // caidouUseNum: '',
-      caidouMaxUseNum: 0,
-      welfareMaxUseNum: this.totalMoney,
+      // caidouMaxUseNum: 0,
+      // welfareMaxUseNum: this.totalMoney,
       scopeInfo: {},
 
       welfareLocalNum: 0,
@@ -501,9 +498,11 @@ export default {
       }
     },
 
-    totalMoney(val) {
+    totalMoney() {
       // 更新最大数量
-      this.setMaxUseNum(val)
+      this.$nextTick(() => {
+        this.$refs.welfareInput.setMaxUseNum()
+      })
     },
 
     approveCurrent(val) {
@@ -623,33 +622,32 @@ export default {
             restAmountWelfare: restAmountWelfare > 0 ? restAmountWelfare : 0,
             restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 0
           }
-          this.$nextTick(this.$refs.welfareInput.setNum)
+          // this.$nextTick(this.$refs.welfareInput.setNum)
           this.loading.welfare = false
           return ''
         })
         .catch(error => this.$emit('error-callback', error))
     },
 
-    getCaidouRate() {
-      if (!this.welfare.restAmountCaidou) {
-        return Promise.resolve()
-      }
-      return http.get('urlRate', {
-        bizType: this.bizType,
-        appType: this.appType,
-        integralType: 1,
-        payToken: 'eyJzaXRlSWQiOjEsInVpZCI6IjI2OTg0MCIsInNpZ25hdHVyZSI6IjcyZGFhNTMyM2Y3MGI2MmI3MWNlMTg3N2UzNjllNzcyIiwib3JnSWQiOjgzODE3LCJhcHBJZCI6IjMyNjk0NDQ1Iiwic2NvcGVJZCI6OTcsInRpbWVzdGFtcCI6MTU0MTY3NTE4NzE1NX0'
-      }).then(res => {
-        this.caidouRate = res.data.businessRate
-        this.setMaxUseNum()
-        return ''
-      })
-    },
+    // getCaidouRate() {
+    //   if (!this.welfare.restAmountCaidou) {
+    //     return Promise.resolve()
+    //   }
+    //   return http.get('urlRate', {
+    //     bizType: this.bizType,
+    //     appType: this.appType,
+    //     integralType: 1
+    //   }).then(res => {
+    //     this.caidouRate = res.data.businessRate
+    //     this.setMaxUseNum()
+    //     return ''
+    //   })
+    // },
 
-    setMaxUseNum(totalMoney = this.totalMoney) {
-      this.welfareMaxUseNum = totalMoney
-      this.caidouMaxUseNum = Math.ceil(totalMoney * this.caidouRate / 100)
-    },
+    // setMaxUseNum(totalMoney = this.totalMoney) {
+    //   this.welfareMaxUseNum = totalMoney
+    //   this.caidouMaxUseNum = Math.ceil(totalMoney * this.caidouRate / 100)
+    // },
 
     initPay() {
       // 账户信息
@@ -750,9 +748,9 @@ export default {
           })
         } else {
           this.getWelfare().then(() => {
-            this.getCaidouRate().then(() => {
-              this.toggleWelfareInput(true)
-            })
+            // this.getCaidouRate().then(() => {
+            this.toggleWelfareInput(true)
+            // })
           })
         }
       }
@@ -781,7 +779,9 @@ export default {
     // 暴露给外部重置调用
     reInitWelfare() {
       this.$refs.welfareInput.resetNum()
-      this.getWelfare(true)
+      this.getWelfare(true).then(() => {
+        this.$refs.welfareInput.getCaidouRate()
+      })
     },
 
     toSelectBill() {
@@ -869,12 +869,10 @@ export default {
         billList: this.billList,
         approve: this.approveCurrent,
         isUseWelfare: this.isOpenWelfare,
-        // welfareNum: this.welfareUseNum ? this.outputWelfareNum(this.welfareUseNum) : 0,
         // 兼容老版本
         welfare: { restAmount: this.welfare.restAmountWelfare },
-        // overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
         isOverStand: this.isOverStand,
-        ...this.$refs.welfareInput.getData(),
+        ...(this.$refs.welfareInput ? this.$refs.welfareInput.getData() : {}),
         overStandReason: this.$refs.overStand && this.$refs.overStand.getData()
       }
     },

@@ -97,6 +97,13 @@ import utils from '../../utils/utils'
 import MInput from '../m-input/index'
 import Msgbox from '../msgbox/index'
 import Toast from '../toast/index'
+import Http from '../http'
+
+const http = new Http({
+  uri: {
+    urlRate: '/config/rateConfig/getIntegralRate'
+  }
+})
 
 export default {
   components: {
@@ -119,14 +126,20 @@ export default {
     isOpenWelfare: Boolean,
     isOpenCaidou: Boolean,
     payWayId: Number,
-    caidouMaxUseNum: Number,
-    welfareMaxUseNum: Number
+    // caidouMaxUseNum: Number,
+    // welfareMaxUseNum: Number
+    totalMoney: Number,
+    bizType: [Number, String],
+    appType: Number
   },
 
   data() {
     return {
       welfareUseNum: '',
-      caidouUseNum: ''
+      caidouUseNum: '',
+
+      caidouMaxUseNum: 0,
+      welfareMaxUseNum: this.totalMoney
     }
   },
 
@@ -145,7 +158,7 @@ export default {
   },
 
   created() {
-    this.setNum()
+    this.getCaidouRate()
   },
 
   watch: {
@@ -167,6 +180,27 @@ export default {
   },
 
   methods: {
+    getCaidouRate() {
+      if (!this.restAmountCaidou) {
+        return Promise.resolve()
+      }
+      return http.get('urlRate', {
+        bizType: this.bizType,
+        appType: this.appType,
+        integralType: 1
+      }).then(res => {
+        this.caidouRate = res.data.businessRate
+        this.setMaxUseNum()
+        this.setNum()
+        return ''
+      })
+    },
+
+    setMaxUseNum() {
+      this.welfareMaxUseNum = this.totalMoney
+      this.caidouMaxUseNum = this.totalMoney * this.caidouRate
+    },
+
     setNum(welfare = this.maxNumWelfare, caidou = this.maxNumCaidou) {
       this.welfareUseNum = welfare
       this.caidouUseNum = caidou
@@ -180,8 +214,8 @@ export default {
     // 获取data
     getData() {
       return {
-        welfareNum: this.outputNum(this.welfareUseNum),
-        caidouNum: this.caidouUseNum,
+        welfareNum: this.isOpenWelfare ? this.outputNum(this.welfareUseNum) : 0,
+        caidouNum: this.isOpenCaidou ? this.caidouUseNum : 0,
         isOpenWelfare: this.isOpenWelfare,
         isOpenCaidou: this.isOpenCaidou
       }
