@@ -101,6 +101,7 @@ import Http from '../http'
 
 const http = new Http({
   uri: {
+    urlWelfare: '/welfare/mall/user/accountTwo',
     urlRate: '/config/rateConfig/getIntegralRate'
   }
 })
@@ -126,8 +127,6 @@ export default {
     isOpenWelfare: Boolean,
     isOpenCaidou: Boolean,
     payWayId: Number,
-    // caidouMaxUseNum: Number,
-    // welfareMaxUseNum: Number
     totalMoney: Number,
     bizType: [Number, String],
     appType: Number
@@ -139,7 +138,8 @@ export default {
       caidouUseNum: '',
       caidouRate: 0,
       caidouMaxUseNum: 0,
-      welfareMaxUseNum: this.totalMoney
+      welfareMaxUseNum: this.totalMoney,
+      welfareData: null
     }
   },
 
@@ -158,7 +158,7 @@ export default {
   },
 
   created() {
-    this.getCaidouRate()
+    this.init()
   },
 
   watch: {
@@ -176,12 +176,44 @@ export default {
     caidouMaxUseNum(val) {
       // 更新最大输入
       this.setNum(undefined, val)
+    },
+    payWayId(val) {
+      if (!this.welfareData) {
+        this.init()
+      } else if (val === 3) {
+        console.log('welfare data 存在')  // eslint-disable-line
+      }
+    },
+    welfareData(val) {
+      this.$emit('welfare-data-change', val)
     }
   },
 
   methods: {
+    init() {
+      // console.log('this.payWayId', this.payWayId)
+      this.getWelfare().then(() => {
+        this.getCaidouRate()
+      })
+    },
+
+    getWelfare() {
+      if (this.payWayId !== 3) {
+        return Promise.reject() // eslint-disable-line
+      }
+      return http.get('urlWelfare').then(res => {
+        const restAmountWelfare = res.value.find(x => x.integralType === 1).restAmount
+        const restAmountCaidou = res.value.find(x => x.integralType === 2).restAmount
+        this.welfareData = {
+          restAmountWelfare: restAmountWelfare > 0 ? restAmountWelfare : 0,
+          restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 0
+        }
+        return this.welfareData
+      })
+    },
+
     getCaidouRate() {
-      if (!this.restAmountCaidou) {
+      if (this.welfareData && !this.welfareData.restAmountCaidou) {
         this.setMaxUseNum()
         this.setNum()
         return Promise.resolve()
@@ -198,9 +230,9 @@ export default {
       })
     },
 
-    setMaxUseNum() {
-      this.welfareMaxUseNum = this.totalMoney
-      this.caidouMaxUseNum = Math.ceil(this.totalMoney * this.caidouRate / 100)
+    setMaxUseNum(totalMoney = this.totalMoney) {
+      this.welfareMaxUseNum = totalMoney
+      this.caidouMaxUseNum = Math.ceil(totalMoney * this.caidouRate / 100)
     },
 
     setNum(welfare = this.maxNumWelfare, caidou = this.maxNumCaidou) {

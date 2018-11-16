@@ -40,6 +40,7 @@
     <p class="px-margin-20">
       <a href="javascript:" @click="getModulesData">获取data</a>
       <a href="javascript:" @click="totalMoney = 122200">改变totalMoney</a>
+      <a href="javascript:" @click="$refs.modules.reInitWelfare()">reInitWelfare</a>
     </p>
     <p>props</p>
     <pre>
@@ -165,7 +166,8 @@ export default {
       bill: null,
       isOpenWelfare: false,
       isOpenCaidou: false,
-      payWay: { id: 3, title: 'grzf' },
+      // payWay: { id: 3, title: 'grzf' },
+      payWay: null,
       get,
       post
     }

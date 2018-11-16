@@ -207,7 +207,7 @@
       </common-select>
     </template>
 
-    <template v-if="hasWelfareModule && !loading.welfare">
+    <template v-if="hasWelfareModule">
       <welfare-input
         ref="welfareInput"
         :rest-amount-welfare="welfare && welfare.restAmountWelfare"
@@ -224,6 +224,7 @@
         @welfare-num-change="num => onChangeLocalNum(num, 'welfare')"
         @caidou-num-change="num => onChangeLocalNum(num, 'caidou')"
         @change-open-welfare-error="$emit('change-open-welfare-error')"
+        @welfare-data-change="onWelfareDataChange"
       />
     </template>
 
@@ -284,22 +285,18 @@ import utils from '../../utils/utils'
 import { BILL_METHOD, BILL_TYPE_LIST, PAY_WAY } from './constant'
 import esc from '../esc'
 import Http from '../http'
-// import PopupOverStand from './popups/OverStandReason'
 import Msgbox from '../msgbox'
 import OverTand from '../over-stand'
 
-// const FeedBack = () => import('../feedback')
-// const baseUrl = esc.domain
-// let hasAddCustomReasonRoute = false
 const http = new Http({
   uri: {
     urlPurchaseScope: '/mc/order/checkScopeDetail',
     urlTravelScope: '/gateway/common/payAuth',
     urlConfig: '/gateway/buycenter/module/getModuleList',
     urlApprove: '/gateway/buycenter/approve/getList',
-    urlBill: '/gateway/buycenter/invoice/getList',
-    urlWelfare: '/welfare/mall/user/accountTwo',
-    urlRate: '/config/rateConfig/getIntegralRate'
+    urlBill: '/gateway/buycenter/invoice/getList'
+    // urlWelfare: '/welfare/mall/user/accountTwo',
+    // urlRate: '/config/rateConfig/getIntegralRate'
   }
 })
 
@@ -378,19 +375,11 @@ export default {
       welfare: null,
       payWayList: [],
 
-      // 积分使用数量
-      // welfareUseNum: '',
-      // caidouUseNum: '',
-      // caidouMaxUseNum: 0,
-      // welfareMaxUseNum: this.totalMoney,
       scopeInfo: {},
 
+      // 积分使用数量
       welfareLocalNum: 0,
       caidouLocalNum: 0,
-      caidouRate: 0,
-
-      // 超标原因
-      // currentOverStandReason: null,
 
       loading: {
         approve: false,
@@ -405,11 +394,9 @@ export default {
       showBillTypePopup: false,
       showBillPopup: false,
       showBillMethodCell: false,
-      // showOverStandPanel: false,
 
       BILL_METHOD,
       BILL_TYPE_LIST
-      // STAND_REASON
     }
   },
 
@@ -488,7 +475,8 @@ export default {
         this.initBill(false)
       }
       if (!oldItem || item.id !== oldItem.id) {
-        this.initWelfare()
+        // this.initWelfare()
+        this.toggleWelfareInput(item.id === 3)
       }
     },
 
@@ -498,11 +486,9 @@ export default {
       }
     },
 
-    totalMoney() {
+    totalMoney(val) {
       // 更新最大数量
-      this.$nextTick(() => {
-        this.$refs.welfareInput.setMaxUseNum()
-      })
+      this.$refs.welfareInput.setMaxUseNum(val)
     },
 
     approveCurrent(val) {
@@ -608,46 +594,23 @@ export default {
         .catch(error => this.$emit('error-callback', error))
     },
 
-    getWelfare(force) {
-      if (!force && this.welfare) {
+    getWelfare() {
+      if (this.welfare) {
         return Promise.resolve()
       }
 
       this.loading.welfare = true
-      return http.get('urlWelfare')
-        .then(res => {
-          const restAmountWelfare = res.value.find(x => x.integralType === 1).restAmount
-          const restAmountCaidou = res.value.find(x => x.integralType === 2).restAmount
-          this.welfare = {
-            restAmountWelfare: restAmountWelfare > 0 ? restAmountWelfare : 0,
-            restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 0
-          }
-          // this.$nextTick(this.$refs.welfareInput.setNum)
-          this.loading.welfare = false
-          return ''
-        })
-        .catch(error => this.$emit('error-callback', error))
+      const { welfareInput } = this.$refs
+      return welfareInput && welfareInput.getWelfare().then(res => {
+        this.welfare = res
+        this.loading.welfare = false
+      })
     },
 
-    // getCaidouRate() {
-    //   if (!this.welfare.restAmountCaidou) {
-    //     return Promise.resolve()
-    //   }
-    //   return http.get('urlRate', {
-    //     bizType: this.bizType,
-    //     appType: this.appType,
-    //     integralType: 1
-    //   }).then(res => {
-    //     this.caidouRate = res.data.businessRate
-    //     this.setMaxUseNum()
-    //     return ''
-    //   })
-    // },
-
-    // setMaxUseNum(totalMoney = this.totalMoney) {
-    //   this.welfareMaxUseNum = totalMoney
-    //   this.caidouMaxUseNum = Math.ceil(totalMoney * this.caidouRate / 100)
-    // },
+    onWelfareDataChange(data) {
+      this.welfare = data
+      this.initWelfare()
+    },
 
     initPay() {
       // 账户信息
@@ -748,9 +711,7 @@ export default {
           })
         } else {
           this.getWelfare().then(() => {
-            // this.getCaidouRate().then(() => {
             this.toggleWelfareInput(true)
-            // })
           })
         }
       }
@@ -761,13 +722,14 @@ export default {
     },
 
     toggleWelfareInput(show) {
-      // this.showWelfareCell = show
-      // console.log(this.welfare)
       if (!show) {
-        // this.welfareUseNum = ''
         this.$emit('change-open-welfare', false)
         this.$emit('change-open-caidou', false)
-      } else if (this.welfare && this.welfare.restAmountCaidou) {
+      } else if (
+        this.$refs.welfareInput &&
+        this.$refs.welfareInput.welfareData &&
+        this.$refs.welfareInput.welfareData.restAmountCaidou
+      ) {
         this.$emit('change-open-welfare', false)
         this.$emit('change-open-caidou', true)
       } else {
@@ -779,9 +741,7 @@ export default {
     // 暴露给外部重置调用
     reInitWelfare() {
       this.$refs.welfareInput.resetNum()
-      this.getWelfare(true).then(() => {
-        this.$refs.welfareInput.getCaidouRate()
-      })
+      this.$refs.welfareInput.init()
     },
 
     toSelectBill() {
@@ -807,31 +767,6 @@ export default {
       this[`${type}LocalNum`] = num
       this.$emit(`${type}-num-change`, num)
     },
-
-    // onClickWelfareInfo() {
-    //   const h = this.$createElement
-    //   this.$box.confirm({
-    //     title: '积分使用规则',
-    //     msg: h('div', null, [
-    //       h('p', { class: 'text-left' }, '1.积分为贵司发放给员工的一种福利，可直接抵扣现金'),
-    //       h('p', { class: 'text-left' }, '2.1积分可抵扣1.00元，若全额抵扣则无需再支付现金'),
-    //       h('p', { class: 'text-left' }, '3.积分抵扣的部分金额不开具发票')
-    //     ]),
-    //     okTxt: '了解详情',
-    //     cancelTxt: '我知道了'
-    //   }).then(() => {
-    //     try {
-    //       // eslint-disable-next-line
-    //       JSBridge.native('openurl', {
-    //         noDefaultMenu: 1,
-    //         url: 'https://cms.jituancaiyun.com/xme/qiyefuwu/index.html#/huoqujifen'
-    //       })
-    //     } catch (e) {
-    //       // eslint-disable-next-line
-    //       console.error(e)
-    //     }
-    //   })
-    // },
 
     freightDesc() {
       const p = this.$createElement('p', {class: 'px-padding-b10 px-margin-lr10 text-left'},
@@ -877,45 +812,6 @@ export default {
       }
     },
 
-    // outputWelfareNum(num) {
-    //   return num ? ((Number(num) * 1000) / 10).toFixed(0) * 1 : 0
-    // },
-
-    // handleInputWelfare(e) {
-    //   const val = e.target.value
-    //   const input = this.$refs.welfareInput
-    //   const maxNum = (this.welfareMaxUseNum
-    //     ? Math.min(this.welfareMaxUseNum, this.welfare.restAmount)
-    //     : this.welfare.restAmount) / 100
-    //
-    //   if (val === '') {
-    //     this.welfareUseNum = ''
-    //   } else if (!/^\d+(\.{0,1}\d{0,2})$/.test(val)) {
-    //     // 不合法的数字，重置
-    //     input.value = this.welfareUseNum
-    //   } else if (/^\d+\.$/.test(val)) {
-    //     // 小数点结尾，认为未输入完成
-    //   } else if (Number(val) > maxNum) {
-    //     // 大于最大值
-    //     input.value = maxNum
-    //     this.welfareUseNum = maxNum
-    //   } else {
-    //     this.welfareUseNum = val
-    //     input.value = this.welfareUseNum
-    //   }
-    // },
-
-    // checkInputWelfare(e) {
-    //   const val = e.target.value
-    //   const input = this.$refs.welfareInput
-    //   if (val.trim() === '') {
-    //     this.welfareUseNum = 0
-    //     input.value = 0
-    //   } else if (/^\d+\.$/.test(val)) {
-    //     input.value = this.welfareUseNum
-    //   }
-    // },
-
     openApproveDetail(item) {
       if (window.AppInfo && window.AppInfo.data && window.AppInfo.data.approveUrl) {
         utils.openUrl(`${window.AppInfo.data.approveUrl}#/detail/${item.id}`)
@@ -923,10 +819,6 @@ export default {
         this.$emit('open-approve', `#/detail/${item.id}`, item)
       }
     },
-
-    // setCustomReason(val) {
-    //   this.currentOverStandReason = { id: -1, name: decodeURIComponent(val) }
-    // },
 
     isCurrentItem(item, scope, title = true) {
       return {
