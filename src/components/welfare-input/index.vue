@@ -137,7 +137,7 @@ export default {
     return {
       welfareUseNum: '',
       caidouUseNum: '',
-
+      caidouRate: 0,
       caidouMaxUseNum: 0,
       welfareMaxUseNum: this.totalMoney
     }
@@ -200,7 +200,7 @@ export default {
 
     setMaxUseNum() {
       this.welfareMaxUseNum = this.totalMoney
-      this.caidouMaxUseNum = this.totalMoney * this.caidouRate
+      this.caidouMaxUseNum = this.totalMoney * this.caidouRate / 100
     },
 
     setNum(welfare = this.maxNumWelfare, caidou = this.maxNumCaidou) {
