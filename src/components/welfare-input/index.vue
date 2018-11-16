@@ -182,6 +182,8 @@ export default {
   methods: {
     getCaidouRate() {
       if (!this.restAmountCaidou) {
+        this.setMaxUseNum()
+        this.setNum()
         return Promise.resolve()
       }
       return http.get('urlRate', {
