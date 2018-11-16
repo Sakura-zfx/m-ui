@@ -200,7 +200,7 @@ export default {
 
     setMaxUseNum() {
       this.welfareMaxUseNum = this.totalMoney
-      this.caidouMaxUseNum = this.totalMoney * this.caidouRate / 100
+      this.caidouMaxUseNum = Math.ceil(this.totalMoney * this.caidouRate / 100)
     },
 
     setNum(welfare = this.maxNumWelfare, caidou = this.maxNumCaidou) {

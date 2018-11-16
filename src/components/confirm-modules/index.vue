@@ -868,8 +868,8 @@ export default {
         bill: this.billCurrent,
         billList: this.billList,
         approve: this.approveCurrent,
-        isUseWelfare: this.isOpenWelfare,
         // 兼容老版本
+        isUseWelfare: this.isOpenWelfare,
         welfare: { restAmount: this.welfare.restAmountWelfare },
         isOverStand: this.isOverStand,
         ...(this.$refs.welfareInput ? this.$refs.welfareInput.getData() : {}),
