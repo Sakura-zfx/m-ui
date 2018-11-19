@@ -3,7 +3,7 @@ import qs from 'qs'
 // import MyError from '../../utils/customError.js'
 
 // const local = !/s/.test(location.protocol)
-const local = /\.net/.test(location.origin) || /808/.test(location.port)
+const local = /808/.test(location.port)
 
 const search = (() => {
   const lSearch = location.search
