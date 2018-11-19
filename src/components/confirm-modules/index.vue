@@ -261,7 +261,7 @@
       <p v-if="hasWelfareModule && isOpenWelfare && welfareLocalNum">
         <span class="ib-middle">积分抵扣</span>
         <span class="color-c999 fr" v-if="welfareLocalNum">
-          - ¥ {{ welfareLocalNum | formatPrice }}({{ Number(welfareLocalNum / 100).toFixed(0) }}积分)
+          - ¥ {{ welfareLocalNum | formatPrice }}({{ welfareLocalNum | formatPrice }}积分)
         </span>
       </p>
       <p v-if="hasWelfareModule && isOpenCaidou && caidouLocalNum">
@@ -805,7 +805,7 @@ export default {
         approve: this.approveCurrent,
         // 兼容老版本
         isUseWelfare: this.isOpenWelfare,
-        welfare: { restAmount: this.welfare.restAmountWelfare },
+        welfare: { restAmount: this.welfare && this.welfare.restAmountWelfare },
         isOverStand: this.isOverStand,
         ...(this.$refs.welfareInput ? this.$refs.welfareInput.getData() : {}),
         overStandReason: this.$refs.overStand && this.$refs.overStand.getData()

@@ -241,7 +241,7 @@ export default {
       return http.get('urlRate', {
         bizType: this.bizType,
         appType: this.appType,
-        integralType: 1
+        integralType: 2 // 积分类型（1积分，2彩豆）
       }).then(res => {
         this.caidouRate = res.data.businessRate
         this.setMaxUseNum()
