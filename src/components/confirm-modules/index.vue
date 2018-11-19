@@ -488,7 +488,7 @@ export default {
 
     totalMoney(val) {
       // 更新最大数量
-      this.$refs.welfareInput.setMaxUseNum(val)
+      this.$refs.welfareInput && this.$refs.welfareInput.setMaxUseNum(val)
     },
 
     approveCurrent(val) {
