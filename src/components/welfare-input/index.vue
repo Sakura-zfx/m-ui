@@ -2,11 +2,13 @@
   <div class="welfare-input">
     <div class="welfare">
       <div class="custom__cell bg-fff m-bd-b">
-        <m-switch
-          class="fr"
+        <checkbox
           v-if="restAmountWelfare"
           :value="isOpenWelfare"
+          :check-icon="'icon-quanxuan'"
+          :checked-icon="'icon-quanxuancopy'"
           :main-color="mainColor"
+          class="fr"
           @change="val => onChangeOpen(val, 'welfare')"
         />
         <div class="ib-top px-width-60 position-r color-c666">
@@ -48,10 +50,12 @@
     </div>
     <div class="cai-dou" v-if="restAmountCaidou">
       <div class="custom__cell bg-fff m-bd-b">
-        <m-switch
-          class="fr"
+        <checkbox
           :value="isOpenCaidou"
+          :check-icon="'icon-quanxuan'"
+          :checked-icon="'icon-quanxuancopy'"
           :main-color="mainColor"
+          class="fr"
           @change="val => onChangeOpen(val, 'caidou')"
         />
         <div class="ib-top px-width-60 position-r color-c666">彩豆</div>
@@ -90,13 +94,14 @@
 </template>
 
 <script>
-import MSwitch from '../switch/index'
+// import MSwitch from '../switch/index'
+import Checkbox from '../checkbox/index'
 import CommonSelect from '../common-select/index'
 import Cell from '../cell/index'
 import utils from '../../utils/utils'
 import MInput from '../m-input/index'
 import Msgbox from '../msgbox/index'
-import Toast from '../toast/index'
+// import Toast from '../toast/index'
 import Http from '../http'
 
 const http = new Http({
@@ -108,7 +113,7 @@ const http = new Http({
 
 export default {
   components: {
-    MSwitch,
+    Checkbox,
     CommonSelect,
     Cell,
     MInput
@@ -122,12 +127,19 @@ export default {
 
   props: {
     mainColor: String,
-    restAmountWelfare: Number,
-    restAmountCaidou: Number,
+    // restAmountWelfare: Number,
+    // restAmountCaidou: Number,
     isOpenWelfare: Boolean,
     isOpenCaidou: Boolean,
-    payWayId: Number,
-    totalMoney: Number,
+    payWayId: {
+      type: Number,
+      required: true
+    },
+    subPayWayId: Number,
+    totalMoney: {
+      type: Number,
+      required: true
+    },
     bizType: [Number, String],
     appType: Number
   },
@@ -154,6 +166,14 @@ export default {
       return /\d+/.test(this.caidouMaxUseNum)
         ? Math.min(this.caidouMaxUseNum, this.restAmountCaidou)
         : this.restAmountCaidou
+    },
+
+    restAmountWelfare() {
+      return this.welfareData && this.welfareData.restAmountWelfare
+    },
+
+    restAmountCaidou() {
+      return this.welfareData && this.welfareData.restAmountCaidou
     }
   },
 
@@ -265,18 +285,13 @@ export default {
       const isCaidou = type === 'caidou'
 
       if (this.payWayId === 3) {
-        if (
-          (isWelfare && val && this.isOpenCaidou) ||
-          (isCaidou && val && this.isOpenWelfare)
-        ) {
-          Toast('彩豆与积分不支持同时使用')
-          return
+        if (isWelfare && val && this.isOpenCaidou) {
+          // 关闭彩豆
+          this.$emit('change-open-caidou', false)
+        } else if (isCaidou && val && this.isOpenWelfare) {
+          // 关闭积分
+          this.$emit('change-open-welfare', false)
         }
-        // if (!val) {
-        //   // 切换开关时，重置数量为0
-        //   isCaidou && (this.caidouUseNum = 0)
-        //   isWelfare && (this.welfareUseNum = 0)
-        // }
         this.$emit(`change-open-${type}`, val)
       } else {
         this.$emit('change-open-welfare-error')
@@ -325,17 +340,29 @@ export default {
 </script>
 
 <style lang="stylus">
-  .custom__cell
-    padding: 15px 10px;
-    .radio
-      margin-top: -5px;
-
-  .welfare__input
-    input
-      width: 100px;
-      height: 26px;
-      border-radius: 2px;
-      text-align: center;
-      line-height: normal;
-      -webkit-appearance: none;
+  .welfare-input
+    .m-bd-b:before
+      border-color: #e5e5e5;
+    .color-red
+      color: red
+    .custom__cell
+      padding: 15px 10px;
+      .radio
+        margin-top: -5px;
+    .welfare__tag
+      top: -10px;
+      right: -5px;
+    .welfare__info
+      width: 60vw;
+      @media screen and (max-width: 320px)
+        width: 55vw;
+      word-break: break-all;
+    .welfare__input
+      input
+        width: 100px;
+        height: 26px;
+        border-radius: 2px;
+        text-align: center;
+        line-height: normal;
+        -webkit-appearance: none;
 </style>

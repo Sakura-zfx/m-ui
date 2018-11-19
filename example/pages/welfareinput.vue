@@ -2,11 +2,10 @@
   <common-entry title="积分输入">
     <div class="mg--10">
       <welfare-input
-        :rest-amount-welfare="1000"
-        :rest-amount-caidou="1000"
         :is-open-welfare="openWelfare"
         :is-open-caidou="openCaidou"
         :pay-way-id="3"
+        :total-money="1111"
         @welfare-num-change="changeNum"
         @change-open-welfare="val => openWelfare = val"
         @change-open-caidou="val => openCaidou = val"
@@ -28,10 +27,8 @@
         isOpenCaidou: Boolean,
         // 支付方式Id
         payWayId: Number,
-        // 最大彩豆数量
-        caidouMaxUseNum: Number,
-        // 最大积分数量
-        welfareMaxUseNum: Number
+        // 总金额
+        totalMoney: Number
       }
     </pre>
     <p>events</p>

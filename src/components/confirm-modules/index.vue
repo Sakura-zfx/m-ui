@@ -14,7 +14,7 @@
       v-if="config === null"
       class="text-center color-c999 px-padding-tb50"
     >
-      模块加载中...
+      支付信息加载中...
     </p>
 
     <cell
@@ -209,9 +209,8 @@
 
     <template v-if="hasWelfareModule">
       <welfare-input
+        v-if="payWay"
         ref="welfareInput"
-        :rest-amount-welfare="welfare && welfare.restAmountWelfare"
-        :rest-amount-caidou="welfare && welfare.restAmountCaidou"
         :is-open-welfare="isOpenWelfare"
         :is-open-caidou="isOpenCaidou"
         :pay-way-id="payWay && payWay.id"
@@ -421,8 +420,9 @@ export default {
 
     hasWelfareModule() {
       return this.config
-        ? this.config.indexOf(11) > -1 &&
-          (this.isPurchase || (!this.isPurchase && this.payWay && this.payWay.id === 3))
+        // ? this.config.indexOf(11) > -1 &&
+        //   (this.isPurchase || (!this.isPurchase && this.payWay && this.payWay.id === 3))
+        ? this.config.indexOf(11) > -1 && this.payWay && this.payWay.id === 3
         : false
     },
 
@@ -849,23 +849,8 @@ export default {
     .m-bd-b:before {
       border-color: #e5e5e5;
     }
-    .confirm-modules__item {
-      line-height: 45px;
-      padding: 0 10px;
-    }
     .color-red {
       color: red;
-    }
-    .welfare__tag {
-      top: -10px;
-      right: -5px;
-    }
-    .welfare__info {
-      width: 60vw;
-      @media screen and (max-width: 320px) {
-        width: 55vw;
-      }
-      word-break: break-all;
     }
     .custom__cell {
       padding: 15px 10px;
