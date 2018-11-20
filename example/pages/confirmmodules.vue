@@ -19,7 +19,7 @@
         :total-money="totalMoney"
         :is-show-approve-cell="true"
         :is-over-stand="true"
-        :travel-type="0"
+        :travel-type="1"
         :service-rate="0.01"
         :scope-type="3"
         @select-approve="item => selectApprove = item"

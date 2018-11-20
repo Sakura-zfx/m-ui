@@ -105,11 +105,11 @@ import Msgbox from '../msgbox/index'
 import Http from '../http'
 
 const http = new Http({
+  // baseURL: '//app.e.uban360.net',
   uri: {
     urlWelfare: '/welfare/mall/user/accountTwo',
     urlRate: '/config/rateConfig/getIntegralRate'
-  },
-  baseURL: '//app.e.uban360.net'
+  }
 })
 
 export default {
@@ -176,10 +176,6 @@ export default {
     }
   },
 
-  created() {
-    this.init()
-  },
-
   watch: {
     welfareUseNum(num) {
       // 通知业务num变化
@@ -188,14 +184,6 @@ export default {
     caidouUseNum(num) {
       this.$emit('caidou-num-change', num ? Number(num) : 0)
     },
-    welfareMaxUseNum(val) {
-      // 更新最大输入
-      this.setNum(val)
-    },
-    caidouMaxUseNum(val) {
-      // 更新最大输入
-      this.setNum(undefined, val)
-    },
     payWayId(val) {
       if (!this.welfareData) {
         this.init()
@@ -203,20 +191,30 @@ export default {
         console.log('welfare data 存在')  // eslint-disable-line
       }
     },
-    welfareData(val) {
-      this.$emit('welfare-data-change', val)
+    welfareData(val, oldVal) {
+      this.$emit('welfare-data-change', val, !oldVal)
+    },
+    // 初始化时，彩豆开关是关闭的；
+    // 当获取彩豆将开关打开后再决定要不要拉取彩豆费率
+    isOpenCaidou() {
+      this.getCaidouRate()
     }
+  },
+
+  created() {
+    this.init()
   },
 
   methods: {
     init() {
       // console.log('this.payWayId', this.payWayId)
-      this.getWelfare().then(() => {
-        this.getCaidouRate()
-      })
+      this.getWelfare()
+      // .then(() => {
+      //   this.getCaidouRate()
+      // })
     },
 
-    getWelfare() {
+    getWelfare(needSetNum = true) {
       if (this.payWayId !== 3) {
         return Promise.reject() // eslint-disable-line
       }
@@ -230,15 +228,20 @@ export default {
         const restAmountCaidou = res.value.find(x => x.integralType === 2).restAmount
         this.welfareData = {
           restAmountWelfare: restAmountWelfare > 0 ? restAmountWelfare : 0,
-          restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 1000
+          restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 0
         }
+
+        if (needSetNum) {
+          this.setWelfareNum()
+        }
+
         return this.welfareData
       })
     },
 
     getCaidouRate() {
       if (!this.isOpenCaidou) {
-        console.log('isOpenCaidou is false')
+        // console.log('isOpenCaidou is false')
         return Promise.reject() // eslint-disable-line
       }
 
@@ -246,8 +249,7 @@ export default {
         this.welfareData &&
         !this.welfareData.restAmountCaidou
       ) {
-        this.setMaxUseNum()
-        this.setNum()
+        this.setCaidouNum()
         return Promise.resolve()
       }
 
@@ -259,20 +261,40 @@ export default {
         integralType: 2 // 积分类型（1积分，2彩豆）
       }).then(res => {
         this.caidouRate = res.data.businessRate
-        this.setMaxUseNum()
-        this.setNum()
+        this.setCaidouNum()
         return ''
       })
     },
 
-    setMaxUseNum(totalMoney = this.totalMoney) {
-      this.welfareMaxUseNum = totalMoney
-      this.caidouMaxUseNum = Math.ceil(totalMoney * this.caidouRate / 100)
+    setWelfareNum(totalMoney = this.totalMoney, force) {
+      // 当总金额变化时，强制更新
+      if (
+        this.welfareUseNum > this.maxNumWelfare ||
+        !this.welfareUseNum ||
+        force
+      ) {
+        this.welfareMaxUseNum = totalMoney
+        this.$nextTick(() => {
+          this.welfareUseNum = this.maxNumWelfare
+        })
+      } else {
+        console.log('welfareUseNum 小于 maxNumWelfare，不更新输入') // eslint-disable-line
+      }
     },
 
-    setNum(welfare = this.maxNumWelfare, caidou = this.maxNumCaidou) {
-      this.welfareUseNum = welfare
-      this.caidouUseNum = caidou
+    setCaidouNum(totalMoney = this.totalMoney, force) {
+      if (
+        this.caidouUseNum > this.maxNumCaidou ||
+        !this.caidouUseNum ||
+        force
+      ) {
+        this.caidouMaxUseNum = Math.ceil(totalMoney * this.caidouRate / 100)
+        this.$nextTick(() => {
+          this.caidouUseNum = this.maxNumCaidou
+        })
+      } else {
+        console.log('caidouUseNum 小于 maxNumCaidou，不更新输入') // eslint-disable-line
+      }
     },
 
     resetNum() {

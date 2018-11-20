@@ -288,14 +288,13 @@ import Msgbox from '../msgbox'
 import OverTand from '../over-stand'
 
 const http = new Http({
+  // baseURL: '//app.e.uban360.net',
   uri: {
     urlPurchaseScope: '/mc/order/checkScopeDetail',
     urlTravelScope: '/gateway/common/payAuth',
     urlConfig: '/gateway/buycenter/module/getModuleList',
     urlApprove: '/gateway/buycenter/approve/getList',
     urlBill: '/gateway/buycenter/invoice/getList'
-    // urlWelfare: '/welfare/mall/user/accountTwo',
-    // urlRate: '/config/rateConfig/getIntegralRate'
   }
 })
 
@@ -488,7 +487,11 @@ export default {
 
     totalMoney(val) {
       // 更新最大数量
-      this.$refs.welfareInput && this.$refs.welfareInput.setMaxUseNum(val)
+      const { welfareInput } = this.$refs
+      if (welfareInput) {
+        welfareInput.setWelfareNum(val, true)
+        welfareInput.setCaidouNum(val, true)
+      }
     },
 
     approveCurrent(val) {
@@ -607,9 +610,11 @@ export default {
       })
     },
 
-    onWelfareDataChange(data) {
+    onWelfareDataChange(data, isFirst) {
       this.welfare = data
-      this.initWelfare()
+      if (isFirst) {
+        this.initWelfare()
+      }
     },
 
     initPay() {
@@ -740,8 +745,11 @@ export default {
 
     // 暴露给外部重置调用
     reInitWelfare() {
-      this.$refs.welfareInput.resetNum()
-      this.$refs.welfareInput.init()
+      const { welfareInput } = this.$refs
+      welfareInput.resetNum()
+      welfareInput.getWelfare().then(() => {
+        welfareInput.getCaidouRate()
+      })
     },
 
     toSelectBill() {
