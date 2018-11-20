@@ -6,6 +6,8 @@
         :is-open-caidou="openCaidou"
         :pay-way-id="3"
         :total-money="1111"
+        biz-type="144"
+        :app-type="1"
         @welfare-num-change="changeNum"
         @change-open-welfare="val => openWelfare = val"
         @change-open-caidou="val => openCaidou = val"

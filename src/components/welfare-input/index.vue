@@ -108,7 +108,8 @@ const http = new Http({
   uri: {
     urlWelfare: '/welfare/mall/user/accountTwo',
     urlRate: '/config/rateConfig/getIntegralRate'
-  }
+  },
+  baseURL: '//app.e.uban360.net'
 })
 
 export default {
@@ -127,8 +128,6 @@ export default {
 
   props: {
     mainColor: String,
-    // restAmountWelfare: Number,
-    // restAmountCaidou: Number,
     isOpenWelfare: Boolean,
     isOpenCaidou: Boolean,
     payWayId: {
@@ -222,22 +221,38 @@ export default {
         return Promise.reject() // eslint-disable-line
       }
       return http.get('urlWelfare').then(res => {
+      // const mock = {
+      //   value: [{ integralType: 1, restAmount: 1000 }, { integralType: 2, restAmount: 2000 }]
+      // }
+      // console.log('getWelfare')
+      // return Promise.resolve(mock).then(res => {
         const restAmountWelfare = res.value.find(x => x.integralType === 1).restAmount
         const restAmountCaidou = res.value.find(x => x.integralType === 2).restAmount
         this.welfareData = {
           restAmountWelfare: restAmountWelfare > 0 ? restAmountWelfare : 0,
-          restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 0
+          restAmountCaidou: restAmountCaidou > 0 ? restAmountCaidou : 1000
         }
         return this.welfareData
       })
     },
 
     getCaidouRate() {
-      if (this.welfareData && !this.welfareData.restAmountCaidou) {
+      if (!this.isOpenCaidou) {
+        console.log('isOpenCaidou is false')
+        return Promise.reject() // eslint-disable-line
+      }
+
+      if (
+        this.welfareData &&
+        !this.welfareData.restAmountCaidou
+      ) {
         this.setMaxUseNum()
         this.setNum()
         return Promise.resolve()
       }
+
+      // console.log('getCaidouRate')
+      // return Promise.resolve({ data: { businessRate: 80 } })
       return http.get('urlRate', {
         bizType: this.bizType,
         appType: this.appType,
@@ -293,6 +308,7 @@ export default {
           this.$emit('change-open-welfare', false)
         }
         this.$emit(`change-open-${type}`, val)
+        this.init()
       } else {
         this.$emit('change-open-welfare-error')
       }
@@ -325,14 +341,26 @@ export default {
 
     onClickCaidouInfo() {
       const h = this.$createElement
-      Msgbox.alert({
+      Msgbox.confirm({
         title: '彩豆使用规则',
         msg: h('div', null, [
           h('p', { class: 'text-left' }, '1.彩豆可用于福利商城的京东商城、中粮我买网、大众点评、美团外卖、手机充值、油卡充值、卡券、酒店、火车票服务中下单抵扣使用'),
           h('p', { class: 'text-left' }, '2.100彩豆可抵扣1.00元，每次最多抵扣订单金额的80%'),
           h('p', { class: 'text-left' }, '3.彩豆抵扣的部分金额不开具发票')
         ]),
-        okTxt: '我知道了'
+        okTxt: '了解详情',
+        cancelTxt: '我知道了'
+      }).then(() => {
+        try {
+          // eslint-disable-next-line
+          JSBridge.native('openurl', {
+            noDefaultMenu: 1,
+            url: 'https://note.api.jituancaiyun.com/u-h5/show/index.html?name=ydcy-cdsm2-cy&dadian=\n'
+          })
+        } catch (e) {
+          // eslint-disable-next-line
+          console.error(e)
+        }
       })
     }
   }
