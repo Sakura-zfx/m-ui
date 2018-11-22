@@ -30,7 +30,9 @@
         // 支付方式Id
         payWayId: Number,
         // 总金额
-        totalMoney: Number
+        totalMoney: Number,
+        // 积分与彩豆二选一，默认0，1 积分，2彩豆
+        stableWay: Number
       }
     </pre>
     <p>events</p>
@@ -43,7 +45,8 @@
     <p>methods</p>
     <pre>
       // 重置数量为最大
-      $refs.module.setNum()
+      $refs.module.setWelfareNum()
+      $refs.module.setCaidouNum()
       // 重置数量为0
       $refs.module.resetNum()
       // 获取data

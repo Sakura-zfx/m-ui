@@ -106,7 +106,7 @@ export default {
 
     format(e) {
       if (!this.isText && !this.isInt) {
-        this.$emit('input', Number(e.target.value).toFixed(this.fixed))
+        this.$emit('input', Number(Number(e.target.value).toFixed(this.fixed)))
       } else if (this.isInt) {
         this.$emit('input', Number(e.target.value))
       }

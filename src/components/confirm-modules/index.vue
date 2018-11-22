@@ -288,7 +288,7 @@ import Msgbox from '../msgbox'
 import OverTand from '../over-stand'
 
 const http = new Http({
-  // baseURL: '//app.e.uban360.net',
+  baseURL: location.port === '8071' ? '//app.e.uban360.net' : '',
   uri: {
     urlPurchaseScope: '/mc/order/checkScopeDetail',
     urlTravelScope: '/gateway/common/payAuth',

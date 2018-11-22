@@ -1,6 +1,6 @@
 <template>
   <div class="welfare-input">
-    <div class="welfare">
+    <div class="welfare" v-if="stableWay !== 2">
       <div class="custom__cell bg-fff m-bd-b">
         <checkbox
           v-if="restAmountWelfare"
@@ -48,7 +48,7 @@
         </div>
       </cell>
     </div>
-    <div class="cai-dou" v-if="restAmountCaidou">
+    <div class="cai-dou" v-if="restAmountCaidou && stableWay !== 1">
       <div class="custom__cell bg-fff m-bd-b">
         <checkbox
           :value="isOpenCaidou"
@@ -105,7 +105,7 @@ import Msgbox from '../msgbox/index'
 import Http from '../http'
 
 const http = new Http({
-  // baseURL: '//app.e.uban360.net',
+  baseURL: location.port === '8071' ? '//app.e.uban360.net' : '',
   uri: {
     urlWelfare: '/welfare/mall/user/accountTwo',
     urlRate: '/config/rateConfig/getIntegralRate'
@@ -140,7 +140,15 @@ export default {
       required: true
     },
     bizType: [Number, String],
-    appType: Number
+    appType: Number,
+    // 固定的支付方式
+    // 0 彩豆和积分同时支持
+    // 1 只允许积分
+    // 2 只允许彩豆
+    stableWay: {
+      type: Number,
+      default: 0
+    }
   },
 
   data() {
@@ -202,15 +210,16 @@ export default {
   },
 
   created() {
-    this.init()
+    this.init().then(() => {
+      this.getCaidouRate()
+    })
   },
 
   methods: {
     init() {
       // console.log('this.payWayId', this.payWayId)
-      this.getWelfare()
+      return this.getWelfare()
       // .then(() => {
-      //   this.getCaidouRate()
       // })
     },
 
@@ -288,7 +297,7 @@ export default {
         !this.caidouUseNum ||
         force
       ) {
-        this.caidouMaxUseNum = Math.ceil(totalMoney * this.caidouRate / 100)
+        this.caidouMaxUseNum = Math.floor(totalMoney * this.caidouRate / 100)
         this.$nextTick(() => {
           this.caidouUseNum = this.maxNumCaidou
         })
@@ -368,7 +377,8 @@ export default {
         msg: h('div', null, [
           h('p', { class: 'text-left' }, '1.彩豆可用于福利商城的京东商城、中粮我买网、大众点评、美团外卖、手机充值、油卡充值、卡券、酒店、火车票服务中下单抵扣使用'),
           h('p', { class: 'text-left' }, '2.100彩豆可抵扣1.00元，每次最多抵扣订单金额的80%'),
-          h('p', { class: 'text-left' }, '3.彩豆抵扣的部分金额不开具发票')
+          h('p', { class: 'text-left' }, '3.彩豆抵扣的部分金额不开具发票'),
+          h('p', { class: 'text-left' }, '4.彩豆不可与福利积分同时使用')
         ]),
         okTxt: '了解详情',
         cancelTxt: '我知道了'
@@ -377,7 +387,7 @@ export default {
           // eslint-disable-next-line
           JSBridge.native('openurl', {
             noDefaultMenu: 1,
-            url: 'https://note.api.jituancaiyun.com/u-h5/show/index.html?name=ydcy-cdsm2-cy&dadian=\n'
+            url: 'https://note.api.jituancaiyun.com/u-h5/show/index.html?name=ydcy-cdsm2-cy&dadian='
           })
         } catch (e) {
           // eslint-disable-next-line
