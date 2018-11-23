@@ -275,35 +275,43 @@ export default {
       })
     },
 
-    setWelfareNum(totalMoney = this.totalMoney, force) {
+    setWelfareNum(totalMoney = this.totalMoney) {
+      this.welfareMaxUseNum = totalMoney
+      this.$nextTick(() => {
+        this.welfareUseNum = this.maxNumWelfare
+      })
       // 当总金额变化时，强制更新
-      if (
-        this.welfareUseNum > this.maxNumWelfare ||
-        !this.welfareUseNum ||
-        force
-      ) {
-        this.welfareMaxUseNum = totalMoney
-        this.$nextTick(() => {
-          this.welfareUseNum = this.maxNumWelfare
-        })
-      } else {
-        console.log('welfareUseNum 小于 maxNumWelfare，不更新输入') // eslint-disable-line
-      }
+      // if (
+      //   this.welfareUseNum > this.maxNumWelfare ||
+      //   !this.welfareUseNum ||
+      //   force
+      // ) {
+      //   this.welfareMaxUseNum = totalMoney
+      //   this.$nextTick(() => {
+      //     this.welfareUseNum = this.maxNumWelfare
+      //   })
+      // } else {
+      //   console.log('welfareUseNum 小于 maxNumWelfare，不更新输入') // eslint-disable-line
+      // }
     },
 
-    setCaidouNum(totalMoney = this.totalMoney, force) {
-      if (
-        this.caidouUseNum > this.maxNumCaidou ||
-        !this.caidouUseNum ||
-        force
-      ) {
-        this.caidouMaxUseNum = Math.floor(totalMoney * this.caidouRate / 100)
-        this.$nextTick(() => {
-          this.caidouUseNum = this.maxNumCaidou
-        })
-      } else {
-        console.log('caidouUseNum 小于 maxNumCaidou，不更新输入') // eslint-disable-line
-      }
+    setCaidouNum(totalMoney = this.totalMoney) {
+      this.caidouMaxUseNum = Math.floor(totalMoney * this.caidouRate / 100)
+      this.$nextTick(() => {
+        this.caidouUseNum = this.maxNumCaidou
+      })
+      // if (
+      //   this.caidouUseNum > this.maxNumCaidou ||
+      //   !this.caidouUseNum ||
+      //   force
+      // ) {
+      //   this.caidouMaxUseNum = Math.floor(totalMoney * this.caidouRate / 100)
+      //   this.$nextTick(() => {
+      //     this.caidouUseNum = this.maxNumCaidou
+      //   })
+      // } else {
+      //   console.log('caidouUseNum 小于 maxNumCaidou，不更新输入') // eslint-disable-line
+      // }
     },
 
     resetNum() {
