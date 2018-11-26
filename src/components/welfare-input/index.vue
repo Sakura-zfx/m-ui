@@ -140,6 +140,7 @@ export default {
       required: true
     },
     bizType: [Number, String],
+    subBizType: [Number, String],
     appType: Number,
     // 固定的支付方式
     // 0 彩豆和积分同时支持
@@ -266,6 +267,7 @@ export default {
       // return Promise.resolve({ data: { businessRate: 80 } })
       return http.get('urlRate', {
         bizType: this.bizType,
+        subBizType: this.subBizType,
         appType: this.appType,
         integralType: 2 // 积分类型（1积分，2彩豆）
       }).then(res => {

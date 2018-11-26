@@ -217,6 +217,7 @@
         :total-money="totalMoney"
         :main-color="mainColor"
         :biz-type="bizType"
+        :sub-biz-type="subBizType"
         :app-type="appType"
         @change-open-welfare="val => changeOpen(val, 'welfare')"
         @change-open-caidou="val => changeOpen(val, 'caidou')"
@@ -322,6 +323,7 @@ export default {
       type: [Number, String],
       required: true
     },
+    subBizType: [Number, String],
     appType: {
       type: Number,
       required: true
