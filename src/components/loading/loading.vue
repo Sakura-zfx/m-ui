@@ -1,5 +1,5 @@
 <template>
-  <transition name="loading">
+  <transition name="loading" @after-leave="text = ''">
     <div
       v-show="visible"
       class="m-loading__wrap"
@@ -10,7 +10,7 @@
         <svg class="circular" viewBox="25 25 50 50">
           <circle class="path" cx="50" cy="50" r="20" fill="none"/>
         </svg>
-        <!--<p v-show="text" class="el-loading-text">{{ text }}</p>-->
+        <p v-show="text" class="el-loading-text">{{ text }}</p>
       </div>
     </div>
   </transition>
@@ -20,17 +20,17 @@
 export default {
   data () {
     return {
-      text: null,
+      text: '',
       visible: false,
       customClass: ''
     }
   },
   methods: {
-    // setText (text) {
-    //   this.text = text
-    // }
-    open() {
+    open(text) {
       this.visible = true
+      if (typeof text === 'string') {
+        this.text = text
+      }
     },
     close() {
       this.visible = false

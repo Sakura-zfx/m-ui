@@ -8,7 +8,9 @@
         :total-money="1111"
         biz-type="144"
         :app-type="1"
+        :stable-way="1"
         @welfare-num-change="changeNum"
+        @caidou-num-change="val => caidouUseNum = val"
         @change-open-welfare="val => openWelfare = val"
         @change-open-caidou="val => openCaidou = val"
         @change-open-welfare-error="changeError"
@@ -65,13 +67,22 @@ export default {
   data() {
     return {
       openWelfare: false,
-      openCaidou: true
+      openCaidou: true,
+
+      caidouUseNum: 0,
+      welfareUseNum: 0
     }
   },
 
   components: {
     CommonEntry,
     WelfareInput
+  },
+
+  watch: {
+    caidouUseNum(val) {
+      console.log(val)
+    }
   },
 
   methods: {
