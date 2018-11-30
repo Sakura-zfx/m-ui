@@ -1,6 +1,7 @@
 // This file is auto gererated by build/bin/build-entry.js
 // import 'weui/dist/style/weui.min.css'
 // import '../src/style/component.scss'
+import WordLine from './components/WordLine'
 import AddressSelect from './components/address-select'
 import ApproveSelect from './components/approve-select'
 import ApproveSelect2 from './components/approve-select-2'
@@ -49,6 +50,7 @@ import WelfareInput from './components/welfare-input'
 
 const version = '1.0.148'
 const components = [
+  WordLine,
   AddressSelect,
   ApproveSelect,
   ApproveSelect2,

@@ -122,7 +122,9 @@ export default class Http {
       this.showLoading()
     }
     let reqData
-    if (this.options.postDataStringifyType === 'qs') {
+    if (/json/.test(this.options.contentType)) {
+      reqData = data
+    } else if (this.options.postDataStringifyType === 'qs') {
       reqData = qs.stringify(data, { arrayFormat: this.options.arrayFormat })
     } else {
       reqData = JSON.stringify(data)
