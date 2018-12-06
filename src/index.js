@@ -1,7 +1,6 @@
 // This file is auto gererated by build/bin/build-entry.js
 // import 'weui/dist/style/weui.min.css'
 // import '../src/style/component.scss'
-import WordLine from './components/WordLine'
 import AddressSelect from './components/address-select'
 import ApproveSelect from './components/approve-select'
 import ApproveSelect2 from './components/approve-select-2'
@@ -47,10 +46,10 @@ import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
 import WelfareInput from './components/welfare-input'
+import WordLine from './components/word-line'
 
 const version = '1.0.149'
 const components = [
-  WordLine,
   AddressSelect,
   ApproveSelect,
   ApproveSelect2,
@@ -95,7 +94,8 @@ const components = [
   Toast,
   TravelPanel,
   UserPanel,
-  WelfareInput
+  WelfareInput,
+  WordLine
 ]
 
 const install = (Vue, config = {}) => {
