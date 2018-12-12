@@ -91,6 +91,15 @@ export default class Http {
     return source
   }
 
+  deletePrivateField(data) {
+    if (data.loading !== undefined) {
+      delete data.loading
+    }
+    if (data.toast !== undefined) {
+      delete data.toast
+    }
+  }
+
   get(uriName, data = {}) {
     if (!this.instance) {
       this.init()
@@ -109,6 +118,7 @@ export default class Http {
       this.showLoading()
     }
 
+    this.deletePrivateField(data)
     return this.instance.get(path, {
       params: data,
       cancelToken: this.genCancelSource().token
@@ -129,7 +139,7 @@ export default class Http {
     } else {
       reqData = JSON.stringify(data)
     }
-
+    this.deletePrivateField(reqData)
     return this.instance.post(
       this.options.uri[uriName],
       reqData,
