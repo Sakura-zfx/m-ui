@@ -48,7 +48,7 @@ import UserPanel from './components/user-panel'
 import WelfareInput from './components/welfare-input'
 import WordLine from './components/word-line'
 
-const version = '1.0.151'
+const version = '1.0.152'
 const components = [
   AddressSelect,
   ApproveSelect,
