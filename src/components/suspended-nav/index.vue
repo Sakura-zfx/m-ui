@@ -94,6 +94,7 @@ export default {
   position fixed
   bottom 130px
   right 10px
+  z-index 999
   &__pack
     width 40px
     height 40px
