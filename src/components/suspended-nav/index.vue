@@ -82,7 +82,10 @@ export default {
           this.$router.push(item.path)
         }
       } else {
-        this.redirect(this.$native.openUrl.bind(this.$native), this.customRedirect || this, item.id)
+        const handle = this.customRedirect instanceof Function
+          ? this.customRedirect.bind(this, item.id)
+          : this
+        this.redirect(this.$native.openUrl.bind(this.$native), handle, item.id)
       }
     }
   }
