@@ -29,7 +29,7 @@
 <script>
 // import handle from '@xm/cart-redirect'
 export default {
-  name: 'SuspendedNav',
+  name: 'suspended-nav',
 
   data() {
     return {
