@@ -36,8 +36,8 @@ export default {
       isSpread: false,
 
       packBg: 'https://global.uban360.com/sfs/file?digest=fid24968acd1fb4d6b9ee9dd61f281d88fa&fileType=2',
-      // backTopBg: 'https://global.uban360.com/sfs/file?digest=fidd96b197e8bb731094ed738e7a26f1bd1&fileType=2',
       spreadIcon: 'https://global.uban360.com/sfs/file?digest=fidcc7c2b1d670a681342666424f2d48560&fileType=2',
+      // 1 购物车
       navList: [{
         name: '首页',
         icon: 'icon-shouye2',
@@ -48,7 +48,7 @@ export default {
         name: '搜索',
         icon: 'icon-sousuo1',
         path: '/search',
-        id: 1
+        id: 4
       },
       {
         name: '个人',
@@ -73,8 +73,14 @@ export default {
 
   methods: {
     toIcon(item) {
-      if (item.id === 1) {
-        this.$router.push(item.path)
+      const searchId = this.navList[1].id
+      // 搜索不跟打标走，而是应用自己的
+      if (item.id === searchId) {
+        if (this.customRedirect) {
+          this.customRedirect(searchId)
+        } else {
+          this.$router.push(item.path)
+        }
       } else {
         this.redirect(this.$native.openUrl.bind(this.$native), this.customRedirect || this, item.id)
       }
