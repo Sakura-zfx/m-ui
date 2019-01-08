@@ -60,13 +60,14 @@ export default {
   },
 
   props: {
-    openUrl: {
-      type: Function,
-      required: true
-    },
     redirect: {
       type: Function,
       required: true
+    },
+    // 自定义的路由跳转
+    // 例如商城
+    customRedirect: {
+      type: Function
     }
   },
 
@@ -75,7 +76,7 @@ export default {
       if (item.id === 1) {
         this.$router.push(item.path)
       } else {
-        this.redirect(this.openUrl, this, item.id)
+        this.redirect(this.$native.openUrl.bind(this.$native), this.customRedirect || this, item.id)
       }
     }
   }
