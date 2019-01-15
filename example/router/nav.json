@@ -153,6 +153,11 @@
     "groupTitle": "业务组件",
     "navItems": [
       {
+        "path": "/suspendednav",
+        "name": "SuspendedNav",
+        "description": "[xm-mui] 悬浮导航"
+      },
+      {
         "path": "/hitdot",
         "name": "HitDot",
         "description": "[xm-mui] 打点"

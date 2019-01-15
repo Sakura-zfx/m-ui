@@ -74,8 +74,8 @@ export default {
   methods: {
     toIcon(item) {
       const searchId = this.navList[1].id
-      // 搜索不跟打标走，而是应用自己的
       if (item.id === searchId) {
+        // 搜索不跟打标走，而是应用自己的
         if (this.customRedirect) {
           this.customRedirect(searchId)
         } else {
