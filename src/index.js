@@ -5,6 +5,7 @@ import AddressSelect from './components/address-select'
 import ApproveSelect from './components/approve-select'
 import ApproveSelect2 from './components/approve-select-2'
 import Avatar from './components/avatar'
+import BackTop from './components/back-top'
 import BottomTab from './components/bottom-tab'
 import BottomTabItem from './components/bottom-tab-item'
 import Cell from './components/cell'
@@ -49,12 +50,13 @@ import UserPanel from './components/user-panel'
 import WelfareInput from './components/welfare-input'
 import WordLine from './components/word-line'
 
-const version = '1.0.157'
+const version = '1.0.158'
 const components = [
   AddressSelect,
   ApproveSelect,
   ApproveSelect2,
   Avatar,
+  BackTop,
   BottomTab,
   BottomTabItem,
   Cell,
