@@ -30,6 +30,12 @@ export default {
     }
   },
 
+  computed: {
+    isDiv() {
+      return this.scrollWrap instanceof HTMLDivElement
+    }
+  },
+
   watch: {
     scrollWrap(wrap) {
       this.addEvent(wrap)
@@ -40,10 +46,11 @@ export default {
     this.addEvent(this.scrollWrap)
   },
 
-  beforeDestroy() {
-    if (this.scrollWrap) {
+  destroyed() {
+    const handle = this.isDiv ? this.scrollWrap : window
+    if (handle) {
+      handle.removeEventListener('scroll', this.scrollCallback)
       this.hasEvent = false
-      this.scrollWrap.removeEventListener('scroll', this.scrollCallback)
     }
   },
 
@@ -53,13 +60,17 @@ export default {
     },
 
     scrollCallback (e) {
-      this.show = e.target.scrollTop > this.throttle
+      const scrollTop = this.isDiv
+        ? e.target.scrollTop
+        : e.target.documentElement.scrollTop
+      this.show = scrollTop > this.throttle
     },
 
     addEvent(wrap) {
       if (wrap && !this.hasEvent) {
+        const handle = this.isDiv ? wrap : window
+        handle.addEventListener('scroll', this.scrollCallback, { passive: true })
         this.hasEvent = true
-        wrap.addEventListener('scroll', this.scrollCallback, { passive: true })
       }
     }
   }
