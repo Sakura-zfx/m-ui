@@ -23,7 +23,7 @@ export default {
   },
 
   props: {
-    scrollWrap: HTMLDivElement,
+    scrollWrap: [HTMLDivElement, HTMLHtmlElement, HTMLBodyElement],
     throttle: {
       type: Number,
       default: 1000
