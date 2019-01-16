@@ -38,6 +38,7 @@ import PopupSide from './components/popup-side'
 import Search from './components/search'
 import Sentry from './components/sentry'
 import ShopBar from './components/shop-bar'
+import Sku from './components/sku'
 import SubmitBar from './components/submit-bar'
 import SuspendedNav from './components/suspended-nav'
 import Switch from './components/switch'
@@ -50,7 +51,7 @@ import UserPanel from './components/user-panel'
 import WelfareInput from './components/welfare-input'
 import WordLine from './components/word-line'
 
-const version = '1.0.161'
+const version = '1.0.162'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -89,6 +90,7 @@ const components = [
   Search,
   Sentry,
   ShopBar,
+  Sku,
   SubmitBar,
   SuspendedNav,
   Switch,
