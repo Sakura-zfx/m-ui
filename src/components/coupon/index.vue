@@ -35,11 +35,11 @@
         >
           <item
             v-for="item in list"
-            :key="item.couponId"
+            :key="item.id"
             :detail="item"
             :can-choose="activeTab === 0 && !isOnlyUsable"
             :is-expire="activeTab === 1"
-            :is-selected="selected && selected.couponId === item.couponId"
+            :is-selected="selected && selected.id === item.id"
             @on-click="handleSelect"
           />
         </div>
