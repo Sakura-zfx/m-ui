@@ -271,6 +271,7 @@
           - ¥ {{ caidouLocalNum | formatPrice }}({{ caidouLocalNum }}彩豆)
         </span>
       </p>
+      <slot name="price-detail" />
     </div>
   </div>
 </template>
