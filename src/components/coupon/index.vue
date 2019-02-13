@@ -176,9 +176,7 @@ export default {
     },
 
     noticeOut () {
-      if (this.selected) {
-        this.$emit('change', this.selected)
-      }
+      this.$emit('change', this.selected)
     },
 
     notUse () {

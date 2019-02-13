@@ -1,7 +1,7 @@
 <template>
   <common-entry title="优惠券">
     <coupon
-      :show-type="1"
+      :show-type="2"
       :list-data="[
         {
           bizType: 22,
