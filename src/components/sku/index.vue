@@ -28,7 +28,7 @@
 import util from './util'
 
 export default {
-  name: 'Sku',
+  name: 'sku',
 
   model: {
     prop: 'skuId',

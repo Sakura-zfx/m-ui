@@ -14,6 +14,7 @@ import CitySelect from './components/city-select'
 import CitySelectItem from './components/city-select-item'
 import CommonSelect from './components/common-select'
 import ConfirmModules from './components/confirm-modules'
+import Coupon from './components/coupon'
 import DatePicker from './components/date-picker'
 import DetailTitleBar from './components/detail-title-bar'
 import Empty from './components/empty'
@@ -51,7 +52,7 @@ import UserPanel from './components/user-panel'
 import WelfareInput from './components/welfare-input'
 import WordLine from './components/word-line'
 
-const version = '1.0.162'
+const version = '1.0.163'
 const components = [
   AddressSelect,
   ApproveSelect,
@@ -66,6 +67,7 @@ const components = [
   CitySelectItem,
   CommonSelect,
   ConfirmModules,
+  Coupon,
   DatePicker,
   DetailTitleBar,
   Empty,

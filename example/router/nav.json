@@ -136,12 +136,7 @@
         "path": "pullrefresh",
         "name": "PullRefresh",
         "description": "[vant] 下拉刷新"
-      }
-    ]
-  },
-  {
-    "groupTitle": "导航相关",
-    "navItems": [
+      },
       {
         "path": "/tab",
         "name": "Tab",
@@ -150,13 +145,8 @@
     ]
   },
   {
-    "groupTitle": "业务组件",
+    "groupTitle": "业务组件（通用）",
     "navItems": [
-      {
-        "path": "/suspendednav",
-        "name": "SuspendedNav",
-        "description": "[xm-mui] 悬浮导航"
-      },
       {
         "path": "/hitdot",
         "name": "HitDot",
@@ -166,6 +156,11 @@
         "path": "/sentry",
         "name": "Sentry",
         "description": "[xm-mui] sentry线上错误收集"
+      },
+      {
+        "path": "/approveselect",
+        "name": "ApproveSelect",
+        "description": "[xm-mui] 审批单选择面板"
       },
       {
         "path": "/esc",
@@ -178,19 +173,34 @@
         "description": "[xm-mui] axios请求模块"
       },
       {
-        "path": "/cityselectitem",
-        "name": "CitySelectItem",
-        "description": "[xm-mui] 城市选择类目"
-      },
-      {
-        "path": "/cityselect",
-        "name": "CitySelect",
-        "description": "[xm-mui] 城市选择"
-      },
-      {
         "path": "/empty",
         "name": "Empty",
         "description": "[xm-mui] 空页面"
+      },
+      {
+        "path": "/welfareinput",
+        "name": "WelfareInput",
+        "description": "[xm-mui] 积分输入"
+      },
+      {
+        "path": "/confirmmodules",
+        "name": "ConfirmModules",
+        "description": "[xm-mui] 确认订单模块"
+      },
+      {
+        "path": "/submitbar",
+        "name": "SubmitBar",
+        "description": "[xm-mui] 提交栏"
+      }
+    ]
+  },
+  {
+    "groupTitle": "业务组件（采购）",
+    "navItems": [
+      {
+        "path": "/suspendednav",
+        "name": "SuspendedNav",
+        "description": "[xm-mui] 悬浮导航"
       },
       {
         "path": "/userpanel",
@@ -218,26 +228,6 @@
         "description": "[xm-mui] 地址选择面板"
       },
       {
-        "path": "/approveselect",
-        "name": "ApproveSelect",
-        "description": "[xm-mui] 审批单选择面板"
-      },
-      {
-        "path": "/welfareinput",
-        "name": "WelfareInput",
-        "description": "[xm-mui] 积分输入"
-      },
-      {
-        "path": "/confirmmodules",
-        "name": "ConfirmModules",
-        "description": "[xm-mui] 确认订单模块"
-      },
-      {
-        "path": "/submitbar",
-        "name": "SubmitBar",
-        "description": "[xm-mui] 提交栏"
-      },
-      {
         "path": "/shopbar",
         "name": "Shopbar",
         "description": "[xm-mui] 店铺栏"
@@ -246,6 +236,21 @@
         "path": "/detailtitlebar",
         "name": "Detailtitlebar",
         "description": "[xm-mui] 商品详情标题栏"
+      },
+      {
+        "path": "/cityselectitem",
+        "name": "CitySelectItem",
+        "description": "[xm-mui] 城市选择类目"
+      },
+      {
+        "path": "/cityselect",
+        "name": "CitySelect",
+        "description": "[xm-mui] 城市选择"
+      },
+      {
+        "path": "/coupon",
+        "name": "Coupon",
+        "description": "[xm-mui] 优惠券选择"
       }
     ]
   },
