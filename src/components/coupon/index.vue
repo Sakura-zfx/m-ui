@@ -160,8 +160,8 @@ export default {
       this.showPanel = type
       if (type === false) {
         this.activeTab = 0
-        this.list = null
-        this.cacheCouponList = null
+        // this.list = null
+        // this.cacheCouponList = null
       } else if (this.noUsable) {
         this.activeTab = 1
       }
@@ -188,6 +188,7 @@ export default {
     handleSelect (item) {
       this.selected = item
       this.noticeOut()
+      this.toggle(false)
     }
   }
 }
