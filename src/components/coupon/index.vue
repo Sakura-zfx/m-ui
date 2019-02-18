@@ -140,8 +140,15 @@ export default {
         if (res.value) {
           if (this.isOnlyUsable) {
             this.list = res.value || []
-            // 金额从小到大
-            this.selected = this.list.slice().sort((a, b) => a.reduction - b.reduction)[0]
+            // 抵扣金额 从小到大
+            // 满足金额 从小到大
+            const sortData = this.list.slice()
+              .sort((a, b) => a.reduction - b.reduction)
+              .sort((a, b) => a.full - b.full)[0]
+            this.selected = sortData[0]
+            this.selected.couponListName = sortData.map(x =>
+              `满${(x.full / 100).toFixed(0)}减${(x.reduction / 100).toFixed(0)}`
+            ).join(';')
           } else {
             const { validCoupons, unValidCoupons, bestCoupon } = res.value
             this.cacheCouponList = { validCoupons, unValidCoupons }
