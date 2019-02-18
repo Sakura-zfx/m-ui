@@ -144,7 +144,7 @@ export default {
             // 满足金额 从小到大
             const sortData = this.list.slice()
               .sort((a, b) => a.reduction - b.reduction)
-              .sort((a, b) => a.full - b.full)[0]
+              .sort((a, b) => a.full - b.full)
             this.selected = sortData[0]
             this.selected.couponListName = sortData.map(x =>
               `满${(x.full / 100).toFixed(0)}减${(x.reduction / 100).toFixed(0)}`
