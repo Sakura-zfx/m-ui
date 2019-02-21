@@ -1,7 +1,11 @@
 <template>
   <div class="coupon-select">
     <div class="coupon-select__item" @click="toggle()">
-      <slot :item="selected" :no-usable="noUsable" />
+      <slot
+        :item="selected"
+        :no-usable="noUsable"
+        :no-use="noUse"
+      />
     </div>
 
     <popup
@@ -82,7 +86,8 @@ export default {
       activeTab: 0,
       selected: this.value,
       list: null,
-      noUsable: false,
+      noUsable: false,  // 没有可用优惠券
+      noUse: false, // 不使用优惠券
       cacheCouponList: null
     }
   },
@@ -187,12 +192,14 @@ export default {
     },
 
     notUse () {
+      this.noUse = true
       this.selected = null
       this.noticeOut()
       this.toggle(false)
     },
 
     handleSelect (item) {
+      this.noUse = false
       this.selected = item
       this.noticeOut()
       this.toggle(false)
