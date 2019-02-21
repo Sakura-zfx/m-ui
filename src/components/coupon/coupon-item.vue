@@ -47,7 +47,7 @@ export default {
 
   filters: {
     lFixed(num) {
-      return (num / 100).toFixed(0)
+      return (num / 100)
     },
 
     fTime (str) {

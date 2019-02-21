@@ -144,15 +144,16 @@ export default {
       handle.then(res => {
         if (res.value) {
           if (this.isOnlyUsable) {
-            this.list = res.value || []
+            const data = res.value || []
             // 抵扣金额 从小到大
             // 满足金额 从小到大
-            const sortData = this.list.slice()
+            const sortData = data.slice()
               .sort((a, b) => a.reduction - b.reduction)
               .sort((a, b) => a.full - b.full)
+            this.list = sortData
             this.selected = sortData[0]
             this.selected.couponListName = sortData.map(x =>
-              `满${(x.full / 100).toFixed(0)}减${(x.reduction / 100).toFixed(0)}`
+              `满${(x.full / 100)}减${(x.reduction / 100)}`
             ).join(';')
           } else {
             const { validCoupons, unValidCoupons, bestCoupon } = res.value
