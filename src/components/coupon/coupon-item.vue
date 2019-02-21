@@ -81,7 +81,6 @@ export default {
   $red = #FF4000
   .coupon-select-item
     position relative
-    height 80px
     margin-bottom 10px
     &__expire
       & ^[0]__left
@@ -92,7 +91,7 @@ export default {
       display flex
       box-shadow: 0 0 4px 0 #E9ECF0
       border-radius 8px
-      height 100%
+      height 80px
       overflow: hidden
       background-color #fff
     &__left
@@ -146,8 +145,8 @@ export default {
     &__cd
       position absolute
       right 10px
-      top 50%
-      transform translateY(-50%)
+      top 40px
+      // transform translateY(-50%)
       border 1px $red solid
       border-radius 3px
       padding 1px 5px
