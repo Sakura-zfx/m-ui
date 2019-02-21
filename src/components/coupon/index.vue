@@ -87,8 +87,8 @@ export default {
       selected: this.value,
       list: null,
       noUsable: false, // 没有可用优惠券
-      noUse: false, // 不使用优惠券
-      cacheCouponList: null
+      noUse: false // 不使用优惠券
+      // cacheCouponList: null
     }
   },
 
@@ -132,11 +132,11 @@ export default {
   methods: {
     getList () {
       const isUsable = this.activeTab === 0
-      if (this.cacheCouponList && !this.isOnlyUsable) {
-        const { validCoupons, unValidCoupons } = this.cacheCouponList
-        this.list = (isUsable ? validCoupons : unValidCoupons) || []
-        return Promise.resolve()
-      }
+      // if (this.cacheCouponList && !this.isOnlyUsable) {
+      //   const { validCoupons, unValidCoupons } = this.cacheCouponList
+      //   this.list = (isUsable ? validCoupons : unValidCoupons) || []
+      //   return Promise.resolve()
+      // }
 
       const handle = this.isOnlyUsable
         ? http.get('goodsCoupon', this.listData[0])
@@ -157,9 +157,17 @@ export default {
             ).join(';')
           } else {
             const { validCoupons, unValidCoupons, bestCoupon } = res.value
-            this.cacheCouponList = { validCoupons, unValidCoupons }
+            // this.cacheCouponList = { validCoupons, unValidCoupons }
             this.list = (isUsable ? validCoupons : unValidCoupons) || []
-            this.selected = bestCoupon
+            if (
+              !this.selected ||
+              !bestCoupon ||
+              !validCoupons ||
+              !validCoupons.length ||
+              validCoupons.every(x => x.id !== this.selected.id)
+            ) {
+              this.selected = bestCoupon
+            }
           }
           this.noUsable = !this.selected
           this.noticeOut()
