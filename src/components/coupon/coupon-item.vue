@@ -20,6 +20,13 @@
         </div>
       </div>
     </div>
+    <div
+      class="coupon-select-item__cd"
+      v-if="isExpire && detail.redirectUrl"
+      @click="toCd"
+    >
+      去凑单
+    </div>
     <div class="coupon-select-item__reason" v-if="isExpire && detail.reason" v-html="detail.reason"/>
     <div class="coupon-select-item__icon" v-if="canChoose">
       <img :src="isSelected ? iconChoose : iconEmpty" width="100%" height="100%">
@@ -60,6 +67,11 @@ export default {
       if (this.canChoose) {
         this.$emit('on-click', this.detail)
       }
+    },
+
+    toCd () {
+      history.back()
+      this.$native.openUrl(this.detail.redirectUrl)
     }
   }
 }
@@ -130,5 +142,17 @@ export default {
       height 18px
       right 15px
       top 31px
+      z-index 1
+    &__cd
+      position absolute
+      right 10px
+      top 50%
+      transform translateY(-50%)
+      border 1px $red solid
+      border-radius 3px
+      padding 1px 5px
+      font-size 12px
+      color $red
+      background-color #fff
       z-index 1
 </style>

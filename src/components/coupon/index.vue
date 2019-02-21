@@ -86,7 +86,7 @@ export default {
       activeTab: 0,
       selected: this.value,
       list: null,
-      noUsable: false,  // 没有可用优惠券
+      noUsable: false, // 没有可用优惠券
       noUse: false, // 不使用优惠券
       cacheCouponList: null
     }
@@ -148,8 +148,8 @@ export default {
             // 抵扣金额 从小到大
             // 满足金额 从小到大
             const sortData = data.slice()
-              .sort((a, b) => a.reduction - b.reduction)
               .sort((a, b) => a.full - b.full)
+              .sort((a, b) => a.reduction - b.reduction)
             this.list = sortData
             this.selected = sortData[0]
             this.selected.couponListName = sortData.map(x =>

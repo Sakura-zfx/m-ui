@@ -4,10 +4,10 @@
       :show-type="2"
       :list-data="[
         {
-          bizType: 22,
-          itemId: 280213,
-          price: 3675,
-          num: 5
+          bizType: 139,
+          itemId: 294,
+          price: 50,
+          num: 100
         }
       ]"
       v-model="selected"
