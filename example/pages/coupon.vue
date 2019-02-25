@@ -7,10 +7,11 @@
           bizType: 139,
           itemId: 294,
           price: 50,
-          num: 100
+          num: 1
         }
       ]"
       v-model="selected"
+      :to-gather="gather"
     >
       <div class="coupon-default-item" slot-scope="{ item, noUsable }">
         已选择：{{ item }}，是否有优惠券：{{ noUsable ? '没有' : '有' }}
@@ -34,6 +35,12 @@ export default {
 
   components: {
     CommonEntry, Coupon
+  },
+
+  methods: {
+    gather(url) {
+      console.log(url)
+    }
   }
 }
 </script>
