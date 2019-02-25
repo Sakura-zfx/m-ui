@@ -228,6 +228,8 @@
       />
     </template>
 
+    <slot name="coupon" />
+
     <div v-if="hasMoneySum" class="px-padding-10 bg-fff px-margin-t10">
       <p class="px-font-16">
         <span class="font-bold color-c000">订单总金额：</span>
