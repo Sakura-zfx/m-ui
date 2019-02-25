@@ -70,12 +70,12 @@ export default {
     },
 
     toCd () {
-      // this.$parent.$parent.$emit('on-gather', this.detail.redirectUrl)
+      this.$parent.$parent.$emit('on-gather', this.detail.redirectUrl)
       // this.$emit('on-gather', this.detail.redirectUrl)
-      this.$router.replace('/cart')
-      setTimeout(() => {
-        this.$native.openUrl(this.detail.redirectUrl)
-      }, 0)
+      // this.$router.replace('/cart')
+      // setTimeout(() => {
+      // this.$native.openUrl(this.detail.redirectUrl)
+      // }, 1000)
     }
   }
 }
