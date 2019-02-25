@@ -70,7 +70,8 @@ export default {
     },
 
     toCd () {
-      this.$emit('on-gather', this.detail.redirectUrl)
+      this.$parent.$parent.$emit('on-gather', this.detail.redirectUrl)
+      // this.$emit('on-gather', this.detail.redirectUrl)
     }
   }
 }

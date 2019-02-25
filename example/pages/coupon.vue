@@ -11,7 +11,7 @@
         }
       ]"
       v-model="selected"
-      :to-gather="gather"
+      @on-gather="gather"
     >
       <div class="coupon-default-item" slot-scope="{ item, noUsable }">
         已选择：{{ item }}，是否有优惠券：{{ noUsable ? '没有' : '有' }}

@@ -48,7 +48,6 @@
             :is-expire="activeTab === 1"
             :is-selected="selected && selected.id === item.id"
             @on-click="handleSelect"
-            @on-gather="url => $emit('on-gather', url)"
           />
         </div>
         <p v-else-if="list && !list.length" style="text-align: center; color: #666; padding-top: 100px">
@@ -108,8 +107,7 @@ export default {
       type: Number,
       default: 1 // 1 只能查看可用优惠券；2 能切换选择可用与不可用
     },
-    listData: [Object, Array],
-    toGather: Function
+    listData: [Object, Array]
   },
 
   model: {
