@@ -100,7 +100,7 @@ export default class Http {
     }
   }
 
-  get(uriName, data = {}, options = {}) {
+  get(uriName, data = {}, options) {
     if (!this.instance) {
       this.init()
     }
@@ -114,23 +114,27 @@ export default class Http {
       data.payToken = search.token
     }
 
-    if (data.loading !== false || options.loading !== false) {
+    if (data.loading !== false) {
       this.showLoading()
     }
-
+    const tmpData = { ...data }
     this.deletePrivateField(data)
     return this.instance.get(path, {
       params: data,
       cancelToken: this.genCancelSource().token
     })
-      .then(response => this.commonThen(response, data, options))
-      .catch(error => this.commonCatch(error, data, options))
+      .then(response => this.commonThen(response, tmpData, options))
+      .catch(error => this.commonCatch(error, tmpData, options))
   }
 
-  post(uriName, data = {}, options = {}) {
-    if (data.loading !== false || options.loading !== false) {
+  post(uriName, data = {}, options) {
+    if (data.loading !== false) {
       this.showLoading()
     }
+
+    const tmpData = { ...data }
+    this.deletePrivateField(data)
+
     let reqData
     if (/json/.test(this.options.contentType)) {
       reqData = data
@@ -139,18 +143,17 @@ export default class Http {
     } else {
       reqData = JSON.stringify(data)
     }
-    this.deletePrivateField(reqData)
     return this.instance.post(
       this.options.uri[uriName],
       reqData,
       { cancelToken: this.genCancelSource().token }
     )
-      .then(response => this.commonThen(response, data, options))
-      .catch(error => this.commonCatch(error, data, options))
+      .then(response => this.commonThen(response, tmpData, options))
+      .catch(error => this.commonCatch(error, tmpData, options))
   }
 
   postBinary(uriName, data = {}, options = {}) {
-    if (data.loading !== false || options.loading !== false) {
+    if (data.loading !== false) {
       this.showLoading()
     }
 
@@ -189,11 +192,12 @@ export default class Http {
       return res
     }
 
-    return Promise.reject(res, data, options)
+    // return Promise.reject(res, data, options)
+    return Promise.reject(res)
   }
 
   commonCatch(error, data, options) {
-    if (data.loading !== false || options.loading !== false) {
+    if (data.loading !== false) {
       this.hideLoading()
     }
 
@@ -208,7 +212,7 @@ export default class Http {
       beforeCatch(error, data, options)
     }
 
-    if (data.toast !== false || options.toast !== false) {
+    if (data.toast !== false) {
       let msg = '服务异常，请稍后再试'
       if (error && !/DOCTYPE/.test(msg)) {
         msg = error.msg || (error.error ? error.error.name : error.message) || msg
