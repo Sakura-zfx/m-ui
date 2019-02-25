@@ -100,7 +100,7 @@ export default class Http {
     }
   }
 
-  get(uriName, data = {}) {
+  get(uriName, data = {}, options = {}) {
     if (!this.instance) {
       this.init()
     }
@@ -114,7 +114,7 @@ export default class Http {
       data.payToken = search.token
     }
 
-    if (data.loading !== false) {
+    if (data.loading !== false || options.loading !== false) {
       this.showLoading()
     }
 
@@ -123,12 +123,12 @@ export default class Http {
       params: data,
       cancelToken: this.genCancelSource().token
     })
-      .then(response => this.commonThen(response, data))
-      .catch(error => this.commonCatch(error, data))
+      .then(response => this.commonThen(response, data, options))
+      .catch(error => this.commonCatch(error, data, options))
   }
 
-  post(uriName, data = {}) {
-    if (data.loading !== false) {
+  post(uriName, data = {}, options = {}) {
+    if (data.loading !== false || options.loading !== false) {
       this.showLoading()
     }
     let reqData
@@ -145,12 +145,12 @@ export default class Http {
       reqData,
       { cancelToken: this.genCancelSource().token }
     )
-      .then(response => this.commonThen(response, data))
-      .catch(error => this.commonCatch(error, data))
+      .then(response => this.commonThen(response, data, options))
+      .catch(error => this.commonCatch(error, data, options))
   }
 
-  postBinary(uriName, data = {}) {
-    if (data.loading !== false) {
+  postBinary(uriName, data = {}, options = {}) {
+    if (data.loading !== false || options.loading !== false) {
       this.showLoading()
     }
 
@@ -170,11 +170,11 @@ export default class Http {
         'Content-Type': 'application/octet-stream'
       }
     })
-      .then(response => this.commonThen(response, data))
-      .catch(error => this.commonCatch(error, data))
+      .then(response => this.commonThen(response, data, options))
+      .catch(error => this.commonCatch(error, data, options))
   }
 
-  commonThen(response, data) {
+  commonThen(response, data, options) {
     if (data.loading !== false) {
       this.hideLoading()
     }
@@ -189,11 +189,11 @@ export default class Http {
       return res
     }
 
-    return Promise.reject(res, data)
+    return Promise.reject(res, data, options)
   }
 
-  commonCatch(error, data) {
-    if (data.loading !== false) {
+  commonCatch(error, data, options) {
+    if (data.loading !== false || options.loading !== false) {
       this.hideLoading()
     }
 
@@ -205,12 +205,12 @@ export default class Http {
     // 统一错误回调
     const { beforeCatch } = this.options
     if (beforeCatch instanceof Function) {
-      beforeCatch(error)
+      beforeCatch(error, data, options)
     }
 
-    if (data.toast !== false) {
+    if (data.toast !== false || options.toast !== false) {
       let msg = '服务异常，请稍后再试'
-      if (error) {
+      if (error && !/DOCTYPE/.test(msg)) {
         msg = error.msg || (error.error ? error.error.name : error.message) || msg
       }
       this.options.toast(msg)

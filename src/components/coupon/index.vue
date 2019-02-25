@@ -36,6 +36,9 @@
           :class="{
             'coupon-select__area--list': !isOnlyUsable
           }"
+          :style="{
+            height: activeTab === 1 ? '320px' : undefined
+          }"
         >
           <item
             v-for="item in list"
@@ -52,7 +55,7 @@
         </p>
 
         <div
-          v-if="!isOnlyUsable"
+          v-if="!isOnlyUsable && activeTab === 0"
           class="coupon-select__btn"
           @click="notUse"
         >
