@@ -48,7 +48,7 @@
             :is-expire="activeTab === 1"
             :is-selected="selected && selected.id === item.id"
             @on-click="handleSelect"
-            @on-gather="url => toGather(url)"
+            @on-gather="url => $emit('on-gather', url)"
           />
         </div>
         <p v-else-if="list && !list.length" style="text-align: center; color: #666; padding-top: 100px">
