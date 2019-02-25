@@ -73,7 +73,9 @@ export default {
       // this.$parent.$parent.$emit('on-gather', this.detail.redirectUrl)
       // this.$emit('on-gather', this.detail.redirectUrl)
       this.$router.replace('/cart')
-      this.$native.openUrl(this.detail.redirectUrl)
+      setTimeout(() => {
+        this.$native.openUrl(this.detail.redirectUrl)
+      }, 0)
     }
   }
 }

@@ -183,6 +183,10 @@ export default class Http {
     }
 
     const res = response.data
+    if (/DOCTYPE/.test(res)) {
+      return Promise.reject(res)
+    }
+
     if (res.data === undefined) {
       // gateway
       res.data = res.value
@@ -214,7 +218,7 @@ export default class Http {
 
     if (data.toast !== false) {
       let msg = '服务异常，请稍后再试'
-      if (error && !/DOCTYPE/.test(msg)) {
+      if (error && !/DOCTYPE/.test(error)) {
         msg = error.msg || (error.error ? error.error.name : error.message) || msg
       }
       this.options.toast(msg)
