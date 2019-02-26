@@ -214,7 +214,7 @@
         :is-open-welfare="isOpenWelfare"
         :is-open-caidou="isOpenCaidou"
         :pay-way-id="payWay && payWay.id"
-        :total-money="totalMoney"
+        :total-money="totalMoney - (couponMoney || 0)"
         :main-color="mainColor"
         :biz-type="bizType"
         :sub-biz-type="subBizType"
@@ -271,6 +271,12 @@
         <span class="ib-middle">彩豆抵扣</span>
         <span class="color-c999 fr" v-if="caidouLocalNum">
           - ¥ {{ caidouLocalNum | formatPrice }}({{ caidouLocalNum }}彩豆)
+        </span>
+      </p>
+      <p v-if="couponMoney && payWay && payWay.id === 3">
+        <span class="ib-middle">优惠券</span>
+        <span class="color-c999 fr">
+          - ¥ {{ couponMoney | formatPrice }}
         </span>
       </p>
       <slot name="price-detail" />
@@ -346,6 +352,7 @@ export default {
     isShowApproveCell: Boolean,
     skuMoney: Number,
     freightMoney: Number,
+    couponMoney: Number,
     totalMoney: {
       type: Number,
       required: true
