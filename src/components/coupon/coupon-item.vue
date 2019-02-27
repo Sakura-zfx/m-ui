@@ -8,7 +8,12 @@
   >
     <div class="coupon-select-item__wrap">
       <div class="coupon-select-item__left">
-        <div class="coupon-select-item__left--price">
+        <div
+          class="coupon-select-item__left--price"
+          :style="{
+            fontSize: `${(detail.reduction >= 10000 ? 27 : 32)/3.75}vw`
+          }"
+        >
           <span>¥</span>{{ detail.reduction | lFixed }}
         </div>
         <span>满{{ detail.full | lFixed }}可用</span>
@@ -128,6 +133,7 @@ export default {
         white-space nowrap
         text-overflow ellipsis
         overflow: hidden
+        font-weight bold
       &--time
         font-size 12px
     &__reason
