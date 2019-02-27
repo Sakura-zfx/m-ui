@@ -62,8 +62,9 @@
               <slot v-if="$slots.right" name="right" />
               <template v-else-if="num !== undefined">x{{ num }}</template>
             </div>
+            <slot v-if="$slots.price" name="price" />
             <div
-              v-if="isMainPriceStyle"
+              v-else-if="isMainPriceStyle"
               v-html="genderPrice(price)"
             />
             <span
@@ -178,17 +179,19 @@ export default {
 
   watch: {
     isCheckboxChecked() {
-      const { checkGoodsCardAllChecked } = this.hasSwipeDelete
-        ? this.$parent.$parent
-        : this.$parent
+      let { checkGoodsCardAllChecked } = this.$parent
+      if (!checkGoodsCardAllChecked) {
+        checkGoodsCardAllChecked = this.$parent.$parent.checkGoodsCardAllChecked
+      }
       checkGoodsCardAllChecked && checkGoodsCardAllChecked()
     }
   },
 
   beforeCreate() {
-    const { goodsCardItem } = this.hasSwipeDelete
-      ? this.$parent.$parent
-      : this.$parent
+    let { goodsCardItem } = this.$parent
+    if (!goodsCardItem) {
+      goodsCardItem = this.$parent.$parent.goodsCardItem
+    }
     goodsCardItem && goodsCardItem.push(this)
   },
 
