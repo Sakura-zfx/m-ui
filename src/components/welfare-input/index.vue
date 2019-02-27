@@ -207,6 +207,10 @@ export default {
     // 当获取彩豆将开关打开后再决定要不要拉取彩豆费率
     isOpenCaidou() {
       this.getCaidouRate()
+    },
+    totalMoney(val) {
+      this.setWelfareNum(val)
+      this.setCaidouNum(val)
     }
   },
 
