@@ -153,7 +153,8 @@ export default {
     checkboxIconType: {
       type: [String, Number],
       default: 1
-    }
+    },
+    hasSwipeDelete: Boolean
   },
 
   computed: {
@@ -177,13 +178,18 @@ export default {
 
   watch: {
     isCheckboxChecked() {
-      const { checkGoodsCardAllChecked } = this.$parent
+      const { checkGoodsCardAllChecked } = this.hasSwipeDelete
+        ? this.$parent.$parent
+        : this.$parent
       checkGoodsCardAllChecked && checkGoodsCardAllChecked()
     }
   },
 
   beforeCreate() {
-    this.$parent.goodsCardItem && this.$parent.goodsCardItem.push(this)
+    const { goodsCardItem } = this.hasSwipeDelete
+      ? this.$parent.$parent
+      : this.$parent
+    goodsCardItem && goodsCardItem.push(this)
   },
 
   methods: {
