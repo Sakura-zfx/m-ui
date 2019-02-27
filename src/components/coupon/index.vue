@@ -135,15 +135,10 @@ export default {
   methods: {
     getList () {
       const isUsable = this.activeTab === 0
-      // if (this.cacheCouponList && !this.isOnlyUsable) {
-      //   const { validCoupons, unValidCoupons } = this.cacheCouponList
-      //   this.list = (isUsable ? validCoupons : unValidCoupons) || []
-      //   return Promise.resolve()
-      // }
-
       const handle = this.isOnlyUsable
         ? http.get('goodsCoupon', this.listData[0])
         : http.post('orderCoupon', this.listData)
+
       handle.then(res => {
         if (res.value) {
           if (this.isOnlyUsable) {
@@ -155,24 +150,29 @@ export default {
               .sort((a, b) => a.reduction - b.reduction)
             this.list = sortData
             this.selected = sortData[0]
-            this.selected.couponListName = sortData.map(x =>
-              `满${(x.full / 100)}减${(x.reduction / 100)}`
-            ).join(';')
+            if (this.selected) {
+              this.selected.couponListName = sortData.map(x =>
+                `满${(x.full / 100)}减${(x.reduction / 100)}`
+              ).join(';')
+            }
+            this.noUsable = !this.selected
           } else {
             const { validCoupons, unValidCoupons, bestCoupon } = res.value
-            // this.cacheCouponList = { validCoupons, unValidCoupons }
             this.list = (isUsable ? validCoupons : unValidCoupons) || []
             if (
-              !this.selected ||
-              !bestCoupon ||
-              !validCoupons ||
-              !validCoupons.length ||
-              validCoupons.every(x => x.id !== this.selected.id)
+              !this.noUse &&
+              (
+                !this.selected ||
+                !bestCoupon ||
+                !validCoupons ||
+                !validCoupons.length ||
+                validCoupons.every(x => x.id !== this.selected.id)
+              )
             ) {
-              this.selected = bestCoupon
+              this.selected = bestCoupon && Object.keys(bestCoupon).length ? bestCoupon : null
+              this.noUsable = !this.selected
             }
           }
-          this.noUsable = !this.selected
           this.noticeOut()
         }
       }).catch(err => {

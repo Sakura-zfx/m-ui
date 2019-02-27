@@ -7,7 +7,7 @@
           bizType: 139,
           itemId: 294,
           price: 50,
-          num: 1
+          num: 100
         }
       ]"
       v-model="selected"
