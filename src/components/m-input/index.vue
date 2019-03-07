@@ -22,7 +22,7 @@ export default {
       default: 'text'
     },
     fixed: {
-      type: [String, Number],
+      type: Number,
       default: 0
     },
     placeholder: String,
@@ -105,10 +105,14 @@ export default {
     },
 
     format(e) {
-      if (!this.isText && !this.isInt) {
-        this.$emit('input', Number(Number(e.target.value).toFixed(this.fixed)))
+      const val = e.target.value.trim()
+      if (val === '') {
+        this.$emit('input', '')
+      } else if (!this.isText && !this.isInt) {
+        // value is string
+        this.$emit('input', Number(val).toFixed(this.fixed))
       } else if (this.isInt) {
-        this.$emit('input', Number(e.target.value))
+        this.$emit('input', Number(val))
       }
     }
   }

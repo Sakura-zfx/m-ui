@@ -3,7 +3,7 @@
     <m-input
       v-model="value"
       type="number"
-      fixed="1"
+      :fixed="0"
     />
   </common-entry>
 </template>
