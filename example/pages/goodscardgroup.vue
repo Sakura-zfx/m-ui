@@ -4,6 +4,7 @@
       <m-goods-card-group
         v-model="isCheck"
         :is-show-checkbox="true"
+        :is-checkbox-disable="true"
         :border="false"
         @on-label-click="onLabelClick"
         @on-click="onClick"
