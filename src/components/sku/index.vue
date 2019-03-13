@@ -67,17 +67,27 @@ export default {
     }
   },
 
+  watch: {
+    skuId(val) {
+      this.setSelectedAttr(val)
+    }
+  },
+
   created () {
     // 初始化选择 sku
     if (this.skuId) {
-      this.selectedAttr = this.attrList.map(level => {
-        const attr = level.attrs.find(x => x.skuIdList.some(y => y === this.skuId))
-        return attr.tagValue
-      })
+      this.setSelectedAttr(this.skuId)
     }
   },
 
   methods: {
+    setSelectedAttr(skuId) {
+      this.selectedAttr = this.attrList.map(level => {
+        const attr = level.attrs.find(x => x.skuIdList.some(y => y === skuId))
+        return attr.tagValue
+      })
+    },
+
     isSelected (levelIndex, attr) {
       return this.selectedAttr.some(x => x === attr.tagValue)
     },
