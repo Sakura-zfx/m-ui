@@ -114,7 +114,10 @@ export default {
     },
 
     handleFocus() {
-      this.$refs.input.scrollIntoView()
+      this.$refs.input.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      })
       // this.$refs.input.scrollIntoViewIfNeeded(true)
     }
   },
