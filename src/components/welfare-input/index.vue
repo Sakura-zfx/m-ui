@@ -94,6 +94,7 @@
 </template>
 
 <script>
+import { scenesLink } from '@xm/es-config'
 // import MSwitch from '../switch/index'
 import Checkbox from '../checkbox/index'
 import CommonSelect from '../common-select/index'
@@ -375,7 +376,8 @@ export default {
           // eslint-disable-next-line
           JSBridge.native('openurl', {
             noDefaultMenu: 1,
-            url: 'https://cms.jituancaiyun.com/xme/qiyefuwu/index.html#/huoqujifen'
+            // url: 'https://cms.jituancaiyun.com/xme/qiyefuwu/index.html#/huoqujifen'
+            url: scenesLink.scenesWelfareGet
           })
         } catch (e) {
           // eslint-disable-next-line
