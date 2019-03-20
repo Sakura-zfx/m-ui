@@ -28,11 +28,11 @@ export default {
     placeholder: String,
     max: {
       type: Number,
-      default: Math.pow(2, 64)
+      default: Number.MAX_SAFE_INTEGER
     },
     min: {
       type: Number,
-      default: -Math.pow(2, 64)
+      default: Number.MIN_SAFE_INTEGER
     }
   },
 
