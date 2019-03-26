@@ -100,7 +100,11 @@ export default class Http {
     }
   }
 
-  get(uriName, data = {}, options) {
+  commonOptions(uriName, options) {
+    return { ...options, uriName }
+  }
+
+  get(uriName, data = {}, options = {}) {
     if (!this.instance) {
       this.init()
     }
@@ -119,6 +123,7 @@ export default class Http {
     }
     const tmpData = { ...data }
     this.deletePrivateField(data)
+    options = this.commonOptions(uriName, options)
     return this.instance.get(path, {
       params: data,
       cancelToken: this.genCancelSource().token
@@ -127,7 +132,7 @@ export default class Http {
       .catch(error => this.commonCatch(error, tmpData, options))
   }
 
-  post(uriName, data = {}, options) {
+  post(uriName, data = {}, options = {}) {
     if (data.loading !== false) {
       this.showLoading()
     }
@@ -143,6 +148,7 @@ export default class Http {
     } else {
       reqData = JSON.stringify(data)
     }
+    options = this.commonOptions(uriName, options)
     return this.instance.post(
       this.options.uri[uriName],
       reqData,
@@ -165,6 +171,7 @@ export default class Http {
     }
 
     const blobData = new Blob([JSON.stringify(data)], { type: 'text/plain' })
+    options = this.commonOptions(uriName, options)
     return axios({
       url: path,
       method: 'post',
@@ -177,7 +184,7 @@ export default class Http {
       .catch(error => this.commonCatch(error, data, options))
   }
 
-  commonThen(response, data, options) {
+  commonThen(response, data) {
     if (data.loading !== false) {
       this.hideLoading()
     }
