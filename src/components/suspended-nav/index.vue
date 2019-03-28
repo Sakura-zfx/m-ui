@@ -37,7 +37,6 @@ export default {
 
       packBg: 'https://global.uban360.com/sfs/file?digest=fid24968acd1fb4d6b9ee9dd61f281d88fa&fileType=2',
       spreadIcon: 'https://global.uban360.com/sfs/file?digest=fidcc7c2b1d670a681342666424f2d48560&fileType=2',
-      // 1 购物车
       navList: [{
         name: '首页',
         icon: 'icon-shouye2',
@@ -49,6 +48,12 @@ export default {
         icon: 'icon-sousuo1',
         path: '/search',
         id: 4
+      },
+      {
+        name: '购物车',
+        icon: 'icon-gouwuche1',
+        path: '/cart',
+        id: 1
       },
       {
         name: '个人',
