@@ -1,23 +1,21 @@
 <template>
   <div class="travel-panel">
-    <div class="travel-panel__item" @click="$emit('on-personal')">
-      <div class="travel-panel__icon">
-        <img :src="imgPer" width="100%" height="100%">
+    <div
+      v-for="(item, i) in items"
+      :key="i"
+      class="travel-panel__item"
+      @click="onClick(i)"
+    >
+      <div
+        class="travel-panel__icon"
+        :class="{
+          'travel-panel__icon-last': i === items.length - 1
+        }"
+      >
+        <img :src="item.icon" width="100%" height="100%">
+        <div class="travel-panel__tag" v-if="!hasExpense">去报销</div>
       </div>
-      <span>{{ text[0] }}</span>
-    </div>
-    <div class="travel-panel__item" @click="$emit('on-public')">
-      <div class="travel-panel__icon">
-        <img :src="imgPub" width="100%" height="100%">
-      </div>
-      <span>{{ text[1] }}</span>
-    </div>
-    <div class="travel-panel__item" @click="$emit('on-list')">
-      <div class="travel-panel__icon travel-panel__icon-last">
-        <img :src="imgList" width="100%" height="100%">
-        <div class="travel-panel__tag" v-if="hasExpense">去报销</div>
-      </div>
-      <span>{{ text[2] }}</span>
+      <span>{{ item.name }}</span>
     </div>
   </div>
 </template>
@@ -28,23 +26,44 @@ export default {
 
   data() {
     return {
-      // eslint-disable-next-line
-      imgPer: require('../../assets/images/personal.png'),
-      // eslint-disable-next-line
-      imgPub: require('../../assets/images/public.png'),
-      // eslint-disable-next-line
-      imgList: require('../../assets/images/list.png')
     }
   },
 
   props: {
-    text: {
+    items: {
       type: Array,
       default() {
-        return ['因私出行', '因公出行', '我的行程']
+        return [
+          {
+            name: '因私出行',
+            icon: require('../../assets/images/personal.png')
+          },
+          {
+            name: '因公出行',
+            icon: require('../../assets/images/public.png')
+          },
+          {
+            name: '我的行程',
+            icon: require('../../assets/images/list.png')
+          }
+        ]
       }
     },
     hasExpense: Boolean
+  },
+
+  methods: {
+    onClick(i) {
+      // 兼容老版本
+      if (i === 0) {
+        this.$emit('on-personal')
+      } else if (i === 1) {
+        this.$emit('on-public')
+      } else {
+        this.$emit('on-list')
+      }
+      this.$emit('on-click', i)
+    }
   }
 }
 </script>
