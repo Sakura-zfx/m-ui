@@ -16,7 +16,7 @@
         }"
       >
         <img :src="item.icon" width="100%" height="100%">
-        <div class="travel-panel__tag" v-if="!hasExpense">去报销</div>
+        <div class="travel-panel__tag" v-if="hasExpense && expenseId === item.id">去报销</div>
       </div>
       <span>{{ item.name }}</span>
     </div>
@@ -55,7 +55,8 @@ export default {
         ]
       }
     },
-    hasExpense: Boolean
+    hasExpense: Boolean,
+    expenseId: Number
   },
 
   methods: {
