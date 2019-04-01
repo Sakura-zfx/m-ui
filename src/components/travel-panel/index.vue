@@ -60,7 +60,7 @@ export default {
   },
 
   methods: {
-    onClick(i) {
+    onClick(item, i) {
       // 兼容老版本
       if (i === 0) {
         this.$emit('on-personal')
