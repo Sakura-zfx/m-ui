@@ -4,6 +4,9 @@
       v-for="(item, i) in items"
       :key="i"
       class="travel-panel__item"
+      :class="{
+        [`travel-panel__item-w${items.length}`]: true
+      }"
       @click="onClick(i)"
     >
       <div
@@ -72,9 +75,10 @@ export default {
   @import '../../style/base.styl'
 
   .travel-panel
+    display flex
     background-color #fff
     text-align center
-    overflow hidden
+    // overflow hidden
     width 100%
     height px2vw(140)
     box-shadow 0 0 10px 0 rgba(0,0,0,0.10)
@@ -82,9 +86,11 @@ export default {
     color #5C626B
 
   .travel-panel__item
-    width 33.3333%
-    float left
     height 100%
+    &-w3
+      width 33.3333%
+    &-w4
+      width 25%
 
   .travel-panel__icon
     width 45px
