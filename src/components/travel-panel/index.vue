@@ -7,7 +7,7 @@
       :class="{
         [`travel-panel__item-w${items.length}`]: true
       }"
-      @click="onClick(i)"
+      @click="onClick(item, i)"
     >
       <div
         class="travel-panel__icon"
@@ -38,14 +38,17 @@ export default {
       default() {
         return [
           {
+            id: 1,
             name: '因私出行',
             icon: require('../../assets/images/personal.png')
           },
           {
+            id: 2,
             name: '因公出行',
             icon: require('../../assets/images/public.png')
           },
           {
+            id: 3,
             name: '我的行程',
             icon: require('../../assets/images/list.png')
           }
@@ -65,7 +68,7 @@ export default {
       } else {
         this.$emit('on-list')
       }
-      this.$emit('on-click', i)
+      this.$emit('on-click', item)
     }
   }
 }
