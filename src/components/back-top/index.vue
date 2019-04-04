@@ -62,7 +62,7 @@ export default {
     scrollCallback (e) {
       const scrollTop = this.isDiv
         ? e.target.scrollTop
-        : e.target.documentElement.scrollTop
+        : document.documentElement.scrollTop || document.body.scrollTop
       this.show = scrollTop > this.throttle
     },
 
