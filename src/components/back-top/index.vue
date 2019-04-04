@@ -56,7 +56,11 @@ export default {
 
   methods: {
     toTop() {
-      this.scrollWrap && (this.scrollWrap.scrollTop = 0)
+      if (this.isDiv) {
+        this.scrollWrap && (this.scrollWrap.scrollTop = 0)
+      } else {
+        window.scrollTo(0, 0)
+      }
     },
 
     scrollCallback (e) {
