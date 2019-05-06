@@ -15,6 +15,7 @@
             check-icon="icon-quanxuan"
             checked-icon="icon-quanxuancopy"
             radius="circle"
+            :disabled="isCheckboxDisable"
             :value="isChecked"
             @change="onCheckLabel"
           />
@@ -64,6 +65,7 @@ export default {
       type: Boolean,
       default: false
     },
+    isCheckboxDisable: Boolean,
     isChecked: Boolean,
     border: {
       type: Boolean,

@@ -11,6 +11,14 @@
     <pre>
       import { NumComputer } from 'xm-mui'
     </pre>
+    <m-alter-num
+      v-model="value"
+      :min="1"
+      :max="20"
+      input-wait="400"
+      @on-change="numChangeCallback"
+      @invalid="callback"
+    />
     <pre>
       &lt;m-alter-num
         v-model="value"
@@ -25,6 +33,14 @@
         console.log(`this.value: ${this.value} new: ${num}, old: ${oldNum}`)
       }
     </pre>
+    <m-alter-num
+      v-model="value"
+      :min="1"
+      :max="20"
+      input-wait="400"
+      @on-change="numChangeCallback"
+      @invalid="callback"
+    />
   </common-entry>
 </template>
 

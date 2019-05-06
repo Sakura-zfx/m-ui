@@ -1,23 +1,24 @@
 <template>
   <div class="travel-panel">
-    <div class="travel-panel__item" @click="$emit('on-personal')">
-      <div class="travel-panel__icon">
-        <img :src="imgPer" width="100%" height="100%">
+    <div
+      v-for="(item, i) in items"
+      :key="i"
+      class="travel-panel__item"
+      :class="{
+        [`travel-panel__item-w${items.length}`]: true
+      }"
+      @click="onClick(item, i)"
+    >
+      <div
+        class="travel-panel__icon"
+        :class="{
+          'travel-panel__icon-last': i === items.length - 1
+        }"
+      >
+        <img :src="item.icon" width="100%" height="100%">
+        <div class="travel-panel__tag" v-if="hasExpense && expenseId === item.id">去报销</div>
       </div>
-      <span>{{ text[0] }}</span>
-    </div>
-    <div class="travel-panel__item" @click="$emit('on-public')">
-      <div class="travel-panel__icon">
-        <img :src="imgPub" width="100%" height="100%">
-      </div>
-      <span>{{ text[1] }}</span>
-    </div>
-    <div class="travel-panel__item" @click="$emit('on-list')">
-      <div class="travel-panel__icon travel-panel__icon-last">
-        <img :src="imgList" width="100%" height="100%">
-        <div class="travel-panel__tag" v-if="hasExpense">去报销</div>
-      </div>
-      <span>{{ text[2] }}</span>
+      <span>{{ item.name }}</span>
     </div>
   </div>
 </template>
@@ -28,23 +29,48 @@ export default {
 
   data() {
     return {
-      // eslint-disable-next-line
-      imgPer: require('../../assets/images/personal.png'),
-      // eslint-disable-next-line
-      imgPub: require('../../assets/images/public.png'),
-      // eslint-disable-next-line
-      imgList: require('../../assets/images/list.png')
     }
   },
 
   props: {
-    text: {
+    items: {
       type: Array,
       default() {
-        return ['因私出行', '因公出行', '我的行程']
+        return [
+          {
+            id: 1,
+            name: '因私出行',
+            icon: require('../../assets/images/personal.png')
+          },
+          {
+            id: 2,
+            name: '因公出行',
+            icon: require('../../assets/images/public.png')
+          },
+          {
+            id: 3,
+            name: '我的行程',
+            icon: require('../../assets/images/list.png')
+          }
+        ]
       }
     },
-    hasExpense: Boolean
+    hasExpense: Boolean,
+    expenseId: Number
+  },
+
+  methods: {
+    onClick(item, i) {
+      // 兼容老版本
+      if (i === 0) {
+        this.$emit('on-personal')
+      } else if (i === 1) {
+        this.$emit('on-public')
+      } else {
+        this.$emit('on-list')
+      }
+      this.$emit('on-click', item)
+    }
   }
 }
 </script>
@@ -53,9 +79,10 @@ export default {
   @import '../../style/base.styl'
 
   .travel-panel
+    display flex
     background-color #fff
     text-align center
-    overflow hidden
+    // overflow hidden
     width 100%
     height px2vw(140)
     box-shadow 0 0 10px 0 rgba(0,0,0,0.10)
@@ -63,9 +90,11 @@ export default {
     color #5C626B
 
   .travel-panel__item
-    width 33.3333%
-    float left
     height 100%
+    &-w3
+      width 33.3333%
+    &-w4
+      width 25%
 
   .travel-panel__icon
     width 45px

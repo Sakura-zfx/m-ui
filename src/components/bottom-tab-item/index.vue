@@ -1,7 +1,10 @@
 <template>
   <div
     class="bottom-tab__item ib-middle height-100 px-font-10"
-    :style="{ width: `${(100 / $parent.tabLen)}%`, color: active ? $parent.mainColor : '' }"
+    :style="{
+      width: `${(100 / $parent.tabLen)}%`,
+      color: active ? $parent.mainColor : ''
+    }"
     @click="onClick"
   >
     <div class="display-ib text-center px-height-30">
@@ -29,7 +32,8 @@ export default {
     currIcon: String,
     icon: String,
     num: [String, Number],
-    path: String
+    path: String,
+    disabled: Boolean
   },
 
   data() {
@@ -48,6 +52,11 @@ export default {
 
   methods: {
     onClick(event) {
+      if (this.disabled) {
+        this.$emit('click', event)
+        return
+      }
+
       this.$parent.onChange(this.$parent.tabs.indexOf(this))
       this.$emit('click', event)
 

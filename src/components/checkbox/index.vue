@@ -99,8 +99,10 @@ export default {
     },
 
     onClick() {
-      this.$emit('input', !this.value)
-      this.$emit('change', !this.value)
+      if (!this.disabled) {
+        this.$emit('input', !this.value)
+        this.$emit('change', !this.value)
+      }
     }
   }
 }

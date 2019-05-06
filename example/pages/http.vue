@@ -86,7 +86,8 @@ export default {
         getUsersDetail: '/gateway/external/get',
         pay: '/gateway/common/pay',
         createOrder: '/plane/plane/create',
-        testBinary: '/ygw/api/dispatch/test/demo'
+        testBinary: '/ygw/api/dispatch/test/demo',
+        getCurrent: '/gateway/common/order/current'
       },
       // baseURL: 'https://api.yuecard.net'
       baseURL: 'http://app.e.uban360.net',
@@ -94,8 +95,8 @@ export default {
     })
 
     // console.log(this.http)
-    this.http.get('bizInfo', { bizType: 3 })
-    this.http.cancel()
+    // this.http.get('bizInfo', { bizType: 3 })
+    // this.http.cancel()
     // axios.get('http://app.e.uban360.net/gateway/common/app', {
     //   headers: {
     //     'Cookie': 'token=20273a7a72a5e3b7a136d44bd14966e8; timestamp=1534904984376; uid=3;'
@@ -109,6 +110,11 @@ export default {
     // eslint-disable-next-line
     // const str = ["name",[1,2,3],{"osInfo":"osInfo","osType":"1","deviceId":"deviceId","version":"version","cardNo":"9001180800100001"}]
     // this.http.postBinary('testBinary', str)
+    this.http.get('getCurrent', {
+      bizType: 3,
+      payType: 2
+      // toast: false
+    })
   }
 }
 </script>

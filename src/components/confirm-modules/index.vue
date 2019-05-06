@@ -1,7 +1,7 @@
 <template>
   <div class="confirm-modules bg-f2">
     <m-message
-      v-if="showSubscribeMessage && isPurchase"
+      v-if="false && showSubscribeMessage && isPurchase"
       :message="`温馨提示：您所在企业尚未开通企业版${app.name}，暂只支持个人消费，点击立即开通！`"
       :ball="false"
       @on-close="closeNotSubMessage"
@@ -14,7 +14,7 @@
       v-if="config === null"
       class="text-center color-c999 px-padding-tb50"
     >
-      模块加载中...
+      支付信息加载中...
     </p>
 
     <cell
@@ -81,31 +81,11 @@
     </template>
 
     <template v-if="hasOverStandModule">
-      <cell
-        label="是否超标"
-        :is-link="false"
-        @on-click="$emit('on-click-stand')"
-      >
-        <span :style="{ color: mainColor }" v-if="isOverStand">
-          <i class="iconfont icon-shuoming ib-middle"/>
-          <span class="ib-middle">已超标</span>
-        </span>
-        <span class="color-c999" v-else>未超标</span>
-      </cell>
-    </template>
-
-    <template v-if="hasOverStandReasonModule && isOverStand">
-      <cell
-        label="超标原因"
-        :value="currentOverStandReason && currentOverStandReason.name"
-        @on-click="showOverStandPanel = true"
-      />
-      <popup-over-stand
-        :visible.sync="showOverStandPanel"
+      <over-tand
+        ref="overStand"
         :main-color="mainColor"
-        :selected-item="currentOverStandReason"
-        :list="STAND_REASON"
-        :do-select-reason="val => currentOverStandReason = val"
+        :is-over-stand="isOverStand"
+        @on-click-stand="$emit('on-click-stand')"
       />
     </template>
 
@@ -228,52 +208,27 @@
     </template>
 
     <template v-if="hasWelfareModule">
-      <div class="custom__cell bg-fff m-bd-b">
-        <m-switch
-          class="fr"
-          v-if="welfare && welfare.restAmount"
-          :value="isOpenWelfare"
-          :main-color="mainColor"
-          @change="onChangeOpenWelfare"
-        />
-        <div class="ib-top px-width-60 position-r color-c666">
-          积分
-          <img class="position-a welfare__tag" :src="require('../../assets/images/tag.png')" width="36px">
-        </div>
-        <div
-          class="ib-top color-c999 line-normal"
-          :class="{ 'welfare__info': welfare && welfare.restAmount }"
-        >
-          <span v-if="welfare && welfare.restAmount">
-            您有{{ welfare.restAmount / 100 }}积分，可抵¥{{ welfare.restAmount | formatPrice }}
-          </span>
-          <span :style="{fontSize: '3.73vw'}" v-else>您没有可用积分，暂不可用积分抵扣</span>
-          <i class="iconfont icon-shuoming color-info" @click="onClickWelfareInfo" />
-        </div>
-      </div>
-      <cell
-        v-if="isOpenWelfare && welfare && welfare.restAmount"
-        :is-link="false"
-        value=" "
-        @on-click="noop"
-      >
-        <div slot="label" class="text-left">
-          <span class="ib-middle px-width-60">使用</span>
-          <input
-            type="text"
-            ref="welfareInput"
-            class="welfare__input ib-middle"
-            :placeholder="welfare ? '请输入' : '加载中'"
-            :value="welfareUseNum"
-            @input="handleInputWelfare"
-            @blur="checkInputWelfare"
-          >
-          <span class="color-000 ib-middle" v-if="welfareUseNum">
-            积分，抵 <span class="color-red">¥{{ Number(welfareUseNum).toFixed(2) }}</span>
-          </span>
-        </div>
-      </cell>
+      <welfare-input
+        v-if="payWay"
+        ref="welfareInput"
+        :is-open-welfare="isOpenWelfare"
+        :is-open-caidou="isOpenCaidou"
+        :pay-way-id="payWay && payWay.id"
+        :total-money="totalMoney - (couponMoney || 0)"
+        :main-color="mainColor"
+        :biz-type="bizType"
+        :sub-biz-type="subBizType"
+        :app-type="appType"
+        @change-open-welfare="val => changeOpen(val, 'welfare')"
+        @change-open-caidou="val => changeOpen(val, 'caidou')"
+        @welfare-num-change="num => onChangeLocalNum(num, 'welfare')"
+        @caidou-num-change="num => onChangeLocalNum(num, 'caidou')"
+        @change-open-welfare-error="$emit('change-open-welfare-error')"
+        @welfare-data-change="onWelfareDataChange"
+      />
     </template>
+
+    <slot name="coupon" />
 
     <div v-if="hasMoneySum" class="px-padding-10 bg-fff px-margin-t10">
       <p class="px-font-16">
@@ -299,14 +254,32 @@
           class="iconfont icon-shuoming ib-middle color-info"
           @click="serviceRateDesc"
         />
-        <span class="color-c999 fr">¥ {{ Math.ceil(serviceRate * skuMoney) | formatPrice }}</span>
-      </p>
-      <p v-if="hasWelfareModule && isOpenWelfare && welfareUseNum">
-        <span class="ib-middle">积分抵扣</span>
-        <span class="color-c999 fr" v-if="welfareUseNum">
-          - ¥ {{ Number(welfareUseNum).toFixed(2) }}({{ welfareUseNum }}积分)
+        <span class="color-c999 fr">
+          <template v-if="$slots.service">
+            <slot name="service" />
+          </template>
+          <template v-else>¥ {{ formatPrice(Math.ceil(serviceRate * skuMoney)) }}</template>
         </span>
       </p>
+      <p v-if="hasWelfareModule && isOpenWelfare && welfareLocalNum">
+        <span class="ib-middle">积分抵扣</span>
+        <span class="color-c999 fr" v-if="welfareLocalNum">
+          - ¥ {{ welfareLocalNum | formatPrice }}({{ welfareLocalNum | formatPrice }}积分)
+        </span>
+      </p>
+      <p v-if="hasWelfareModule && isOpenCaidou && caidouLocalNum">
+        <span class="ib-middle">彩豆抵扣</span>
+        <span class="color-c999 fr" v-if="caidouLocalNum">
+          - ¥ {{ caidouLocalNum | formatPrice }}({{ caidouLocalNum }}彩豆)
+        </span>
+      </p>
+      <p v-if="couponMoney && payWay && payWay.id === 3">
+        <span class="ib-middle">优惠券</span>
+        <span class="color-c999 fr">
+          - ¥ {{ couponMoney | formatPrice }}
+        </span>
+      </p>
+      <slot name="price-detail" />
     </div>
   </div>
 </template>
@@ -316,30 +289,23 @@ import MSwitch from '../switch'
 import CommonSelect from '../common-select'
 import MMessage from '../message'
 import Cell from '../cell'
+import WelfareInput from '../welfare-input/index'
 import utils from '../../utils/utils'
-import {
-  BILL_METHOD,
-  BILL_TYPE_LIST,
-  PAY_WAY,
-  STAND_REASON
-} from './constant'
+import { BILL_METHOD, BILL_TYPE_LIST, PAY_WAY } from './constant'
 import esc from '../esc'
 import Http from '../http'
-import PopupOverStand from './popups/OverStandReason'
+import Msgbox from '../msgbox'
+import OverTand from '../over-stand'
 
-// const FeedBack = () => import('../feedback')
-// const baseUrl = esc.domain
-// let hasAddCustomReasonRoute = false
 const http = new Http({
+  baseURL: location.port === '8071' ? '//app.e.uban360.net' : '',
   uri: {
     urlPurchaseScope: '/mc/order/checkScopeDetail',
     urlTravelScope: '/gateway/common/payAuth',
     urlConfig: '/gateway/buycenter/module/getModuleList',
     urlApprove: '/gateway/buycenter/approve/getList',
-    urlBill: '/gateway/buycenter/invoice/getList',
-    urlWelfare: '/welfare/mall/user/account'
+    urlBill: '/gateway/buycenter/invoice/getList'
   }
-  // baseURL: 'http://app.e.uban360.net'
 })
 
 export default {
@@ -350,7 +316,9 @@ export default {
     CommonSelect,
     Cell,
     MMessage,
-    PopupOverStand
+    // PopupOverStand,
+    WelfareInput,
+    OverTand
   },
 
   filters: {
@@ -364,11 +332,15 @@ export default {
       type: [Number, String],
       required: true
     },
+    subBizType: [Number, String],
+    appType: {
+      type: Number,
+      required: true
+    },
     mainColor: {
       type: String,
       default: 'red'
     },
-
     approveCurrent: Object,
     isOpenBill: Boolean,
     billMethodCurrent: Object,
@@ -376,11 +348,17 @@ export default {
     billCurrent: Object,
     payWay: Object,
     isOpenWelfare: Boolean,
+    isOpenCaidou: Boolean,
     isShowApproveCell: Boolean,
     skuMoney: Number,
     freightMoney: Number,
-    totalMoney: Number,
-    welfareMaxUseNum: Number,
+    couponMoney: Number,
+    totalMoney: {
+      type: Number,
+      required: true
+    },
+    // welfareMaxUseNum: Number,
+    // caidouMaxUseNum: Number,
     approveTitle: String,
     travelType: {
       // 默认因私消费
@@ -388,6 +366,7 @@ export default {
       default: 1
     },
     isOverStand: Boolean,
+    onlySelfPay: Boolean,
     scopeType: {
       type: [Number, String],
       default: 0
@@ -406,12 +385,11 @@ export default {
       welfare: null,
       payWayList: [],
 
-      // 积分使用数量
-      welfareUseNum: '',
       scopeInfo: {},
 
-      // 超标原因
-      currentOverStandReason: null,
+      // 积分使用数量
+      welfareLocalNum: 0,
+      caidouLocalNum: 0,
 
       loading: {
         approve: false,
@@ -426,11 +404,9 @@ export default {
       showBillTypePopup: false,
       showBillPopup: false,
       showBillMethodCell: false,
-      showOverStandPanel: false,
 
       BILL_METHOD,
-      BILL_TYPE_LIST,
-      STAND_REASON
+      BILL_TYPE_LIST
     }
   },
 
@@ -455,8 +431,9 @@ export default {
 
     hasWelfareModule() {
       return this.config
-        ? this.config.indexOf(11) > -1 &&
-          (this.isPurchase || (!this.isPurchase && this.payWay && this.payWay.id === 3))
+        // ? this.config.indexOf(11) > -1 &&
+        //   (this.isPurchase || (!this.isPurchase && this.payWay && this.payWay.id === 3))
+        ? this.config.indexOf(11) > -1 && this.payWay && this.payWay.id === 3
         : false
     },
 
@@ -504,17 +481,14 @@ export default {
   },
 
   watch: {
-    isOpenWelfare(val) {
-      if (val) {
-        this.getWelfare()
-      }
-    },
-
-    payWay() {
+    payWay(item, oldItem) {
       if (this.hasBillModule) {
         this.initBill(false)
       }
-      this.initWelfare(false)
+      if (!oldItem || item.id !== oldItem.id) {
+        // this.initWelfare()
+        this.toggleWelfareInput(item.id === 3)
+      }
     },
 
     'loading.approve': function(val) {
@@ -523,9 +497,13 @@ export default {
       }
     },
 
-    welfareUseNum(num) {
-      // 通知业务num变化
-      this.$emit('welfare-num-change', this.outputWelfareNum(num))
+    totalMoney(val) {
+      // 更新最大数量
+      const { welfareInput } = this.$refs
+      if (welfareInput) {
+        welfareInput.setWelfareNum(val, true)
+        welfareInput.setCaidouNum(val, true)
+      }
     },
 
     approveCurrent(val) {
@@ -545,11 +523,8 @@ export default {
         this.initBill()
       }
       if (this.hasWelfareModule) {
-        this.initWelfare(true)
+        this.initWelfare()
       }
-      // if (this.hasOverStandReasonModule) {
-      //   this.setCustomReason()
-      // }
     })
   },
 
@@ -635,24 +610,23 @@ export default {
     },
 
     getWelfare() {
+      if (this.welfare) {
+        return Promise.resolve()
+      }
+
       this.loading.welfare = true
-      // this.get(this.urlWelfare)
-      http.get('urlWelfare')
-        .then(res => {
-          let data = { ...res.value }
-          if (data.restAmount < 0) {
-            data.restAmount = 0
-            data.originRestAmount = res.restAmount
-          }
-          // 默认全部使用
-          this.welfareUseNum = this.welfareMaxUseNum
-            ? Math.min(this.welfareMaxUseNum, data.restAmount)
-            : data.restAmount
-          this.welfareUseNum /= 100
-          this.welfare = data
-          this.loading.welfare = false
-        })
-        .catch(error => this.$emit('error-callback', error))
+      const { welfareInput } = this.$refs
+      return welfareInput && welfareInput.getWelfare().then(res => {
+        this.welfare = res
+        this.loading.welfare = false
+      })
+    },
+
+    onWelfareDataChange(data, isFirst) {
+      this.welfare = data
+      if (isFirst) {
+        this.initWelfare()
+      }
     },
 
     initPay() {
@@ -661,7 +635,10 @@ export default {
         let payWayList = []
         // 非采购 且 因私消费 只支持个人支付
         // 因公消费 个人支付为 个人垫付
-        if (!this.isPurchase && !this.isPublicExpense) {
+        if (
+          (!this.isPurchase && !this.isPublicExpense) ||
+          this.onlySelfPay
+        ) {
           this.payWayList = [PAY_WAY[2]]
           this.$emit('select-pay-way', PAY_WAY[2])
           return
@@ -734,7 +711,7 @@ export default {
       }
     },
 
-    initWelfare(noCheck) {
+    initWelfare() {
       // 根据支付方式来控制积分模块的显示与隐藏
       if (this.payWay) {
         const { id } = this.payWay
@@ -746,27 +723,45 @@ export default {
           // 企业支付
           // 个人垫付
           // 因公消费的个人支付 不支持积分
-          this.toggleWelfareCell(false)
+          this.getWelfare().then(() => {
+            this.toggleWelfareInput(false)
+          })
         } else {
-          this.toggleWelfareCell(true)
+          this.getWelfare().then(() => {
+            this.toggleWelfareInput(true)
+          })
         }
       }
-      // 存在几种case，所以加了noCheck参数来控制
-      // 初始化时必须请求
-      // 支付方式不存在且商旅类，因公无个人支付，后支付方式赋值，会出发监听回调；
-      if (
-        (this.isOpenWelfare && this.payWay && this.payWay.id === 3) ||
-        noCheck
+    },
+
+    changeOpen(val, type) {
+      this.$emit(`change-open-${type}`, val)
+    },
+
+    toggleWelfareInput(show) {
+      if (!show) {
+        this.$emit('change-open-welfare', false)
+        this.$emit('change-open-caidou', false)
+      } else if (
+        this.$refs.welfareInput &&
+        this.$refs.welfareInput.welfareData &&
+        this.$refs.welfareInput.welfareData.restAmountCaidou
       ) {
-        this.$nextTick(this.getWelfare)
+        this.$emit('change-open-welfare', false)
+        this.$emit('change-open-caidou', true)
+      } else {
+        this.$emit('change-open-welfare', true)
+        this.$emit('change-open-caidou', false)
       }
     },
 
     // 暴露给外部重置调用
     reInitWelfare() {
-      this.welfareUseNum = ''
-      this.$refs.welfareInput.value = ''
-      this.getWelfare()
+      const { welfareInput } = this.$refs
+      welfareInput.resetNum()
+      welfareInput.getWelfare().then(() => {
+        welfareInput.getCaidouRate()
+      })
     },
 
     toSelectBill() {
@@ -776,7 +771,7 @@ export default {
 
     onClickBillInfo() {
       const h = this.$createElement
-      this.$box({
+      Msgbox({
         title: '发票说明',
         msg: h('div', { class: 'px-padding-lr10' }, [
           h('p', { class: 'text-left' }, '1.用户下单时没有选择开具发票，后续将不再提供发票'),
@@ -788,29 +783,9 @@ export default {
       })
     },
 
-    onClickWelfareInfo() {
-      const h = this.$createElement
-      this.$box.confirm({
-        title: '积分使用规则',
-        msg: h('div', null, [
-          h('p', { class: 'text-left' }, '1.积分为贵司发放给员工的一种福利，可直接抵扣现金'),
-          h('p', { class: 'text-left' }, '2.1积分可抵扣1.00元，若全额抵扣则无需再支付现金'),
-          h('p', { class: 'text-left' }, '3.积分抵扣的部分金额不开具发票')
-        ]),
-        okTxt: '了解详情',
-        cancelTxt: '我知道了'
-      }).then(() => {
-        try {
-          // eslint-disable-next-line
-          JSBridge.native('openurl', {
-            noDefaultMenu: 1,
-            url: 'https://cms.jituancaiyun.com/xme/qiyefuwu/index.html#/huoqujifen'
-          })
-        } catch (e) {
-          // eslint-disable-next-line
-          console.error(e)
-        }
-      })
+    onChangeLocalNum(num, type) {
+      this[`${type}LocalNum`] = num
+      this.$emit(`${type}-num-change`, num)
     },
 
     freightDesc() {
@@ -818,7 +793,7 @@ export default {
         '运费将根据订单金额以及地区由京东自动计算生成，订单金额达到一定数额时将降低或免运费' +
         '（免运费订单金额110元左右，以页面实际展示为准）'
       )
-      this.$box({
+      Msgbox({
         title: '运费说明',
         msg: p,
         noCancel: true,
@@ -827,7 +802,7 @@ export default {
     },
 
     serviceRateDesc() {
-      this.$box({
+      Msgbox({
         title: '服务费说明',
         msg: `该商品需收取${(this.serviceRate * 100).toFixed(2)}%的服务费。`,
         noCancel: true,
@@ -848,60 +823,12 @@ export default {
         bill: this.billCurrent,
         billList: this.billList,
         approve: this.approveCurrent,
+        // 兼容老版本
         isUseWelfare: this.isOpenWelfare,
-        welfareNum: this.welfareUseNum ? this.outputWelfareNum(this.welfareUseNum) : 0,
-        welfare: this.welfare,
-        overStandReason: this.currentOverStandReason ? this.currentOverStandReason.name : '',
-        isOverStand: this.isOverStand
-      }
-    },
-
-    outputWelfareNum(num) {
-      return num ? ((Number(num) * 1000) / 10).toFixed(0) * 1 : 0
-    },
-
-    handleInputWelfare(e) {
-      const val = e.target.value
-      const input = this.$refs.welfareInput
-      const maxNum = (this.welfareMaxUseNum
-        ? Math.min(this.welfareMaxUseNum, this.welfare.restAmount)
-        : this.welfare.restAmount) / 100
-
-      if (val === '') {
-        this.welfareUseNum = ''
-      } else if (!/^\d+(\.{0,1}\d{0,2})$/.test(val)) {
-        // 不合法的数字，重置
-        input.value = this.welfareUseNum
-      } else if (/^\d+\.$/.test(val)) {
-        // 小数点结尾，认为未输入完成
-      } else if (Number(val) > maxNum) {
-        // 大于最大值
-        input.value = maxNum
-        this.welfareUseNum = maxNum
-      } else {
-        this.welfareUseNum = val
-        input.value = this.welfareUseNum
-      }
-    },
-
-    checkInputWelfare(e) {
-      const val = e.target.value
-      const input = this.$refs.welfareInput
-      if (val.trim() === '') {
-        this.welfareUseNum = 0
-        input.value = 0
-      } else if (/^\d+\.$/.test(val)) {
-        input.value = this.welfareUseNum
-      }
-    },
-
-    toggleWelfareCell(show) {
-      // this.showWelfareCell = show
-      if (!show) {
-        this.welfareUseNum = ''
-        this.$emit('change-open-welfare', false)
-      } else {
-        this.$emit('change-open-welfare', true)
+        welfare: { restAmount: this.welfare && this.welfare.restAmountWelfare },
+        isOverStand: this.isOverStand,
+        ...(this.$refs.welfareInput ? this.$refs.welfareInput.getData() : {}),
+        overStandReason: this.$refs.overStand && this.$refs.overStand.getData()
       }
     },
 
@@ -911,10 +838,6 @@ export default {
       } else {
         this.$emit('open-approve', `#/detail/${item.id}`, item)
       }
-    },
-
-    setCustomReason(val) {
-      this.currentOverStandReason = { id: -1, name: decodeURIComponent(val) }
     },
 
     isCurrentItem(item, scope, title = true) {
@@ -932,6 +855,10 @@ export default {
     },
 
     noop() {
+    },
+
+    formatPrice(num) {
+      return utils.formatMoney(num)
     }
   }
 }
@@ -942,43 +869,14 @@ export default {
     .m-bd-b:before {
       border-color: #e5e5e5;
     }
-    .confirm-modules__item {
-      line-height: 45px;
-      padding: 0 10px;
-    }
-    input {
-      border: none;
-      margin: 0;
-      padding: 0;
-    }
     .color-red {
       color: red;
-    }
-    .welfare__tag {
-      top: -10px;
-      right: -5px;
-    }
-    .welfare__info {
-      width: 60vw;
-      @media screen and (max-width: 320px) {
-        width: 55vw;
-      }
-      word-break: break-all;
     }
     .custom__cell {
       padding: 15px 10px;
       .radio {
         margin-top: -5px;
       }
-    }
-    .welfare__input {
-      width: 88px;
-      height: 26px;
-      border: 1px #dcdcdc solid;
-      border-radius: 2px;
-      text-align: center;
-      line-height: normal;
-      -webkit-appearance: none;
     }
     .color-000 {
       color: #000;

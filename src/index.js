@@ -5,6 +5,7 @@ import AddressSelect from './components/address-select'
 import ApproveSelect from './components/approve-select'
 import ApproveSelect2 from './components/approve-select-2'
 import Avatar from './components/avatar'
+import BackTop from './components/back-top'
 import BottomTab from './components/bottom-tab'
 import BottomTabItem from './components/bottom-tab-item'
 import Cell from './components/cell'
@@ -13,6 +14,7 @@ import CitySelect from './components/city-select'
 import CitySelectItem from './components/city-select-item'
 import CommonSelect from './components/common-select'
 import ConfirmModules from './components/confirm-modules'
+import Coupon from './components/coupon'
 import DatePicker from './components/date-picker'
 import DetailTitleBar from './components/detail-title-bar'
 import Empty from './components/empty'
@@ -31,12 +33,15 @@ import Message from './components/message'
 import Msgbox from './components/msgbox'
 import MsgboxStyle from './components/msgbox-style'
 import NumComputer from './components/num-computer'
+import OverStand from './components/over-stand'
 import Popup from './components/popup'
 import PopupSide from './components/popup-side'
 import Search from './components/search'
 import Sentry from './components/sentry'
 import ShopBar from './components/shop-bar'
+import Sku from './components/sku'
 import SubmitBar from './components/submit-bar'
+import SuspendedNav from './components/suspended-nav'
 import Switch from './components/switch'
 import Tab from './components/tab'
 import Tag from './components/tag'
@@ -44,13 +49,16 @@ import TagSelect from './components/tag-select'
 import Toast from './components/toast'
 import TravelPanel from './components/travel-panel'
 import UserPanel from './components/user-panel'
+import WelfareInput from './components/welfare-input'
+import WordLine from './components/word-line'
 
-const version = '1.0.118'
+const version = '2.0.47'
 const components = [
   AddressSelect,
   ApproveSelect,
   ApproveSelect2,
   Avatar,
+  BackTop,
   BottomTab,
   BottomTabItem,
   Cell,
@@ -59,6 +67,7 @@ const components = [
   CitySelectItem,
   CommonSelect,
   ConfirmModules,
+  Coupon,
   DatePicker,
   DetailTitleBar,
   Empty,
@@ -77,19 +86,24 @@ const components = [
   Msgbox,
   MsgboxStyle,
   NumComputer,
+  OverStand,
   Popup,
   PopupSide,
   Search,
   Sentry,
   ShopBar,
+  Sku,
   SubmitBar,
+  SuspendedNav,
   Switch,
   Tab,
   Tag,
   TagSelect,
   Toast,
   TravelPanel,
-  UserPanel
+  UserPanel,
+  WelfareInput,
+  WordLine
 ]
 
 const install = (Vue, config = {}) => {

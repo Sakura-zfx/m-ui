@@ -28,7 +28,7 @@ export default {
   },
 
   created() {
-    this.$loading.open()
+    this.$loading.open('加载中...')
     setTimeout(this.$loading.close, 2000)
   }
 }

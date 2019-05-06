@@ -1,9 +1,9 @@
 import axios from 'axios/dist/axios.min'
 import qs from 'qs'
-import MyError from '../../utils/customError.js'
+// import MyError from '../../utils/customError.js'
 
 // const local = !/s/.test(location.protocol)
-const local = /\.net/.test(location.origin) || /808/.test(location.port)
+const local = /808/.test(location.port)
 
 const search = (() => {
   const lSearch = location.search
@@ -37,7 +37,8 @@ const defaultOp = {
   contentType: 'application/x-www-form-urlencoded',
   headers: null,
   postDataStringifyType: 'qs',
-  bindSentry: null
+  bindSentry: null,
+  beforeCatch: null
 }
 
 export default class Http {
@@ -90,7 +91,20 @@ export default class Http {
     return source
   }
 
-  get(uriName, data = {}) {
+  deletePrivateField(data) {
+    if (data.loading !== undefined) {
+      delete data.loading
+    }
+    if (data.toast !== undefined) {
+      delete data.toast
+    }
+  }
+
+  commonOptions(uriName, options) {
+    return { ...options, uriName }
+  }
+
+  get(uriName, data = {}, options = {}) {
     if (!this.instance) {
       this.init()
     }
@@ -101,42 +115,50 @@ export default class Http {
     }
     if (search && search.token) {
       /* eslint-disable-next-line */
-      data.token = search.token
+      data.payToken = search.token
     }
 
     if (data.loading !== false) {
       this.showLoading()
     }
-
+    const tmpData = { ...data }
+    this.deletePrivateField(data)
+    options = this.commonOptions(uriName, options)
     return this.instance.get(path, {
       params: data,
       cancelToken: this.genCancelSource().token
     })
-      .then(response => this.commonThen(response, data))
-      .catch(error => this.commonCatch(error, data))
+      .then(response => this.commonThen(response, tmpData, options))
+      .catch(error => this.commonCatch(error, tmpData, options))
   }
 
-  post(uriName, data = {}) {
+  post(uriName, data = {}, options = {}) {
     if (data.loading !== false) {
       this.showLoading()
     }
+
+    const tmpData = { ...data }
+    this.deletePrivateField(data)
+
     let reqData
-    if (this.options.postDataStringifyType === 'qs') {
+    if (/json/.test(this.options.contentType)) {
+      reqData = data
+    } else if (this.options.postDataStringifyType === 'qs') {
       reqData = qs.stringify(data, { arrayFormat: this.options.arrayFormat })
     } else {
       reqData = JSON.stringify(data)
     }
-
+    options = this.commonOptions(uriName, options)
     return this.instance.post(
       this.options.uri[uriName],
       reqData,
       { cancelToken: this.genCancelSource().token }
     )
-      .then(response => this.commonThen(response, data))
-      .catch(error => this.commonCatch(error, data))
+      .then(response => this.commonThen(response, tmpData, options))
+      .catch(error => this.commonCatch(error, tmpData, options))
   }
 
-  postBinary(uriName, data = {}) {
+  postBinary(uriName, data = {}, options = {}) {
     if (data.loading !== false) {
       this.showLoading()
     }
@@ -149,6 +171,7 @@ export default class Http {
     }
 
     const blobData = new Blob([JSON.stringify(data)], { type: 'text/plain' })
+    options = this.commonOptions(uriName, options)
     return axios({
       url: path,
       method: 'post',
@@ -157,8 +180,8 @@ export default class Http {
         'Content-Type': 'application/octet-stream'
       }
     })
-      .then(response => this.commonThen(response, data))
-      .catch(error => this.commonCatch(error, data))
+      .then(response => this.commonThen(response, data, options))
+      .catch(error => this.commonCatch(error, data, options))
   }
 
   commonThen(response, data) {
@@ -167,6 +190,10 @@ export default class Http {
     }
 
     const res = response.data
+    if (/DOCTYPE/.test(res)) {
+      return Promise.reject(res)
+    }
+
     if (res.data === undefined) {
       // gateway
       res.data = res.value
@@ -176,10 +203,11 @@ export default class Http {
       return res
     }
 
-    return Promise.reject(res, data)
+    // return Promise.reject(res, data, options)
+    return Promise.reject(res)
   }
 
-  commonCatch(error, data) {
+  commonCatch(error, data, options) {
     if (data.loading !== false) {
       this.hideLoading()
     }
@@ -189,9 +217,15 @@ export default class Http {
       return Promise.reject(error)
     }
 
+    // 统一错误回调
+    const { beforeCatch } = this.options
+    if (beforeCatch instanceof Function) {
+      beforeCatch(error, data, options)
+    }
+
     if (data.toast !== false) {
       let msg = '服务异常，请稍后再试'
-      if (error) {
+      if (error && !/DOCTYPE/.test(error)) {
         msg = error.msg || (error.error ? error.error.name : error.message) || msg
       }
       this.options.toast(msg)

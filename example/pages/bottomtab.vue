@@ -10,6 +10,8 @@
         :icon="item.icon"
         :key="i"
         :num="item.num"
+        disabled
+        @click="onClick"
       >
         {{ item.name }}
       </m-bottom-tab-item>
@@ -85,7 +87,9 @@ export default {
   },
 
   methods: {
-
+    onClick(e) {
+      console.log(e)
+    }
   }
 }
 </script>

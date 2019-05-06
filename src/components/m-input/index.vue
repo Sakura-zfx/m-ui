@@ -2,10 +2,11 @@
   <div class="m-input__wrap">
     <input
       :type="inputType"
-      :placeholder="placeholder"
+      :placeholder="placeholder || '请输入'"
       :value="value"
       ref="input"
       @input="handleInput"
+      @blur="format"
     >
   </div>
 </template>
@@ -21,17 +22,17 @@ export default {
       default: 'text'
     },
     fixed: {
-      type: [String, Number],
+      type: Number,
       default: 0
     },
     placeholder: String,
     max: {
       type: Number,
-      default: Number.MAX_VALUE
+      default: Number.MAX_SAFE_INTEGER
     },
     min: {
       type: Number,
-      default: Number.MIN_VALUE
+      default: Number.MIN_SAFE_INTEGER
     }
   },
 
@@ -44,40 +45,74 @@ export default {
       return this.fixed === 0 && this.isNumber
     },
 
+    isText() {
+      return !this.isNumber && this.inputType === 'text'
+    },
+
     inputType() {
       if (this.isInt) {
         return 'tel'
-      } else if (this.isNumber) {
-        return 'number'
       }
+      // else if (this.isNumber) {
+      //   return 'number'
+      // }
       return 'text'
+    },
+
+    reg() {
+      if (this.isNumber) {
+        let reg
+        if (this.isInt) {
+          reg = /^\d+$/
+        } else {
+          reg = new RegExp(`^\\d+(\\.{0,1}\\d{0,${this.fixed}})$`)
+        }
+        return reg
+      }
+      return ''
     }
   },
 
   methods: {
     handleInput(e) {
-      // this.$emit('input', val)
       const val = e.target.value.trim()
+      if (this.isText) {
+        this.$emit('input', val)
+        return
+      }
+
       const input = this.$refs.input
-      const maxNum = (this.welfareMaxUseNum
-        ? Math.min(this.welfareMaxUseNum, this.welfare.restAmount)
-        : this.welfare.restAmount) / 100
+      // const maxNum = this.max
 
       if (val === '') {
-        this.welfareUseNum = ''
-      } else if (!/^\d+(\.{0,1}\d{0,2})$/.test(val)) {
+        this.$emit('input', '')
+      } else if (!this.reg.test(val)) {
         // 不合法的数字
-        input.value = this.welfareUseNum
+        input.value = this.value
       } else if (/^\d+\.$/.test(val)) {
         // 小数点结尾，认为未输入完成
-        // input.value = this.welfareUseNum
-      } else if (Number(val) > maxNum) {
+        this.$emit('input', val)
+      } else if (Number(val) > this.max) {
         // 大于最大值
-        input.value = maxNum
-        this.welfareUseNum = maxNum
+        input.value = this.max
+        this.$emit('input', this.max)
+      } else if (Number(val) < this.min) {
+        input.value = this.min
+        this.$emit('input', this.min)
       } else {
-        this.welfareUseNum = val
-        input.value = this.welfareUseNum
+        this.$emit('input', val)
+      }
+    },
+
+    format(e) {
+      const val = e.target.value.trim()
+      if (val === '') {
+        this.$emit('input', '')
+      } else if (!this.isText && !this.isInt) {
+        // value is string
+        this.$emit('input', Number(val).toFixed(this.fixed))
+      } else if (this.isInt) {
+        this.$emit('input', Number(val))
       }
     }
   }
